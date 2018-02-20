@@ -263,6 +263,9 @@ public class GetExcel extends HttpServlet {
 				case clsConst.TRADE_TYPE_WX_QR:
 					tradetype_name="微信";
 					break;
+				case clsConst.TRADE_TYPE_COCO:
+					tradetype_name="FreeVend";
+					break;
 				default:
 					break;
 				}
