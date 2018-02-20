@@ -133,6 +133,10 @@ public class clsConst {
 	public static final int TRADE_TYPE_AL_SOUND = 5;
 	public static final int TRADE_TYPE_WX_QR = 6;
 	public static final int TRADE_TYPE_GOODS_CODE = 7;
+	
+	public static final int TRADE_TYPE_BAIDU = 8;
+	public static final int TRADE_TYPE_FETCH_GOODS_CODE = 9;
+	public static final int TRADE_TYPE_COCO = 10;  
 	public static final String[] TRADE_TYPE_DES=new String[]{
 		"现金",
 		"IC卡",
@@ -141,7 +145,10 @@ public class clsConst {
 		"支付宝扫码",
 		"支付宝被扫",
 		"微信扫码",
-		"取货码"
+		"礼品码",
+		"百度支付",
+		"取货码",
+		"FreeVend"
 	};
 	
 	public static final int TABLE_CMD_SLOT= 1;

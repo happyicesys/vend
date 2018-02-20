@@ -372,6 +372,9 @@ background-color: #F5F5F5;
 							<label class="radio-inline"  style="padding-top:0px;">
 							  <input value="<%=clsConst.TRADE_TYPE_BANK%>" <%=((tradetype==clsConst.TRADE_TYPE_BANK)?"checked=\"checked\"":"")%> type="radio" name="tradetype">银行卡
 							</label>
+							<label class="radio-inline"  style="padding-top:0px;">
+							  <input value="<%=clsConst.TRADE_TYPE_COCO%>" <%=((tradetype==clsConst.TRADE_TYPE_COCO)?"checked=\"checked\"":"")%> type="radio" name="tradetype">FreeVend
+							</label>
 							<label>&nbsp;是否成功：</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="0" <%=((Success==0)?"checked=\"checked\"":"") %> type="radio" name="success"> 不限
