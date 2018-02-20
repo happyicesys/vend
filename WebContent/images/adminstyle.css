@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,img,div,dd,dt {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: 0;
+}
+
+/* body {
+	font-family: 微软雅黑, "lucida grande", verdana, lucida, 宋体, sans-serif;
+	font-size: 12px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background: #FFF;
+}
+ */
+input {
+	font-family: "lucida grande", verdana, lucida, 宋体, sans-serif;
+}
+
+a:visited,a:link {
+	text-decoration: none;
+	color: #006666;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #FF0000;
+}
+
+a:active {
+	text-decoration: none;
+	color: #FF0000;
+}
+/*标题*/
+.Main_Title {
+	font-weight: bold;
+	height: 18px;
+	background: url(admin_title.gif) top left repeat-x #FFF;
+}
+/*文本域*/
+.input2 {
+	height: 15px;
+	width: 200px;
+	line-height: 15px;
+}
+
+.red {
+	color: #FF0000;
+}
+/*加粗字体*/
+.b {
+	font-weight: bold;
+}
+/*深绿色*/
+.Igreen,.Igreen a {
+	color: #009900;
+}
+/*流量统计,数字显示样式*/
+.ip {
+	color: #FF3333;
+	font-weight: bold;
+}
+
+.pv {
+	color: #006600;
+	font-weight: bold;
+}
+/*灰色*/
+.ippv {
+	color: #666666;
+}
+
+#ippv {
+	color: #999999;
+}
+/*底线背景*/
+.Dx {
+	background-image: url(0101.gif);
+	background-repeat: repeat-x;
+	background-position: bottom;
+}
+/*交换背景色*/
+.odd {
+	background-color: #FFFFFF;
+}
+
+.odd:hover,tr.hover {
+	background: #EDF5FD;
+}
+
+.Notodd,.Notodd td {
+	background-color: #FFF;
+}
+/*顶部语言选择样式*/
+.toplang {
+	background-image: url(topbgb.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 75px;
+	height: 26px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.toplang a {
+	text-decoration: none;
+	color: #666;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.ontoplang { /*当前*/
+	font-family: Arial, Helvetica, sans-serif;
+	background-image: url(topbga.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 75px;
+	height: 26px;
+	text-align: center;
+	font-weight: bold;
+	cursor: hand;
+}
+
+.submit {
+	width: 75px;
+	height: 28px;
+}
+
+.column {
+	text-align: center;
+	font-weight: bold;
+}
+
+.ulli li
+{
+	width:180px;
+	float: left;
+}
+.ulli_port li
+{
+	width:100px;
+	float: left;
+	text-align: left;
+}
+
+.AccessLi li
+{
+	width:160px;
+	float: left;
+	background-color: #e1efff;
+	margin: 5px;
+	font-size: 15px;
+	padding: 5px;
+	border:  1px solid #855555;
+	text-align: center;
+}
+
+.highlight li
+{
+	margin: 5px;
+	padding:5px;
+	border: solid 1px #ddd; 
+	width: 250px;
+	float: left; 
+	text-align: center;
+	font-size: 16px;
+}
+
+
+

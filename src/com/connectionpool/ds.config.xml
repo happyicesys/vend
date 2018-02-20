@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="GBK"?>
+<ds-config>
+
+	<pool>
+		<type>mysql</type>
+		<name>jlbms</name>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://192.168.0.85:3306/jlbms</url>
+		<username>root</username>
+		<password>11111111</password>
+		<maxconn>20</maxconn>
+	</pool>
+	<pool>
+		 <type>sql2005</type>
+		 <name>BlueShine_mcuvend</name> 
+		 <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+	         <url>jdbc:sqlserver://vend.mcuvend.com:3433;databasename=zhouwenjing</url> 
+		 <username>zhouwenjing </username> 
+                 <password>@@zhou1984</password> 
+                 <maxconn>20</maxconn>
+	</pool> 
+
+    <pool>
+         <type>sql2005</type>
+         <name>BlueShine1</name> 
+         <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+             <url>jdbc:sqlserver://120.76.114.204:3433;databasename=vender</url> 
+         <username>sa</username> 
+                 <password>@@zhou1984</password> 
+                 <maxconn>20</maxconn>
+    </pool> 
+
+	<pool>
+		 <type>sql2005</type>
+		 <name>wx_mt_wine</name> 
+		 <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+	         <url>jdbc:sqlserver://127.0.0.1:1433;databasename=zhouwenjing</url> 
+		 <username>zhouwenjing</username> 
+                 <password>zhou1984</password> 
+                 <maxconn>20</maxconn>
+	</pool>
+ 	<pool>
+         <type>sql2005</type>
+         <name>BlueShine</name> 
+         <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+             <url>jdbc:sqlserver://127.0.0.1:3433;databasename=zhouwenjing</url> 
+         <username>sa</username> 
+                 <password>ZHou198411</password> 
+                 <maxconn>20</maxconn>
+    </pool> 
+    <pool>
+         <type>sql2005</type>
+         <name>BlueShine_</name> 
+         <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+             <url>jdbc:sqlserver://127.0.0.1:3433;databasename=vender</url> 
+         <username>sa</username> 
+                 <password>zhou1984</password> 
+                 <maxconn>20</maxconn>
+    </pool> 
+
+	<!-- <pool> <type>mysql</type> <name>user2</name> <driver>com.mysql.jdbc.driver</driver> 
+		<url>jdbc:mysql://localhost:3306/user2</url> <username>sa</username> <password>1234</password> 
+		<maxconn>10</maxconn> </pool><pool>
+
+		<type>sql2000</type> <name>BlueShine</name> <driver>com.microsoft.jdbc.sqlserver.SQLServerDriver</driver> 
+		<url>jdbc:sqlserver://127.0.0.1:1433;databasename=tcn</url> <username>sa</username> 
+		<password>@@blueshine280345346</password> <maxconn>5</maxconn> </pool> -->
+</ds-config>

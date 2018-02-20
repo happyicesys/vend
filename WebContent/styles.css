@@ -1,0 +1,180 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0px;
+	text-align: center;
+	font-size: 13px;
+	font-family: "Arial", "Verdana", "宋体", "黑体", "仿宋_GB2312";
+	color: #1074B5;
+}
+
+th {
+	font-size: 18px;
+}
+
+.column {
+	font-weight: bold;
+	text-align: center;
+	height: 20px;
+	background: #eee;
+}
+
+.loginbox {
+	margin: 100px 0px 100px 0px;
+	width: 100%;
+	background: #eee;
+	border: 1px solid #ccc;
+}
+
+.loginbox td {
+	height: 20px;
+	border: 0px;
+}
+
+input type#text {
+	height: 20px;
+}
+
+a {
+	color: #324290;
+}
+
+.exitbox {
+	font-weight: bold;
+	background: #eee;
+	border: 1px solid #ccc;
+	margin: 15% 0px;
+	padding: 10px;
+	font-size: 13px;
+	text-align: center;
+	color: #666;
+}
+
+.menu {
+	font-size: 14px;
+}
+
+.menu td {
+	height: 25px;
+}
+
+.menu a {
+	display: block;
+	width: 100%;
+	height: 20px;
+	margin: 0px;
+	background: #eee;
+	border: 1px solid #ccc;
+}
+
+.menu a:hover {
+	background: #ddd;
+}
+
+.left {
+	text-align: left;
+	padding-left: 20px;
+}
+
+.right {
+	text-align: right;
+	height: 30px;
+	font-weight: bold;
+	padding-right: 20px;
+}
+
+.right span {
+	padding-right: 20px;
+}
+
+.isonline {
+	height: 20px;
+}
+
+.noonline {
+	height: 20px;
+	background-color: #F3F8D7;
+	color: #AA0D06;
+}
+
+.noonline a {
+	color: #AA0D06;
+}
+
+#canuse,#online,#op,#type {
+	width: 100px;
+}
+
+#name {
+	width: 150px;
+}
+
+#count,#udid,#no {
+	width: 50px;
+}
+
+#time {
+	width: 150px;
+}
+
+.title {
+	text-align: right;
+	font-weight: bold;
+	padding-right: 30px;
+}
+
+.subcol {
+	font-weight: bold;
+	font-size: 14px;
+	padding-left: 80px;
+	text-align: left;
+}
+
+.condition {
+	width: 99%;
+	padding: 5px 0px 6px 0px;
+	border: 1px solid #eee;
+	margin: 10px 0px;
+	font-weight: bold;
+	background-color: #F7F7F7;
+}
+
+.condition input,select {
+	border: 1px solid #D7D3EC;
+	background-color: #FDFFF2;
+}
+
+#tiplable {
+	color: red;
+	font-weight: bold;
+}
+
+.issuccess {
+	
+}
+
+.nosuccess {
+	background-color: #F3F6FD;
+	color: #002260;
+}
+
+#cover {
+	filter: Alpha(Opacity = 30);
+	background-color: black;
+	z-index: 99;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	visibility: hidden;
+}
+
+.NoGoods {
+	background-color: #FFF6C1;
+}
+
+.errtip {
+	color: red;
+	font-weight: bold;
+}

@@ -1,0 +1,19 @@
+/*!
+ * create for zhy 2016/1/20
+ */
+.navbar{
+    height:51px;
+}
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+	text-decoration:none;
+   /*  background-color: #367fa9; */
+    background-color: #eee;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    /* background-color: #367fa9; */
+    background-color: #eee;
+}
+.form-control input-sm{
+	width:522px;
+}

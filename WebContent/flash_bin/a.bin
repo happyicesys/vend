@@ -1,0 +1,378 @@
+
+
+#ifndef __VMC_DB_H_
+#define __VMC_DB_H_
+
+
+
+#define HTOG_DATA_ARRAY_COUNT 2
+
+
+typedef enum{
+	ERR_NO_ERR                  =0x00,
+	ERR_OVER_INDEX,
+	ERR_MOTOR_CLOSE_LEVEL_ABNORMAL,
+	ERR_MOTOR_CANT_ROUND,
+	ERR_MOTOR_DRIVER_BREAK,
+	ERR_MOTOR_DRIVER_SHORT,
+	ERR_MOTOR_ROUND_OVER_TIME,
+	ERR_LIST_IS_FULL,
+	ERR_INVALID_OBJECT,
+	ERR_CANT_FIND_USERDATA,
+	ERR_CHK_READER,
+	ERR_NO_CARD ,
+	ERR_INVALID_PARA,
+	ERR_FAIL_LOAD_PWD,
+	ERR_READ_DATA,
+	ERR_CARD_PWD_WRONG,
+	ERR_WRT_DATA,
+	ERR_BALANCE_DATA,
+	ERR_VAL_DATA,
+	ERR_CARD_NOT_INIT,
+	ERR_NOT_ENOUGH_MONEY,
+	ERR_CARD_PROTECT_BLOCK,
+	ERR_SLOT_FAULT,
+	ERR_SLOT_NO_STOCK,
+	ERR_SLOT_INHIBIT,
+	ERR_SLOT_INVALID,
+	ERR_LCD_OVER_X,
+	ERR_LCD_OVER_Y,
+	ERR_RECEIVE_DATA_ERR,
+	ERR_CANT_FIND_SYSDATA,
+	ERR_QUEUE_FULL,
+	ERR_QUEUE_EMPTY,
+	ERR_GPRS_RET_OVERTIME,
+	ERR_GPRS_RET_OVER_FLOW,
+	ERR_GPRS_RET_ERROR,
+	ERR_GPRS_OTHER_ERROR,
+	ERR_MICRO_SW_FAULT,
+	ERE_VP_DATACHK_ERR,
+	ERR_VP_STARTSIGN_ERR,
+	ERR_VP_VER_ERR,
+	ERR_VP_NO_HOST_CONNECT,
+	ERR_LOOP_OVER_TIME,
+	ERR_BAUD_NOT_CORRECT,
+	ERR_TIME_OVER,
+	ERR_CRC,
+	ERR_FRAME_ID,
+	ERR_BREAK_DRIVER_LINK,
+	ERR_BREAK_PC_LINK,
+	ERR_BREAK_SERVER_LINK,
+	ERR_MDB_NAK,
+	ERR_MDB_CHK_DC,
+	ERR_MDB_NO_CHANGER,
+	ERR_MDB_NO_BILLACCEPTOR,
+	ERR_DATA_INDEX_OVER_FLOW,
+	ERR_SECTION_NUM,
+	ERR_FLASH_READY,
+	ERR_FLASH_WRITE,
+	ERR_FLASH_ERASE,
+	ERR_NOT_BLANK_BLOCK,
+	ERR_DATA_SIZE,
+	ERR_MEM_BOUND,
+	ERR_BEEP,
+	ERR_NO_CARD_REC,
+	ERR_DATA_AERA_FULL,
+	ERR_CARD_EXIST,
+	ERR_HTTP_DATA_NOT_IN,
+	ERR_HTTP_DATA_ERROR,
+	ERR_FRAME_ID_NOT_MATCH,
+	ERR_WRONG_KEY					=68,
+	ERR_PUB_KEY						=69,
+	ERR_NULL_KEY					=70,
+	
+	ERR_UNKOWN=0xf0,
+	ERR_NO_SLOT_IS_OK           =0xfe,
+	ERR_NO_BUTTON_DOWN
+}Err;
+
+
+
+typedef struct
+{
+    INT32U fid;
+    INT16U type;
+    INT16U datalength;
+    INT8U data[1024+2];
+}CMDBufStrc;
+
+extern CMDBufStrc CMDBuf;
+
+
+
+
+typedef enum
+{
+	HTOG_IDEL=0,
+	HTOG_SENDED,
+	HTOG_RECEIVED,
+}HTOG_STATUS;
+
+
+typedef struct
+{
+    INT32U fid;
+    INT16U type;
+    INT16U r_type;	//unuse
+    INT32U s_datasize;
+    INT8U * s_data;
+    INT32U r_datasize;
+    INT8U *r_data;
+    INT32U StartTime;
+    INT32U Status;
+    Err err;
+}HToG_Data,*pHToG_Data;
+
+
+extern HToG_Data HToGobj[HTOG_DATA_ARRAY_COUNT];
+
+
+typedef enum
+{
+    HTTP_INVALID_TYPE =0x7f,
+    HTTP_EMPTY_OBJ =0,
+    HTTP_CFG_INFO=1,
+    HTTP_COL_LIST_DATA=2,
+    HTTP_COL_LIST_NAME,
+    HTTP_CARD_INFO,
+    HTTP_COL_STOCK,
+    HTTP_COL_CAPACITY,
+    HTTP_COIN_AMOUNT,
+    HTTP_MECHINE_WORK_STATE,
+    HTTP_TRADE_DATA,
+    HTTP_MECHINE_DATA,
+    HTTP_KEY_DATA,
+    HTTP_DOWN_FILE,
+    HTTP_ACTIVE,
+    HTTP_ERR_TYPE=0X7e,
+}HTTP_DATA_TYPE;
+
+
+
+
+
+#define _MAX_Database_Len 4096
+
+extern u8 VMC_DB[_MAX_Database_Len];
+
+//警告：注意此联合体 要与其他使用此联合体的 程序保持 最新同步！
+//售货机各种属性数据
+//注：采用 低位在前，高位在后
+typedef enum {
+
+	DB_Reserved = 1,
+
+	//GT 全局属性
+	DB_GT_MachineID1 = 10,//机器编号/序号	      R/W
+	DB_GT_MachineID2,
+	DB_GT_MachineID3,
+	DB_GT_MachineID4,
+												  
+	DB_GT_MachineSN1,//出厂序列号        R
+	DB_GT_MachineSN2,
+	DB_GT_MachineSN3,
+	DB_GT_MachineSN4,
+
+	DB_GT_HWVersion,//GT硬件版本
+
+	DB_GT_SupportFWUpdate,//GT是否支持程序固件更新升级
+	DB_GT_FWVersion,//GT固件版本
+	DB_GT_FWUpdateStatus,//GT固件更新状态
+
+	DB_GT_SupportConfigUpdate,//GT是否支持配置更新
+	DB_GT_ConfigVersion,//GT配置版本
+	DB_GT_ConfigUpdateStatus,//GT配置更新状态
+
+	DB_GT_SignalValue,//GPRS Teminal,GPRS 终端无线信号强度
+	DB_GT_NetQuality,//GT 网络质量
+
+
+	//VMC 全局属性
+	DB_VMC_MachineID1 = 100,//机器编号/序号	  R/W
+	DB_VMC_MachineID2,
+	DB_VMC_MachineID3,
+	DB_VMC_MachineID4,
+												  
+	DB_VMC_MachineSN1,//出厂序列号        R
+	DB_VMC_MachineSN2,
+	DB_VMC_MachineSN3,
+	DB_VMC_MachineSN4,
+
+	//VMC 运行状态控制
+	DB_VMC_RunStatus,//VMC 当前运行状态  
+	DB_VMC_SetRunStatus,//接收服务器设置VMC的运行状态，如要求暂停服务，重启，包括关机等等。
+
+	
+	//外围功能配置
+	//温度传感器
+	DB_VMC_SupportTempSensor,//VMC是否显示温度传感器数据
+	DB_VMC_SupportTempSensorCount,//VMC支持的温度传感器的个数
+
+	DB_VMC_SupportTempSensor1,//VMC是否支持第n个温度传感器
+	DB_VMC_TempSensor1AStatus,//第n个温度传感器的状态
+	DB_VMC_SetTempSensor1AStatus,//设置第n个温度传感器运行状态，如禁能停用
+	DB_VMC_TempSensor1Value,//第n个温度传感器的值
+
+	DB_VMC_SupportTempSensor2,//VMC是否支持第n个温度传感器
+	DB_VMC_TempSensor2AStatus,//第n个温度传感器的状态
+	DB_VMC_SetTempSensor2AStatus,//设置第n个温度传感器运行状态，如禁能停用
+	DB_VMC_TempSensor2Value,//第n个温度传感器的值
+
+	DB_VMC_SupportTempSensor3,//VMC是否支持第n个温度传感器
+	DB_VMC_TempSensor3AStatus,//第n个温度传感器的状态
+	DB_VMC_SetTempSensor3AStatus,//设置第n个温度传感器运行状态，如禁能停用
+	DB_VMC_TempSensor3Value,//第n个温度传感器的值
+
+	DB_VMC_SupportTempSensor4,//VMC是否支持第n个温度传感器
+	DB_VMC_TempSensor4AStatus,//第n个温度传感器的状态
+	DB_VMC_SetTempSensor4AStatus,//设置第n个温度传感器运行状态，如禁能停用
+	DB_VMC_TempSensor4Value,//第n个温度传感器的值
+
+	
+	//固件/配置升级
+	DB_VMC_HWVersion,//VMC硬件版本
+
+	DB_VMC_SupportFWUpdate,//VMC是否支持程序固件更新升级
+	DB_VMC_FWVersion,//VMC固件版本
+	DB_VMC_FWUpdateStatus,//VMC固件更新状态['steit?s]
+
+	DB_VMC_SupportConfigUpdate,//VMC是否支持配置更新
+	DB_VMC_ConfigVersion,//VMC配置版本
+	DB_VMC_ConfigUpdateStatus,//VMC配置更新状态
+
+	
+	//支付	
+	DB_VMC_PaymentKinds,//VMC可以支持的支付种类统计
+	DB_VMC_PaymentDevSignalValue,//联网支付设备的无线信号值
+	DB_VMC_PaymentDevNetQuality,//联网支付设备的网络质量
+
+	//传统支付方式
+	DB_VMC_SupportBill,//VMC是否支持纸币/现金支付
+	DB_VMC_SupportBillChanger,//VMC是否支持纸币/现金找零
+    DB_VMC_SupportBillDrawback,//VMC是否支持纸币消费退款
+	DB_VMC_SupportBillBox,//VMC是否支持纸币器[钱箱]
+	DB_VMC_BillStatus,//纸币器目前运行状态
+	DB_VMC_SetBillStatus,//设置纸币器运行状态，如禁能停用纸币器
+	DB_VMC_BillBoxStatus,//纸币器钱箱状态
+	DB_VMC_BillBoxBillAmount,//纸币器钱箱内数目/金额
+
+	DB_VMC_SupportCoin,//VMC是否支持硬币支付
+	DB_VMC_SupportCoinChanger,//VMC是否支持硬币找零
+	DB_VMC_SupportCoinDrawback,//VMC是否支持硬币消费退款
+	DB_VMC_SupportCoinTube,//VMC是否支持硬币器[币筒]
+	DB_VMC_CoinStatus,//硬币器目前运行状态
+	DB_VMC_SetCoinStatus,//设置硬币器运行状态，如禁能停用硬币器
+	DB_VMC_CoinBoxStatus,//硬币器币筒状态
+	DB_VMC_CoinBoxCoinAmount,//硬币器币筒内数目/金额
+
+
+	
+	DB_VMC_SupportBankCard,//VMC是否支持银行卡付款
+	DB_VMC_SupportBankCardDrawback,//VMC是否支持银行卡消费退款
+	DB_VMC_BankCardStatus,//银行卡支付终端目前运行状态
+	DB_VMC_SetBankCardStatus,//设置银行卡支付终端运行状态，如禁能停用
+
+	DB_VMC_SupportRFCard,//VMC是否支持射频卡付款（公交卡，普通RF IC卡，ＮＦＣ卡，CHN闪付卡）
+	DB_VMC_SupportRFCardDrawback,//VMC是否支持射频卡消费退款
+	DB_VMC_RFCardStatus,//射频卡支付终端目前运行状态
+	DB_VMC_SetRFCardStatus,//设置射频卡支付终端运行状态，如禁能停用
+
+
+	//新型支付方式
+	DB_VMC_SupportQRCode,//VMC是否支持二维码付款（微信等）
+	DB_VMC_SupportQRCodeDrawback,//VMC是否支持二维码消费退款
+	DB_VMC_QRCodeStatus,//二维码支付终端目前运行状态
+	DB_VMC_SetQRCodeStatus,//设置二维码支付终端运行状态，如禁能停用
+
+	DB_VMC_SupportSoundWave,//VMC是否支持支付宝声波支付付款
+	DB_VMC_SupportSoundWaveDrawback,//VMC是否支持声波支付消费退款
+	DB_VMC_SoundWaveStatus,//声波支付终端目前运行状态
+	DB_VMC_SetSoundWaveStatus,//设置声波支付终端运行状态，如禁能停用
+	
+
+	//物品管理
+	DB_VMC_SupportLocalSetGoods,//支持本地管理设置物品
+	DB_VMC_SupportServerSetGoods,//支持网络后台服务器远程管理设置物品
+
+	DB_VMC_Goodskind,//VMC上不重复的物品种类数量
+
+	DB_VMC_SlotCount,//VMC上的货道数量
+
+
+	DB_VMC_SupportSlot1,//VMC上是否支持/启用第1个货道
+	DB_VMC_Slot1SN1,//VMC上第1个货道的唯一序列号 低位
+	DB_VMC_Slot1SN2,//VMC上第1个货道的唯一序列号 高位
+	DB_VMC_Slot1Status,//VMC上第1个货道的状态
+	DB_VMC_SetSlot1Status,//设置VMC上的第1个货道的运行状态，如禁能停用
+	DB_VMC_Slot1Capacity1,//VMC上第1个货道的容量 低位
+	DB_VMC_Slot1Capacity2,//VMC上第1个货道的容量 高位
+	DB_VMC_Slot1Price1,//VMC上第1个货道的价格 最低位（如，单位：分）
+	DB_VMC_Slot1Price2,//VMC上第1个货道的价格 次低位
+	DB_VMC_Slot1Price3,//VMC上第1个货道的价格 次高位
+	DB_VMC_Slot1Price4,//VMC上第1个货道的价格 最高位
+	DB_VMC_Slot1Stock1,//VMC上第1个货道的库存 低位
+	DB_VMC_Slot1Stock2,//VMC上第1个货道的库存 高位
+	DB_VMC_Slot1Info,//VMC上第1个货道的信息
+	DB_VMC_Slot1GoodsName1,//VMC上第1个货道的名字字符串的第1个字符
+	DB_VMC_Slot1GoodsName2,//VMC上第1个货道的名字字符串的第2个字符
+	DB_VMC_Slot1GoodsName3,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName4,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName5,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName6,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName7,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName8,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName9,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName10,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName11,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName12,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName13,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName14,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName15,//VMC上第1个货道的名字字符串的第x个字符
+	DB_VMC_Slot1GoodsName16,//VMC上第1个货道的名字字符串的第16个字符，包含字符串结束符在内！
+
+
+	DB_VMC_SupportSlot2,//VMC上是否支持/启用第n个货道
+	DB_VMC_Slot2SN1,//VMC上第n个货道的唯一序列号 低位
+	DB_VMC_Slot2SN2,//VMC上第n个货道的唯一序列号 高位
+	DB_VMC_Slot2Status,//VMC上第n个货道的状态
+	DB_VMC_SetSlot2Status,//设置VMC上的第n个货道的运行状态，如禁能停用
+	DB_VMC_Slot2Capacity1,//VMC上第n个货道的容量 低位
+	DB_VMC_Slot2Capacity2,//VMC上第n个货道的容量 高位
+	DB_VMC_Slot2Price1,//VMC上第n个货道的价格 最低位（如，单位：分）
+	DB_VMC_Slot2Price2,//VMC上第n个货道的价格 次低位
+	DB_VMC_Slot2Price3,//VMC上第n个货道的价格 次高位
+	DB_VMC_Slot2Price4,//VMC上第n个货道的价格 最高位
+	DB_VMC_Slot2Stock1,//VMC上第n个货道的库存 低位
+	DB_VMC_Slot2Stock2,//VMC上第n个货道的库存 高位
+	DB_VMC_Slot2Info,//VMC上第n个货道的信息
+	DB_VMC_Slot2GoodsName1,//VMC上第n个货道的名字字符串的第1个字符
+	DB_VMC_Slot2GoodsName2,//VMC上第n个货道的名字字符串的第2个字符
+	DB_VMC_Slot2GoodsName3,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName4,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName5,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName6,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName7,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName8,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName9,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName10,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName11,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName12,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName13,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName14,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName15,//VMC上第n个货道的名字字符串的第x个字符
+	DB_VMC_Slot2GoodsName16,//VMC上第n个货道的名字字符串的第16个字符，包含字符串结束符在内！
+
+
+	//For +More
+	
+	
+} DBRESULT;
+
+
+
+
+
+
+
+
+#endif 
