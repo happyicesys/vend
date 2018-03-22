@@ -378,7 +378,14 @@ $(function () {
 											  		hasState=true;
 											  		if(obj.getTemperature()!=32767)
 											  		{
-											  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getTemperature()/10.0));
+												  		if(obj.getTemperature()>-120)
+												  		{
+												  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getTemperature()/10.0));
+												  		}
+												  		else
+												  		{
+												  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getTemperature()/10.0));
+												  		}
 											  		}
 											  		else
 											  		{

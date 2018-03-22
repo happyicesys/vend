@@ -163,7 +163,7 @@
 										%>
 										<tr class="odd">
 											<td class="center "><%=vb.getId() %></td>
-											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>">查看</a></td>
+											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
 											<td> 
 												<ul>
 													<%
