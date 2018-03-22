@@ -220,7 +220,10 @@ $(function () {
     });
 });
 
-
+function ShowTemCurve(id)
+{
+	location.href="./TempCurve.jsp?vid="+id;
+}
 
 </script>
 </head>
@@ -380,16 +383,16 @@ $(function () {
 											  		{
 												  		if(obj.getTemperature()>-120)
 												  		{
-												  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getTemperature()/10.0));
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 												  		}
 												  		else
 												  		{
-												  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getTemperature()/10.0));
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 												  		}
 											  		}
 											  		else
 											  		{
-											  			out.print("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>温度异常</button>");
+											  			out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-warning btn-sm' style='margin-right:3px;'>温度异常</button>");
 											  		}
 											  	}
 											  	
