@@ -399,7 +399,14 @@ function ShowTemCurve(id)
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>钱筒硬币:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		if(obj.getCoinAttube()<2000)
+											  		{
+											  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>钱筒硬币:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		}
+											  		else
+											  		{
+											  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>钱筒硬币:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		}
 											  		//out.print(String.format("<li class='normal-label mechine-state'>钱箱硬币:%1.2f</li>",obj.getCoinAtbox()/100.0));
 											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>硬币器异常</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>硬币器正常</button>");
 											  	}
