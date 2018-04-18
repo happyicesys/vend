@@ -11,7 +11,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -19,7 +19,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -28,7 +28,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_USER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_USER]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_USER]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -78,29 +78,29 @@ var chk=function()
 
 	if(form1.cardinfo.value=="")
 	{
-		$("#tips_cradinfo").text("卡号不能为空");
+		$("#tips_cradinfo").text("Card Number must not be empty");
 		return false;
 	}
 
 	if(form1.amount.value=="")
 	{
-		$("#tips_jine").text("金额不能为空");
+		$("#tips_jine").text("Amount must not be empty");
 		return false;
 	}
 
 	if(isNaN(form1.amount.value))
 	{
-		$("#tips_jine").text("金额必须是数字");
+		$("#tips_jine").text("Amount must be in numbers");
 		return false;
 	}
 	if(form1.amount.value<=0)
 	{
-		$("#tips_jine").text("金额必须大于0元");
+		$("#tips_jine").text("Amount must be greater than 0");
 		return false;
 	}
 	if(form1.amount.value>1000)
 	{
-		$("#tips_jine").text("金额不能大于1000元");
+		$("#tips_jine").text("Amount must not be greater than 1000");
 		return false;
 	}
 	form1.submit();
@@ -128,20 +128,20 @@ $(document).ready(function(){
 
 </script>
 
-<title>添加会员</title>
+<title>Add Customer</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">会员管理</a>
+								<a href="#">Customer Management</a>
 							</li>
-							<li class="active">会员充值</li>
+							<li class="active">Customer Topup</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -149,9 +149,9 @@ $(document).ready(function(){
 			  	<form class="form-horizontal" role="form" action="./CustomerCharge" method="post" name="form1" id="form1">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">充值卡号</label>
+				    <label class="col-sm-4 control-label">Topup Card No</label>
 				    <div class="col-sm-3">
-				      <input name="cardinfo" id="cardinfo" type="text" class="form-control input-sm input-sm" onkeydown="if(event.keyCode==13){getCardAmount();};" placeholder="卡号(必填)">
+				      <input name="cardinfo" id="cardinfo" type="text" class="form-control input-sm input-sm" onkeydown="if(event.keyCode==13){getCardAmount();};" placeholder="Credit Card No(Required)">
 				      </div>
 				    <div class="col-sm-5">
 				      <input class="btn btn-success" type="button" value="检测卡号是否存在" name="chkcardinfo" id="chkcardinfo" />
@@ -159,14 +159,14 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">充值金额</label>
+				    <label class="col-sm-4 control-label">Topup Amount</label>
 				    <div class="col-sm-3">
-				      <input name="amount" id="amount" type="text" class="form-control input-sm input-sm"  placeholder="充值金额(必填)">
+				      <input name="amount" id="amount" type="text" class="form-control input-sm input-sm"  placeholder="Topup Amount(Required)">
 				      <span id="tips_jine" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">充值时间</label>
+				    <label class="col-sm-4 control-label">Topup Time</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHMS(new Timestamp(ClsTime.SystemTime()))%>
 				    </div>

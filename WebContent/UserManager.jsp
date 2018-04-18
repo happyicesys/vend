@@ -8,7 +8,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -16,7 +16,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -25,13 +25,13 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_UPDATE_USER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPDATE_USER]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPDATE_USER]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
 	else if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -41,7 +41,7 @@
 		
 		if(tub==null)
 		{
-			request.setAttribute("message", "参数错误，没有找到该管理员！");
+			request.setAttribute("message", "Parameter error, no records found!");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -90,14 +90,14 @@ var chk=function()
 	{
 		if(form1.pwd.value.length<6)
 		{
-			objDiv.innerText="密码不足6位！";
+			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
 		
 		if((form1.pwd.value)!=(form1.repwd.value))
 		{
 
-			objDiv.innerText="两次密码输入不一致！";
+			objDiv.innerText="Password confirmation does not match";
 			return false;
 		}
 	}
@@ -146,20 +146,20 @@ $(document).ready(function(){
 
 </script>
 
-<title>管理员信息</title>
+<title>Manager Message</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">用户管理</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">用户信息修改</li>
+							<li class="active">User message amend</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -168,23 +168,23 @@ $(document).ready(function(){
 			  	<input type="hidden" name="uid" value="<%=id %>"  />
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户名</label>
+				    <label class="col-sm-4 control-label">Username</label>
 				    <div class="col-sm-3">
 				      <%=tub.getAdminusername()%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">密码</label>
+				    <label class="col-sm-4 control-label">Password</label>
 				    <div class="col-sm-3">
 				      <input type="password" id="pwd" name="pwd" class="form-control input-sm input-sm" >
 				      
 				    </div>
 				    <div class="col-sm-5">
-				      <label>为空表示不修改！</label>
+				      <label>Leave blank to remain the same</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">重复密码</label>
+				    <label class="col-sm-4 control-label">Password Confirmation</label>
 				    <div class="col-sm-3">
 				      <input type="password" id="repwd"  name="repwd" class="form-control input-sm input-sm">
 				    </div>
@@ -193,47 +193,47 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">固定电话</label>
+				    <label class="col-sm-4 control-label">Office Number</label>
 				    <div class="col-sm-3">
 				      <input name="firmtel" type="text" class="form-control input-sm" value="<%=tub.getAdmintelephone()%>" >
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">移动电话</label>
+				    <label class="col-sm-4 control-label">Mobile Number</label>
 				    <div class="col-sm-3">
 				      <input name="mobiletel"  type="text" class="form-control input-sm" value="<%=tub.getAdminmobilephone()%>">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">管理员姓名</label>
+				    <label class="col-sm-4 control-label">Manager Name</label>
 				    <div class="col-sm-3">
 				      <input name="name" type="text" class="form-control input-sm" value="<%=tub.getAdminname()%>" >
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">性别</label>
+				    <label class="col-sm-4 control-label">Gender</label>
 				    <div class="col-sm-3">
 				    <label>
-				      <input <%=tub.getAdminsex().equals("男")?"checked='checked'":"" %> name="sextype" type="radio" value="男" />男
-						<input <%=tub.getAdminsex().equals("女")?"checked='checked'":"" %> type="radio" value="女" />女
+				      <input <%=tub.getAdminsex().equals("男")?"checked='checked'":"" %> name="sextype" type="radio" value="男" />Male
+						<input <%=tub.getAdminsex().equals("女")?"checked='checked'":"" %> type="radio" value="女" />Female
 						</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信openID</label>
+				    <label class="col-sm-4 control-label">Wechat Open ID</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_openid"  readonly="readonly" name="wx_openid"  class="form-control input-sm"  type="text"  value="<%=tub.getWx_openid() %>" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">住址</label>
+				    <label class="col-sm-4 control-label">Address</label>
 				    <div class="col-sm-3">
 				      <input name="address" type="text" class="form-control input-sm" value="<%=tub.getAdminaddress()%>" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">权限</label>
+				    <label class="col-sm-4 control-label">Access Level</label>
 				    	<div class="col-sm-8">
 						    <ul class="list-inline">
 								<%
@@ -264,7 +264,7 @@ $(document).ready(function(){
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">机器查看限制</label>
+				    <label class="col-sm-4 control-label">Access Vending</label>
 				    <div class="col-sm-8">
 				    <%if(tub.AccessAble(UserBean.FUNID_ACCESS_ALL_VENDER)) 
 					{
@@ -285,7 +285,7 @@ $(document).ready(function(){
 								{
 									if(arr[i]>0)
 									{
-										out.println("<li style='width:150px;border: 1px solid #855555;background-color: #E1EFFF;font-size: 15px;'>机器"+arr[i]+" <a href='SetAccessDisable?uid="+ tub.getId() +"&vid="+arr[i]+"'>删除</a></li>");
+										out.println("<li style='width:150px;border: 1px solid #855555;background-color: #E1EFFF;font-size: 15px;'>机器"+arr[i]+" <a href='SetAccessDisable?uid="+ tub.getId() +"&vid="+arr[i]+"'>Delete</a></li>");
 									}
 								}
 							}else
@@ -302,7 +302,7 @@ $(document).ready(function(){
 						if(ub.AccessAble(UserBean.FUNID_CAN_ASIGN_VENDER))
 						{
 						%>
-						<li style='width:150px;border: 1px solid #855555;background-color: #E1EFFF;font-size: 15px;'><a href="javascript:void(0);" id="SetAccessVender">添加所属机器</a></li>
+						<li style='width:150px;border: 1px solid #855555;background-color: #E1EFFF;font-size: 15px;'><a href="javascript:void(0);" id="SetAccessVender">Add Vending Access</a></li>
 						<%
 						} %>
 					</ul>
@@ -324,7 +324,7 @@ $(document).ready(function(){
 				               aria-hidden="true">×
 				            </button>
 				            <h4 class="modal-title" id="myModalLabel">
-				            	机器查看限制
+				            	Access Vending
 				            </h4>
 				         </div>
 				         <div class="modal-body" id="alertcontent">
@@ -349,7 +349,7 @@ $(document).ready(function(){
 				         </div>
 				         <div class="modal-footer">
 				            <button type="button" class="btn btn-default" 
-				               data-dismiss="modal">确定
+				               data-dismiss="modal">Confirm
 				            </button>
 				         </div>
 				      </div><!-- /.modal-content -->
@@ -361,32 +361,32 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHM(tub.getCreatetime())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">上次登录时间</label>
+				    <label class="col-sm-4 control-label">Last Login Time</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHM(tub.getLastLoginTime())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团编号</label>
+				    <label class="col-sm-4 control-label">Profile ID</label>
 				    	<div class="col-sm-3">
 				    	<%if(groupBean!=null)
 				    		{%>
 						    <%=String.format("[%d]-%s", groupBean.getId(),groupBean.getGroupname()) %>
 							<%}else{
 								%>
-								无效集团号 
+								Invalid Profile ID 
 								<%
 							} %>
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">上次登录IP</label>
+				    <label class="col-sm-4 control-label">Last Login IP</label>
 				    <div class="col-sm-3">
 				      <%=tub.getLastloginip()%>
 				    </div>

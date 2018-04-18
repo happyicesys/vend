@@ -12,7 +12,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -20,7 +20,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -28,7 +28,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_PORT))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -40,7 +40,7 @@
 		{
 			if(vblst==null)
 			{
-				request.setAttribute("message", "没有可以管理的售货机！如有疑问，请联系管理员！");
+				request.setAttribute("message", "No vending found, please contact admin");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -132,7 +132,7 @@
               data:{data:JSON.stringify(obj)} ,
               success: (function(obj){
                   $("body").hideLoading();  
-                  showAlert(obj,"更新阿里二维码");
+                  showAlert(obj,"Refresh Alipay 2D barcode");
                   }),
               dataType: "text"
             });
@@ -152,7 +152,7 @@
               data:{data:JSON.stringify(obj)} ,
               success: (function(obj){
                   $("body").hideLoading();  
-                  showAlert(obj,"更新微信二维码");
+                  showAlert(obj,"Refresh Wechat 2D barcode");
                   }),
               dataType: "text"
             });
@@ -245,7 +245,7 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal">确定
+               data-dismiss="modal">Confirm
             </button>
          </div>
       </div><!-- /.modal-content -->
@@ -259,13 +259,13 @@
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">售货机列表</li>
+							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -273,7 +273,7 @@
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
 							<form class="form-horizontal" role="form">
-							<label>跳转到：</label>
+							<label>To:</label>
 							  <label>
 							  	<select class="form-control input-sm" onchange="window.open('?mid='+this.options[this.selectedIndex].value,'_self')">
 								<% 
@@ -320,16 +320,16 @@
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>货机号</th>
-										<th>货道号</th>
-										<th>货道名称</th>
-										<th>货物数量</th>
-										<th>货道容量</th>
-										<th>价格</th>
-										<th>更新时间</th>
-										<th>故障</th>
-										<th >故障信息</th>
-										<th>故障时间</th>
+										<th>Vending ID</th>
+										<th>Product ID</th>
+										<th>Channel Name</th>
+										<th>Qty</th>
+										<th>Max Qty</th>
+										<th>Price</th>
+										<th>Refresh Time</th>
+										<th>Malfunction</th>
+										<th>Malfunction Message</th>
+										<th>Malfunction Time</th>
 									</tr>											
 								</thead>
 
@@ -384,12 +384,12 @@
 													}
 													else
 													{
-														out.print("<span class='waring-label'>有</span>");
+														out.print("<span class='waring-label'>Got</span>");
 													}
 											}
 											else
 											{
-												out.print("<span class='normal-label'>无</span>");
+												out.print("<span class='normal-label'>No</span>");
 											}
 											%>
 										</td>
@@ -411,7 +411,7 @@
 										 }
 								    	else 
 								    	{
-								    		out.println("<span class='waring-label'>没有符合条件的货道！</span>");
+								    		out.println("<span class='waring-label'>No matching channel</span>");
 								    	}
 								    			
 								    	%></td>

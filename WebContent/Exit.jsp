@@ -36,7 +36,7 @@
     }
 </style>
 
-<title>安全退出</title>
+<title>Logout</title>
 </head>
 
 <%
@@ -69,15 +69,15 @@
                aria-hidden="true">×
             </button> -->
             <h4 class="modal-title" id="myModalLabel">
-            	安全退出
+            	Logout
             </h4>
          </div>
          <div class="modal-body" id="alertcontent">
-           	 您已安全退出后台！感谢您的使用！
+           	 Successfully Logout!
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal" onclick="top.location.href='index.jsp';">重新登录
+               data-dismiss="modal" onclick="top.location.href='index.jsp';">Sign In
             </button>
          </div>
       </div><!-- /.modal-content -->

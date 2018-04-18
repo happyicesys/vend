@@ -1,4 +1,4 @@
-<%@page import="com.tools.ToolBox"%>
+﻿<%@page import="com.tools.ToolBox"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.tools.ToolBox"%>
@@ -42,27 +42,27 @@
 			{
 			    if (document.userform.username.value == "")
 			    {
-			    alert("请填写用户名！");
+			    alert("Please fill in Username!");
 			    document.userform.username.focus();
 			    return (false);
 			    }
 				if ((document.userform.username.value.length < 2 )||(document.userform.username.value.length >20 ))
 			    {
-			    alert("请正确填写用户名！");
+			    alert("Please fill in correct Username!");
 			    document.userform.username.focus();
 			    return (false);
 			    }
 			
 			    if (document.userform.password.value == "")
 			    {
-			    alert("请填写密码！");
+			    alert("Please fill in Password!");
 			    document.userform.password.focus();
 			    return (false);
 			    }
 				
 				if ((document.userform.password.value.length < 6 )||(document.userform.password.value.length >20 ))
 			    {
-			    alert("请正确填写密码！");
+			    alert("Please fill in correct Password!");
 			    document.userform.password.focus();
 			    return (false);
 			    }
@@ -87,38 +87,33 @@
     <div class="row">
         <div class="well col-md-5 center login-box">
             <div class="alert alert-info">
-                请输入用户名和密码！
+                Please fill in Username and Password!
             </div>
             <form class="form-horizontal" action="./CheckLogin" method="post" name="userform" onSubmit="return check()">
                 <fieldset>
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                        <input type="text" class="form-control" placeholder="用户名" name="username" id="username" value=""/>
+                        <input type="text" class="form-control" placeholder="Username" name="username" id="username" value=""/>
                     </div>
                     <div class="clearfix"></div><br>
 
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
-                        <input type="password" class="form-control" placeholder="密码" name="password" id="password" type="password" value=""/>
+                        <input type="password" class="form-control" placeholder="Password" name="password" id="password" type="password" value=""/>
                     </div>
                     <div class="clearfix"></div>
 					
                     <div class="clearfix"></div>
 
                     <p class="center col-md-5">
-                        <button type="submit" class="btn btn-primary">登陆</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </p>
                 </fieldset>
             </form>
 			
         </div>
         <!--/span-->
-	<div style="text-align:center;font-size:24px">
-	<p style="color:red;">部分管理员的微信支付宝信息还没有健全,请赶紧健全,否则上月转款无法触发,会累积到下一月</p>
-	<p>由于微信和支付宝结算款全部进入我司公帐,并且金额较大,所以我司无法避税,现在统一调整扣除费率为3%(税点)+0.6%(微信支付宝手续费)</p>
 
-	<p>自动退款功能已经开放，如有需要请在[售货机详情]里面开启自动退款功能，每台机器需要单独设置</p>
-	<p>符合自动退款的条件是：1、扫码后4分钟内不出货；2、出货有故障</p>
 	</div>	
     </div><!--/row-->
 	

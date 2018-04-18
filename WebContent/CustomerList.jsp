@@ -13,7 +13,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -21,7 +21,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -29,7 +29,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -171,12 +171,12 @@ $(function () {
         }
         return obj;
     }
-    //生成阿里二维码
+    //Generating Alipay 2D barcode
     $("#but_al_qrcode").click(function(){  
        var obj;
     	if(!isSelectObj())
    	    {
-    	    showAlert("请先选择需要生成二维码的终端！","生成阿里二维码");
+    	    showAlert("Please select 2D Barcode generator","Generating Alipay 2D barcode");
     	    return;
    	    }
        obj=getListVal();
@@ -189,20 +189,20 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-        	 showAlert(obj,"生成阿里二维码");
+        	 showAlert(obj,"Generating Alipay 2D barcode");
              }),
          dataType: "text"
        });
        
        
     });
-    //生成微信二维码
+    //Generating Wechat 2D barcode
     $("#but_wx_qrcode").click(function(){  
     	//showAlert("微信功能暂未添加！");
         var obj;
         if(!isSelectObj())
         {
-            showAlert("请先选择需要生成二维码的终端！","生成微信二维码");
+            showAlert("Please select 2D Barcode generator","Generating Wechat 2D barcode");
             return;
         }
        obj=getListVal();
@@ -215,7 +215,7 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-             showAlert(obj,"生成微信二维码");
+             showAlert(obj,"Generating Wechat 2D barcode");
              }),
          dataType: "text"
        });
@@ -295,13 +295,13 @@ $(function () {
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">会员管理</a>
+								<a href="#">Customer Management</a>
 							</li>
-							<li class="active">会员列表</li>
+							<li class="active">Customer List</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -312,15 +312,15 @@ $(function () {
 
 										<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_CUSTOMER))
 										{%>
-										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddCustomer.jsp';" >添加会员</button>
+										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddCustomer.jsp';" >Add Customer</button>
 										<%} %>
-							<label>卡号：</label>
+							<label>Card ID</label>
 							  <label><input type="search" name="cardinfo" value="<%=cardinfo %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							<label>会员名：</label>
 							  <label><input type="search" name="customername" value="<%=customername %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
-							<label>唯一识别号：</label>
+							<label>Unique ID:</label>
 							  <label><input type="search" name="id_string" value="<%=id_string %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">查询</button>
+							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 							</form>
 						</div>
 					</div>
@@ -341,18 +341,18 @@ $(function () {
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>编号</th>
-										<th >会员名</th>
-										<th >唯一识别号</th>
-										<th >卡号</th>
-										<th >卡内金额</th>
-										<th >地址</th>
-										<th >生日</th>
-										<th >最近交易金额</th>
-										<th >最近交易时间</th>
-										<th >最近充值金额</th>
-										<th >最近充值时间</th>
-										<th style="width: 250px;">管理选项</th>
+										<th>#</th>
+										<th >Customer Name</th>
+										<th >Unique ID</th>
+										<th >Credit Card No</th>
+										<th >Card Credit Inside</th>
+										<th >Address</th>
+										<th >DOB</th>
+										<th >Lastest Transaction Amount</th>
+										<th >Lastest Transaction Date</th>
+										<th >Lastest Topup Amount</th>
+										<th >Lastest Topup Date</th>
+										<th style="width: 250px;">Setting</th>
 									</tr>											
 								</thead>
 
@@ -399,12 +399,12 @@ $(function () {
 										<td class="center ">
 											 <a class="btn btn-success" href="customerMod.jsp?id=<%=id%>">
 												<i class="glyphicon glyphicon-map-marker icon-white"></i>
-												详情/修改
+												Details/ Amendment
 											</a>
 											 
 											<a class="btn btn-info" href="TradeList.jsp?tradetype=<%=clsConst.TRADE_TYPE_CARD %>&CardNumber=<%=obj.get_user_id_card()%>">
 												<i class="glyphicon glyphicon-edit icon-white"></i>
-												使用记录
+												Records
 											</a>
 										</td>
 									</tr>
@@ -421,7 +421,7 @@ $(function () {
 												 }
 										    	else 
 										    	{
-										    		out.println("<span class='waring-label'>您没有可以维护的会员！</span>");
+										    		out.println("<span class='waring-label'>You dont have member to maintain</span>");
 										    	}
 										    			
 										    	%>

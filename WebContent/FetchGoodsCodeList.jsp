@@ -13,7 +13,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -21,7 +21,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -29,7 +29,7 @@
     
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_FETCH_GOODS_CODE))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_FETCH_GOODS_CODE]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_FETCH_GOODS_CODE]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -85,13 +85,13 @@
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 
 			<li>
-				<a href="#">设备管理</a>
+				<a href="#">Setting Management</a>
 			</li>
-			<li class="active">取货码列表</li>
+			<li class="active">Retrieve Product List</li>
 		</ul>
 	</div>
     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -101,7 +101,7 @@
 							<form class="form-horizontal" role="form" id="form2" name="form2" method="post" action="./GoodsList">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_FETCH_GOODS_CODE)) 
 									{%>
-								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" type="button" value="添加取货码" onclick="javascript:location.href='AddFetchGoodsCode.jsp';">添加取货码</button>
+								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" type="button" value="Add Product Code" onclick="javascript:location.href='AddFetchGoodsCode.jsp';">Add Product Code</button>
 								<%} %>
 							</form>
 						</div>
@@ -118,15 +118,15 @@
 							<table class="table table-bordered table-hover" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th style="width: 100px;">取货时间</th>
-										<th style="width: 100px;">售货机编号</th>
-										<th style="width: 100px;">货道号</th>
-										<th style="width: 100px;">取货码</th>
-										<th style="width:100px;">金额</th>
-										<th style="width: 100px;">创建时间</th>
-										<th style="width: 100px;">商品编号</th>
-										<th style="width: 100px;">取货状态</th>
-										<th style="width:180px;">操作</th>
+										<th style="width: 100px;">Pickup Time</th>
+										<th style="width: 100px;">Vending ID</th>
+										<th style="width: 100px;">Product ID</th>
+										<th style="width: 100px;">Retieve Product Code</th>
+										<th style="width:100px;">Amount</th>
+										<th style="width: 100px;">Created At</th>
+										<th style="width: 100px;">Product code</th>
+										<th style="width: 100px;">Retriving Status</th>
+										<th style="width:180px;">Operation</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -134,7 +134,7 @@
 										if(gblst==null)
 										{
 											out.print("<tr class='odd'><td colspan='9'>");
-									    	out.print("<span class='waring-label'>没有查找到数据</span>");
+									    	out.print("<span class='waring-label'>No records available</span>");
 									    	out.print("</td></tr>");
 										}
 										else
@@ -142,7 +142,7 @@
 											if(gblst.size()==0)
 											{
 												out.print("<tr class='odd'><td colspan='9'>");
-												out.print("<span class='waring-label'>没有查找到数据</span>");
+												out.print("<span class='waring-label'>No records available</span>");
 										    	out.print("</td></tr>");
 											}
 											else
@@ -162,16 +162,16 @@
 														<td class="center"><%=gb.getTotalfee()%></td>
 														<td class="center"><%=gb.getGmtcreate()%></td>
 														<td class="center"><%=gb.getGoodsid()== null?"":gb.getGoodsid()%></td>
-														<td class="center"><%=gb.getTransforstatus() == 0?"未取货":"已取货"%></td>
+														<td class="center"><%=gb.getTransforstatus() == 0?"Havent Pickup":"Already Pickup"%></td>
 									
 														<td class="center ">
 															<a class="btn btn-success" href="./editFetchGoodsCode.jsp?id=<%=gb.getId()%>">
 																<i class="glyphicon glyphicon-edit icon-white"></i>
-																修改
+																Edit
 															</a>
 															<a class="btn btn-info" href="./DoDeletGetGoodsCode?id=<%=gb.getId()%>">
 																<i class="glyphicon glyphicon-trash icon-white"></i>
-																删除
+																Delete
 															</a>
 														</td>
 													</tr>
@@ -188,7 +188,7 @@
 										 }
 								    	else 
 								    	{
-								    		out.println("您没有可以查看的数据！请确认您的用户账号是否正确！");
+								    		out.println("You cannot access these data, please contact admin");
 								    	}
 										%>
 										</td>

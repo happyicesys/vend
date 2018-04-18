@@ -12,7 +12,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -20,7 +20,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -29,7 +29,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_CHANGE_CUSTOMER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CHANGE_CUSTOMER]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CHANGE_CUSTOMER]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -95,7 +95,7 @@ var chk=function()
 	if(form1.username.value=="")
 	{
 		objDiv=document.getElementById("tips_username");
-		objDiv.innerText="用户名不能为空！";
+		objDiv.innerText="Username must not be empty";
 		return false;
 	}
 
@@ -160,20 +160,20 @@ var closePanel=function()
 
 </script>
 
-<title>添加会员</title>
+<title>Add Customer</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">会员管理</a>
+								<a href="#">Customer Management</a>
 							</li>
-							<li class="active">更新会员</li>
+							<li class="active">Renew Customer</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -181,23 +181,23 @@ var closePanel=function()
 			  	<form class="form-horizontal" role="form" action="UpdateCustomer" method="post" name="form1" >
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户名</label>
+				    <label class="col-sm-4 control-label">Username</label>
 				    <div class="col-sm-3">
 				    <input type="hidden" name="id" value="<%=bean.getId() %>">
 				      <input type="text" name="username" readonly="readonly" id="username" class="form-control input-sm input-sm" value="<%=bean.get_user_name()%>">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">密码</label>
+				    <label class="col-sm-4 control-label">Password</label>
 				    <div class="col-sm-3">
-				      <input name="pwd" type="text" class="form-control input-sm input-sm"  value="" placeholder="密码为空表示不修改">
+				      <input name="pwd" type="text" class="form-control input-sm input-sm"  value="" placeholder="密码为空表示不Edit">
 				      <span id="tips" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">卡号</label>
+				    <label class="col-sm-4 control-label">Credit Card No</label>
 				    <div class="col-sm-3">
-				      <input name="cardinfo" id="cardinfo" type="text" class="form-control input-sm input-sm"  value="<%=bean.get_user_id_card()%>"  placeholder="卡号(必填)">
+				      <input name="cardinfo" id="cardinfo" type="text" class="form-control input-sm input-sm"  value="<%=bean.get_user_id_card()%>"  placeholder="Credit Card No(Required)">
 				      </div>
 				    <div class="col-sm-5">
 				      <input class="btn btn-success" type="button" value="检测卡号是否被使用" name="chkcardinfo" id="chkcardinfo" />
@@ -205,106 +205,106 @@ var closePanel=function()
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">单笔最大交易额(元)</label>
+				    <label class="col-sm-4 control-label">Single Largest Transaction(Dollar)</label>
 				    <div class="col-sm-3">
-				      <input id="_user_max_credit_limit" name="_user_max_credit_limit" type="text" class="form-control input-sm input-sm" value="<%=String.format("%1.2f", bean.get_user_max_credit_limit()/100.0)%>" placeholder="单笔最大交易额(必填)">
+				      <input id="_user_max_credit_limit" name="_user_max_credit_limit" type="text" class="form-control input-sm input-sm" value="<%=String.format("%1.2f", bean.get_user_max_credit_limit()/100.0)%>" placeholder="Single Largest Transaction(Required)">
 				      <span id="tips_user_max_credit_limit" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">是否禁用会员</label>
+				    <label class="col-sm-4 control-label">Active?</label>
 				    <div class="col-sm-3">
 				      <input type="checkbox" name="_user_disable" id="_user_disable" value="1" <%=(bean.get_user_disable()==1)?"checked='checked'":"" %> />
 				      <span id="tips_disable" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">启用消费次数限制</label>
+				    <label class="col-sm-4 control-label">Purchase Limit</label>
 				    <div class="col-sm-3">
 				      <input type="checkbox" name="is_times_limit" id="is_times_limit" value="1" <%=(bean.get_user_xiaofei_times_en()==1)?"checked='checked'":"" %>/>
 				      <span id="tips_is_times_limit" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group" id="custerm_times_div">
-				    <label class="col-sm-4 control-label">每日消费次数</label>
+				    <label class="col-sm-4 control-label">Daily Purchase Count</label>
 				    <div class="col-sm-3">
-				      <input id="custerm_times" name="custerm_times" type="text" class="form-control input-sm input-sm" value="<%=bean.get_user_xiaofei_times()%>" placeholder="每日消费次数(必填)">
+				      <input id="custerm_times" name="custerm_times" type="text" class="form-control input-sm input-sm" value="<%=bean.get_user_xiaofei_times()%>" placeholder="Daily Purchase Count(Required)">
 				      <span id="tips_custerm_times" style="color:red;"></span>
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">移动电话</label>
+				    <label class="col-sm-4 control-label">Mobile Number</label>
 				    <div class="col-sm-3">
 				      <input name="mobiletel"  type="text" class="form-control input-sm" value="<%=bean.get_user_tel()%>">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">出生年月</label>
+				    <label class="col-sm-4 control-label">DOB</label>
 				    <div class="col-sm-3">
 				      <input onFocus="WdatePicker();" value="<%=ToolBox.getTimeString(bean.get_user_birthday())%>" name="birthday" type="text" class="form-control input-sm">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">性别</label>
+				    <label class="col-sm-4 control-label">Gender</label>
 				    <div class="col-sm-3">
 				    <label>
-				      <input name="sextype" type="radio" value="男" <%=(bean.getSex_type().equals("男"))?"checked='checked'":"" %> />男
-					 <input name="sextype" type="radio" value="女" <%=(bean.getSex_type().equals("女"))?"checked='checked'":"" %>/>女
+				      <input name="sextype" type="radio" value="男" <%=(bean.getSex_type().equals("男"))?"checked='checked'":"" %> />Male
+					 <input name="sextype" type="radio" value="女" <%=(bean.getSex_type().equals("女"))?"checked='checked'":"" %>/>Female
 						</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">住址</label>
+				    <label class="col-sm-4 control-label">Address</label>
 				    <div class="col-sm-3">
-				      <input name="address" type="text" class="form-control input-sm" value="<%=bean.get_user_address() %>" placeholder="住址">
+				      <input name="address" type="text" class="form-control input-sm" value="<%=bean.get_user_address() %>" placeholder="Address">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHMS(bean.get_user_builder_date())%>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group" id="xiaofei_rest_times">
-				    <label class="col-sm-4 control-label">今日剩余次数</label>
+				    <label class="col-sm-4 control-label">Today Remaining Count</label>
 				    <div class="col-sm-3">
 				      <%=bean.get_user_xiaofei_rest_times()%>次
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">当前卡内金额</label>
+				    <label class="col-sm-4 control-label">Current Card Balance</label>
 				    <div class="col-sm-3">
-				      <%=String.format("%1.2f", bean.get_user_amount()/100.0)%>元
+				      <%=String.format("%1.2f", bean.get_user_amount()/100.0)%>Dollar
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近充值金额</label>
+				    <label class="col-sm-4 control-label">Lastest Topup Amount</label>
 				    <div class="col-sm-3">
-				      <%=String.format("%1.2f", bean.getLast_charge_amount()/100.0)%>元
+				      <%=String.format("%1.2f", bean.getLast_charge_amount()/100.0)%>Dollar
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近充值时间</label>
+				    <label class="col-sm-4 control-label">Lastest Topup Date</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getTimeLongString(bean.getLast_charge_time())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近刷卡金额</label>
+				    <label class="col-sm-4 control-label">Latest Amount by Card</label>
 				    <div class="col-sm-3">
-				      <%=String.format("%1.2f", bean.getLast_jiaoyi_amount()/100.0)%>元
+				      <%=String.format("%1.2f", bean.getLast_jiaoyi_amount()/100.0)%>Dollar
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近刷卡时间</label>
+				    <label class="col-sm-4 control-label">Latest Date by Card</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getTimeLongString(bean.getLast_jiaoyi_time())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getTimeLongString(bean.get_user_builder_date())%>
 				    </div>

@@ -14,7 +14,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 if(ub==null)
 {
-	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	request.setAttribute("message", "You have no rights to access, please contact admin");
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -22,7 +22,7 @@ if(ub==null)
 
 if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 {
-	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -69,7 +69,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		  $("#wx_sendmsg").click(function(){
 			  if($("#groupid").val()==0)
 			  {
-				  $("#operation_ret").val("集团编号不能为空");
+				  $("#operation_ret").val("Profile ID cannot be empty");
 				  return;
 			  }
 			  htmlobj=$.ajax({
@@ -86,7 +86,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		  $("#test_wx_qrcode_get").click(function(){
 			  if($("#groupid").val()==0)
 			  {
-				  $("#operation_ret").val("集团编号不能为空");
+				  $("#operation_ret").val("Profile ID cannot be empty");
 				  return;
 			  }
 			  htmlobj=$.ajax({
@@ -134,7 +134,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		  $("#test_al_qrcode_get").click(function(){
 			  if($("#groupid").val()==0)
 			  {
-				  $("#operation_ret").val("集团编号不能为空");
+				  $("#operation_ret").val("Profile ID cannot be empty");
 				  return;
 			  }
 			  htmlobj=$.ajax({
@@ -159,17 +159,17 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	</script>
 </head>
 <body>
-	<button id="clearpara" class="btn btn-default form-control" style="margin:5px 0px;">清空售货机列表缓存数据</button>
-	<button id="wx_sendmsg" class="btn btn-default form-control" style="margin:5px 0px;">公众号发送消息测试</button>
-	<button id="test_wx_qrcode_get" class="btn btn-default form-control" style="margin:5px 0px;">测试微信二维码获取</button>
-	<button id="test_al_qrcode_get" class="btn btn-default form-control" style="margin:5px 0px;">测试支付宝二维码获取</button>
-	<button id="ForceSaveLog" class="btn btn-default form-control" style="margin:5px 0px;">强制保存通信日志</button>
-	<button id="manualTransfer" class="btn btn-default form-control" style="margin:5px 0px;">人工触发转账</button>
-	<!-- <button id="test_qrcode_pay" class="btn btn-default form-control" style="margin:5px 0px;">测试二维码支付</button>
+	<button id="clearpara" class="btn btn-default form-control" style="margin:5px 0px;">Clear Vending List Cache</button>
+	<button id="wx_sendmsg" class="btn btn-default form-control" style="margin:5px 0px;">Send News to public</button>
+	<button id="test_wx_qrcode_get" class="btn btn-default form-control" style="margin:5px 0px;">Test Wechat 2D barcode receive</button>
+	<button id="test_al_qrcode_get" class="btn btn-default form-control" style="margin:5px 0px;">Test Alipay 2D barcode receive</button>
+	<button id="ForceSaveLog" class="btn btn-default form-control" style="margin:5px 0px;">Force to record the log</button>
+	<button id="manualTransfer" class="btn btn-default form-control" style="margin:5px 0px;">Manual transfer</button>
+	<!-- <button id="test_qrcode_pay" class="btn btn-default form-control" style="margin:5px 0px;">测试二维码Payment</button>
 	 -->
-	   	<label style="margin:5px 0px;text-align: left;" for="groupid">集团编号</label>
+	   	<label style="margin:5px 0px;text-align: left;" for="groupid">Profile ID</label>
      <select name="groupid" id="groupid" class="form-control input-sm">
-     	<option value="0">请选择集团</option>
+     	<option value="0">Please select profile</option>
      	<%
      	int i=0;
      	ArrayList<clsGroupBean> groupBeans=clsGroupBean.getGroupLst();
@@ -181,12 +181,12 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
  		}
      	%>
      </select>
-   	<label style="margin:5px 0px;text-align: left;" for="operation_ret">操作结果</label>
+   	<label style="margin:5px 0px;text-align: left;" for="operation_ret">Results</label>
      <textarea class="btn btn-default form-control" style="margin:5px 0px;text-align: left;" rows="5" name="operation_ret" id="operation_ret"></textarea>
      <div id="code"></div>
-     <label style="margin:5px 0px;text-align: left;" for="content">发送内容</label>
+     <label style="margin:5px 0px;text-align: left;" for="content">Message</label>
      <textarea class="btn btn-default form-control" style="margin:5px 0px;text-align: left;" rows="5" name="content" id="content"></textarea>
-     <label style="margin:5px 0px;text-align: left;" for="content">收信人OpenId</label>
+     <label style="margin:5px 0px;text-align: left;" for="content">Receiver OpenID</label>
      <input class="form-control" style="margin:5px 0px;text-align: left;" name="touser" id="touser" value="<%=ub.getWx_openid()%>"/>
      
 </body>

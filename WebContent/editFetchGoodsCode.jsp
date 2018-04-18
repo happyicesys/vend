@@ -14,7 +14,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -22,7 +22,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -30,7 +30,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_UPDATE_VENDER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_FETCH_GOODS_CODE]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_FETCH_GOODS_CODE]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -40,7 +40,7 @@
     clsGetGoodsCode cg = SqlADO.getGoodsCodeById(id);
     if(id==0)
     {
-		request.setAttribute("message", "参数错误,请从有效途径提交数据");
+		request.setAttribute("message", "Parameters Error, please input again");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
     }
@@ -79,7 +79,7 @@ $(document).ready(function(){
 	}) 
 </script> -->
 
-<title>编辑取货码</title>
+<title>Editing Retrive Product ID</title>
 </head>
 <body>
 
@@ -88,18 +88,18 @@ $(document).ready(function(){
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 
 			<li>
-				<a href="#">设备管理</a>
+				<a href="#">Setting Management</a>
 			</li>
-			<li class="active">编辑取货码</li>
+			<li class="active">Editing Retrive Product ID</li>
 		</ul>
 	</div>
 	<form class="form-horizontal" action="./AddGetGoodsCode" name="smartForm" method="post" onsubmit="return chkForm();" >
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">商品</label>
+				    <label class="col-sm-4 control-label">Product</label>
 				    <div class="col-sm-3">
 				    	<select name="goodsid" id="mySelect">
 						<%
@@ -121,7 +121,7 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付金额</label>
+				    <label class="col-sm-4 control-label">Payment Amount</label>
 				    <div class="col-sm-3">
 				    <input type="hidden" name="uid" value="<%=cg.getId()%>">
 				      <input name="totalfee" type="text" class="form-control input-sm input-sm" value="<%=cg.getTotalfee() %>" placeholder=""/>

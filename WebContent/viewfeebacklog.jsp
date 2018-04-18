@@ -13,7 +13,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -21,7 +21,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -29,7 +29,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -171,12 +171,12 @@ $(function () {
         }
         return obj;
     }
-    //生成阿里二维码
+    //Generating Alipay 2D barcode
     $("#but_al_qrcode").click(function(){  
        var obj;
     	if(!isSelectObj())
    	    {
-    	    showAlert("请先选择需要生成二维码的终端！","生成阿里二维码");
+    	    showAlert("Please select 2D Barcode generator","Generating Alipay 2D barcode");
     	    return;
    	    }
        obj=getListVal();
@@ -189,20 +189,20 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-        	 showAlert(obj,"生成阿里二维码");
+        	 showAlert(obj,"Generating Alipay 2D barcode");
              }),
          dataType: "text"
        });
        
        
     });
-    //生成微信二维码
+    //Generating Wechat 2D barcode
     $("#but_wx_qrcode").click(function(){  
     	//showAlert("微信功能暂未添加！");
         var obj;
         if(!isSelectObj())
         {
-            showAlert("请先选择需要生成二维码的终端！","生成微信二维码");
+            showAlert("Please select 2D Barcode generator","Generating Wechat 2D barcode");
             return;
         }
        obj=getListVal();
@@ -215,7 +215,7 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-             showAlert(obj,"生成微信二维码");
+             showAlert(obj,"Generating Wechat 2D barcode");
              }),
          dataType: "text"
        });
@@ -270,13 +270,13 @@ $(function () {
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">交易管理</a>
+								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">退款日志</li>
+							<li class="active">Refund Log</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -284,9 +284,9 @@ $(function () {
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
 							<form class="form-horizontal" role="form">
-							<!-- <label>机器编号：</label>
+							<!-- <label>Machine ID:</label>
 							  <label><input type="search" name="id" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">查询</button>
+							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 							 -->
 							</form>
 						</div>
@@ -308,19 +308,19 @@ $(function () {
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>编号</th>
-										<th >交易订单号</th>
+										<th>#</th>
+										<th >Transaction ID</th>
 										<th >交易ID</th>
-										<th >退款编号</th>
-										<th >退款时间</th>
-										<th >交易终端</th>
-										<th >货道编号</th>
-										<th>商品名称</th>
-										<th>支付平台返回信息</th>
-										<th >是否成功</th>
-										<th >退款类型</th>
-										<th >操作员</th>
-										<th >退款金额</th>
+										<th >Refund ID</th>
+										<th >Refund Time</th>
+										<th >Transaction Terminal</th>
+										<th >Channel ID</th>
+										<th>Product Name</th>
+										<th>Payment gateway msg</th>
+										<th >Is Successful</th>
+										<th >Refund Type</th>
+										<th >Operator</th>
+										<th >Refund Amount</th>
 									</tr>											
 								</thead>
 
@@ -363,7 +363,7 @@ $(function () {
 										<td class="center "><%=obj.getGoodsname() %></td>
 										
 										<td class="center "><%=obj.getRet_msg() %></td>
-										<td class="center "><%=obj.getIssuccess()==1?"成功":"失败" %></td>
+										<td class="center "><%=obj.getIssuccess()==1?"Successful":"Failure" %></td>
 										<td class="center "><%=clsConst.TRADE_TYPE_DES[obj.getTrade_type()] %></td>
 										
 										<td class="center "><%=obj.getOp_user() %></td>
@@ -383,7 +383,7 @@ $(function () {
 												 }
 										    	else 
 										    	{
-										    		out.println("<span class='waring-label'>您没有可以查看的数据！请确认您的用户账号是否正确！</span>");
+										    		out.println("<span class='waring-label'>You cannot access these data, please contact admin</span>");
 										    	}
 										    			
 										    	%>

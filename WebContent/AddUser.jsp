@@ -11,7 +11,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -19,7 +19,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -28,7 +28,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_USER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_USER]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_USER]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -79,13 +79,13 @@ var chk=function()
 	{
 		if(form1.pwd.value.length<6)
 		{
-			objDiv.innerText="密码不足6位！";
+			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
 	}
 	else
 	{
-		objDiv.innerText="密码不能为空！";
+		objDiv.innerText="Password must not be empty";
 		return false;
 	}
 	
@@ -93,7 +93,7 @@ var chk=function()
 	if(form1.username.value=="")
 	{
 		objDiv=document.getElementById("tips_username");
-		objDiv.innerText="用户名不能为空！";
+		objDiv.innerText="Username must not be empty";
 		return false;
 	}
 	var venderlst=$("input[name='canAccessVender1']");
@@ -163,20 +163,20 @@ var closePanel=function()
 
 </script>
 
-<title>添加管理员</title>
+<title>Add Manager</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">用户管理</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">添加管理</li>
+							<li class="active">Add Manager</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -184,9 +184,9 @@ var closePanel=function()
 			  	<form class="form-horizontal" role="form" action="AddUser" method="post" name="form1" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户名</label>
+				    <label class="col-sm-4 control-label">Username</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="username" id="username" class="form-control input-sm input-sm" placeholder="用户名(必填)" id="chk_repeat">
+				      <input type="text" name="username" id="username" class="form-control input-sm input-sm" placeholder="Username(Required)" id="chk_repeat">
 				    </div>
 				    <div class="col-sm-5">
 				      <input class="btn btn-success" type="button" value="检测用户名是否存在" name="chkusername" id="chk_repeat" />
@@ -194,42 +194,42 @@ var closePanel=function()
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">密码</label>
+				    <label class="col-sm-4 control-label">Password</label>
 				    <div class="col-sm-3">
-				      <input name="pwd" type="password" class="form-control input-sm input-sm"  placeholder="密码(必填)">
+				      <input name="pwd" type="password" class="form-control input-sm input-sm"  placeholder="Password(Required)">
 				      <span id="tips" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">固定电话</label>
+				    <label class="col-sm-4 control-label">Office Number</label>
 				    <div class="col-sm-3">
 				      <input name="firmtel" type="text" class="form-control input-sm"  placeholder="">
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">移动电话</label>
+				    <label class="col-sm-4 control-label">Mobile Number</label>
 				    <div class="col-sm-3">
 				      <input name="mobiletel"  type="text" class="form-control input-sm"  placeholder="">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">管理员姓名</label>
+				    <label class="col-sm-4 control-label">Manager Name</label>
 				    <div class="col-sm-3">
 				      <input name="name" type="text" class="form-control input-sm">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">性别</label>
+				    <label class="col-sm-4 control-label">Gender</label>
 				    <div class="col-sm-3">
 				    <label>
-				      <input checked='checked' name="sextype" type="radio" value="男" />男
-						<input name="sextype" type="radio" value="女" />女
+				      <input checked='checked' name="sextype" type="radio" value="男" />Male
+						<input name="sextype" type="radio" value="女" />Female
 						</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">住址</label>
+				    <label class="col-sm-4 control-label">Address</label>
 				    <div class="col-sm-3">
 				      <input name="address" type="text" class="form-control input-sm" placeholder="">
 				    </div>
@@ -237,10 +237,10 @@ var closePanel=function()
 				  <%if(ub.AccessAble(UserBean.FUNID_CAN_SET_USER_GROUP_ID_WHEN_ADD)) 
 				  {%>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团</label>
+				    <label class="col-sm-4 control-label">Profile</label>
 				    <div class="col-sm-3">
 				      <select name="groupid" id="groupid" class="form-control input-sm">
-				      	<option>请选择集团</option>
+				      	<option>Please select profile</option>
 				      	<%
 				      	int i=0;
 				      	ArrayList<clsGroupBean> groupBeans=clsGroupBean.getGroupLst();
@@ -256,7 +256,7 @@ var closePanel=function()
 				  </div>
 				  <%}%>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">权限</label>
+				    <label class="col-sm-4 control-label">Access Level</label>
 				    	<div class="col-sm-8">
 						    <ul class="list-inline">
 								<%
@@ -270,7 +270,7 @@ var closePanel=function()
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">机器查看限制</label>
+				    <label class="col-sm-4 control-label">Access Vending</label>
 				    <div class="col-sm-8">
 				      <ul class="list-inline">
 						<%
@@ -278,7 +278,7 @@ var closePanel=function()
 						if(ub.AccessAble(UserBean.FUNID_CAN_ASIGN_VENDER))
 						{
 						%>
-							<li><input class="btn btn-success" type="button" value="添加所属机器" id="SetAccessVender" /></li>
+							<li><input class="btn btn-success" type="button" value="Add Vending Access" id="SetAccessVender" /></li>
 						<%
 						}
 						else
@@ -318,7 +318,7 @@ var closePanel=function()
 				               aria-hidden="true">×
 				            </button>
 				            <h4 class="modal-title" id="myModalLabel">
-				            	添加货道
+				            	Add Channel
 				            </h4>
 				         </div>
 				         <div class="modal-body" id="alertcontent">
@@ -348,7 +348,7 @@ var closePanel=function()
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHM(new Timestamp(ClsTime.SystemTime()))%>
 				    </div>

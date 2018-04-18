@@ -15,7 +15,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -23,7 +23,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -31,7 +31,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -126,7 +126,7 @@ var showAlert=function(title,content)
 
 var _submit=function(date)
 {
-	/*提交绑定数据到后台*/
+	/*提交Binding数据到后台*/
 	var bindobj=new Object();
 	bindobj.sdate=date;
 	$("body").showLoading(); 
@@ -142,7 +142,7 @@ var _submit=function(date)
             }
             else
             {
-            	$("#_title").text("["+date+"]销售统计");
+            	$("#_title").text("["+date+"] Sales Staticstics");
             	$("#all_count").text(obj.all_count);
             	$("#all_credit").text(obj.all_credit);
             	$("#cash_count").text(obj.cash_count);
@@ -162,7 +162,7 @@ var _submit=function(date)
         dataType: "json",
         error:(function(obj,txtmes,txtmes2){
             $("body").hideLoading();  
-            alert(obj.status+"错误");
+            alert(obj.status+" Error");
             })
     		
       });
@@ -205,7 +205,7 @@ var _submit=function(date)
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal">确定
+               data-dismiss="modal">Confirm
             </button>
          </div>
       </div><!-- /.modal-content -->
@@ -215,7 +215,7 @@ var _submit=function(date)
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="#" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="#" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 						</ul>
 					</div>
@@ -224,7 +224,7 @@ var _submit=function(date)
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
 							<form class="form-horizontal" role="form">
-							<label>可选择日期：</label>
+							<label>Choose Date</label>
 							<%
 							int i=0;
 							Calendar c= Calendar.getInstance();
@@ -261,18 +261,18 @@ var _submit=function(date)
 								</thead>
 								<thead>
 									<tr  role="row" style="background-color: #f5f5f5; height:2em;">
-										<th>总笔数</th>
-										<th>总金额</th>
-										<th>现金笔数</th>
-										<th>现金金额</th>
-										<th>微信支付笔数</th>
-										<th>微信支付</th>
-										<th>支付宝笔数</th>
-										<th>支付宝</th>
-										<th>刷卡笔数</th>
-										<th>刷卡</th>
-										<th>银联笔数</th>
-										<th>银联</th>
+										<th>Sales Count</th>
+										<th>Total</th>
+										<th>Cash Sales</th>
+										<th>Cash Amount</th>
+										<th>Wechat Sales</th>
+										<th>Wechat Pay</th>
+										<th>Alipay Sales</th>
+										<th>Alipay</th>
+										<th>Card Sales</th>
+										<th>Card</th>
+										<th>China Union Pay Sales</th>
+										<th>China Union Pay</th>
 										
 									</tr>											
 								</thead>

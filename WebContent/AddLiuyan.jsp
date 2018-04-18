@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,7 +17,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -65,23 +65,23 @@ var chk=function()
 {
 	if((form1.username.value)=="")
 	{
-		$("#err").text("用户名不能为空!");
+		$("#err").text("Username must not be empty");
 		return false;
 	}
 	
 	if((form1.mobiletel.value)=="")
 	{
-		$("#err").text("手机号码不能为空!");
+		$("#err").text("Contact number must not be empty");
 		return false;
 	}
 	if((form1.content.value)=="")
 	{
-		$("#err").text("内容不能为空!");
+		$("#err").text("Content must not be empty");
 		return false;
 	}
 	if((form1.content.value.length)>200)
 	{
-		$("#err").text("内容不能 超过200个字符!");
+		$("#err").text("Content must not more than 200 words");
 		return false;
 	}
 	return true;
@@ -89,20 +89,20 @@ var chk=function()
 
 </script>
 
-<title>添加管理员</title>
+<title>Add Manager</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">用户管理</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">添加管理</li>
+							<li class="active">Add Manager</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -110,34 +110,34 @@ var chk=function()
 			  	<form class="form-horizontal" role="form" action="AddLiuyan" method="post" name="form1" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户名</label>
+				    <label class="col-sm-4 control-label">Username</label>
 				    <div class="col-sm-3">
 				      <input type="text" readonly="readonly" name="username" id="username" class="form-control input-sm input-sm"  value="${sessionScope.usermessage.adminusername}">
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">移动电话</label>
+				    <label class="col-sm-4 control-label">Mobile Number</label>
 				    <div class="col-sm-3">
 				      <input name="mobiletel"  type="text" class="form-control input-sm" value="${sessionScope.usermessage.adminmobilephone}">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">管理员姓名</label>
+				    <label class="col-sm-4 control-label">Manager Name</label>
 				    <div class="col-sm-3">
 				      <input name="realname" type="text" class="form-control input-sm" value="${sessionScope.usermessage.adminname}">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">留言内容</label>
+				    <label class="col-sm-4 control-label">Remarks</label>
 				    <div class="col-sm-3">
 				      <textarea name="content" class="form-control input-sm" rows="5" cols="50"></textarea>
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      <input name="time" readonly="readonly"  type="text" class="form-control input-sm" value="<%=ToolBox.getYMDHM(new Timestamp(ClsTime.SystemTime()))%>">
 				    </div>

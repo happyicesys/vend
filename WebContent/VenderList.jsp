@@ -11,7 +11,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -19,7 +19,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -27,7 +27,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -169,12 +169,12 @@ $(function () {
         }
         return obj;
     }
-    //生成阿里二维码
+    //Generating Alipay 2D barcode
     $("#but_al_qrcode").click(function(){  
        var obj;
     	if(!isSelectObj())
    	    {
-    	    showAlert("请先选择需要生成二维码的终端！","生成阿里二维码");
+    	    showAlert("Please select 2D Barcode generator","Generating Alipay 2D barcode");
     	    return;
    	    }
        obj=getListVal();
@@ -187,20 +187,20 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-        	 showAlert(obj,"生成阿里二维码");
+        	 showAlert(obj,"Generating Alipay 2D barcode");
              }),
          dataType: "text"
        });
        
        
     });
-    //生成微信二维码
+    //Generating Wechat 2D barcode
     $("#but_wx_qrcode").click(function(){  
     	//showAlert("微信功能暂未添加！");
         var obj;
         if(!isSelectObj())
         {
-            showAlert("请先选择需要生成二维码的终端！","生成微信二维码");
+            showAlert("Please select 2D Barcode generator","Generating Wechat 2D barcode");
             return;
         }
        obj=getListVal();
@@ -213,7 +213,7 @@ $(function () {
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
              $("body").hideLoading();  
-             showAlert(obj,"生成微信二维码");
+             showAlert(obj,"Generating Wechat 2D barcode");
              }),
          dataType: "text"
        });
@@ -272,13 +272,13 @@ function ShowTemCurve(id)
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">售货机列表</li>
+							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -293,10 +293,10 @@ function ShowTemCurve(id)
 										{%>
 										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >添加设备</button>
 										<%} %>
-							<label>机器编号：</label>
+							<label>Machine ID:</label>
 							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">查询</button>
+							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 							</form>
 						</div>
 					</div>
@@ -317,16 +317,16 @@ function ShowTemCurve(id)
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>编号</th>
-										<th >选择</th>
-										<th >连接状态</th>
-										<th >名称</th>
-										<th >地址</th>
-										<th style="width:400px;">实时状态</th>
-										<th>温度更新时间</th>
-										<th>最近故障</th>
-										<th >GPRS信号</th>
-										<th style="width: 250px;">管理选项</th>
+										<th>#</th>
+										<th >Type</th>
+										<th >Connection</th>
+										<th >Name</th>
+										<th >Address</th>
+										<th style="width:400px;">Real time Status</th>
+										<th>Temp Refresh Time</th>
+										<th>Lastest Malfunction</th>
+										<th >GPRS Signal</th>
+										<th style="width: 250px;">Setting</th>
 									</tr>											
 								</thead>
 
@@ -370,7 +370,7 @@ function ShowTemCurve(id)
 										    <input type="checkbox" name="vendid" value="<%=venderid%>">
 										  </td>
 										<td class="center ">
-											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>在线</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>离线</button>"%>
+											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>Online</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Disconnected</button>"%>
 										</td>
 										<td class="center "><%=obj.getTerminalName() %></td>
 										<td class="center " style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
@@ -383,38 +383,38 @@ function ShowTemCurve(id)
 											  		{
 												  		if(obj.getTemperature()>-120)
 												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 												  		}
 												  		else
 												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>温度:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temperature:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 												  		}
 											  		}
 											  		else
 											  		{
-											  			out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>温度异常</button>");
+											  			out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature异常</button>");
 											  		}
 											  	}
 											  	
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>钱筒硬币:%1.2f</button>",obj.getCoinAttube()/100.0));
-											  		//out.print(String.format("<li class='normal-label mechine-state'>钱箱硬币:%1.2f</li>",obj.getCoinAtbox()/100.0));
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>硬币器异常</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>硬币器正常</button>");
+											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>硬币器正常</button>");
 											  	}
 											  	
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_BILL_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>纸币器异常</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>纸币器正常</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>纸币器正常</button>");
 											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>找零纸币:%03d</button>",obj.getBills()/100));
 											  		
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_CASHLESS_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>非现金设备异常</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>非现金设备正常</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Non cash Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>非现金设备正常</button>");
 											  	}
 											  	if(!hasState)
 											  	{
@@ -436,22 +436,22 @@ function ShowTemCurve(id)
 												slot_format="%d号货道%d号故障";
 											}
 										%>
-										<td class="center "><%=(obj.getLstSltE()==0)?"无故障":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
+										<td class="center "><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
 										<td class="center ">
 											<%=obj.getGprs_Sign()*100/31 %>%
 										</td>
 										<td class="center ">
 											<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
 												<i class="glyphicon glyphicon-map-marker icon-white"></i>
-												地图
+												Map
 											</a>
 											<a class="btn btn-info" href="VenderMod.jsp?mid=<%=venderid%>">
 												<i class="glyphicon glyphicon-edit icon-white"></i>
-												详情
+												Detail
 											</a>
 											<a class="btn btn-danger" href="PortList.jsp?mid=<%=venderid%>">
 												<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-												货道
+												Channel
 											</a>
 										</td>
 									</tr>
@@ -468,7 +468,7 @@ function ShowTemCurve(id)
 												 }
 										    	else 
 										    	{
-										    		out.println("<span class='waring-label'>您没有可以维护的售货机！请确认您的用户账号是否正确！</span>");
+										    		out.println("<span class='waring-label'>No records found, please contact admin</span>");
 										    	}
 										    			
 										    	%>

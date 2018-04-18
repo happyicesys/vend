@@ -24,7 +24,7 @@ clsGoodsBean gb=clsGoodsBean.getGoodsBean(pb.getGoodsid());
 <!-- saved from url=(0014)about:internet -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title><%=ToolBox.WEB_NAME%>--帮助</title>
+<title><%=ToolBox.WEB_NAME%>--Help</title>
 
 
 
@@ -37,6 +37,6 @@ td img {
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body>FAQ： 1、接线 2、
+<body>FAQ： 1、Connect 2、
 </body>
 </html>

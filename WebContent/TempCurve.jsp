@@ -14,7 +14,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -22,7 +22,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -30,7 +30,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_STASTIC))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -41,7 +41,7 @@
 <html>
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>24小时温度曲线</title>
+    <title>24 Hours temp Line Graph</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -104,6 +104,7 @@
 	for(i=0;i<lst.size();i++)
 	{
 		//arr_count[i]=SqlADO.getAllSalesByDate(temdate);
+		
 		sb1.append("["+((lst.get(i).getTtime().getTime()-beginDate2.getTime())/3600000.0)+","+String.format("%1.1f",lst.get(i).getTemp()/10.0)+"]");
 		if(i!=day)
 		{
@@ -141,19 +142,19 @@
 	<ul class="breadcrumb">
 		<li>
 			<span class="glyphicon glyphicon-home"></span>
-			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 				</li>
 
 				<li>
-					<a href="#">设备管理</a>
+					<a href="#">Setting Management</a>
 				</li>
-				<li class="active">温度曲线</li>
+				<li class="active">Temp Line Graph</li>
 			</ul>
 		</div>
 
 		<a class="btn btn-danger" href="javascript:void(0);" onclick="window.history.back(-1);" >
 			<i class="glyphicon glyphicon-menu-left icon-white"></i>
-			返回机器列表
+			Back to Vending List
 		</a>
     <div id="placeholder" style="width:92%;height:700px;"></div>
 	
@@ -164,7 +165,7 @@
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{"label":"<%=String.format("%d号机 温度曲线", vid)%>",data:d1}], {
+        $.plot($("#placeholder"), [{"label":"<%=String.format("%d号机 Temp Line Graph", vid)%>",data:d1}], {
             series: {
                 lines: { show: true,}
         //,

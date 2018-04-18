@@ -7,7 +7,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -15,7 +15,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -23,7 +23,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_SWIPE_QUHUO))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_SWIPE_QUHUO]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_SWIPE_QUHUO]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -81,7 +81,7 @@ function tijiao(obj)
 
 	if(form1.cardinfo.value=="")
 	{
-		tips.innerHTML=("卡号不能为空！");
+		tips.innerHTML=("Card number must not be empty");
 		return;
 	}
 	form1.count.value=obj;
@@ -93,9 +93,9 @@ function tijiao(obj)
 </head>
 <body style="font-size:1.5em;" onload="load();">
 <form action="QuHuo" name="form1" method="post">
-	卡号:<input class="txt" value="" name="cardinfo"  id="cardinfo" style="" onkeydown='if(event.keyCode==13)(tijiao(1));'/>
+	Credit Card No:<input class="txt" value="" name="cardinfo"  id="cardinfo" style="" onkeydown='if(event.keyCode==13)(tijiao(1));'/>
 	<div id="tips" style="width: 100%;"></div>
-	价格:<input class="txt" name="price" value="<%=price %>" id="price"/>
+	Price:<input class="txt" name="price" value="<%=price %>" id="price"/>
 	<input type="hidden" name=count value="1" id="count"/>
 	</form>
 	<%

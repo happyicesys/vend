@@ -10,7 +10,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -26,7 +26,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_VENDER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_VENDER]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_VENDER]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -170,32 +170,32 @@ var chk=function()
 {
 	if(!isNumeric(form.id.value))
 	{
-		$("#tips").text("售货机编号无效");
+		$("#tips").text("Vending ID not valid");
 		return false;
 	}
 	
 	if(form.tname.value=="")
 	{
-		$("#tips_t").text("售货机名称不能为空");
+		$("#tips_t").text("Vending name must not be empty");
 		return false;
 	}
 	
 	if($("#key_type").val()==0)
 	{
-		$("#tips_key_type").text("键盘类型不能为空！");
+		$("#tips_key_type").text("Keyboard type must not be empty");
 		return false;
 	}
 
 	if($("#brd_type").val()==0)
 	{
-		$("#tips_brd_type").text("主板类型不能为空！");
+		$("#tips_brd_type").text("Board type must not be empty");
 		return false;
 	}
 	return true;
 };
 
 </script>
-<title>添加 售货机</title>
+<title>Add Vending</title>
 </head>
 <body style="background-color: #fff;">
 <!-- 模态框（Modal） -->
@@ -208,7 +208,7 @@ var chk=function()
 				               aria-hidden="true">×
 				            </button>
 				            <h4 class="modal-title" id="myModalLabel">
-				            	添加货道
+				            	Add Channel
 				            </h4>
 				         </div>
 				         <div class="modal-body" id="alertcontent">
@@ -220,14 +220,14 @@ var chk=function()
 								for(int sid :valid_slot_id)
 								{
 									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+
-									sid+"\" />货道"+String.format(clsConst.SLOT_FORMAT_HEX,sid)+"</label></li>");
+									sid+"\" />Channel"+String.format(clsConst.SLOT_FORMAT_HEX,sid)+"</label></li>");
 								}
 							}
 							else
 							{
 								for( i=101;i<101+2*60;i++)
 								{
-									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+i+"\" />货道"+i+"</label></li>");
+									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+i+"\" />Channel"+i+"</label></li>");
 								}
 								
 							}
@@ -246,13 +246,13 @@ var chk=function()
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">添加售货机</li>
+							<li class="active">Add Vending</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -260,60 +260,60 @@ var chk=function()
 			  	<form class="form-horizontal" role="form" action="AddVender" name="form" method="post" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">终端编号</label>
+				    <label class="col-sm-4 control-label">Terminal ID</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="id" id="vid" class="form-control input-sm input-sm" placeholder="终端编号(必填)" id="chk_repeat">
+				      <input type="text" name="id" id="vid" class="form-control input-sm input-sm" placeholder="Terminal ID(Required)" id="chk_repeat">
 				    </div>
 				    <div class="col-sm-5">
-				      <input class="btn btn-success" type="button" value="检测编号是否重复" id="chk_repeat" name="chk_repeat" />
+				      <input class="btn btn-success" type="button" value="检测#是否重复" id="chk_repeat" name="chk_repeat" />
 				      <span id="tips" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">终端名称</label>
+				    <label class="col-sm-4 control-label">Terminal Name</label>
 				    <div class="col-sm-3">
-				      <input name="tname" type="text" class="form-control input-sm input-sm"  placeholder="终端名称(必填)">
+				      <input name="tname" type="text" class="form-control input-sm input-sm"  placeholder="Terminal Name(Required)">
 				      <span id="tips_t" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">货道数量</label>
+				    <label class="col-sm-4 control-label">Number of Channel</label>
 				    <div class="col-sm-3">
 				    <input class="form-control input-sm input-sm" name="portcount"  value="12" id="portcount"  type="text" readonly="readonly"/>
 					</div>
-					<label class="col-sm-5"> 货道数量与主板类型和驱动板数量有关，无法直接修改，货道配置好之后，将无法再更改</label>
+					<label class="col-sm-5"> Number of Channel will be sync with motor board, cannot be amend in future once setup</label>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">键盘类型</label>
+				    <label class="col-sm-4 control-label">Keyboard Type</label>
 				    <div class="col-sm-3">
 				    <select class="form-control input-sm input-sm" name="key_type" id="key_type">
-						<option value='0' >请选择键盘类型</option>
-						<option value='16' >16个按钮纯数字</option>
-						<option value='18' >18个按钮带字母</option>
-						<option value='12' >一对一选货按钮</option>
+						<option value='0' >Please choose the keyboard type</option>
+						<option value='16' >16 buttons numeric</option>
+						<option value='18' >18 buttons alphanumeric</option>
+						<option value='12' >1 to 1 select button</option>
 					</select>
 					</div>
 					<label class="col-sm-5"><span id="tips_key_type" style="color: red;"></span></label>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">主板类型</label>
+				    <label class="col-sm-4 control-label">Board Type</label>
 				    <div class="col-sm-3">
 					<select  class="form-control input-sm input-sm"  name="brd_type" id="brd_type">
-						<option value='0' >请选择主板类型</option>
-						<option value='1' >12货道迷你主板</option>
-						<option value='2' >60货道一体化主板</option>
+						<option value='0' >Please choose the board type</option>
+						<option value='1' >12 channels mini board</option>
+						<option value='2' >60 channels consolidated board</option>
 					</select>
 					</div>
 					<label class="col-sm-5"><span id="tips_brd_type" style="color: red;"></span>
-					<a href="" target="blank">查看12货道迷你主板图片</a>  <a href="" target="blank">查看60货道一体化主板图片</a>
+					<a href="" target="blank">12 channels mini board photo</a>  <a href="" target="blank">60 channels consolidated board photo</a>
 					</label>
 					
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">驱动板数量</label>
+				    <label class="col-sm-4 control-label">Number of Motor board</label>
 				    <div class="col-sm-3">
 					<select  class="form-control input-sm input-sm"  name="motorbrd_count" id="motorbrd_count">
 					<%for(int i_tem=0;i_tem<=16;i_tem++) 
@@ -325,45 +325,45 @@ var chk=function()
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">售货机型号</label>
+				    <label class="col-sm-4 control-label">Vending Model</label>
 				    <div class="col-sm-3">
-				      <input name="sellertype" type="text" class="form-control input-sm"  placeholder="售货机型号">
+				      <input name="sellertype" type="text" class="form-control input-sm"  placeholder="Vending Model">
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">服务电话</label>
+				    <label class="col-sm-4 control-label">Customer Service Tel</label>
 				    <div class="col-sm-3">
-				      <input name="server_tel"  type="text" class="form-control input-sm" value="<%=ub.getAdminmobilephone() %>" placeholder="终端名称">
+				      <input name="server_tel"  type="text" class="form-control input-sm" value="<%=ub.getAdminmobilephone() %>" placeholder="Terminal Name">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机地址</label>
+				    <label class="col-sm-4 control-label">Vending Address</label>
 				    <div class="col-sm-3">
-				      <input name="address" type="text" class="form-control input-sm"  placeholder="售货机地址"><!-- 添加地址信息，便于地图查找 -->
+				      <input name="address" type="text" class="form-control input-sm"  placeholder="Vending Address"><!-- 添加地址信息，便于地图查找 -->
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机经度</label>
+				    <label class="col-sm-4 control-label">Vending Logitude</label>
 				    <div class="col-sm-3">
-				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="售货机经度">
+				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="Vending Logitude">
 				    </div>
 				    <div class="col-sm-5">
 				      	<input class="btn btn-success" type="button" value="在地图上查找位置" onclick="ShowMapWin()"/>
 				      </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机纬度</label>
+				    <label class="col-sm-4 control-label">Vending Latitude</label>
 				    <div class="col-sm-3">
-				      <input id="lat" name="lat" type="text" class="form-control input-sm" placeholder="售货机纬度">
+				      <input id="lat" name="lat" type="text" class="form-control input-sm" placeholder="Vending Latitude">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">是否允许使用</label>
+				    <label class="col-sm-4 control-label">Can be used</label>
 				    	<div class="col-sm-3">
 						    <select class="form-control input-sm" name="canuse">
-							  <option value="true">是</option>
-							  <option value="false">否</option>
+							  <option value="true">Yes</option>
+							  <option value="false">No</option>
 							</select>
 						</div>
 						<input  type="hidden"  name="slottab"  id="slottab" value=""/>
@@ -376,14 +376,14 @@ var chk=function()
 								for(int sid :valid_slot_id)
 								{
 									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+
-									sid+"\" />货道"+String.format(clsConst.SLOT_FORMAT_HEX,sid)+"</label></li>");
+									sid+"\" />Channel"+String.format(clsConst.SLOT_FORMAT_HEX,sid)+"</label></li>");
 								}
 							}
 							else
 							{
 								for( i=101;i<101+2*60;i++)
 								{
-									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+i+"\" />货道"+i+"</label></li>");
+									out.print("<li style='width:130px;'><label><input type=\"checkbox\" onclick='SlotChkBoxOnClick(this);' name=\"slottabbox\" value=\""+i+"\" />Channel"+i+"</label></li>");
 								}
 								
 							}
@@ -396,7 +396,7 @@ var chk=function()
 				    <div class="col-sm-offset-4 col-sm-3">
 				      <input type="submit" class="btn btn-primary" value="添&nbsp;&nbsp;&nbsp;&nbsp;加"></input>
 				      <button type="submit" class="btn btn-primary" value="取消">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-				      <button class="btn btn-primary"  value="返回列表" type="button" onclick="location.href='VenderList';" >返回列表</button>
+				      <button class="btn btn-primary"  value="返回列表" type="button" onclick="location.href='VenderList';" >Back</button>
 				    </div>
 				  </div>
 				  </div>

@@ -15,7 +15,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -23,7 +23,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -31,7 +31,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_STASTIC))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -158,7 +158,7 @@ $(function () {
             dataType: "text",
             error:(function(obj,txtmes,txtmes2){
                 $("body").hideLoading();  
-                alert("结算失败！"+obj.status+"错误");
+                alert("Calculation error "+obj.status+" Error");
                 })
         		
           });
@@ -255,7 +255,7 @@ $(function () {
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal">确定
+               data-dismiss="modal">Confirm
             </button>
          </div>
       </div><!-- /.modal-content -->
@@ -269,13 +269,13 @@ $(function () {
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">交易管理</a>
+								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">售货机列表</li>
+							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -283,13 +283,13 @@ $(function () {
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
 							<form class="form-horizontal"  role="form">
-							<label>机器编号：</label>
+							<label>Machine ID:</label>
 							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							
-							&nbsp;<label>选择月份(注意是每月统计)：</label>
+							&nbsp;<label>Select Month(Monthly)：</label>
 							<input type="hidden" value="1" name="ispost"/> 
 							<label><input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" /></label>
-							<label>&nbsp;是否结算：</label>
+							<label>&nbsp;Is calculated:</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
 							</label>
@@ -299,7 +299,7 @@ $(function () {
 							<label class="radio-inline" style="padding-top:0px;">
 							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 未结算
 							</label>
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">查询</button>
+							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
 							</form>
 						</div>
@@ -321,21 +321,21 @@ $(function () {
 							<table id="yourTableID" class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>编号</th>
-										<th >名称</th>
-										<th >地址</th>
-										<th>总笔数</th>
-										<th>总金额</th>
-										<th>现金笔数</th>
-										<th>现金</th>
-										<th>微信笔数</th>
-										<th>微信支付</th>
-										<th>支付宝笔数</th>
-										<th>支付宝</th>
-										<th>刷卡笔数</th>
-										<th>刷卡</th>
-										<th>银联笔数</th>
-										<th>银联</th>
+										<th>#</th>
+										<th >Name</th>
+										<th >Address</th>
+										<th>Sales Count</th>
+										<th>Total</th>
+										<th>Cash Sales</th>
+										<th>Cash</th>
+										<th>Wechat Sales</th>
+										<th>Wechat Pay</th>
+										<th>Alipay Sales</th>
+										<th>Alipay</th>
+										<th>Card Sales</th>
+										<th>Card</th>
+										<th>China Union Pay Sales</th>
+										<th>China Union Pay</th>
 									</tr>											
 								</thead>
 
@@ -467,7 +467,7 @@ $(function () {
 										%>
 										
 										<tr class="odd">
-											<td class=" sorting_1" colspan="3">本月合计</td>
+											<td class=" sorting_1" colspan="3">Current Month Total</td>
 											
 											<td <%=all_count>0?"style='color:red;'":"" %>><%=all_count %></td>
 											<td <%=all_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f", all_credit/100.0) %></td>
@@ -498,12 +498,12 @@ $(function () {
 													 }
 											    	else 
 											    	{
-											    		out.println("<span class='waring-label'>您没有可以维护的售货机！请确认您的用户账号是否正确！</span>");
+											    		out.println("<span class='waring-label'>No records found, please contact admin</span>");
 											    	}
 												}
 												else
 												{
-													out.println("<span class='waring-label'>请选择月份和其他条件,然后按查询按钮</span>");
+													out.println("<span class='waring-label'>Please select the month and other option, then press Search</span>");
 												}
 										    	%>
 										 </td>

@@ -10,7 +10,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -27,7 +27,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_GROUP_ID))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_GROUP_ID]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_GROUP_ID]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -71,7 +71,7 @@
     <script type="text/javascript">
     var Delete=function(groupid)
     {
-    	/*提交绑定数据到后台*/
+    	/*提交Binding数据到后台*/
     	var delobj=new Object();
     	delobj.groupid=groupid;
     	$("body").showLoading(); 
@@ -95,7 +95,7 @@
             dataType: "json",
             error:(function(obj,txtmes,txtmes2){
                 $("body").hideLoading();  
-                alert("删除失败！"+obj.status+"错误");
+                alert("Fail to delete"+obj.status+" Error");
                 })
         		
           });
@@ -109,13 +109,13 @@
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-				<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+				<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 
 			<li>
-				<a href="#">高级管理</a>
+				<a href="#">Admin Management</a>
 			</li>
-			<li class="active">集团管理</li>
+			<li class="active">Profile Management</li>
 		</ul>
 	</div>
 	<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -125,7 +125,7 @@
 							<form class="form-horizontal" role="form">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CREATE_GROUP_ID)) 
 									{%>
-								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;float:right;" onclick="javascript:location.href='AddGroup.jsp';" >添加集团</button>
+								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;float:right;" onclick="javascript:location.href='AddGroup.jsp';" >Add Profile</button>
 								<%} %>
 							</form>
 						</div>
@@ -142,14 +142,14 @@
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th style="width: 100px;">ID</th>
-										<th style="width: 100px;">集团名称</th>
-										<th style="width: 100px;">集团描述</th>
-										<th style="width: 100px;">创建日期</th>
-										<th style="width: 100px;">修改日期</th>
-										<th style="width: 100px;">微信商户号</th>
-										<th style="width: 100px;">支付宝APPID</th>
+										<th style="width: 100px;">Profile Name</th>
+										<th style="width: 100px;">Profile Desc</th>
+										<th style="width: 100px;">Created At</th>
+										<th style="width: 100px;">Updated At</th>
+										<th style="width: 100px;">Wechat Merchant ID</th>
+										<th style="width: 100px;">Alipay AppID</th>
 										
-										<th style="width:180px;">操作</th>
+										<th style="width:180px;">Operation</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -191,7 +191,7 @@
 												{%> 
 												<a class="btn btn-success" href="GroupManager.jsp?groupid=<%=gup.getId()%>">
 													<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-													修改
+													Edit
 												</a>
 												<%} %>
 												
@@ -199,7 +199,7 @@
 												{%> 
 												<a class="btn btn-info" onclick="Delete(<%=gup.getId() %>);" href="javascript:void(0);">
 													<i class="glyphicon glyphicon-edit icon-white"></i>
-													删除
+													Delete
 												</a>
 												<%} %>
 												</td>
@@ -215,7 +215,7 @@
 												 }
 										    	else 
 										    	{
-										    		out.println("<span class='waring-label'>无集团列表数据！</span>");
+										    		out.println("<span class='waring-label'>Profile List Not Available!</span>");
 										    	}
 										    			
 										  	%>

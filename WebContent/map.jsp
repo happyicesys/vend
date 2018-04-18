@@ -10,7 +10,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -26,7 +26,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER_MAP))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER_MAP]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER_MAP]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -124,8 +124,8 @@
 					%>
 					point = new BMap.Point(<%=vobj.getJindu()%>, <%=vobj.getWeidu()%>);  
 					marker = new BMap.Marker(point);  // 创建标注
-					map.addOverlay(marker);              // 将标注添加到地图中
-					label= new BMap.Label("<%=vobj.getTerminalName()%>:<%=String.format("%03d号售货机",vobj.getId())%><BR/>地址:<%= vobj.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
+					map.addOverlay(marker);              // 将标注添加到Map中
+					label= new BMap.Label("<%=vobj.getTerminalName()%>:<%=String.format("%03d号售货机",vobj.getId())%><BR/>Address:<%= vobj.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
 					marker.setLabel(label);
 					map.addOverlay(marker);
 					<%
@@ -134,16 +134,16 @@
 			%>
 			
 			point = new BMap.Point(<%=vb.getJindu()%>, <%=vb.getWeidu()%>);    // 创建点坐标
-			map.centerAndZoom(point,18);                     // 初始化地图,设置中心点坐标和地图级别。
+			map.centerAndZoom(point,18);                     // 初始化Map,设置中心点坐标和Map级别。
 			marker = new BMap.Marker(point);  // 创建标注
-			map.addOverlay(marker);              // 将标注添加到地图中
+			map.addOverlay(marker);              // 将标注添加到Map中
 		
-			label = new BMap.Label("<%=vb.getTerminalName()%>:<%=String.format("%03d号售货机",id) %><BR/>地址:<%= vb.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
+			label = new BMap.Label("<%=vb.getTerminalName()%>:<%=String.format("%03d号售货机",id) %><BR/>Address:<%= vb.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
 			marker.setLabel(label);
 			map.addOverlay(marker);
 			map.addControl(new BMap.NavigationControl());  
 			map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
-			map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+			map.addControl(new BMap.OverviewMapControl());              //添加缩略Map控件
 		}
 		
 		$(document).ready(function(){
@@ -169,13 +169,13 @@
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">地图信息</li>
+							<li class="active">Map</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -202,13 +202,13 @@
 <%
     		}else
     		{
-        		request.setAttribute("message", "输入参数有误");
+        		request.setAttribute("message", "Parameters input error");
         		request.getRequestDispatcher("message.jsp").forward(request, response);
         		return;
     		}
     	}else
     	{
-    		request.setAttribute("message","输入参数有误");
+    		request.setAttribute("message","Parameters input error");
     		request.getRequestDispatcher("message.jsp").forward(request, response);
     		return;
     	}

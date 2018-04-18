@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>获取OPENID</title>
+<title>Get Open ID</title>
 </head>
 <body style="font-size:2em">
 <%
@@ -37,16 +37,16 @@ if(ub!=null)
     	SnsToken token =SnsAPI.oauth2AccessToken(appid, AppSecret, code);
     	ub.setWx_openid(token.getOpenid());
     	UserBean.updateUser(ub);
-    	pw.println("微信OPENID获取成功，请刷新用户信息页面！");
+    	pw.println("Successfully get Wechat Open ID, please refresh!");
 	}
 	else
 	{
-		pw.println(" 用户无效！");
+		pw.println(" Cannot access, please contact admin");
 	}
 }
 else
 {
-	pw.println(" 参数错误！ ");
+	pw.println(" Parameters Error！ ");
 }
 %>
 </body>

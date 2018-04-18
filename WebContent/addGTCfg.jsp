@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 if(ub==null)
 {
-	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	request.setAttribute("message", "You have no rights to access, please contact admin");
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -17,7 +17,7 @@ if(ub==null)
 
 if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 {
-	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -25,7 +25,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_GOODS))
     {
-    	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_GOODS]);
+    	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_GOODS]);
     	request.getRequestDispatcher("message.jsp").forward(request, response);
     	return;
     }
@@ -46,29 +46,29 @@ function chkForm()
 {
 	if(smartForm.goodsname.value=="")
 	{
-		alert("产品名称不能为空");
+		alert("Product name cannot be empty");
 		return false;
 	}
 	if(smartForm.pic1.value=="")
 	{
-		alert("产品图片不能为空");
+		alert("Product Photo cannot be empty");
 		return false;
 	}
 	
 	if(smartForm.des1.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	
 	if(smartForm.des2.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	if(smartForm.des3.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	return true;
@@ -111,29 +111,29 @@ $(document).ready(function(){
 
 		<table width="80%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#CCCCCC">
 		  <tr class="odd">
-		    <td colspan="2" align="center" class="Main_Title">添加产品信息</td>
+		    <td colspan="2" align="center" class="Main_Title">Add Product Info</td>
 		  </tr>
 		  
 			<tr class="odd">
-				<td width="30%" style="text-align:right;">产品名称</td>
+				<td width="30%" style="text-align:right;">Product Name</td>
 				<td class="left"><input class="white-text" name="goodsname" id="goodsname" type="text" value="" size="50" />
-				建议不超过8个汉字
+				Should not be more than 8 words
 				<input class="green_btn" type="button" value="检测产品是否重复" id="chk_repeat" name="chk_repeat" />
 				<span id="tips_goodsname" style="color: red;"></span>
 				</td>
 			</tr>
 			<tr class="odd">
-				<td style="text-align:right;">产品图片</td>
+				<td style="text-align:right;">Product Photo</td>
 				<td class="left" style="vertical-align: middle;"><iframe src="uploadfile.jsp" frameborder="0" height="30px" width="500px"></iframe>
 					<input name="pic1" type="hidden" value="" id="pic1" /></td>
 			</tr>
 			<tr class="odd">
-				<td style="text-align:right;">参考价格</td>
+				<td style="text-align:right;">Ref Price</td>
 				<td class="left"><input class="white-text" name="price" type="text" /></td>
 			</tr>
 			<tr class="odd">
-				<td style="text-align:right;">产品描述</td>
-				<td class="left"><textarea  class="white-text" style="height: 100px;" name="des1" cols="50" ></textarea>描述内容不能超过200个字符</td>
+				<td style="text-align:right;">Product Desc</td>
+				<td class="left"><textarea  class="white-text" style="height: 100px;" name="des1" cols="50" ></textarea>Content cannot be more than 200 words</td>
 			</tr>
 			<tr class="odd">
 				<td colspan="2" align="center">

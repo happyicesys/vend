@@ -39,7 +39,7 @@
     }
 </style>
 
-<title>提示信息</title>
+<title>Notification</title>
 </head>
 
 <%
@@ -76,7 +76,7 @@
                aria-hidden="true">×
             </button> -->
             <h4 class="modal-title" id="myModalLabel">
-            	用户权限
+            	User Access Level
             </h4>
          </div>
          <div class="modal-body" id="alertcontent">
@@ -84,12 +84,12 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal" onclick="top.location.href='index.jsp';">重新登录
+               data-dismiss="modal" onclick="top.location.href='index.jsp';">Sign In
             </button>
             <%if(!(returl.equals("index.jsp")||(returl.endsWith("index.jsp"))))
 				  {%>
 			  <button type="button" class="btn btn-default" 
-               data-dismiss="modal" onclick="location.href='<%=returl%>';">上一页面</button>
+               data-dismiss="modal" onclick="location.href='<%=returl%>';">Back</button>
 			<%} %>
          </div>
       </div><!-- /.modal-content -->

@@ -7,7 +7,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 if(ub==null)
 {
-	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	request.setAttribute("message", "You have no rights to access, please contact admin");
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -15,7 +15,7 @@ if(ub==null)
 
 if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 {
-	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -23,7 +23,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_GOODS))
     {
-    	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_GOODS]);
+    	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_GOODS]);
     	request.getRequestDispatcher("message.jsp").forward(request, response);
     	return;
     }
@@ -63,25 +63,25 @@ function chkForm()
 {
 	if(smartForm.goodsname.value=="")
 	{
-		alert("产品名称不能为空");
+		alert("Product name cannot be empty");
 		return false;
 	}
 
 	
 	if(smartForm.des1.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	
 	if(smartForm.des2.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	if(smartForm.des3.value.length>200)
 	{
-		alert("描述内容不能超过200个字符");
+		alert("Content cannot be more than 200 words");
 		return false;
 	}
 	return true;
@@ -101,13 +101,13 @@ $(document).ready(function(){
 							<li>
 								<!-- <i class="icon-home home-icon"></i> -->
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">添加产品信息</li>
+							<li class="active">Add Product Info</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -115,7 +115,7 @@ $(document).ready(function(){
 			  <form class="form-horizontal" style="height:700px;" action="./UpLoadGoodsInfo" name="smartForm" method="post" onsubmit="return chkForm();" >
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">产品名称</label>
+				    <label class="col-sm-4 control-label">Product Name</label>
 				    <div class="col-sm-3">
 				      <input type="text" name="goodsname" id="goodsname" class="form-control input-sm" placeholder=""/>
 				    </div>
@@ -125,25 +125,25 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">产品图片</label>
+				    <label class="col-sm-4 control-label">Product Photo</label>
 				    <div class="col-sm-3">
 				    	<iframe src="uploadfile.jsp" frameborder="0" height="30px" width="500px"></iframe>
 				      	<input name="pic1" type="hidden" value="" id="pic1" class="form-control input-sm input-sm"  placeholder=""/>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">参考价格</label>
+				    <label class="col-sm-4 control-label">Ref Price</label>
 				    <div class="col-sm-3">
 				      <input name="price" type="text" class="form-control input-sm input-sm"  placeholder=""/>
 					</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">产品描述</label>
+				    <label class="col-sm-4 control-label">Product Desc</label>
 				    <div class="col-sm-4">
 				      <textarea class="form-control" name="des1" cols="50" rows="10"></textarea>
 				    </div>
 				    <div class="col-sm-3">
-				      <span>描述内容不能超过200个字符</span>
+				      <span>Content cannot be more than 200 words</span>
 				    </div>
 				  </div>
 				  

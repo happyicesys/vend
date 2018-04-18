@@ -7,7 +7,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -15,7 +15,7 @@
 	//System.out.println(ub.getAdminrights());
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -71,7 +71,7 @@
 	                
 	                <li class="dropdown">
 	                    <a href="AddLiuyan.jsp" target="main" style="color: #FFF;">
-	                        <i class="fa fa-comments fa-fw"></i> <span>意见反馈</span>
+	                        <i class="fa fa-comments fa-fw"></i> <span>Feedback</span>
 	                    </a>
 	                    
 	                </li>
@@ -79,13 +79,13 @@
 					{%>
 	                <li class="dropdown">
 	                    <a href="UserInfo.jsp" target="main" style="color: #FFF;">
-	                        <i class="fa fa-info fa-fw"></i> <span>个人信息</span>
+	                        <i class="fa fa-info fa-fw"></i> <span>Personal Message</span>
 	                    </a>
 	                </li>
 	                <%} %>
 	                <li class="dropdown">
 	                    <a href="Exit.jsp" style="color: #FFF;">
-	                        <i class="fa fa-sign-out fa-fw"></i> <span>退出系统</span>
+	                        <i class="fa fa-sign-out fa-fw"></i> <span>Logout</span>
 	                    </a>
 	                    
 	                </li>
@@ -103,38 +103,38 @@
 								) 
 							{%>
 	                        <li>
-	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> 设备管理<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting Management<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 									{%>
-	                                <li><a href="./VenderList" target="main">售货机列表</a></li>
+	                                <li><a href="./VenderList" target="main">Vending Machine List</a></li>
 	                                <%} %>
 	                                
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_VENDER))
 									{%>
-									<li><a href="AddVender.jsp" target="main">添加售货机</a></li>
+									<li><a href="AddVender.jsp" target="main">Add Vending</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER_MAP))
 									{%>
-									<li><a href="map.jsp" target="main">地图信息</a></li>
+									<li><a href="map.jsp" target="main">Map</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_PORT))
 									{%>
-									<li><a href="PortList.jsp" target="main">货道列表</a></li>
-									<li><a href="quick_look.jsp" target="main">缺货快速浏览</a></li>
-									<li><a href="quick_err_look.jsp" target="main">故障快速浏览</a></li>
+									<li><a href="PortList.jsp" target="main">Channel List</a></li>
+									<li><a href="quick_look.jsp" target="main">Out of Stock List</a></li>
+									<li><a href="quick_err_look.jsp" target="main">Malfunction Quick View</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_GOODS)) 
 									{%>
-									<li><a href="./GoodsList" target="main">商品列表</a></li>
+									<li><a href="./GoodsList" target="main">Product List</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_GOODS)) 
 									{%>
-									<li><a href="addGoodsInfo.jsp" target="main">添加商品</a></li>
+									<li><a href="addGoodsInfo.jsp" target="main">Add Product</a></li>
 									<%} %>
 									
 	                            </ul>
@@ -147,28 +147,28 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 交易管理<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction Management<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TRADE_RECORD)) 
 									{%>
-	                                <li><a href="TradeList.jsp" target="main">交易查询</a></li>
+	                                <li><a href="TradeList.jsp" target="main">Transaction Inquiry</a></li>
 	                                <%} %>
 	                                
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_STASTIC)) 
 									{%>
-	                                <li><a href="Report.jsp" target="main">月报表</a></li>
-	                                <li><a href="Report2.jsp" target="main">日报表</a></li>
-									<li><a href="Audit.jsp" target="main">交易统计</a></li>
+	                                <li><a href="Report.jsp" target="main">Monthly Report</a></li>
+	                                <li><a href="Report2.jsp" target="main">Daily Report</a></li>
+									<li><a href="Audit.jsp" target="main">Transaction Staticstic</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_REFUND)) 
 									{%>
-									<li><a href="feeback.jsp" target="main">交易人工退款</a></li>
+									<li><a href="feeback.jsp" target="main">Manual Refund</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_REFUND_LOG)) 
 									{%>
-									<li><a href="viewfeebacklog.jsp" target="main">查看退款记录</a></li>
+									<li><a href="viewfeebacklog.jsp" target="main">Check Refund Record</a></li>
 									<%} %>
 	                            </ul>
 	                        </li>
@@ -182,36 +182,36 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 高级管理<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Admin Management<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_BIND_AL_WX_USER)) 
 									{%>
-	                                <li><a href="BindVenderToUser.jsp" target="main">账号绑定</a></li>
+	                                <li><a href="BindVenderToUser.jsp" target="main">Account Binding</a></li>
 	                                <%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_DELTE_VENDER)) 
 									{%>
-	                          	    <li><a href="DelVender.jsp" target="main">删除售货机</a></li>
+	                          	    <li><a href="DelVender.jsp" target="main">Remove Vending Machine</a></li>
 	                          	    <%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_FETCH_GOODS_CODE)) 
 									{%>
-									<li><a href="FetchGoodsCodeList.jsp" target="main">取货码列表</a></li>
+									<li><a href="FetchGoodsCodeList.jsp" target="main">Retrieve Product List</a></li>
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_GROUP_ID)) 
 									{%>
-									<li><a href="GroupList.jsp" target="main">集团列表</a></li>
+									<li><a href="GroupList.jsp" target="main">Profile List</a></li>
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CREATE_GROUP_ID)) 
 									{%>
-									<li><a href="AddGroup.jsp" target="main">添加集团</a></li>
+									<li><a href="AddGroup.jsp" target="main">Add Profile</a></li>
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_MOD_SELF_GROUP_ID)) 
 									{%>
-									<li><a href="GroupManager.jsp" target="main">本集团修改</a></li>
+									<li><a href="GroupManager.jsp" target="main">Profile Edit</a></li>
 									<%} %>
 									
 									<%if(ub.getAdminusername().toLowerCase().equals(clsConst.POWER_USER_NAME)) //
 									{%>
-									<li><a href="DoRequestOperation.jsp" target="main">特殊操作</a></li>
+									<li><a href="DoRequestOperation.jsp" target="main">Special Operation</a></li>
 									<%} %>
 	                            </ul>
 	                        </li>
@@ -223,19 +223,19 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-users fa-fw"></i> 用户管理<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-users fa-fw"></i> User Management<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST)) 
 									{%>
-	                                <li><a href="UserList.jsp" target="main">管理员管理</a></li>
+	                                <li><a href="UserList.jsp" target="main">Manager Management</a></li>
 	                                <%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST)) 
 									{%>
-									<li><a href="AddUser.jsp"  target="main">添加管理员</a></li>
+									<li><a href="AddUser.jsp"  target="main">Add Manager</a></li>
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_SET_MYSELF_INFO))
 									{%>
-									<li><a href="UserInfo.jsp" target="main">个人信息管理</a></li>
+									<li><a href="UserInfo.jsp" target="main">Personal Message Management</a></li>
 									<%} %>
 	                            </ul>
 	                        </li>
@@ -247,25 +247,25 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> 会员管理<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Customer Management<span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_CUSTOMER))
 									{%>
-									<li><a href="AddCustomer.jsp" target="main">添加会员</a></li>
+									<li><a href="AddCustomer.jsp" target="main">Add Customer</a></li>
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CHANGE_CUSTOMER)) 
 									{%>
-	                                <li><a href="CustomerList.jsp" target="main">会员管理</a></li>
+	                                <li><a href="CustomerList.jsp" target="main">Customer Management</a></li>
 	                                <%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CHARGE_FOR_CUSTOMER)) 
 									{%>
-									<li><a href="customercharge.jsp"  target="main">会员充值</a></li>
-									<li><a href="chargedatalst.jsp"  target="main">充值记录</a></li>
+									<li><a href="customercharge.jsp"  target="main">Customer Topup</a></li>
+									<li><a href="chargedatalst.jsp"  target="main">Topup Record</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_SWIPE_QUHUO)) 
 									{%>
-									<li><a href="quhuo.jsp"  target="blank">批量提货刷卡</a></li>
+									<li><a href="quhuo.jsp"  target="blank">Batch Swipe Card</a></li>
 									<%} %>
 	                            </ul>
 	                        </li>

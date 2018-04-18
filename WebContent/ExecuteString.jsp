@@ -36,11 +36,11 @@
 	{
 		if(SqlADO.exec(sqlstring))
 		{
-			out.print("执行成功");
+			out.print("Successful");
 			out.print("<br>"+sqlstring);
 		}else
 		{
-			out.print("执行失败");
+			out.print("Failed");
 			out.print("<br>"+sqlstring);
 		}
 	}

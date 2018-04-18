@@ -16,7 +16,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -24,7 +24,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -33,7 +33,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_TRADE_RECORD))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_TRADE_RECORD]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_TRADE_RECORD]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -220,50 +220,50 @@ background-color: #F5F5F5;
 	            detailFormatter:detailFormatter,
 	            columns: [{
 	                field: 'id',
-	                title: '序号'
+	                title: 'ID'
 	            }, {
 	                field: 'liushuiid',
-	                title: '交易编号'
+	                title: 'Transaction ID'
 	            }, {
 	                field: 'orderid',
-	                title: '订单号'
+	                title: 'Order ID'
 	            }, {
 	                field: 'receivetime',
-	                title: '交易时间'
+	                title: 'Transaction time'
 	            }, {
 	                field: 'price',
-	                title: '金额'
+	                title: 'Amount'
 	            }, {
 	                field: 'coin_credit',
-	                title: '投入硬币'
+	                title: 'Insert Coin'
 	            },  {
 	                field: 'bill_credit',
-	                title: '投入纸币'
+	                title: 'Insert Bill'
 	            },  /*{
 	                field: 'changes',
 	                title: '找零'
 	            },*/ {
 	                field: 'tradetype',
-	                title: '交易类型'
+	                title: 'Transaction Type'
 	            },{
 	                field: 'goodmachineid',
-	                title: '货机号'
+	                title: 'Vending ID'
 	            },{
 	                field: 'inneridname',
-	                title: '货道号'
+	                title: 'Product ID'
 	            },{
 	                field: 'goodsName',
-	                title: '商品名称'
+	                title: 'Product Name'
 	            }, {
 	                field: 'changestatus',
-	                title: '支付'
+	                title: 'Payment'
 	            },{
 	                field: 'sendstatus',
-	                title: '出货'
+	                title: 'Send'
 	            },
 	            {
 	                field: 'opbut',
-	                title: '操作'
+	                title: 'Operation'
 	            }
 	            ]
 	        });
@@ -296,11 +296,11 @@ background-color: #F5F5F5;
     	var html;
     	if(row.tradetypeid==<%=clsConst.TRADE_TYPE_AL_QR %>)
     	{
-    		html="支付宝用户名:"+row.cardinfo +"<br/>支付宝订单号:"+row.tradeid;
+    		html="Alipay Username:"+row.cardinfo +"<br/>Alipay Transaction ID:"+row.tradeid;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_WX_QR %>)
     	{
-    		html="微信识别号:"+row.cardinfo +"<br/>微信订单号:"+row.tradeid;
+    		html="Wechat User ID:"+row.cardinfo +"<br/>Wechat Transaction ID:"+row.tradeid;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_CARD%>)
     	{
@@ -308,11 +308,11 @@ background-color: #F5F5F5;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_BANK%>)
     	{
-    		html="银行卡号:"+row.cardinfo ;
+    		html="Bankcard Number:"+row.cardinfo ;
     	}
     	else
     	{
-    		html="无其他附加信息！";
+    		html="No other message";
     	}
         return html;
     }
@@ -325,12 +325,12 @@ background-color: #F5F5F5;
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 			<li>
-				<a href="#">交易管理</a>
+				<a href="#">Transaction Management</a>
 			</li>
-			<li class="active">交易查询</li>
+			<li class="active">Transaction Inquiry</li>
 		</ul>
 	</div>
 	<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -338,36 +338,36 @@ background-color: #F5F5F5;
 			  	<form class="form-horizontal" role="form" action="TradeList.jsp" name="form1" method="post">
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
-							<label>时　　间：</label>
+							<label>Time</label>
 							<label><input  name="sdate" id="stratTime" size="9" class="form-control input-sm" type="text" value="<%=StartDate%>"  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" /></label>&nbsp;-&nbsp;<label><input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" value="<%=EndDate%>"  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
 							</label>
-							<label>订单编号：</label>
+							<label>Transaction ID</label>
 							  <label><input type="text" size="18" class="form-control input-sm" name="orderid" id="orderid" value="<%=orderId%>" placeholder="" aria-controls="dataTables-example"></label>
-							<label>&nbsp;卡号/微信识别号/支付账号：</label>
+							<label>&nbsp;Credit Card No/Wechat User ID/Payment Acc:</label>
 							  <label><input type="text" size="18" class="form-control input-sm" name="CardNumber" id="CardNumber" value="<%=CardNumber%>" placeholder="" aria-controls="dataTables-example"></label>
-							<label>&nbsp;&nbsp;售货机号：</label>
+							<label>&nbsp;&nbsp;Vending ID:</label>
 							  <label><input size="18" type="text" class="form-control input-sm" name="sellerid" id="sellerid" value="<%=SellerId%>" placeholder="" aria-controls="dataTables-example">可以用英文“,”隔开多个机器编号，以便同时查询多台机器的交易</label>
 						</div>
 					</div>
 					<div class="col-xs-12"> 
 						<div class="dataTables_length" id="dataTables-example_length">
-							<label>货道编号：</label>
+							<label>Channel ID:</label>
 							  <label><input type="text" size="26" class="form-control input-sm" name="portid" id="portid" value="<%=PortId%>" placeholder="" aria-controls="dataTables-example"></label>
-							<label>交易方式：</label>
+							<label>Transaction Method:</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="<%=clsConst.TRADE_TYPE_NO_LIMIT%>" <%=((tradetype==clsConst.TRADE_TYPE_NO_LIMIT)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 不限
 							</label>
 							<label class="radio-inline"  style="padding-top:0px;">
-							  <input value="<%=clsConst.TRADE_TYPE_CASH%>" <%=((tradetype==clsConst.TRADE_TYPE_CASH)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 现金
+							  <input value="<%=clsConst.TRADE_TYPE_CASH%>" <%=((tradetype==clsConst.TRADE_TYPE_CASH)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> Cash
 							</label>
 							<label class="radio-inline"  style="padding-top:0px;">
-							  <input value="<%=clsConst.TRADE_TYPE_CARD%>" <%=((tradetype==clsConst.TRADE_TYPE_CARD)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 刷卡
+							  <input value="<%=clsConst.TRADE_TYPE_CARD%>" <%=((tradetype==clsConst.TRADE_TYPE_CARD)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> Card
 							</label>
 							<label class="radio-inline"  style="padding-top:0px;">
 							  <input value="<%=clsConst.TRADE_TYPE_WX_QR%>" <%=((tradetype==clsConst.TRADE_TYPE_WX_QR)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 微信
 							</label>
 							<label class="radio-inline"  style="padding-top:0px;">
-							  <input value="<%=clsConst.TRADE_TYPE_AL_QR%>" <%=((tradetype==clsConst.TRADE_TYPE_AL_QR)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 支付宝
+							  <input value="<%=clsConst.TRADE_TYPE_AL_QR%>" <%=((tradetype==clsConst.TRADE_TYPE_AL_QR)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> Alipay
 							</label>
 							<label class="radio-inline"  style="padding-top:0px;">
 							  <input value="<%=clsConst.TRADE_TYPE_BANK%>" <%=((tradetype==clsConst.TRADE_TYPE_BANK)?"checked=\"checked\"":"")%> type="radio" name="tradetype">银行卡
@@ -375,7 +375,7 @@ background-color: #F5F5F5;
 							<label class="radio-inline"  style="padding-top:0px;">
 							  <input value="<%=clsConst.TRADE_TYPE_COCO%>" <%=((tradetype==clsConst.TRADE_TYPE_COCO)?"checked=\"checked\"":"")%> type="radio" name="tradetype">FreeVend
 							</label>
-							<label>&nbsp;是否成功：</label>
+							<label>&nbsp;Is Successful:</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="0" <%=((Success==0)?"checked=\"checked\"":"") %> type="radio" name="success"> 不限
 							</label>
@@ -386,7 +386,7 @@ background-color: #F5F5F5;
 							  <input value="2" <%=((Success==2)?"checked=\"checked\"":"") %> type="radio" name="success"> 失败
 							</label>
 							
-							<label>&nbsp;是否结算：</label>
+							<label>&nbsp;Is calculated:</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
 							</label>

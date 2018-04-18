@@ -10,7 +10,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -27,7 +27,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_REFUND))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_REFUND]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_REFUND]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -98,7 +98,7 @@ $(document).ready(function(){
 	        dataType: "text",
 	        error:(function(obj,txtmes,txtmes2){
 	            $("body").hideLoading();  
-	            $("#tips").text("退费失败！"+obj.status+"错误");
+	            $("#tips").text("Refund Failure"+obj.status+" Error");
 	            })
 	    		
 	      });	  
@@ -116,13 +116,13 @@ $(document).ready(function(){
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">交易管理</a>
+								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">交易退款</li>
+							<li class="active">Refund Transaction</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -130,32 +130,32 @@ $(document).ready(function(){
 			  	<form class="form-horizontal" role="form"   method="post" name="form1">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户密码</label>
+				    <label class="col-sm-4 control-label">User Password</label>
 				    <div class="col-sm-3">
-				      <input id="pwd" name="pwd" type="password" class="form-control input-sm input-sm" value="" placeholder="密码(必填)">
+				      <input id="pwd" name="pwd" type="password" class="form-control input-sm input-sm" value="" placeholder="Password(Required)">
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">交易订单号</label>
+				    <label class="col-sm-4 control-label">Transaction ID</label>
 				    <div class="col-sm-3">
-				      <input name="out_trade_id" value="<%=tb!=null?tb.getOrderid():"" %>" id="out_trade_id" type="text" class="form-control input-sm"  placeholder="订单号(必填)">
+				      <input name="out_trade_id" value="<%=tb!=null?tb.getOrderid():"" %>" id="out_trade_id" type="text" class="form-control input-sm"  placeholder="Order ID(Required)">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">交易价格</label>
+				    <label class="col-sm-4 control-label">Total</label>
 				    <div class="col-sm-3">
 				      <input name="out_trade_price" readonly="readonly" value="<%=tb!=null?String.format("%1.2f",tb.getPrice()/100.0):"" %>" id="out_trade_price" type="text" class="form-control input-sm">
 				    </div>
-				    <div class="col-sm-5">不必填写，仅供参考</div>
+				    <div class="col-sm-5">Only for referrance</div>
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">交易时间</label>
+				    <label class="col-sm-4 control-label">Transaction time</label>
 				    <div class="col-sm-3">
 				      <input name="out_trade_time" readonly="readonly" value="<%=tb!=null?tb.getReceivetime():"" %>" id="out_trade_time" type="text" class="form-control input-sm">
 				    </div>
-				    <div class="col-sm-5">不必填写，仅供参考</div>
+				    <div class="col-sm-5">Only for referrance</div>
 				  </div>
 				  
 				  <div class="form-group">

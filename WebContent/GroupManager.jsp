@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,7 +17,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -36,7 +36,7 @@
 		{
 			if(!ub.AccessAble(UserBean.FUNID_CAN_CHANGE_GROUP_ID))
 			{
-				request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CHANGE_GROUP_ID]);
+				request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CHANGE_GROUP_ID]);
 				request.setAttribute("LAST_URL", "index.jsp");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
@@ -47,7 +47,7 @@
 	{
 		if(!ub.AccessAble(UserBean.FUNID_CAN_MOD_SELF_GROUP_ID))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_MOD_SELF_GROUP_ID]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_MOD_SELF_GROUP_ID]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -110,14 +110,14 @@ var chk=function()
 	{
 		if(form1.pwd.value.length<6)
 		{
-			objDiv.innerText="密码不足6位！";
+			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
 		
 		if((form1.pwd.value)!=(form1.repwd.value))
 		{
 
-			objDiv.innerText="两次密码输入不一致！";
+			objDiv.innerText="Password confirmation does not match";
 			return false;
 		}
 	}
@@ -152,20 +152,20 @@ var closePanel=function()
 
 </script>
 
-<title>个人信息</title>
+<title>Personal Message</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">高级管理</a>
+								<a href="#">Admin Management</a>
 							</li>
-							<li class="active">集团信息</li>
+							<li class="active">Profile Message</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -173,88 +173,88 @@ var closePanel=function()
 			  	<form class="form-horizontal" role="form" action="UpdateGroup" method="post" name="form1" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团名称</label>
+				    <label class="col-sm-4 control-label">Profile Name</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="groupdes" readonly="readonly" class="form-control input-sm input-sm"  value="<%=groupBean.getGroupname() %>" placeholder="集团描述">
+				      <input type="text" name="groupdes" readonly="readonly" class="form-control input-sm input-sm"  value="<%=groupBean.getGroupname() %>" placeholder="Profile Desc">
 				      <input type="hidden" name="groupid" value="<%=groupBean.getId() %>" />
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团描述</label>
+				    <label class="col-sm-4 control-label">Profile Desc</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="groupdes" class="form-control input-sm input-sm"  value="<%=groupBean.getGroupdes() %>" placeholder="集团描述">
+				      <input type="text" name="groupdes" class="form-control input-sm input-sm"  value="<%=groupBean.getGroupdes() %>" placeholder="Profile Desc">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">添加关注时的欢迎信息</label>
+				    <label class="col-sm-4 control-label">Welcome Message</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="WelcomeMessage" id="WelcomeMessage" class="form-control input-sm input-sm"  value="<%=groupBean.getWelcomeMessage() %>" placeholder="添加关注时的欢迎信息">
+				      <input type="text" name="WelcomeMessage" id="WelcomeMessage" class="form-control input-sm input-sm"  value="<%=groupBean.getWelcomeMessage() %>" placeholder="Welcome Message">
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 						<input name="Creattime" readonly="readonly" type="text" class="form-control input-sm" value="<%=ToolBox.getYMDHMS(groupBean.getCreattime()) %>">				      
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近修改时间</label>
+				    <label class="col-sm-4 control-label">Latest Update Time</label>
 				    <div class="col-sm-3">
 				      <input name="updatetime" readonly="readonly" type="text" class="form-control input-sm" value="<%=ToolBox.getYMDHMS(groupBean.getUpdatetime()) %>">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">最近修改人员</label>
+				    <label class="col-sm-4 control-label">Latest Update By</label>
 				    <div class="col-sm-3">
 				      <input name="adminusername" readonly="readonly" type="text" class="form-control input-sm" value="<%=groupBean.getAdminusername() %>" >
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信APPID</label>
+				    <label class="col-sm-4 control-label">Wechat AppID</label>
 				    <div class="col-sm-3">
 				      <input id="wx_appid" name="wx_appid"  class="form-control input-sm"  type="text"  value="<%=groupBean.getWx_appid() %>" />
 				    </div>
 				    <div class="col-sm-5">
-				      <label>在微信公众号中获取,必填</label>
+				      <label>Required</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信密钥</label>
+				    <label class="col-sm-4 control-label">Wechat key</label>
 				    <div class="col-sm-3">
 				      <input id="wx_key" name="wx_key"  class="form-control input-sm"  type="text"  value="<%=groupBean.getWx_key() %>" />
 				    </div>
 				    <div class="col-sm-5">
-				      <label>在微信商户平台中设置并获取,必填</label>
+				      <label>Required</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信商户号</label>
+				    <label class="col-sm-4 control-label">Wechat Merchant ID</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_mch_id"  name="wx_mch_id" class="form-control input-sm"  type="text"  value="<%=groupBean.getWx_mch_id()%>" />
 				    </div>
 				    <div class="col-sm-5">
-				      <!--<label><a href="wxhelp.html">微信账号信息的获取方法</a></label>  -->
-				      <label>在微信商户平台中获取,必填</label>
+				      <!--<label><a href="wxhelp.html">Wechat Help</a></label>  -->
+				      <label>Required</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信应用密钥</label>
+				    <label class="col-sm-4 control-label">Wechat App Secret</label>
 				    <div class="col-sm-3">
 				      <input  id="AppSecret"  name="AppSecret" class="form-control input-sm"  type="text"  value="<%=groupBean.getAppsecret()%>" />
 				    </div>
 				    <div class="col-sm-5">
-				      <!--<label><a href="wxhelp.html">微信账号信息的获取方法</a></label>  -->
-				      <label>选填,公众号应用会用到</label>
+				      <!--<label><a href="wxhelp.html">Wechat Help</a></label>  -->
+				      <label>Optional</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信回调地址</label>
+				    <label class="col-sm-4 control-label">Wechat Notify URL</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_notify_url" name="wx_notify_url" readonly="readonly" class="form-control input-sm" type="text"  value="<%=groupBean.getWx_notify_url()%>" />
 				    </div>
@@ -262,53 +262,53 @@ var closePanel=function()
 				  
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">服务器IP地址</label>
+				    <label class="col-sm-4 control-label">Server IP</label>
 				    <div class="col-sm-3">
 				      <input  id="ServerIp"  name="ServerIp" readonly="readonly" class="form-control input-sm"  type="text"  value="<%=groupBean.getServerIp()%>" />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝合作者ID</label>
+				    <label class="col-sm-4 control-label">Alipay Partner ID</label>
 				    <div class="col-sm-3">
 				     <input id="al_PARTNER_ID" name="al_PARTNER_ID"  class="form-control input-sm"  type="text"  value="<%=groupBean.getAl_PARTNER()%>" />
 				    </div>
 				    <div class="col-sm-5">
-				      <!-- <label><a href="wxhelp.html">支付宝账号信息的获取方法</a></label> -->
-				      <label>在支付宝平台中获取</label>
+				      <!-- <label><a href="wxhelp.html">Alipay Help</a></label> -->
+				      <label>Required</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝当面付APPID</label>
+				    <label class="col-sm-4 control-label">Alipay face pay App ID</label>
 				    <div class="col-sm-3">
 				     <input id="al_APP_ID" name="al_APP_ID"  class="form-control input-sm"  type="text"  value="<%=groupBean.getAl_APP_ID()%>" />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝当面付私钥</label>
+				    <label class="col-sm-4 control-label">Alipay private key</label>
 				    <div class="col-sm-3">
 				      <textarea name="al_PRIVATE_KEY" id="al_PRIVATE_KEY" rows="10"  class="form-control input-sm" ><%=groupBean.getAl_PRIVATE_KEY()%></textarea>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝当面付公钥</label>
+				    <label class="col-sm-4 control-label">Alipay public key</label>
 				    <div class="col-sm-3">
 				      <textarea name="al_PUBLIC_KEY" id="al_PUBLIC_KEY"  rows="10"  class="form-control input-sm" ><%=groupBean.getAl_PUBLIC_KEY()%></textarea>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">签名方式</label>
+				    <label class="col-sm-4 control-label">Signature Method</label>
 				    <div class="col-sm-3">
 				      <input name="al_SIGN_TYPE" id="al_SIGN_TYPE" readonly="readonly" type="text" class="form-control input-sm" value="<%=groupBean.getAl_SIGN_TYPE()%>">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝回调地址</label>
+				    <label class="col-sm-4 control-label">Alipay Notify URL</label>
 				    <div class="col-sm-3">
 				      <input name="notify_url" id="notify_url" readonly="readonly" type="text" class="form-control input-sm" value="<%=groupBean.getNotify_url()%>">
 				    </div>

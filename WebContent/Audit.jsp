@@ -12,7 +12,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -20,7 +20,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -28,7 +28,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_STASTIC))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_STASTIC]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -39,7 +39,7 @@
 <html>
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>交易统计</title>
+    <title>Transaction Staticstic</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -136,13 +136,13 @@
 	<ul class="breadcrumb">
 		<li>
 			<span class="glyphicon glyphicon-home"></span>
-			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 				</li>
 
 				<li>
-					<a href="#">交易管理</a>
+					<a href="#">Transaction Management</a>
 				</li>
-				<li class="active">交易统计</li>
+				<li class="active">Transaction Staticstic</li>
 			</ul>
 		</div>
 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -150,13 +150,13 @@
 		<div class="col-xs-12">
 			<div class="dataTables_length" id="dataTables-example_length">
 				<form class="form-horizontal" role="form">
-					<label>日期:</label>
+					<label>Date:</label>
 					<input  name="sdate" id="stratTime" size="10" class="form-control input-sm" style="width:10em;" type="text"  readonly="readonly" value="<%=ToolBox.getYMD(beginDate)%> "  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" />
 			&nbsp;-
 			<input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" readonly="readonly"  value="<%=ToolBox.getYMD(endDate)%> "  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
 			<input class="blue_btn" type="submit" value="确定"/>
 			
-			<%=tem?"<span class='waring-label'>前后时间差不超过30天</span>":"" %>
+			<%=tem?"<span class='waring-label'>No more than 30 days</span>":"" %>
 				</form>
 			</div>
 		</div>

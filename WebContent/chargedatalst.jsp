@@ -16,7 +16,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -24,7 +24,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -33,7 +33,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_CHARGE_FOR_CUSTOMER))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_TRADE_RECORD]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_TRADE_RECORD]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -193,7 +193,7 @@ background-color: #F5F5F5;
 	            pagination: true,                   //是否显示分页（*）
 	            sortable: false,                     //是否启用排序
 	            sortOrder: "asc",                   //排序方式
-	            queryParams: oTableInit.queryParams,//传递参数（*）
+	            queryParams: oTableInit.queryParams,//传递Parameters（*）
 	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
 	            pageNumber:1,                       //初始化加载第一页，默认第一页
 	            pageSize: 50,                       //每页的记录行数（*）
@@ -207,37 +207,37 @@ background-color: #F5F5F5;
 	            /*detailFormatter:detailFormatter,*/
 	            columns: [{
 	                field: 'id',
-	                title: '序号'
+	                title: 'ID'
 	            }, {
 	                field: 'tradeid',
-	                title: '交易号'
+	                title: 'Transaction ID'
 	            },{
 	                field: 'adminname',
-	                title: '充值管理员'
+	                title: 'Admin Name'
 	            }, {
 	                field: 'customername',
-	                title: '会员名'
+	                title: 'Customer Name'
 	            },{
 	                field: 'id_string',
-	                title: '唯一识别号'
+	                title: 'Unique ID'
 	            },  {
 	                field: 'cardinfo',
-	                title: '卡号'
+	                title: 'Credit Card No'
 	            }, {
 	                field: 'gmt',
-	                title: '充值时间'
+	                title: 'Topup Time'
 	            }, {
 	                field: 'amount',
-	                title: '充值金额'
+	                title: 'Topup Amount'
 	            },  {
 	                field: 'amount_after_charge',
-	                title: '充值后余额'
+	                title: 'Balance'
 	            }
 	            ]
 	        });
 	    };
 
-	    //得到查询的参数
+	    //得到查询的Parameters
 	  oTableInit.queryParams = function (params) {
 	        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 	            limit: params.limit,   //页面大小
@@ -259,11 +259,11 @@ background-color: #F5F5F5;
     	var html;
     	if(row.tradetypeid==<%=clsConst.TRADE_TYPE_AL_QR %>)
     	{
-    		html="支付宝用户名:"+row.cardinfo +"<br/>支付宝订单号:"+row.tradeid;
+    		html="Alipay Username:"+row.cardinfo +"<br/>Alipay Transaction ID:"+row.tradeid;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_WX_QR %>)
     	{
-    		html="微信识别号:"+row.cardinfo +"<br/>微信订单号:"+row.tradeid;
+    		html="Wechat User ID:"+row.cardinfo +"<br/>Wechat Transaction ID:"+row.tradeid;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_CARD%>)
     	{
@@ -271,11 +271,11 @@ background-color: #F5F5F5;
     	}
     	else if(row.tradetypeid==<%=clsConst.TRADE_TYPE_BANK%>)
     	{
-    		html="银行卡号:"+row.cardinfo ;
+    		html="Bankcard Number:"+row.cardinfo ;
     	}
     	else
     	{
-    		html="无其他附加信息！";
+    		html="No other message";
     	}
         return html;
     }
@@ -288,12 +288,12 @@ background-color: #F5F5F5;
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 			<li>
-				<a href="#">交易管理</a>
+				<a href="#">Transaction Management</a>
 			</li>
-			<li class="active">交易查询</li>
+			<li class="active">Transaction Inquiry</li>
 		</ul>
 	</div>
 	<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -301,14 +301,14 @@ background-color: #F5F5F5;
 			  	<form class="form-horizontal" role="form" action="TradeList.jsp" name="form1" method="post">
 					<div class="col-xs-12">
 						<div class="dataTables_length" id="dataTables-example_length">
-							<label>时间：</label>
+							<label>Time</label>
 							<label><input  name="sdate" id="stratTime" size="9" class="form-control input-sm" type="text" value="<%=StartDate%>"  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" /></label>&nbsp;-&nbsp;<label><input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" value="<%=EndDate%>"  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
 							</label>
-							<label>订单编号：</label>
+							<label>Transaction ID</label>
 							  <label><input type="text" size="18" class="form-control input-sm" name="tradeid" id="tradeid" value="<%=tradeid%>"  aria-controls="dataTables-example"></label>
-							<label>&nbsp;卡号：</label>
+							<label>&nbsp;Card ID</label>
 							  <label><input type="text" size="18" class="form-control input-sm" name="cardinfo" id="cardinfo" value="<%=cardinfo%>"  aria-controls="dataTables-example"></label>
-							  <label>&nbsp;唯一识别号：</label>
+							  <label>&nbsp;Unique ID:</label>
 							  <label><input type="text" size="18" class="form-control input-sm" name="id_string" id="id_string" value="<%=id_string%>"  aria-controls="dataTables-example"></label>
 							<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="getpost();" value="提交"></input>
 							<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="clr();" value="清除"></input>

@@ -26,7 +26,7 @@
 	m:<input type="text" name="m"/>
 	f:<input type="text" name="f"/>
 		
-	<button type="submit">提交</button>
+	<button type="submit">Submit</button>
 	</form>
 	<br/>
 	<%
@@ -60,7 +60,7 @@
 	<input type="hidden" name="act" value="1"/>
 	<input type="text" name="mid" value="${mid}"><br/>
 	
-	<button type="submit">创建公钥</button>
+	<button type="submit">Create Public Key</button>
 	</form>
 </body>
 </html>

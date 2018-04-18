@@ -7,7 +7,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -15,7 +15,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -23,7 +23,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_UPLOAD_FILE))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPLOAD_FILE]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPLOAD_FILE]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -37,11 +37,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link REL="stylesheet" type="text/css" href="css/main.css">
 <link REL="stylesheet" type="text/css" href="css/styles.css">
-<title>上传图片</title>
+<title>Upload Picture</title>
 </head>
 <body style="margin: 0px; text-align: left;">
 	<form action="./UpLoadFile" name="smartForm" method="post" enctype="multipart/form-data">
-		<input class="white-text" type="file" name="pic1" /> 图片最佳大小:367*435 <input class="green_btn" type="submit" value="提交">
+		<input class="white-text" type="file" name="pic1" /> Recommanded Size:367*435 <input class="green_btn" type="submit" value="提交">
 	</form>
 	
 </body>

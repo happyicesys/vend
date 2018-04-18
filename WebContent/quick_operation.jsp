@@ -10,7 +10,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -32,7 +32,7 @@
 <link href="./css/styles.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/csshovernotie6.js"></script>
 
-<title>售货机参数快捷操作</title>
+<title>Vending Parameter List</title>
 </head>
 <body style="margin: 5px;">
 <div style="text-align:center;margin:auto;">
@@ -40,10 +40,10 @@
 		<form action="" name="form1" style="margin:0px;padding: 0px;">
 			<input type="hidden" value="<%=clsConst.ACTION_SET_PRICE %>">
 			<ul>
-				<li style="text-align: center;line-height:40px;">批量设置价格</li>
-				<li style="line-height: 40px;">机器编号:　<input type="text" name="mid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">货道编号:　<input type="text" name="sid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">价　　格:　<input type="text" name="val" value="" class="white-text"/>元</li>
+				<li style="text-align: center;line-height:40px;">Bundle Sales Price</li>
+				<li style="line-height: 40px;">Vending Machine ID:　<input type="text" name="mid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Channel ID:　<input type="text" name="sid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Price:　<input type="text" name="val" value="" class="white-text"/>Dollar</li>
 				<li style="line-height: 40px;text-align: center;">
 					<input class="blue_btn" type="submit" value="确定">
 					<input class="blue_btn" type="button" value="清除">
@@ -54,12 +54,12 @@
 	
 	<div>
 		<form action="">
-			批量设置折扣
+			Bundle Sales Discount
 			<input type="hidden" value="<%=clsConst.ACTION_SET_DISCOUNT %>">
 			<ul>
-				<li style="line-height: 40px;">机器编号:　<input type="text" name="mid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">货道编号:　<input type="text" name="sid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">折　　扣:　<input type="text" name="val" value="" class="white-text"/>元</li>
+				<li style="line-height: 40px;">Vending Machine ID:　<input type="text" name="mid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Channel ID:　<input type="text" name="sid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Discount:　<input type="text" name="val" value="" class="white-text"/>Dollar</li>
 			</ul>
 			<input class="blue_btn" type="submit" value="确定">
 			<input class="blue_btn" type="button" value="清除">
@@ -68,12 +68,12 @@
 	
 	<div>
 		<form action="">
-			批量设置容量
+			Bundle Sales Setting
 			<input type="hidden" value="<%=clsConst.ACTION_SET_CAPACITY %>">
 			<ul>
-				<li style="line-height: 40px;">机器编号:　<input type="text" name="mid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">货道编号:　<input type="text" name="sid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">容　　量:　<input type="text" name="val" value="" class="white-text"/>　元</li>
+				<li style="line-height: 40px;">Vending Machine ID:　<input type="text" name="mid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Channel ID:　<input type="text" name="sid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Volume:　<input type="text" name="val" value="" class="white-text"/>　元</li>
 			</ul>
 			<input class="blue_btn" type="submit" value="确定">
 			<input class="blue_btn" type="button" value="清除">
@@ -81,12 +81,12 @@
 	</div>
 	<div>
 		<form action="">
-			批量设置库存
+			Bundle Sales Storage
 			<input type="hidden" value="<%=clsConst.ACTION_SET_STOCK %>">
 			<ul>
-				<li style="line-height: 40px;">机器编号:　<input type="text" name="mid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">货道编号:　<input type="text" name="sid" value="" class="white-text"/></li>
-				<li style="line-height: 40px;">库　　存:　<input type="text" name="val" value="" class="white-text"/>元</li>
+				<li style="line-height: 40px;">Vending Machine ID:　<input type="text" name="mid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Channel ID:　<input type="text" name="sid" value="" class="white-text"/></li>
+				<li style="line-height: 40px;">Storage:　<input type="text" name="val" value="" class="white-text"/>Dollar</li>
 			</ul>
 			<input class="blue_btn" type="submit" value="确定">
 			<input class="blue_btn" type="button" value="清除">

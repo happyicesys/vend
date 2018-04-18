@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,7 +17,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -26,7 +26,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_PORT))
     {
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -101,20 +101,20 @@
 }
 </style>
 
-<title>售货机故障状况快速查看</title>
+<title>Vending Malfunction Quick Check</title>
 </head>
 <body style="background-color: #fff;">
 	<div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 		<ul class="breadcrumb">
 			<li>
 				<span class="glyphicon glyphicon-home"></span>
-					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+					<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 			</li>
 
 			<li>
-				<a href="#">设备管理</a>
+				<a href="#">Setting Management</a>
 			</li>
-			<li class="active">售货机缺货状况快速查看</li>
+			<li class="active">Vending Out of Stock Quick Check</li>
 		</ul>
 	</div>
 	<div class="row" style="overflow-y:auto;">
@@ -126,9 +126,9 @@
 							<table class="table table-bordered table-hover" style="overflow-y:auto; width:100%;height:100px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th style="width: 100px;">终端编号</th>
-										<th style="width: 100px;">查看详情</th>
-										<th >货道故障状况</th>
+										<th style="width: 100px;">Terminal ID</th>
+										<th style="width: 100px;">See Details</th>
+										<th >Channel malfunction Status</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -137,7 +137,7 @@
 									{%>
 										  <tr class="odd">
 										  	<td class="center" colspan="3" align="center">
-										    	售货机缺货状况快速查看
+										    	Vending Out of Stock Quick Check
 											</td>
 										  </tr>
 									<%}
@@ -163,7 +163,7 @@
 										%>
 										<tr class="odd">
 											<td class="center "><%=vb.getId() %></td>
-											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>">查看</a></td>
+											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>">Check</a></td>
 											<td> 
 												<ul>
 													<%
@@ -174,9 +174,9 @@
 															{
 														%>
 															<li class="quick-look">
-																<span>编号:<%=pb.getInneridname() %></span>
-																<span>故障号:<%=String.format("%3d",pb.getError_id()) %></span>
-																<span>故障详情:<%=pb.getErrorinfo()%></span>
+																<span>#:<%=pb.getInneridname() %></span>
+																<span>Error Code:<%=String.format("%3d",pb.getError_id()) %></span>
+																<span>Error Detail:<%=pb.getErrorinfo()%></span>
 															</li>
 														<%
 															}
@@ -190,7 +190,7 @@
 										
 										%>
 													<tr class="odd">
-													 <td colspan="3" align="center" >所有数据显示完毕</td>
+													 <td colspan="3" align="center" >Finish loading</td>
 													</tr>
 										<%
 									}

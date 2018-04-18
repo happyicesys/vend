@@ -6,7 +6,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -14,7 +14,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -23,7 +23,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -103,15 +103,15 @@
         $(function()
         {
         	userlist=$("#maingrid4").ligerGrid({
-            	title:"管理员信息",
+            	title:"Manager Message",
                 columns: [
-				 {display: '编号',name:'id',width:80},
-				 {display: '用户名',name:'adminusername',minWidth: 60,width:150,align:'left'},
-				 {display: '姓名',name:'adminname',width:150,align:'left'},
-				 {display: '地址',name:'adminaddress',width:200,align:'left'},
-				 {display: '手机',name:'adminmobilephone',width:100,align:'left'},
-				 {display: '登录IP',name:'lastloginip',width:100,align:'left'},
-				 {display: '登录时间',name:'lastLoginTime',width:150}
+				 {display: '#',name:'id',width:80},
+				 {display: 'Username',name:'adminusername',minWidth: 60,width:150,align:'left'},
+				 {display: 'Name',name:'adminname',width:150,align:'left'},
+				 {display: 'Address',name:'adminaddress',width:200,align:'left'},
+				 {display: 'Handphone',name:'adminmobilephone',width:100,align:'left'},
+				 {display: 'Login IP',name:'lastloginip',width:100,align:'left'},
+				 {display: 'Login Time',name:'lastLoginTime',width:150}
                 ], 
                 pageSize: 20,
                 rownumbers:true,
@@ -120,11 +120,11 @@
                 dataAction: 'local',//本地排序
                 width: '100%', height: '98%',
                 toolbar: { items: [
-                                   { text: '添加用户', click: f_AddUser, icon: 'add' },
+                                   { text: 'Add User', click: f_AddUser, icon: 'add' },
                                    { line: true },
-                                   { text: '编辑用户', click: f_EditUser, icon: 'modify' },
+                                   { text: 'Edit User', click: f_EditUser, icon: 'modify' },
                                    { line: true },
-                                   { text: '删除用户', click: f_DeleteUser, icon: 'busy' }
+                                   { text: 'Delete User', click: f_DeleteUser, icon: 'busy' }
                                    ]
                          },
                 onDblClickRow : function (data, rowindex, rowobj)
@@ -139,8 +139,8 @@
         $(function()
       		{
 	             var dataGridColumns = [
-	                 { header: '编号', name: 'id', width: 40 },
-	                 { header: '名字', name: 'groupname' }
+	                 { header: '#', name: 'id', width: 40 },
+	                 { header: 'Name', name: 'groupname' }
 	             ];
 	             var ret=getAjaxReturn("./AjaxRequest","activeid=<%=clsConst.ACTION_JSON_GET_GROUPLST%>");
 	             
@@ -175,7 +175,7 @@
         	clrFrom();
         	if(!userinfowin)
        		{
-        		userinfowin=$.ligerDialog.open({title:'添加管理员',width:650,target:$("#userinfo")});
+        		userinfowin=$.ligerDialog.open({title:'Add Manager',width:650,target:$("#userinfo")});
 
        		}else
        		{
@@ -202,7 +202,7 @@
         		 $("#userfrm").json2form({data:jsonRet.datasrc});
              	if(!userinfowin)
            		{
-            		userinfowin=$.ligerDialog.open({title:'编辑管理员信息',width:650,target:$("#userinfo")});
+            		userinfowin=$.ligerDialog.open({title:'Edit Manager Msg',width:650,target:$("#userinfo")});
            		}else
            		{
            			userinfowin.active();
@@ -227,7 +227,7 @@
             	$.ligerDialog.warn(tips);
             	return; 
             }
-        	$.ligerDialog.confirm('亲，您真的要删除该管理员吗?', 
+        	$.ligerDialog.confirm('Are you sure to delete manager?', 
            			function(yes) 
            			{
            				if(yes)
@@ -238,7 +238,7 @@
            		        	{
            		        	 case <%=clsConst.ERR_LEVEL_NO_ERR%>:
            		        		    userlist.reload();
-        			        		var ltips= $.ligerDialog.tip({title: '提示信息',content:'亲,恭喜您删除成功！'});
+        			        		var ltips= $.ligerDialog.tip({title: 'Notification',content:'Successfully Deleted'});
         		        	 		setTimeout(function(){ltips.close();}, 6000);
            		        		 break;
            		        	 case <%=clsConst.ERR_LEVEL_CANT_ACCESS%>:
@@ -302,7 +302,7 @@
                         	 switch(retJsonValue.errlevel)
                         	{
                         	 case <%=clsConst.ERR_LEVEL_NO_ERR%>:
-                             	var ltips= $.ligerDialog.tip({title: '提示信息',content:retJsonValue.errdes});
+                             	var ltips= $.ligerDialog.tip({title: 'Notification',content:retJsonValue.errdes});
                            	 	setTimeout(function(){ltips.close();}, 5000);
                            	 	if(userlist)
                            	 	{
@@ -344,7 +344,7 @@
 		<table width="100%" border="0" class="l-table-edit">
 			<tr>
 				<input type="hidden" value="0" id="uid" name="uid" />
-				<td align="left" class="l-table-edit-td" width="20%">用户名:</td>
+				<td align="left" class="l-table-edit-td" width="20%">Username:</td>
 				<td align="left" class="l-table-edit-td">
 				<input  value="" name="adminusername" type="text" id="adminusername" class="l-text" validate="{required:true,minlength:6}" /> 
 				</td><td width="400"><input class="l-button" type="button" style="width: 150px;" value="检查用户名是否可以使用" id="chkname" />		</td>
@@ -352,7 +352,7 @@
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">集团:</td>
+				<td align="left" class="l-table-edit-td">Profile:</td>
 				<td align="left" class="l-table-edit-td">
 					<input readonly="readonly" name="groupid" type="text" id="groupid" class="l-text"  />
 				</td>
@@ -360,35 +360,35 @@
 			</tr>
 
 			<tr>
-				<td align="left" class="l-table-edit-td">密码:</td>
+				<td align="left" class="l-table-edit-td">Password:</td>
 				<td  align="left" class="l-table-edit-td" >
 					<input value="" type="password" id="adminpassword" name="adminpassword" validate="{required:true,minlength:6}"  type="text" class="l-text"/></td>
 				<td></td>
 			</tr>
 
 			<tr>
-				<td align="left" class="l-table-edit-td">重复密码:</td>
+				<td align="left" class="l-table-edit-td">Password Confirmation:</td>
 				<td align="left" class="l-table-edit-td">
 					<input  value="" type="password" id="repassword" name="repassword" validate="{required:true,minlength:6}"  type="text"  class="l-text"/></td>
 				<td></td>
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">管理员姓名:</td>
+				<td align="left" class="l-table-edit-td">Manager Name:</td>
 				<td align="left" class="l-table-edit-td">
 				<input id="adminname" name="adminname" type="text" class="l-text" />
 				</td>
 				<td></td>
 			</tr>
 			<tr class="odd">
-				<td align="left" class="l-table-edit-td">固定电话:</td>
+				<td align="left" class="l-table-edit-td">Office Number:</td>
 				<td align="left" class="l-table-edit-td">
 					<input validate="{digits:true,minlength:8,maxlength:15}" id="admintelephone" name="admintelephone" type="text" class="l-text"/> 
 				</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td align="left" class="l-table-edit-td">移动电话:</td>
+				<td align="left" class="l-table-edit-td">Mobile Number:</td>
 				<td align="left" class="l-table-edit-td">
 				<input validate="{digits:true,minlength:8,maxlength:15}" id="adminmobilephone" name="adminmobilephone" type="text" class="l-text"/> 
 				</td>
@@ -396,25 +396,25 @@
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">性别:</td>
+				<td align="left" class="l-table-edit-td">Gender:</td>
 				<td align="left" class="l-table-edit-td">
 				<select name="adminsex" id="adminsex">
-					<option>男</option>
-					<option>女</option>
+					<option>Male</option>
+					<option>Female</option>
 				</select>
 				</td>
 				<td></td>
 			</tr>
 
 			<tr>
-				<td align="left" class="l-table-edit-td">地址:</td>
+				<td align="left" class="l-table-edit-td">Address:</td>
 				<td align="left" class="l-table-edit-td" colspan="2">
 				<input id="adminaddress" name="adminaddress" type="text"  class="l-text" style="width: 400px;" />
 				</td>
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">用户权限:</td>
+				<td align="left" class="l-table-edit-td">User Access Level:</td>
 				<td align="left" class="l-table-edit-td">
 					<input type="hidden" value="" id="adminrights" name="adminrights" />
 					<input class="l-button" type="button" value="设置权限" id="adddevice" />			
@@ -423,7 +423,7 @@
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">售货机分配:</td>
+				<td align="left" class="l-table-edit-td">Vending Distribution:</td>
 				<td align="left" class="l-table-edit-td">
 					<input type="hidden" value="" id="VenderId" name="VenderId" />
 					<input class="l-button" type="button" value="添加机器" id="adddevice" />
@@ -432,7 +432,7 @@
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">创建时间:</td>
+				<td align="left" class="l-table-edit-td">Created At:</td>
 				<td align="left" class="l-table-edit-td">
 					<input id="createtime" name="createtime" readonly="readonly" value="<%=ToolBox.getDateTimeString() %>" type="text" class="l-text"/>
 				</td>
@@ -440,14 +440,14 @@
 			</tr>
 			
 			<tr>
-				<td align="left" class="l-table-edit-td">上次登录时间:</td>
+				<td align="left" class="l-table-edit-td">Last Login Time:</td>
 				<td align="left" class="l-table-edit-td">
 					<input id="lastlogintime" name="lastlogintime" readonly="readonly" value="<%=ToolBox.getDateTimeString() %>" type="text" class="l-text"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td align="left" class="l-table-edit-td">上次登录IP:</td>
+				<td align="left" class="l-table-edit-td">Last Login IP:</td>
 				<td align="left" class="l-table-edit-td">
 					<input ip="lastloginip" name="lastloginip" readonly="readonly" value="0.0.0.0" type="text" class="l-text"/>
 				</td>

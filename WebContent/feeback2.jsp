@@ -11,7 +11,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -19,7 +19,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -28,7 +28,7 @@
     
     if(!ub.AccessAble(UserBean.FUNID_CAN_REFUND))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_REFUND]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_REFUND]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -109,7 +109,7 @@ $(document).ready(function(){
 	        dataType: "text",
 	        error:(function(obj,txtmes,txtmes2){
 	            $("body").hideLoading();  
-	            $("#tips").text("退费失败！"+obj.status+"错误");
+	            $("#tips").text("Refund Failure"+obj.status+" Error");
 	            })
 	    		
 	      });	  
@@ -117,20 +117,20 @@ $(document).ready(function(){
 });
 </script>
 
-<title>转帐</title>
+<title>Transfer</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">交易管理</a>
+								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">转帐</li>
+							<li class="active">Transfer</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -138,16 +138,16 @@ $(document).ready(function(){
 			  	<form class="form-horizontal" role="form"   method="post" name="form1">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户密码</label>
+				    <label class="col-sm-4 control-label">User Password</label>
 				    <div class="col-sm-3">
-				      <input id="pwd" name="pwd" type="password" class="form-control input-sm input-sm" value="" placeholder="密码(必填)">
+				      <input id="pwd" name="pwd" type="password" class="form-control input-sm input-sm" value="" placeholder="Password(Required)">
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">收款人</label>
+				    <label class="col-sm-4 control-label">Pay Received by</label>
 				    <div class="col-sm-3">
 						<select name="receiver" id="userlist" class="form-control input-sm">
-							<option  value="0">未选择</option>
+							<option  value="0">Please Choose</option>
 							<% 
 							for(UserBean ubobj:user_lst)
 							{
@@ -162,15 +162,15 @@ $(document).ready(function(){
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">转帐金额</label>
+				    <label class="col-sm-4 control-label">Transfer Amount</label>
 				    <div class="col-sm-3">
 				      <input name="amount"  id="amount" type="text" class="form-control input-sm">
 				    </div>
-				    <div class="col-sm-5">金额必须大于1元</div>
+				    <div class="col-sm-5">Amount must be greater than 1 dollar</div>
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">转帐说明</label>
+				    <label class="col-sm-4 control-label">T&C</label>
 				    <div class="col-sm-3">
 				      <input name="des"  id="des" type="text" class="form-control input-sm">
 				    </div>

@@ -11,7 +11,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -19,7 +19,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -28,7 +28,7 @@
 
 	if(!ub.AccessAble(UserBean.FUNID_CAN_CREATE_GROUP_ID))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CREATE_GROUP_ID]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_CREATE_GROUP_ID]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -88,14 +88,14 @@ var chk=function()
 	{
 		if(form1.pwd.value.length<6)
 		{
-			objDiv.innerText="密码不足6位！";
+			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
 		
 		if((form1.pwd.value)!=(form1.repwd.value))
 		{
 
-			objDiv.innerText="两次密码输入不一致！";
+			objDiv.innerText="Password confirmation does not match";
 			return false;
 		}
 	}
@@ -130,20 +130,20 @@ var closePanel=function()
 
 </script>
 
-<title>个人信息</title>
+<title>Personal Message</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">高级管理</a>
+								<a href="#">Admin Management</a>
 							</li>
-							<li class="active">添加集团信息</li>
+							<li class="active">Add Profile</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -151,123 +151,123 @@ var closePanel=function()
 			  	<form class="form-horizontal" role="form" action="AddGroup" method="post" name="form1" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团名称</label>
+				    <label class="col-sm-4 control-label">Profile Name</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="groupname" id="groupname" class="form-control input-sm input-sm"  placeholder="集团名称">
+				      <input type="text" name="groupname" id="groupname" class="form-control input-sm input-sm"  placeholder="Profile Name">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团描述</label>
+				    <label class="col-sm-4 control-label">Profile Desc</label>
 				    <div class="col-sm-3">
-				      <input type="text" name="groupdes" class="form-control input-sm input-sm"  placeholder="集团描述">
+				      <input type="text" name="groupdes" class="form-control input-sm input-sm"  placeholder="Profile Desc">
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">添加关注时的欢迎信息</label>
+				    <label class="col-sm-4 control-label">Welcome Message</label>
 				    <div class="col-sm-3">
 						<input name="WelcomeMessage" id="WelcomeMessage" type="text" class="form-control input-sm">				      
 				    </div>
 				  </div>
 				  
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 						<input name="Creattime" readonly="readonly" type="text" class="form-control input-sm" value="<%=ToolBox.getYMDHMS(new Timestamp(System.currentTimeMillis())) %>">				      
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信APPID</label>
+				    <label class="col-sm-4 control-label">Wechat AppID</label>
 				    <div class="col-sm-3">
 				      <input id="wx_appid" name="wx_appid"  class="form-control input-sm"  type="text" />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信密钥</label>
+				    <label class="col-sm-4 control-label">Wechat key</label>
 				    <div class="col-sm-3">
 				      <input id="wx_key" name="wx_key"  class="form-control input-sm"  type="text"  />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信商户号</label>
+				    <label class="col-sm-4 control-label">Wechat Merchant ID</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_mch_id"  name="wx_mch_id" class="form-control input-sm"  type="text"  />
 				    </div>
 				    <div class="col-sm-5">
-				      <label><a href="wxhelp.html">微信账号信息的获取方法</a></label>
+				      <label><a href="wxhelp.html">Wechat Help</a></label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信应用密钥</label>
+				    <label class="col-sm-4 control-label">Wechat App Secret</label>
 				    <div class="col-sm-3">
 				      <input  id="AppSecret"  name="AppSecret" class="form-control input-sm"  type="text"  />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信回调地址</label>
+				    <label class="col-sm-4 control-label">Wechat Notify URL</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_notify_url" name="wx_notify_url" value="http://${serverurl}/WxTradeCompleteNotify" class="form-control input-sm" type="text"  />
 				    </div>
 				    <div class="col-sm-5">
-				      <label>建议使用默认值</label>
+				      <label>Default Setting</label>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">服务器IP地址</label>
+				    <label class="col-sm-4 control-label">Server IP</label>
 				    <div class="col-sm-3">
 				      <input  id="ServerIp"  name="ServerIp" readonly="readonly" class="form-control input-sm"  type="text"  value="${ip}" />
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝合作者ID</label>
+				    <label class="col-sm-4 control-label">Alipay Partner ID</label>
 				    <div class="col-sm-3">
 				     <input id="al_PARTNER_ID" name="al_PARTNER_ID"  class="form-control input-sm"  type="text"  />
 				    </div>
 				    <div class="col-sm-5">
-				      <label><a href="wxhelp.html">支付宝账号信息的获取方法</a></label>
+				      <label><a href="wxhelp.html">Alipay Help</a></label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝APPID</label>
+				    <label class="col-sm-4 control-label">Alipay AppID</label>
 				    <div class="col-sm-3">
 				     <input id="al_APP_ID" name="al_APP_ID"  class="form-control input-sm"  type="text"  />
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝私钥</label>
+				    <label class="col-sm-4 control-label">Alipay Private Key</label>
 				    <div class="col-sm-3">
 				      <textarea name="al_PRIVATE_KEY" id="al_PRIVATE_KEY" rows="10"  class="form-control input-sm" ></textarea>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝公钥</label>
+				    <label class="col-sm-4 control-label">Alipay Public Key</label>
 				    <div class="col-sm-3">
 				      <textarea name="al_PUBLIC_KEY" id="al_PUBLIC_KEY"   rows="10"  class="form-control input-sm" ></textarea>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">签名方式</label>
+				    <label class="col-sm-4 control-label">Signature Method</label>
 				    <div class="col-sm-3">
 				      <input name="al_SIGN_TYPE" id="al_SIGN_TYPE" readonly="readonly" type="text" class="form-control input-sm" value="RSA">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">支付宝回调地址</label>
+				    <label class="col-sm-4 control-label">Alipay Notify URL</label>
 				    <div class="col-sm-3">
 				      <input name="notify_url" id="notify_url" type="text" class="form-control input-sm" value="http://${serverurl}/ali/notify_url.jsp" >
 				    </div>
 				    <div class="col-sm-5">
-				      <label>建议使用默认值</label>
+				      <label>Default Setting</label>
 				    </div>
 				  </div>
 				  <div class="form-group">

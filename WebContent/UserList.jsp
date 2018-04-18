@@ -9,7 +9,7 @@
 	UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,7 +17,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -26,7 +26,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_USER_LST]);
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
@@ -82,13 +82,13 @@
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">用户管理</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">管理员管理</li>
+							<li class="active">Manager Management</li>
 						</ul>
 	</div>
 	<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -116,12 +116,12 @@
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th style="width: 100px;">ID</th>
-										<th style="width: 100px;">用户名</th>
-										<th style="width: 100px;">姓名</th>
-										<th style="width: 100px;">手机</th>
-										<th style="width:600px;">登录IP</th>
-										<th style="width:180px;">登录时间</th>
-										<th style="width:180px;">操作</th>
+										<th style="width: 100px;">Username</th>
+										<th style="width: 100px;">Name</th>
+										<th style="width: 100px;">Handphone</th>
+										<th style="width:600px;">Login IP</th>
+										<th style="width:180px;">Login Time</th>
+										<th style="width:180px;">Operation</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -166,14 +166,14 @@
 															{%> 
 															<a class="btn btn-success" disabled="disabled">
 																<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-																修改
+																Edit
 															</a>
 															<%} %>
 															<%if(ub.AccessAble(UserBean.FUNID_CAN_DEL_USER))
 															{%> 
 															<a class="btn btn-info" disabled="disabled">
 																<i class="glyphicon glyphicon-edit icon-white"></i>
-																删除
+																Delete
 															</a>
 															<%} %>
 														<%}else 
@@ -182,7 +182,7 @@
 															{%> 
 															<a class="btn btn-success" href="UserManager.jsp?id=<%=tub.getId()%>">
 																<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-																修改
+																Edit
 															</a>
 															<%} %>
 															
@@ -190,7 +190,7 @@
 															{%> 
 															<a class="btn btn-info" href="UserDelete?id=<%=tub.getId()%>">
 																<i class="glyphicon glyphicon-edit icon-white"></i>
-																删除
+																Delete
 															</a>
 															<%} %>
 														<%}%>
@@ -207,7 +207,7 @@
 												 }
 										    	else 
 										    	{
-										    		out.println("<span class='waring-label'>无用户列表数据！</span>");
+										    		out.println("<span class='waring-label'>No records found!</span>");
 										    	}
 										    			
 										  	%>

@@ -10,7 +10,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -18,7 +18,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -27,7 +27,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_GOODS))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_GOODS]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_GOODS]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -75,30 +75,30 @@
 	}
 	int colid=ToolBox.filterInt(request.getParameter("colid"));
 %>
-<div>  <form method="get" action="./SelectGoods.jsp">根据商品名称搜索
+<div>  <form method="get" action="./SelectGoods.jsp">Search by product name
 <label><input type="hidden" name="colid"  value="<%=colid%>"/> <input value="<%=goodsname %>" name="goodsname" id="goodsname" class="form-control input-sm" /></label><button type="submit"  id="sousuo">搜索</button>
 </form></div>
 	<table style="border-collapse: collapse;" width="99%"
 		bordercolor="#CAD7F7" border="1" cellpadding="4" cellspacing="1">
 		<tr class="hcol">
-			<th id="no">产品序号</th>
-			<th id="name">名称</th>
-			<th id="name">绑定</th>
-			<th id="name">图片</th>
-			<th id="no">参考价格</th>
+			<th id="no">Product Code</th>
+			<th id="name">Name</th>
+			<th id="name">Binding</th>
+			<th id="name">Photo</th>
+			<th id="no">Ref Price</th>
 		</tr>
 		<%
 	if(gblst==null)
 	{
 		out.print("<tr><td colspan='8'>");
-		out.print("<span class='waring-label'>没有查找到数据</span>");
+		out.print("<span class='waring-label'>No records available</span>");
     	out.print("</td></tr>");
     	return;
 	}
 	if(gblst.size()==0)
 	{
 		out.print("<tr><td colspan='8'>");
-		out.print("<span class='waring-label'>没有查找到数据</span>");
+		out.print("<span class='waring-label'>No records available</span>");
     	out.print("</td></tr>");
     	return;
 	}
@@ -113,7 +113,7 @@
 			<td><%=gb.getId()%></td>
 			<td><%=gb.getGoodsname()%></td>
 
-			<td><a href="./DoSelect?goodsid=<%=gb.getId()%>&colid=<%=colid %>" class="green_btn">选择</a></td>
+			<td><a href="./DoSelect?goodsid=<%=gb.getId()%>&colid=<%=colid %>" class="green_btn">Type</a></td>
 
 			<td><img height="70" width="75"	src="images_little/<%=gb.getPicname()%>"></td>
 			<td><%=String.format("%1.2f",gb.getPrice()/100.0)%></td>

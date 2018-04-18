@@ -12,7 +12,7 @@
 UserBean ub=(UserBean)session.getAttribute("usermessage");
 if(ub==null)
 {
-	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	request.setAttribute("message", "You have no rights to access, please contact admin");
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -20,7 +20,7 @@ if(ub==null)
 
 if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 {
-	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 	request.setAttribute("LAST_URL", "index.jsp");
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
@@ -28,7 +28,7 @@ if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 
 if(!ub.AccessAble(UserBean.FUNID_CAN_UPDATE_VENDER))
 {
-	request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPDATE_VENDER]);
+	request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPDATE_VENDER]);
 	request.getRequestDispatcher("message.jsp").forward(request, response);
 	return;
 }
@@ -95,72 +95,72 @@ var ShowMapWin=function()
 
 
 </script>
-<title>查看/修改 售货机--<%=id%></title>
+<title>Check/Edit Vending--<%=id%></title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">查看/修改<%=String.format("%03d",id)%>售货机</li>
+							<li class="active">Check/Edit<%=String.format("%03d",id)%>GPRS Signal</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
 					</div>
 			  	<form class="form-horizontal" role="form" action="SellerUpdate" method="post">
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">终端名称</label>
+				    <label class="col-sm-4 control-label">Terminal Name</label>
 				    <div class="col-sm-3">
-				      <input name="tname" type="text" class="form-control input-sm input-sm"  placeholder="终端名称(必填)" value="<%=vb.getTerminalName()%>">
+				      <input name="tname" type="text" class="form-control input-sm input-sm"  placeholder="Terminal Name(Required)" value="<%=vb.getTerminalName()%>">
 				      <span id="tips_t" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">上线时间</label>
+				    <label class="col-sm-4 control-label">Online Time</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHMS(vb.getBTime())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">更新时间</label>
+				    <label class="col-sm-4 control-label">Refresh Time</label>
 				    <div class="col-sm-3">
 				      <%=ToolBox.getYMDHMS(vb.getUpdateTime())%>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">货道数量</label>
+				    <label class="col-sm-4 control-label">Number of Channel</label>
 				    <div class="col-sm-3">
-				      <input name="portcount" id="portcount" readonly="readonly" value="<%=vb.getGoodsPortCount() %>" type="text" class="form-control input-sm input-sm"  placeholder="货道数量(必填)">
+				      <input name="portcount" id="portcount" readonly="readonly" value="<%=vb.getGoodsPortCount() %>" type="text" class="form-control input-sm input-sm"  placeholder="Number of Channel(Required)">
 					</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">活动编号</label>
+				    <label class="col-sm-4 control-label">Activity ID</label>
 				    <div class="col-sm-3">
 				      <input name="huodongid" readonly="readonly" value="<%=vb.getHuodongId() %>" type="text" class="form-control input-sm input-sm">
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">售货机型号</label>
+				    <label class="col-sm-4 control-label">Vending Model</label>
 				    <div class="col-sm-3">
-				      <input name="sellertype" type="text" class="form-control input-sm"  placeholder="售货机型号" value="<%=vb.getSellerTyp() %>"/>
+				      <input name="sellertype" type="text" class="form-control input-sm"  placeholder="Vending Model" value="<%=vb.getSellerTyp() %>"/>
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">服务电话</label>
+				    <label class="col-sm-4 control-label">Customer Service Tel</label>
 				    <div class="col-sm-3">
-				      <input name="server_tel"  type="text" class="form-control input-sm" value="<%=vb.getTelNum() %>" placeholder="终端名称">
+				      <input name="server_tel"  type="text" class="form-control input-sm" value="<%=vb.getTelNum() %>" placeholder="Terminal Name">
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">转账对应账号</label>
+				    <label class="col-sm-4 control-label">Account for Transfer</label>
 				    <div class="col-sm-3">
 				      <%
 				      UserBean ubobj= UserBean.getUserBeanById(vb.getAdminId());
@@ -170,35 +170,35 @@ var ShowMapWin=function()
 				      }
 				      else
 				      {
-				    	  out.print("没有绑定转账账号!");
+				    	  out.print("没有Binding转账账号!");
 				      }
 				      %>
 				    </div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机地址</label>
+				    <label class="col-sm-4 control-label">Vending Address</label>
 				    <div class="col-sm-3">
-				      <input name="address" type="text" class="form-control input-sm"  placeholder="售货机地址" value="<%=vb.getTerminalAddress() %>"><!-- 添加地址信息，便于地图查找 -->
+				      <input name="address" type="text" class="form-control input-sm"  placeholder="Vending Address" value="<%=vb.getTerminalAddress() %>"><!-- 添加地址信息，便于地图查找 -->
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机经度</label>
+				    <label class="col-sm-4 control-label">Vending Logitude</label>
 				    <div class="col-sm-3">
-				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="售货机经度" readonly="readonly" value="<%=vb.getJindu() %>">
+				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="Vending Logitude" readonly="readonly" value="<%=vb.getJindu() %>">
 				    </div>
 				    <div class="col-sm-5">
 				      	<input class="btn btn-success" type="button" value="在地图上查找位置" onclick="ShowMapWin()"/>
 				      </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">售货机纬度</label>
+				    <label class="col-sm-4 control-label">Vending Latitude</label>
 				    <div class="col-sm-3">
-				      <input id="lat" name="lat" type="text" class="form-control input-sm" placeholder="售货机纬度" readonly="readonly" value="<%=vb.getWeidu() %>" >
+				      <input id="lat" name="lat" type="text" class="form-control input-sm" placeholder="Vending Latitude" readonly="readonly" value="<%=vb.getWeidu() %>" >
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">温馨提示信息</label>
+				    <label class="col-sm-4 control-label">Welcome Message</label>
 				    <div class="col-sm-4">
 				      <textarea class="form-control" name="tipmes" cols="50" rows="4" ></textarea>
 				    </div>
@@ -207,20 +207,20 @@ var ShowMapWin=function()
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">是否在线</label>
+				    <label class="col-sm-4 control-label">Is Online</label>
 				    	<div class="col-sm-3">
 						    <%=(vb.isIsOnline()?"是":"否")%>
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">允许自动退款</label>
+				    <label class="col-sm-4 control-label">Enable Auto Refund</label>
 				    	<div class="col-sm-3">
 						    <input name="auto_refund" type="checkbox" value="1" <%=(vb.getAuto_refund()==1?"checked=\"checked\"":"")%> />
 						</div>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">允许人工退款</label>
+				    <label class="col-sm-4 control-label">Enable Manual Refund</label>
 				    	<div class="col-sm-3">
 						    <input name="manual_refund" type="checkbox" value="1" <%=(vb.getManual_refund()==1?"checked=\"checked\"":"")%> />
 						</div>
@@ -233,7 +233,7 @@ var ShowMapWin=function()
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团编号</label>
+				    <label class="col-sm-4 control-label">Profile ID</label>
 				    	<div class="col-sm-3">
 
 						    <%=(groupBean==null)?"集团没有归属":String.format("[%d]-%s",groupBean.getId(), groupBean.getGroupname()) %>
@@ -243,9 +243,9 @@ var ShowMapWin=function()
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
 				       <input name="id" type="hidden" value="<%=vb.getId()%>" /> 
-				      <button type="submit" class="btn btn-primary" value="修改">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
+				      <button type="submit" class="btn btn-primary" value="Edit">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
 				      <button type="reset" class="btn btn-primary" value="取消">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-				      <button  class="btn btn-primary"  value="返回列表" type="button" onclick="javascript:history.go(-1)" >返回列表</button>
+				      <button  class="btn btn-primary"  value="Back" type="button" onclick="javascript:history.go(-1)" >Back</button>
 				    </div>
 				  </div>
 				</form>
@@ -254,13 +254,13 @@ var ShowMapWin=function()
 <%
     		}else
     		{
-    			request.setAttribute("message", "参数错误，没有找到该机器！");
+    			request.setAttribute("message", "Parameters Error，没有找到该机器！");
     			request.getRequestDispatcher("message.jsp").forward(request, response);
     			return;
     		}
     	}else
     	{
-			request.setAttribute("message", "参数错误，没有找到该机器！");
+			request.setAttribute("message", "Parameters Error，没有找到该机器！");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
     	}

@@ -13,7 +13,7 @@
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You have no rights to access, please contact admin");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -21,7 +21,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -30,7 +30,7 @@
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_DELTE_VENDER))
 		{
-			request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_DELTE_VENDER]);
+			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_DELTE_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -161,7 +161,7 @@
 
 var Delete=function(vid)
 {
-	/*提交绑定数据到后台*/
+	/*提交Binding数据到后台*/
 	var uid= $("#userlist"+vid).val();
 	var bindobj=new Object();
 	bindobj.vid=vid;
@@ -186,7 +186,7 @@ var Delete=function(vid)
         dataType: "json",
         error:(function(obj,txtmes,txtmes2){
             $("body").hideLoading();  
-            $("#retmes"+vid).text("删除失败！"+obj.status+"错误");
+            $("#retmes"+vid).text("Fail to delete"+obj.status+" Error");
             })
     		
       });
@@ -239,13 +239,13 @@ var Delete=function(vid)
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">售货机列表</li>
+							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
 			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -254,10 +254,10 @@ var Delete=function(vid)
 						<div class="dataTables_length" id="dataTables-example_length">
 							<form class="form-horizontal" role="form">
 
-							<label>机器编号：</label>
+							<label>Machine ID:</label>
 							  <label><input type="search" name="id" value="" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">查询</button>
+							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 							</form>
 						</div>
 					</div>
@@ -278,11 +278,11 @@ var Delete=function(vid)
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>编号</th>
-										<th >选择</th>
-										<th >名称</th>
-										<th >状态</th>
-										<th >转账用户名</th>
+										<th>#</th>
+										<th >Type</th>
+										<th >Name</th>
+										<th >Status</th>
+										<th >Transfer Username</th>
 										
 									</tr>											
 								</thead>
@@ -327,7 +327,7 @@ var Delete=function(vid)
 										    <input type="checkbox" name="vendid" value="<%=venderid%>">									  </td>
 										<td class="center "><button type="button" class="btn btn-danger btn-sm"><%=obj.getTerminalName() %></button></td>
 										<td class="center ">
-											<%=obj.isIsOnline()?"在线":"离线" %>
+											<%=obj.isIsOnline()?"Online":"Disconnected" %>
 										</td>
 										<td class="center ">
 										<input  class="btn btn-info" value="删除机器" type="button" onclick="Delete(<%=venderid %>);" />

@@ -1,4 +1,4 @@
-<%@page import="beans.PortBean"%>
+﻿<%@page import="beans.PortBean"%>
 <%@ page import="beans.VenderBean"%>
 <%@ page import="beans.UserBean"%>
 <%@ page import="com.ado.SqlADO"%>
@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,7 +17,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -26,7 +26,7 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_PORT))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -97,20 +97,20 @@
 	font-size:13px;
 }
 </style>
-<title>售货机缺货状况快速查看</title>
+<title>Vending Out of Stock Quick Check</title>
 </head>
 <body style="background-color: #fff;">
 	<div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">设备管理</a>
+								<a href="#">Setting Management</a>
 							</li>
-							<li class="active">售货机缺货状况快速查看</li>
+							<li class="active">Vending Out of Stock Quick Check</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -124,9 +124,9 @@
 							<table class="table table-bordered table-hover" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th style="width: 100px;">终端编号</th>
-										<th style="width: 100px;">查看详情</th>
-										<th >货道缺货状况</th>
+										<th style="width: 100px;">Terminal ID</th>
+										<th style="width: 100px;">See Details</th>
+										<th >Channel Out of Stock Status</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -135,7 +135,7 @@
 									{%>
 										  <tr class="odd">
 										  	<td class="center" colspan="3" align="center">
-										    	售货机缺货状况快速查看
+										    	Vending Out of Stock Quick Check
 											</td>
 										  </tr>
 									<%}
@@ -172,7 +172,7 @@
 															if(pb.getCapacity()>pb.getAmount())
 															{
 														%>
-														<li class="quick-look"><span>编号:<%=pb.getInneridname()%></span> <span>缺货:<%=String.format("%3d",pb.getCapacity()-pb.getAmount()) %></span> <span>名称:<%=pb.getGoodroadname() %></span></li>
+														<li class="quick-look"><span>#:<%=pb.getInneridname()%></span> <span>Out of Stock:<%=String.format("%3d/d%",pb.getCapacity()-pb.getAmount(), pb.getCapacity()) %></span> <span>Name:<%=pb.getGoodroadname() %></span></li>
 														<%
 															}
 														}
@@ -185,7 +185,7 @@
 										
 										%>
 													<tr class="odd">
-													 <td colspan="3" align="center" >所有数据显示完毕</td>
+													 <td colspan="3" align="center" >Finish loading</td>
 													</tr>
 										<%
 									}

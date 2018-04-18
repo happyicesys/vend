@@ -9,7 +9,7 @@
     UserBean ub=(UserBean)session.getAttribute("usermessage");
 	if(ub==null)
 	{
-		request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+		request.setAttribute("message", "You have no rights to access, please contact admin");
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -17,14 +17,14 @@
 	
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
 	if(!ub.AccessAble(UserBean.FUNID_CAN_SET_MYSELF_INFO))
 	{
-		request.setAttribute("message", "不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_SET_MYSELF_INFO]);
+		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_SET_MYSELF_INFO]);
 		request.setAttribute("LAST_URL", "index.jsp");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
@@ -77,14 +77,14 @@ var chk=function()
 	{
 		if(form1.pwd.value.length<6)
 		{
-			objDiv.innerText="密码不足6位！";
+			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
 		
 		if((form1.pwd.value)!=(form1.repwd.value))
 		{
 
-			objDiv.innerText="两次密码输入不一致！";
+			objDiv.innerText="Password confirmation does not match";
 			return false;
 		}
 	}
@@ -131,20 +131,20 @@ $(document).ready(function(){
 
 </script>
 
-<title>个人信息</title>
+<title>Personal Message</title>
 </head>
 <body style="background-color: #fff;">
 	 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
 						<ul class="breadcrumb">
 							<li>
 								<span class="glyphicon glyphicon-home"></span>
-								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">首页</a>
+								<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
 							</li>
 
 							<li>
-								<a href="#">用户管理</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">个人信息</li>
+							<li class="active">Personal Message</li>
 						</ul><!-- .breadcrumb -->
 
 						<!-- #nav-search -->
@@ -152,23 +152,23 @@ $(document).ready(function(){
 			  	<form class="form-horizontal" role="form" action="UpdateSelf" method="post" name="form1" onsubmit="return(chk());">
 			  	<div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">用户名</label>
+				    <label class="col-sm-4 control-label">Username</label>
 				    <div class="col-sm-3">
 				      ${sessionScope.usermessage.adminusername}
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">密码</label>
+				    <label class="col-sm-4 control-label">Password</label>
 				    <div class="col-sm-3">
 				      <input type="password" name="pwd" class="form-control input-sm input-sm"  placeholder="">
 				      
 				    </div>
 				    <div class="col-sm-5">
-				      <label>为空表示不修改！</label>
+				      <label>Leave blank to remain the same</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">重复密码</label>
+				    <label class="col-sm-4 control-label">Password Confirmation</label>
 				    <div class="col-sm-3">
 				      <input type="password" name="repwd" class="form-control input-sm input-sm">
 				    </div>
@@ -177,56 +177,56 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group" style="border: medium  rgb(250,0,255)">
-				    <label class="col-sm-4 control-label">固定电话</label>
+				    <label class="col-sm-4 control-label">Office Number</label>
 				    <div class="col-sm-3">
 				      <input name="firmtel" type="text" class="form-control input-sm" value="${sessionScope.usermessage.admintelephone}">
 				    </div>
 				    
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">移动电话</label>
+				    <label class="col-sm-4 control-label">Mobile Number</label>
 				    <div class="col-sm-3">
 				      <input name="mobiletel"  type="text" class="form-control input-sm" value="${sessionScope.usermessage.adminmobilephone}">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">管理员姓名</label>
+				    <label class="col-sm-4 control-label">Manager Name</label>
 				    <div class="col-sm-3">
 				      <input name="name" type="text" class="form-control input-sm" value="${sessionScope.usermessage.adminname}" >
 				    </div>
 				    <div class="col-sm-5">
-				      <label>如果开通自动转款，请真实填写，否则转款会失败</label>
+				      <label>Please provide correct information for auto transfer</label>
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">性别</label>
+				    <label class="col-sm-4 control-label">Gender</label>
 				    <div class="col-sm-3">
 				    <label>
-				      <input <%=ub.getAdminsex().equals("男")?"checked='checked'":"" %> name="sextype" type="radio" value="男" />男
-						<input <%=ub.getAdminsex().equals("女")?"checked='checked'":"" %> name="sextype" type="radio" value="女" />女
+				      <input <%=ub.getAdminsex().equals("男")?"checked='checked'":"" %> name="sextype" type="radio" value="男" />Male
+						<input <%=ub.getAdminsex().equals("女")?"checked='checked'":"" %> name="sextype" type="radio" value="女" />Female
 						</label>
 				    </div>
 				  </div>
 				  
 				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">微信openID</label>
+				    <label class="col-sm-4 control-label">Wechat Open ID</label>
 				    <div class="col-sm-3">
 				      <input  id="wx_openid"  name="wx_openid"  class="form-control input-sm"  type="text"  value="${sessionScope.usermessage.wx_openid}" />
 				    </div>
 				  </div>
 				    <div class="form-group">
-				    <label class="col-sm-4 control-label">扫描获取OPENID</label>
+				    <label class="col-sm-4 control-label">Scan to get Open ID</label>
 				      <div id="code"></div>
 				    </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">住址</label>
+				    <label class="col-sm-4 control-label">Address</label>
 				    <div class="col-sm-3">
 				      <input name="address" type="text" class="form-control input-sm" value="${sessionScope.usermessage.adminaddress}">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">权限</label>
+				    <label class="col-sm-4 control-label">Access Level</label>
 				    	<div class="col-sm-8">
 						    <ul class="list-inline">
 								<%=ub.getRightLstString(ub.AccessAble(UserBean.FUNID_CAN_EDIT_RIGHT))%>
@@ -234,11 +234,11 @@ $(document).ready(function(){
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">机器查看限制</label>
+				    <label class="col-sm-4 control-label">Access Vending</label>
 				    <div class="col-sm-8">
 				    <%if(ub.AccessAble(UserBean.FUNID_ACCESS_ALL_VENDER)) 
 					{
-						out.println("<span class='normal-label'>您已具有查看所有机器的权限，该参数不需要设置！</span>");
+						out.println("<span class='normal-label'>You already can access the view, this parameter need not setup</span>");
 					}
 					else
 					{
@@ -254,14 +254,14 @@ $(document).ready(function(){
 							{
 								if(arr[i]>0)
 								{
-									out.println("<li>机器"+arr[i]+" <a href='SetAccessDisable?uid="+ ub.getId() +"&vid="+arr[i]+"'>删除</a></li>");
+									out.println("<li>机器"+arr[i]+" <a href='SetAccessDisable?uid="+ ub.getId() +"&vid="+arr[i]+"'>Delete</a></li>");
 								}
 							} 
 						}
 						if(ub.AccessAble(UserBean.FUNID_CAN_ASIGN_VENDER))
 						{
 						%>
-						<li><a href="javascript:void(0);" id="SetAccessVender">添加所属机器</a></li>
+						<li><a href="javascript:void(0);" id="SetAccessVender">Add Vending Access</a></li>
 						<%
 						} %>
 					</ul>
@@ -275,7 +275,7 @@ $(document).ready(function(){
 				               aria-hidden="true">×
 				            </button>
 				            <h4 class="modal-title" id="myModalLabel">
-				            	机器查看限制
+				            	Access Vending
 				            </h4>
 				         </div>
 				         <div class="modal-body" id="alertcontent">
@@ -303,7 +303,7 @@ $(document).ready(function(){
 				         </div>
 				         <div class="modal-footer">
 				            <button type="button" class="btn btn-default" 
-				               data-dismiss="modal">确定
+				               data-dismiss="modal">Confirm
 				            </button>
 				         </div>
 				      </div><!-- /.modal-content -->
@@ -315,25 +315,25 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">创建时间</label>
+				    <label class="col-sm-4 control-label">Created At</label>
 				    <div class="col-sm-3">
 				      ${sessionScope.usermessage.createtime}
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">上次登录时间</label>
+				    <label class="col-sm-4 control-label">Last Login Time</label>
 				    <div class="col-sm-3">
 				      ${sessionScope.usermessage.lastLoginTime}
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">集团编号</label>
+				    <label class="col-sm-4 control-label">Profile ID</label>
 				    	<div class="col-sm-3">
 						    <%=String.format("[%d]-%s",groupBean.getId(), groupBean.getGroupname()) %>
 						</div>
 				  </div>
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">上次登录IP</label>
+				    <label class="col-sm-4 control-label">Last Login IP</label>
 				    <div class="col-sm-3">
 				      ${sessionScope.usermessage.lastloginip}
 				    </div>
