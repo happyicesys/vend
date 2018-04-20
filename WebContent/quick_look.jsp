@@ -126,7 +126,8 @@
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th style="width: 100px;">Terminal ID</th>
 										<th style="width: 100px;">See Details</th>
-										<th >Channel Out of Stock Status</th>
+										<th>Sold Count</th>
+										<th>Balance Stock</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -161,7 +162,7 @@
 												continue;
 											}
 										%>
-										<tr class="odd">
+										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
 											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
 											<td> 
@@ -169,16 +170,53 @@
 													<%
 														for(PortBean pb:pbli)
 														{
-															if(pb.getCapacity()>pb.getAmount())
-															{
+															if(pb.getCapacity()>pb.getAmount()) {
 														%>
-														<li class="quick-look"><span>#:<%=pb.getInneridname()%></span> <span>Out of Stock:<%=String.format("%3d/d%",pb.getCapacity()-pb.getAmount(), pb.getCapacity()) %></span> <span>Name:<%=pb.getGoodroadname() %></span></li>
+																<li class="quick-look">
+																	<span>
+																		#:<%=pb.getInneridname()%>
+																	</span> 
+																	<span>
+																		Stock:<%=String.format("%3d",pb.getCapacity()-pb.getAmount()) %>
+																	</span> 
+																	<span>
+																		Name:<%=pb.getGoodroadname() %>
+																	</span>
+																</li>
 														<%
 															}
 														}
 													%>
 												</ul>
 											</td>
+											<td> 
+												<ul>
+													<%
+														int totalVolume = 0;
+														int totalSold = 0;
+														for(PortBean pb:pbli)
+														{
+															if(pb.getCapacity() != 0) {
+																totalVolume += pb.getCapacity();
+																totalSold += pb.getAmount();
+														%>
+																<li class="quick-look">
+																	<span>
+																		#:<%=pb.getInneridname()%>
+																	</span> 
+																	<span>
+																		Stock:<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
+																	</span> 
+																</li>
+														<%
+															}
+														}
+													%>
+													<li class="quick-look">
+														Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+													</li>
+												</ul>
+											</td>											
 										</tr>
 										<%
 										}

@@ -1,4 +1,4 @@
-<%@page import="com.clsConst"%>
+﻿<%@page import="com.clsConst"%>
 <%@ page import="beans.UserBean"%>
 <%@ page import="com.tools.ToolBox"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -103,7 +103,7 @@
 								) 
 							{%>
 	                        <li>
-	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting Management<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Setting <span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 									{%>
@@ -147,7 +147,7 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction Management<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction <span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TRADE_RECORD)) 
 									{%>
@@ -182,7 +182,7 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Admin Management<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Admin <span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_BIND_AL_WX_USER)) 
 									{%>
@@ -223,7 +223,7 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-users fa-fw"></i> User Management<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-users fa-fw"></i> User <span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_USER_LST)) 
 									{%>
@@ -235,7 +235,7 @@
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_SET_MYSELF_INFO))
 									{%>
-									<li><a href="UserInfo.jsp" target="main">Personal Message Management</a></li>
+									<li><a href="UserInfo.jsp" target="main">Personal Message</a></li>
 									<%} %>
 	                            </ul>
 	                        </li>
@@ -247,7 +247,7 @@
 								) 
 							{%>
 							<li>
-	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Customer Management<span class="fa arrow"></span></a>
+	                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Customer <span class="fa arrow"></span></a>
 	                            <ul class="nav nav-second-level">
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_CUSTOMER))
 									{%>
@@ -255,7 +255,7 @@
 									<%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CHANGE_CUSTOMER)) 
 									{%>
-	                                <li><a href="CustomerList.jsp" target="main">Customer Management</a></li>
+	                                <li><a href="CustomerList.jsp" target="main">Customer </a></li>
 	                                <%} %>
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_CHARGE_FOR_CUSTOMER)) 
 									{%>

@@ -19,6 +19,7 @@ import com.ado.SqlADO;
 import com.alipay.AlipayQrcode;
 import com.alipay.AlipayRefund;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
+import com.brian.sendmail.SampleMail;
 import com.tools.ToolBox;
 
 import beans.CustomerBean;
@@ -65,6 +66,12 @@ public class clsChkVender extends HttpServlet {
 		{
 			FeeBackThread.instance=new FeeBackThread();
 			FeeBackThread.instance.start();
+		}
+		
+		if(ThreadForSendOfflineMail.instance==null)
+		{
+			ThreadForSendOfflineMail.instance=new ThreadForSendOfflineMail();
+			ThreadForSendOfflineMail.instance.start();
 		}
 	}
 }
@@ -183,6 +190,9 @@ class MyThread extends Thread
 	private Calendar old_cal;
 	private Calendar new_cal;
 	
+
+	
+	
 	public void run() 
 	{
 		old_cal=Calendar.getInstance();
@@ -197,6 +207,7 @@ class MyThread extends Thread
 			
 			SqlADO.AddOffLineTimes(POLL_INTERVAL);
 			SqlADO.SetTerminalOffLine();
+
 			
 			/*每日更新剩余取货次数*/
 			
@@ -208,6 +219,57 @@ class MyThread extends Thread
 				
 				//启动每日分帐功能
 				WxCoporTransfor.AutoTransfer();
+			}
+		}
+	}
+	
+	
+}
+
+class ThreadForSendOfflineMail extends Thread
+{
+	public static ThreadForSendOfflineMail instance=null;
+	private static ArrayList<Integer> VenderIdLst=new ArrayList();
+	private void ProcessToSendMail()
+	{
+		ArrayList<VenderBean> lst=SqlADO.getVenderBeanList();
+		for(VenderBean obj :lst)
+		{
+			if(obj.isIsOnline())
+			{
+				VenderIdLst.remove(obj.getId());
+				System.out.println(String.format("%d has remove!", obj.getId()));
+			}
+			else
+			{
+				for(int i=0; i < VenderIdLst.size(); i++) {
+					if(VenderIdLst.get(i) == obj.getId()) {
+						SampleMail.Send(String.format("Offline Notification for Vending: %d - %s", obj.getId(), obj.getTerminalName()), String.format("Last Active Time: %1$te %1$tm %1$tY", obj.getTemperUpdateTime()));
+					}
+					
+				}
+			}
+		}
+		
+	}
+	
+	public void run()
+	{
+		while(true)
+		{
+			try {
+				sleep(120*1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			try
+			{
+			ProcessToSendMail();
+			}
+			catch (Exception e	)
+			{	
+				e.printStackTrace();
 			}
 		}
 	}
