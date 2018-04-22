@@ -170,7 +170,7 @@
 													<%
 														for(PortBean pb:pbli)
 														{
-															if(pb.getCapacity()>pb.getAmount()) {
+															if(pb.getCapacity()>pb.getAmount() && Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 20) {
 														%>
 																<li class="quick-look">
 																	<span>
@@ -196,7 +196,7 @@
 														int totalSold = 0;
 														for(PortBean pb:pbli)
 														{
-															if(pb.getCapacity() != 0) {
+															if(pb.getCapacity() != 0 && Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 20) {
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 														%>
@@ -213,8 +213,10 @@
 														}
 													%>
 													<li class="quick-look">
-														Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
-													</li>
+														<span>
+															Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+														</span>
+													</li>											
 												</ul>
 											</td>											
 										</tr>
