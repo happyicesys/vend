@@ -3328,7 +3328,7 @@ public class SqlADO {
 				ps.setInt(i++,pb.getInnerid());
 				ps.setInt(i++, 0);
 				ps.setInt(i++, 100);
-				ps.setInt(i++,5);
+				ps.setInt(i++,0);
 				ps.setString(i++, "货道"+pb.getInnerid());
 				ps.setDate(i++, new Date(ClsTime.SystemTime()));
 				ps.setInt(i++, 0);

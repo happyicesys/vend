@@ -126,8 +126,7 @@
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th style="width: 100px;">Terminal ID</th>
 										<th style="width: 100px;">See Details</th>
-										<th>Sold Count</th>
-										<th>Balance Stock</th>
+										<th>Sales, Remaining/Volume Count</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -168,55 +167,69 @@
 											<td> 
 												<ul>
 													<%
-														for(PortBean pb:pbli)
-														{
-															if(pb.getCapacity()>pb.getAmount() && Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 20) {
-														%>
-																<li class="quick-look">
-																	<span>
-																		#:<%=pb.getInneridname()%>
-																	</span> 
-																	<span>
-																		Stock:<%=String.format("%3d",pb.getCapacity()-pb.getAmount()) %>
-																	</span> 
-																	<span>
-																		Name:<%=pb.getGoodroadname() %>
-																	</span>
-																</li>
-														<%
-															}
-														}
-													%>
-												</ul>
-											</td>
-											<td> 
-												<ul>
-													<%
-														int totalVolume = 0;
+													 	int totalVolume = 0;
 														int totalSold = 0;
 														for(PortBean pb:pbli)
 														{
-															if(pb.getCapacity() != 0 && Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 20) {
+															if(pb.getCapacity()>pb.getAmount() && ((Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 20) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
-														%>
+																%>
 																<li class="quick-look">
 																	<span>
-																		#:<%=pb.getInneridname()%>
+																		#:<%=pb.getInneridname()%> - 
 																	</span> 
+																	<span style="color: red;">
+																		<%=String.format("%3d",pb.getCapacity()-pb.getAmount()) %>, 
+																	</span> 
+																	<%
+																		if(pb.getAmount() == 0) {
+																	%>		
+																			<span style="color:red;">
+																				<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
+																			</span> 	
+																	<%
+																		}else {
+																	%>																																			
+																			<span style="color:green;">
+																				<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
+																			</span> 																			
+																	<%
+																		}
+																	%>	
+																	
+																	
+																	<!--  
 																	<span>
-																		Stock:<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
-																	</span> 
-																</li>
+																		Name:<%=pb.getGoodroadname() %>
+																	</span>
+																	-->
+																</li>																
 														<%
 															}
 														}
 													%>
 													<li class="quick-look">
-														<span>
-															Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
-														</span>
-													</li>											
+														<%
+															if((((double)totalSold/ (double)totalVolume)*100) < 70.00) {
+														%>
+																<span style="color: red;">
+																	<strong>
+																		Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+																	</strong>
+																</span>
+														<%
+															}else {
+														%>
+																<span>
+																	<strong>
+																		Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+																	</strong>
+																</span>	
+														<%
+															}
+														%>													
+													</li>													
 												</ul>
 											</td>											
 										</tr>

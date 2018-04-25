@@ -834,6 +834,7 @@ private static final String NAK="ERROR";
 	 void SaveColListData(byte[] b,int mid) throws Exception
 	 {
 		 int i=0,j;
+		 int num=0;
 		 ArrayList<PortBean> plst=new ArrayList<PortBean>();
 		 
 		 if(b==null)
@@ -860,9 +861,11 @@ private static final String NAK="ERROR";
 			 /*货道故障编号*/
 			 p.setError_id(b[i++]);
 			 /*货道容量*/
-			 p.setCapacity(b[i++]);
+			 num=b[i++]&0xff;
+			 p.setCapacity(num);
 			 /*货道库存数量*/
-			 p.setAmount(b[i++]);
+			 num=b[i++]&0xff;
+			 p.setAmount(num);
 			 /*货道价格*/
 			 p.setPrice(ToolBox.arrbyteToint_Little(b, i, 4));
 			 i+=4;

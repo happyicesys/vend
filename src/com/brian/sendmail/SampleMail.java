@@ -78,29 +78,30 @@ public class SampleMail {
     public static void main(String[] args) {
     		ArrayList<Integer> VenderIdLst=new ArrayList();
 
-    		ArrayList<VenderBean> lst=SqlADO.getVenderBeanList();
-    		for(VenderBean obj :lst)
-    		{
-    			if(obj.isIsOnline())
-    			{
-    				VenderIdLst.remove(new Integer(obj.getId()));
-    				System.out.println(String.format("%d has remove!", obj.getId()));
-    			}
-    			else
-    			{
-    				for(int i=0; i < VenderIdLst.size(); i++) {
-    					//System.out.println(VenderIdLst.get(i));
-    					//System.out.println(obj.getId());
-    					if(VenderIdLst.get(i) == obj.getId()) {
-    						SampleMail.Send(String.format("Offline Notification for Vending: %d - %s", obj.getId(), obj.getTerminalName()), String.format("Last Active Time: %1$te %1$tm %1$tY", obj.getTemperUpdateTime()));
-    					}
-    					
-    				}
-    			}
-    			
-    		}
-    		System.out.println(VenderIdLst);
-    		
-    
+//    		ArrayList<VenderBean> lst=SqlADO.getVenderBeanList();
+//    		for(VenderBean obj :lst)
+//    		{
+//    			if(obj.isIsOnline())
+//    			{
+//    				VenderIdLst.remove(new Integer(obj.getId()));
+//    				System.out.println(String.format("%d has remove!", obj.getId()));
+//    			}
+//    			else
+//    			{
+//    				for(int i=0; i < VenderIdLst.size(); i++) {
+//    					//System.out.println(VenderIdLst.get(i));
+//    					//System.out.println(obj.getId());
+//    					if(VenderIdLst.get(i) == obj.getId()) {
+//    						SampleMail.Send(String.format("Offline Notification for Vending: %d - %s", obj.getId(), obj.getTerminalName()), String.format("Last Active Time: %1$te %1$tm %1$tY", obj.getTemperUpdateTime()));
+//    					}
+//    					
+//    				}
+//    			}
+//    			
+//    		}
+//    		System.out.println(VenderIdLst);
+    		byte a=-56;
+    		int tem=a&0xff;
+    		System.out.println(tem);
     }
 }
