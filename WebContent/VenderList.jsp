@@ -317,16 +317,20 @@ function ShowTemCurve(id)
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th>#</th>
-										<th >Type</th>
-										<th >Connection</th>
-										<th >Name</th>
-										<th >Address</th>
-										<th style="width:400px;">Real time Status</th>
-										<th>Temp Refresh Time</th>
-										<th>Lastest Malfunction</th>
-										<th >GPRS Signal</th>
-										<th style="width: 250px;">Setting</th>
+										<th class="col-md-1">#</th>
+										<th class="col-md-1"></th>
+										<th class="col-md-1">Conn</th>
+										<th class="col-md-2" >Name</th>
+										<th class="col-md-1">Address</th>
+										<th class="col-md-4">Status</th>
+										<!-- 
+											<th style="width:400px;">Real time Status</th>
+											<th style="width: 250px;">Setting</th>
+										 -->
+										<th class="col-md-1">Temp Time</th>
+										<th class="col-md-1">Error</th>
+										<th class="col-md-1">Signal</th>
+										<th class="col-md-2">Setting</th>
 									</tr>											
 								</thead>
 
@@ -365,16 +369,16 @@ function ShowTemCurve(id)
 													
 									  %>
 									<tr class="odd" id="BMS<%=venderid%>">
-										<td class=" sorting_1"><%=venderid%></td>
-										<td class="center ">
+										<td class=" sorting_1 col-md-1"><%=venderid%></td>
+										<td class="center col-md-1">
 										    <input type="checkbox" name="vendid" value="<%=venderid%>">
 										  </td>
-										<td class="center ">
-											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>Online</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Offline</button>"%>
+										<td class="center col-md-1">
+											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 										</td>
-										<td class="center "><%=obj.getTerminalName() %></td>
-										<td class="center " style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
-										<td class="center " >
+										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
+										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
+										<td class="center col-md-4" >
 											<%
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_TERMPER_VALID))
 											  	{
@@ -424,23 +428,23 @@ function ShowTemCurve(id)
 
 										</td>
 
-										<td class="center "><%=obj.getTemperUpdateTime() %></td>
+										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
 										<%
 											String slot_format="";
 											if(obj.getId_Format().equals("HEX"))
 											{
-												slot_format="%X号货道%d号故障";
+												slot_format="%X Channel %d Error";
 											}
 											else
 											{
-												slot_format="%d号货道%d号故障";
+												slot_format="%d Channel %d Error";
 											}
 										%>
-										<td class="center "><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
-										<td class="center ">
+										<td class="center col-md-1"><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
+										<td class="center col-md-1">
 											<%=obj.getGprs_Sign()*100/31 %>%
 										</td>
-										<td class="center ">
+										<td class="center col-md-2">
 											<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
 												<i class="glyphicon glyphicon-map-marker icon-white"></i>
 												Map
