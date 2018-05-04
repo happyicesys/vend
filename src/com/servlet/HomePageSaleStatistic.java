@@ -113,13 +113,16 @@ public class HomePageSaleStatistic extends HttpServlet {
 					beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_CASH,0);
 			ClsSaleStatisticData salestatistic_bank= SqlADO.getSalesStatisticDataFromDb(
 					beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_BANK,0);
-			
+			ClsSaleStatisticData salestatistic_freevend= SqlADO.getSalesStatisticDataFromDb(
+					beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_COCO,0);
 			//json.put("_title", "123");
 	
 			json.put("all_count",salestatistic_all.getM_count());
 			json.put("all_credit",String.format("%1.2f", salestatistic_all.getM_credit()/100.0));
 	    	json.put("cash_count",salestatistic_cash.getM_count());
 	    	json.put("cash_credit",String.format("%1.2f",salestatistic_cash.getM_credit()/100.0));
+	    	json.put("freevend_count",salestatistic_freevend.getM_count());
+	    	json.put("freevend_credit",String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0));	    	
 	    	json.put("wx_count",salestatistic_wx.getM_count());
 	    	json.put("wx_credit",String.format("%1.2f",salestatistic_wx.getM_credit()/100.0));
 	    	json.put("al_count",salestatistic_al.getM_count());

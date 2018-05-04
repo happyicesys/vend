@@ -149,6 +149,8 @@ var _submit=function(date)
             	$("#cash_credit").text(obj.cash_credit);
             	$("#wx_count").text(obj.wx_count);
             	$("#wx_credit").text(obj.wx_credit);
+            	$('#freevend_count').text(obj.freevend_count);
+            	$('#freevend_credit').text(obj.freevend_credit);
             
             	$("#al_count").text(obj.al_count);
             	$("#al_credit").text(obj.al_credit);
@@ -261,10 +263,13 @@ var _submit=function(date)
 								</thead>
 								<thead>
 									<tr  role="row" style="background-color: #f5f5f5; height:2em;">
-										<th>Sales Count</th>
-										<th>Total</th>
-										<th>Cash Sales</th>
-										<th>Cash Amount</th>
+										<th class="col-md-1 text-center">Sales Count</th>
+										<th class="col-md-1 text-center">Total</th>
+										<th class="col-md-1 text-center">Cash Sales</th>
+										<th class="col-md-1 text-center">Cash Amount</th>
+										<th class="col-md-1 text-center">Freevend #</th>
+										<th class="col-md-1 text-center">Freevend Amt</th>										
+										<!--  
 										<th>Wechat Sales</th>
 										<th>Wechat Pay</th>
 										<th>Alipay Sales</th>
@@ -273,7 +278,7 @@ var _submit=function(date)
 										<th>Card</th>
 										<th>China Union Pay Sales</th>
 										<th>China Union Pay</th>
-										
+										-->
 									</tr>											
 								</thead>
 
@@ -297,16 +302,21 @@ var _submit=function(date)
 													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_CARD,jiesuan);
 											ClsSaleStatisticData salestatistic_cash= SqlADO.getSalesStatisticDataFromDb(
 													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_CASH,jiesuan);
+											ClsSaleStatisticData salestatistic_freevend= SqlADO.getSalesStatisticDataFromDb(
+													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_COCO,jiesuan);											
 											ClsSaleStatisticData salestatistic_bank= SqlADO.getSalesStatisticDataFromDb(
 													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_BANK,jiesuan);
 									  %>
 									<tr class="odd" style="height:2em;">
-										<td id="all_count"><%=salestatistic_all.getM_count() %></td>
-										<td id="all_credit"><%=String.format("%1.2f", salestatistic_all.getM_credit()/100.0) %></td>
+										<td class="col-md-1 text-right" id="all_count"><%=salestatistic_all.getM_count() %></td>
+										<td class="col-md-1 text-right" id="all_credit"><%=String.format("%1.2f", salestatistic_all.getM_credit()/100.0) %></td>
 										
-										<td id="cash_count"><%=salestatistic_cash.getM_count() %></td>
-										<td id="cash_credit"><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>
-										
+										<td class="col-md-1 text-right" id="cash_count"><%=salestatistic_cash.getM_count() %></td>
+										<td class="col-md-1 text-right" id="cash_credit"><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>
+
+										<td class="col-md-1 text-right" id="freevend_count"><%=salestatistic_freevend.getM_count() %></td>
+										<td class="col-md-1 text-right" id="freevend_credit"><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>										
+										<!--  
 										<td id="wx_count"><%=salestatistic_wx.getM_count() %></td>
 										<td id="wx_credit"><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
 										
@@ -318,6 +328,7 @@ var _submit=function(date)
 										
 										<td id="bank_count"><%=salestatistic_bank.getM_count() %></td>
 										<td id="bank_credit"><%=String.format("%1.2f",salestatistic_bank.getM_credit()/100.0) %></td>
+										-->
 									</tr>
 								</tbody>
 							</table>
