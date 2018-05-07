@@ -321,17 +321,17 @@ $(function () {
 										<th class="col-md-1 text-center">#</th>
 										<th class="col-md-1 text-center">Name</th>
 										<th class="col-md-1 text-center">Address</th>
-										<th class="col-md-1 text-center">Sales Count</th>
+										<th class="col-md-1 text-center">Sales #</th>
 										<th class="col-md-1 text-center">Total</th>
-										<th class="col-md-1 text-center">Cash Sales</th>
-										<th class="col-md-1 text-center">Cash</th>
+										<th class="col-md-1 text-center">Cash #</th>
+										<th class="col-md-1 text-center">Cash</th>  
+										<th class="col-md-1 text-center">Wechat #</th>
+										<th class="col-md-1 text-center">Wechat Amt</th>
+										<th class="col-md-1 text-center">Alipay #</th>
+										<th class="col-md-1 text-center">Alipay Amt</th>
 										<th class="col-md-1 text-center">Freevend#</th>
-										<th class="col-md-1 text-center">Freevend Amt</th>
-<!--  
-										<th>Wechat Sales</th>
-										<th>Wechat Pay</th>
-										<th>Alipay Sales</th>
-										<th>Alipay</th>
+										<th class="col-md-1 text-center">Freevend Amt</th>										
+										<!--
 										<th>Card Sales</th>
 										<th>Card</th>
 										<th>China Union Pay Sales</th>
@@ -455,16 +455,17 @@ $(function () {
 										<td class="col-md-1 text-right" <%=salestatistic_all.getM_credit()>0?"style='color:red;'":"" %> ><%=String.format("%1.2f", salestatistic_all.getM_credit()/100.0) %></td>
 										
 										<td class="col-md-1 text-right" <%=salestatistic_cash.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_cash.getM_count() %></td>
-										<td class="col-md-1 text-right" <%=salestatistic_cash.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>
+										<td class="col-md-1 text-right" <%=salestatistic_cash.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>									
+										  
+										<td class="col-md-1 text-right" <%=salestatistic_wx.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_wx.getM_count() %></td>
+										<td class="col-md-1 text-right" <%=salestatistic_wx.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
+										
+										<td class="col-md-1 text-right" <%=salestatistic_al.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_al.getM_count() %></td>
+										<td class="col-md-1 text-right" <%=salestatistic_al.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_al.getM_credit()/100.0) %></td>
+										
 										<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_freevend.getM_count() %></td>
-										<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>										
-										<!--  
-										<td <%=salestatistic_wx.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_wx.getM_count() %></td>
-										<td <%=salestatistic_wx.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
-										
-										<td <%=salestatistic_al.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_al.getM_count() %></td>
-										<td <%=salestatistic_al.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_al.getM_credit()/100.0) %></td>
-										
+										<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>											
+										<!--
 										<td <%=salestatistic_card.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_card.getM_count() %></td>
 										<td <%=salestatistic_card.getM_credit()>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>
 										
@@ -486,15 +487,14 @@ $(function () {
 										<td class="col-md-1 text-right" <%=cash_count>0?"style='color:red;'":"" %>><%=cash_count %></td>
 										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>
 										<td class="col-md-1 text-right" <%=cash_count>0?"style='color:red;'":"" %>><%=cash_count %></td>
-										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>										
+										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>																				  
+										<td class="col-md-1 text-right" <%=wx_count>0?"style='color:red;'":"" %>><%=wx_count %></td>
+										<td class="col-md-1 text-right" <%=wx_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",wx_credit/100.0) %></td>
+										<td class="col-md-1 text-right" <%=al_count>0?"style='color:red;'":"" %>><%=al_count %></td>
+										<td class="col-md-1 text-right" <%=al_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",al_credit/100.0) %></td>
 										<td class="col-md-1 text-right" <%=freevend_count>0?"style='color:red;'":"" %>><%=freevend_count %></td>
-										<td class="col-md-1 text-right" <%=freevend_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",freevend_credit/100.0) %></td>	
-
-										<!--  
-										<td <%=wx_count>0?"style='color:red;'":"" %>><%=wx_count %></td>
-										<td <%=wx_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",wx_credit/100.0) %></td>
-										<td <%=al_count>0?"style='color:red;'":"" %>><%=al_count %></td>
-										<td <%=al_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",al_credit/100.0) %></td>
+										<td class="col-md-1 text-right" <%=freevend_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",freevend_credit/100.0) %></td>											
+										<!--
 										<td <%=card_count>0?"style='color:red;'":"" %>><%=card_count %></td>
 										<td <%=cardal_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",cardal_credit/100.0) %></td>
 										<td <%=bank_count>0?"style='color:red;'":"" %>><%=bank_count %></td>

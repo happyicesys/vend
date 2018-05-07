@@ -263,17 +263,17 @@ var _submit=function(date)
 								</thead>
 								<thead>
 									<tr  role="row" style="background-color: #f5f5f5; height:2em;">
-										<th class="col-md-1 text-center">Sales Count</th>
+										<th class="col-md-1 text-center">Sales #</th>
 										<th class="col-md-1 text-center">Total</th>
-										<th class="col-md-1 text-center">Cash Sales</th>
-										<th class="col-md-1 text-center">Cash Amount</th>
+										<th class="col-md-1 text-center">Cash #</th>
+										<th class="col-md-1 text-center">Cash Amount</th>										
+										<th class="col-md-1 text-center">Wechat #</th>
+										<th class="col-md-1 text-center">Wechat Amt</th>
+										<th class="col-md-1 text-center">Alipay #</th>
+										<th class="col-md-1 text-center">Alipay Amt</th>
 										<th class="col-md-1 text-center">Freevend #</th>
 										<th class="col-md-1 text-center">Freevend Amt</th>										
-										<!--  
-										<th>Wechat Sales</th>
-										<th>Wechat Pay</th>
-										<th>Alipay Sales</th>
-										<th>Alipay</th>
+										<!--
 										<th>Card Sales</th>
 										<th>Card</th>
 										<th>China Union Pay Sales</th>
@@ -312,17 +312,17 @@ var _submit=function(date)
 										<td class="col-md-1 text-right" id="all_credit"><%=String.format("%1.2f", salestatistic_all.getM_credit()/100.0) %></td>
 										
 										<td class="col-md-1 text-right" id="cash_count"><%=salestatistic_cash.getM_count() %></td>
-										<td class="col-md-1 text-right" id="cash_credit"><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>
-
+										<td class="col-md-1 text-right" id="cash_credit"><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>										
+										  
+										<td class="col-md-1 text-right" id="wx_count"><%=salestatistic_wx.getM_count() %></td>
+										<td class="col-md-1 text-right" id="wx_credit"><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
+										
+										<td class="col-md-1 text-right" id="al_count"><%=salestatistic_al.getM_count() %></td>
+										<td class="col-md-1 text-right" id="al_credit"><%=String.format("%1.2f",salestatistic_al.getM_credit()/100.0) %></td>
+										
 										<td class="col-md-1 text-right" id="freevend_count"><%=salestatistic_freevend.getM_count() %></td>
 										<td class="col-md-1 text-right" id="freevend_credit"><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>										
-										<!--  
-										<td id="wx_count"><%=salestatistic_wx.getM_count() %></td>
-										<td id="wx_credit"><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
-										
-										<td id="al_count"><%=salestatistic_al.getM_count() %></td>
-										<td id="al_credit"><%=String.format("%1.2f",salestatistic_al.getM_credit()/100.0) %></td>
-										
+										<!--
 										<td id="card_count"><%=salestatistic_card.getM_count() %></td>
 										<td id="card_credit"><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>
 										

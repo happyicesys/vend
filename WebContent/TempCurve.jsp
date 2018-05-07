@@ -165,7 +165,7 @@
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{"label":"<%=String.format("%d号机 Temp Line Graph", vid)%>",data:d1}], {
+        $.plot($("#placeholder"), [{"label":"<%=String.format("#%d Temp Line Graph", vid)%>",data:d1}], {
             series: {
                 lines: { show: true,}
         //,
