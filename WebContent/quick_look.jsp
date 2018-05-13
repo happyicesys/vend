@@ -171,7 +171,7 @@
 														int totalSold = 0;
 														for(PortBean pb:pbli)
 														{
-															if(((Integer.parseInt(pb.getInneridname()) >= 11 && Integer.parseInt(pb.getInneridname()) <= 19) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
+															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 19) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
 																//pb.getCapacity()>pb.getAmount() && 
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();

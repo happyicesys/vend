@@ -485,9 +485,7 @@ $(function () {
 										<td class="col-md-1 text-right" <%=all_count>0?"style='color:red;'":"" %>><%=all_count %></td>
 										<td class="col-md-1 text-right" <%=all_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f", all_credit/100.0) %></td>
 										<td class="col-md-1 text-right" <%=cash_count>0?"style='color:red;'":"" %>><%=cash_count %></td>
-										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>
-										<td class="col-md-1 text-right" <%=cash_count>0?"style='color:red;'":"" %>><%=cash_count %></td>
-										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>																				  
+										<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>																			  
 										<td class="col-md-1 text-right" <%=wx_count>0?"style='color:red;'":"" %>><%=wx_count %></td>
 										<td class="col-md-1 text-right" <%=wx_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",wx_credit/100.0) %></td>
 										<td class="col-md-1 text-right" <%=al_count>0?"style='color:red;'":"" %>><%=al_count %></td>

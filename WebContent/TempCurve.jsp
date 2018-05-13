@@ -81,9 +81,9 @@
  		endDate= new Timestamp(ClsTime.SystemTime());
  	}
  	
- 	beginDate= new Timestamp(endDate.getTime()-(long)24*60*60*1000);
+ 	beginDate= new Timestamp(endDate.getTime()-(long)48*60*60*1000);
 
-	long count=24;
+	long count=48;
 	int day=(int)count;
 	
 	boolean tem=false;
@@ -105,7 +105,7 @@
 	{
 		//arr_count[i]=SqlADO.getAllSalesByDate(temdate);
 		
-		sb1.append("["+((lst.get(i).getTtime().getTime()-beginDate2.getTime())/3600000.0)+","+String.format("%1.1f",lst.get(i).getTemp()/10.0)+"]");
+		sb1.append("["+((lst.get(i).getTtime().getTime()-beginDate2.getTime())/7200000.0)+","+String.format("%1.1f",lst.get(i).getTemp()/10.0)+"]");
 		if(i!=day)
 		{
 			sb1.append(',');
@@ -127,7 +127,7 @@
 			x_tem-=24;
 		}
 		
-		sb2.append("["+i+",'"+ x_tem +"']");
+		sb2.append("["+i+",'']");
 		if(i!=23)
 		{
 			sb2.append(',');
@@ -165,7 +165,7 @@
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{"label":"<%=String.format("#%d Temp Line Graph", vid)%>",data:d1}], {
+        $.plot($("#placeholder"), [{"label":"<%=String.format("#%d Temp Line Graph (48 Hours)", vid)%>",data:d1}], {
             series: {
                 lines: { show: true,}
         //,
