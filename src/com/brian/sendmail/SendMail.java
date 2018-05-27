@@ -3,14 +3,8 @@ package com.brian.sendmail;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import com.ado.SqlADO;
-
-import beans.VenderBean;
-
-import java.util.ArrayList;
 import java.util.Properties;
-public class SampleMail {
+public class SendMail {
     private static final String ALIDM_SMTP_HOST = "smtp.webfaction.com";
     //private static final String ALIDM_SMTP_PORT = "25";//或"80"
     public static void Send(String subject, String content) {
@@ -21,9 +15,9 @@ public class SampleMail {
         props.put("mail.smtp.host", ALIDM_SMTP_HOST);
         //props.put("mail.smtp.port", ALIDM_SMTP_PORT);
         // 如果使用ssl，则去掉使用25端口的配置，进行如下配置,
-         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-         props.put("mail.smtp.socketFactory.port", "465");
-         props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.port", "465");
         // 发件人的账号
         props.put("mail.user", "system_happyice");
         // 访问SMTP服务时需要提供的密码
@@ -46,25 +40,16 @@ public class SampleMail {
         try {
         // 设置发件人
         InternetAddress from = new InternetAddress("system@happyice.com.sg");
-        	
-        Address[] to = new Address[1];
-        //to[0] = new InternetAddress("daniel.ma@happyice.com.sg");
-        //to[1] = new InternetAddress("kent@happyice.com.sg");
-       // to[2] = new InternetAddress("jiahaur@happyice.com.sg");
-        //to[3] = new InternetAddress("brianlee@happyice.com.my");
-        to[0] = new InternetAddress("leehongjie91@happyice.com.my");
-        //to[1] = new InternetAddress("leehongjie91@gmail.com");
-
         message.setFrom(from);
-        Address[] a = new Address[1];
-        a[0] = new InternetAddress("system@happyice.com.my");
-        message.setReplyTo(a);
+        String to = "leehongjie91@gmail.com, lihonjiji@hotmail.com";
+        //message.setReplyTo(a);
         // 设置收件人
-        message.setRecipients(MimeMessage.RecipientType.TO, to);
+        //InternetAddress to = new InternetAddress("leehongjie91@gmail.com");
+        message.addRecipients(MimeMessage.RecipientType.TO, to);
         // 设置邮件标题
         message.setSubject(subject);
         // 设置邮件的内容体
-        message.setText(content);
+        message.setContent(content, "text/html;charset=UTF-8");
         // 发送邮件
         Transport.send(message);
         }
@@ -73,9 +58,5 @@ public class SampleMail {
             // 在这里处理message内容， 格式是固定的
             System.out.println(err);
         }
-    }
-    
-    public static void main(String[] args) {
-    	Send("hello dude", "wassup");
-    }
+    }  
 }

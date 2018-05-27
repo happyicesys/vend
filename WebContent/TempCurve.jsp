@@ -121,17 +121,20 @@
 	int x_tem=0;
 	for(i=0;i<24;i++)
 	{
-		x_tem=(beginDate.getHours()+1+i);
+		x_tem=(beginDate.getHours()+1+(i*2));
+		
 		if(x_tem>=24)
 		{
 			x_tem-=24;
 		}
+			
+		sb2.append("["+i+","+x_tem+"]");
+
 		
-		sb2.append("["+i+",'']");
-		if(i!=23)
-		{
+		//if(i!=23)
+		//{
 			sb2.append(',');
-		}
+		//}
 		
 	}
 %>
@@ -156,7 +159,7 @@
 			<i class="glyphicon glyphicon-menu-left icon-white"></i>
 			Back to Vending List
 		</a>
-    <div id="placeholder" style="width:92%;height:700px;"></div>
+    <div id="placeholder" style="width:92%;height:700px; overflow-x: auto;"></div>
 	
 	
 	

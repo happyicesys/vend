@@ -360,7 +360,7 @@ public class UserBean {
 	
 	
 	public int getPagecount() {
-		return 120;
+		return 300;
 	}
 	
 	

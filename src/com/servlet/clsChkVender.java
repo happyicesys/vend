@@ -19,7 +19,7 @@ import com.ado.SqlADO;
 import com.alipay.AlipayQrcode;
 import com.alipay.AlipayRefund;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
-import com.brian.sendmail.SampleMail;
+import com.brian.sendmail.SendMail;
 import com.tools.ToolBox;
 
 import beans.CustomerBean;
@@ -230,6 +230,19 @@ class ThreadForSendOfflineMail extends Thread
 {
 	public static ThreadForSendOfflineMail instance=null;
 	private static ArrayList<Integer> VenderIdLst=new ArrayList();
+	
+    static String convertToString(ArrayList<Integer> numbers) {
+        StringBuilder builder = new StringBuilder();
+        // Append all Integers in StringBuilder to the StringBuilder.
+        for (int number : numbers) {
+            builder.append(number);
+            builder.append(":");
+        }
+        // Remove last delimiter with setLength.
+        builder.setLength(builder.length() - 1);
+        return builder.toString();
+    }
+    
 	private void ProcessToSendMail()
 	{
 		ArrayList<VenderBean> lst=SqlADO.getVenderBeanList();
@@ -240,16 +253,11 @@ class ThreadForSendOfflineMail extends Thread
 				VenderIdLst.remove(obj.getId());
 				System.out.println(String.format("%d has remove!", obj.getId()));
 			}
-			else
-			{
-				for(int i=0; i < VenderIdLst.size(); i++) {
-					if(VenderIdLst.get(i) == obj.getId()) {
-						SampleMail.Send(String.format("Offline Notification for Vending: %d - %s", obj.getId(), obj.getTerminalName()), String.format("Last Active Time: %1$te %1$tm %1$tY", obj.getTemperUpdateTime()));
-					}
-					
-				}
-			}
 		}
+		for(int i=0; i < VenderIdLst.size(); i++) {
+			String listString = convertToString(VenderIdLst);
+			SendMail.Send("Offline Notification for Vending", String.format("Offline Vending ID: %d", listString));
+		}		
 		
 	}
 	
@@ -258,14 +266,14 @@ class ThreadForSendOfflineMail extends Thread
 		while(true)
 		{
 			try {
-				sleep(120*1000);
+				sleep(60*1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
 			try
 			{
-			ProcessToSendMail();
+				ProcessToSendMail();
 			}
 			catch (Exception e	)
 			{	

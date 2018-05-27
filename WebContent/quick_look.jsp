@@ -164,8 +164,8 @@
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
 											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
-											<td> 
-												<ul>
+											<td class="center"> 
+												<ul class="list-unstyled" style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
@@ -176,24 +176,24 @@
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li class="quick-look">
-																	<span>
+																<li class="col-md-4 col-sm-12 col-xs-12 row">
+																	<span class="col-md-3">
 																		#:<%=pb.getInneridname()%> - 
 																	</span> 
-																	<span style="color: red;">
-																		<%=String.format("%3d",pb.getCapacity()-pb.getAmount()) %>, 
+																	<span class="col-md-2 text-right" style="color: red;">
+																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>, 
 																	</span> 
 																	<%
 																		if(pb.getAmount() == 0) {
 																	%>		
-																			<span style="color:red;">
-																				<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
+																			<span class="col-md-4 text-right" style="color:red;">
+																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
 																			</span> 	
 																	<%
 																		}else {
 																	%>																																			
-																			<span style="color:green;">
-																				<%=String.format("%5d/ %d",pb.getAmount(), pb.getCapacity()) %>
+																			<span class="col-md-4 text-right" style="color:green;">
+																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
 																			</span> 																			
 																	<%
 																		}
@@ -210,13 +210,13 @@
 															}
 														}
 													%>
-													<li class="quick-look">
+													<li class="col-md-12 col-sm-12 col-xs-12 text-left" style="padding-top: 10px;">
 														<%
 															if((((double)totalSold/ (double)totalVolume)*100) < 70.00) {
 														%>
 																<span style="color: red;">
 																	<strong>
-																		Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+																		Subtotal:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																	</strong>
 																</span>
 														<%
@@ -224,7 +224,7 @@
 														%>
 																<span>
 																	<strong>
-																		Subtotal:<%=String.format("%5d/ %d", totalSold, totalVolume) %>
+																		Subtotal:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																	</strong>
 																</span>	
 														<%
