@@ -209,7 +209,7 @@ var ShowMapWin=function()
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Is Online</label>
 				    	<div class="col-sm-3">
-						    <%=(vb.isIsOnline()?"是":"否")%>
+						    <%=(vb.isIsOnline()?"Yes":"No")%>
 						</div>
 				  </div>
 				  <div class="form-group">
@@ -225,6 +225,12 @@ var ShowMapWin=function()
 						    <input name="manual_refund" type="checkbox" value="1" <%=(vb.getManual_refund()==1?"checked=\"checked\"":"")%> />
 						</div>
 				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-4 control-label">Enable Temp Alert</label>
+				    	<div class="col-sm-3">
+						    <input name="temp_alert" type="checkbox" value="1" <%=(vb.getTemp_alert()==1?"checked=\"checked\"":"")%> />
+						</div>
+				  </div>				  
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">允许下位机更新货道商品</label>
 				    	<div class="col-sm-3">
@@ -243,8 +249,8 @@ var ShowMapWin=function()
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
 				       <input name="id" type="hidden" value="<%=vb.getId()%>" /> 
-				      <button type="submit" class="btn btn-primary" value="Edit">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
-				      <button type="reset" class="btn btn-primary" value="取消">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+				      <button type="submit" class="btn btn-success" value="Edit">Edit</button>
+				      <button type="reset" class="btn btn-danger" value="取消">Cancel</button>
 				      <button  class="btn btn-primary"  value="Back" type="button" onclick="javascript:history.go(-1)" >Back</button>
 				    </div>
 				  </div>

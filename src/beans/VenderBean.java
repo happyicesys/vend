@@ -50,10 +50,16 @@ public class VenderBean {
 	
 	private int manual_refund=0;
 	
+	private int temp_alert=0;
+	
 	private int m_AllowUpdateGoodsByPc=0;/*是否允许由客户端更新产品编号信息*/
 	
 	private String TemperUpdateTime;
 	
+	private int prev_temp=0;
+	private int temp_alert_loop=0;
+	private int is_alert_sent;
+	private String TemperLoopStartTime;
 	
 	public String getTemperUpdateTime() {
 		return TemperUpdateTime;
@@ -200,6 +206,13 @@ public class VenderBean {
 	public static final int MDB_COMMUNICATION_COIN=(1<<0);
 	public static final int MDB_COMMUNICATION_BILL=(1<<1);
 	public static final int MDB_COMMUNICATION_CASHLESS=(1<<2);
+	
+	//temperature degree Celcius x 10
+	public static final int TEMP_ALERT_LIMIT = -120;
+	//time looping to send alert email
+	public static final int TEMP_ALERT_LOOP = 3;
+	//in the unit of minutes
+	public static final int TEMP_LOOP_TIMING = 10;
 
 
 	
@@ -522,6 +535,15 @@ public class VenderBean {
 	public void setManual_refund(int manual_refund) {
 		this.manual_refund = manual_refund;
 	}
+	
+	public int getTemp_alert() {
+		return temp_alert;
+	}
+
+	public void setTemp_alert(int temp_alert) {
+		this.temp_alert = temp_alert;
+	}	
+	
 	public int getM_AllowUpdateGoodsByPc() {
 		return m_AllowUpdateGoodsByPc;
 	}
@@ -531,5 +553,36 @@ public class VenderBean {
 	}
 	private String id_Format;
 	
+	public void setPrev_temp(int prev_temp) {
+		this.prev_temp = prev_temp;
+	}
+	
+	public int getPrev_temp() {
+		return prev_temp;
+	}
+	
+	public void setTemp_alert_loop(int temp_alert_loop) {
+		this.temp_alert_loop = temp_alert_loop;
+	}
+	
+	public int getTemp_alert_loop() {
+		return temp_alert_loop;
+	}
+	
+	public void setIs_alert_send(int is_alert_sent) {
+		this.is_alert_sent = is_alert_sent;
+	}
+	
+	public int getIs_alert_sent() {
+		return is_alert_sent;
+	}	
+	
+	public String getTemperLoopStartTime() {
+		return TemperLoopStartTime;
+	}
 
+	public void setTemperLoopStartTime(String temperLoopStartTime) {
+		this.TemperLoopStartTime = temperLoopStartTime;
+	}	
+	
 }

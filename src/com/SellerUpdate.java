@@ -88,6 +88,7 @@ public class SellerUpdate extends HttpServlet {
 			vb.setTerminalAddress(ToolBox.filter(request.getParameter("address")));
 			vb.setTerminalName(ToolBox.filter(request.getParameter("tname")));
 			vb.setAuto_refund(ToolBox.filterInt(request.getParameter("auto_refund")));
+			vb.setTemp_alert(ToolBox.filterInt(request.getParameter("temp_alert")));
 			vb.setM_AllowUpdateGoodsByPc(ToolBox.filterInt(request.getParameter("AllowUpdateGoodsByPc")));
 			//System.out.println(vb.getAuto_refund());
 			String tipmes= request.getParameter("tipmes");

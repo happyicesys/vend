@@ -122,18 +122,24 @@
 	for(i=0;i<24;i++)
 	{
 		x_tem=(beginDate.getHours()+1+(i*2));
+		//x_tem = (int)x_tem;
 		
-		if(x_tem>=24)
-		{
-			x_tem-=24;
-		}
+		if(x_tem >= 24 && x_tem < 48){
 			
-		sb2.append("["+i+","+x_tem+"]");
+			x_tem = x_tem - 24;
+			
+		}else if(x_tem >= 48){
+			
+			x_tem = x_tem - 48;
+		}
+		
+			
+		sb2.append("["+i+","+x_tem+"],");
 
 		
 		//if(i!=23)
 		//{
-			sb2.append(',');
+			//sb2.append(',');
 		//}
 		
 	}
@@ -146,19 +152,19 @@
 		<li>
 			<span class="glyphicon glyphicon-home"></span>
 			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
-				</li>
+		</li>
 
-				<li>
-					<a href="#">Setting Management</a>
-				</li>
-				<li class="active">Temp Line Graph</li>
-			</ul>
-		</div>
+		<li>
+			<a href="#">Setting Management</a>
+		</li>
+		<li class="active">Temp Line Graph</li>
+	</ul>
+</div>
 
-		<a class="btn btn-danger" href="javascript:void(0);" onclick="window.history.back(-1);" >
-			<i class="glyphicon glyphicon-menu-left icon-white"></i>
-			Back to Vending List
-		</a>
+	<a class="btn btn-danger" href="javascript:void(0);" onclick="window.history.back(-1);" >
+		<i class="glyphicon glyphicon-menu-left icon-white"></i>
+		Back to Vending List
+	</a>
     <div id="placeholder" style="width:92%;height:700px; overflow-x: auto;"></div>
 	
 	

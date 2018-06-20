@@ -165,7 +165,7 @@
 											<td class="center "><%=vb.getId() %></td>
 											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
 											<td class="center"> 
-												<ul class="list-unstyled" style="font-size: 13px;">
+												<ul style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
@@ -176,23 +176,23 @@
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li class="col-md-4 col-sm-12 col-xs-12 row">
-																	<span class="col-md-3">
+																<li class="quick-look">
+																	<span >
 																		#:<%=pb.getInneridname()%> - 
 																	</span> 
-																	<span class="col-md-2 text-right" style="color: red;">
+																	<span style="color: red;">
 																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>, 
 																	</span> 
 																	<%
 																		if(pb.getAmount() == 0) {
 																	%>		
-																			<span class="col-md-4 text-right" style="color:red;">
+																			<span style="color:red;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
 																			</span> 	
 																	<%
 																		}else {
 																	%>																																			
-																			<span class="col-md-4 text-right" style="color:green;">
+																			<span  style="color:green;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
 																			</span> 																			
 																	<%
@@ -210,7 +210,7 @@
 															}
 														}
 													%>
-													<li class="col-md-12 col-sm-12 col-xs-12 text-left" style="padding-top: 10px;">
+													<li class="quick-look">
 														<%
 															if((((double)totalSold/ (double)totalVolume)*100) < 70.00) {
 														%>

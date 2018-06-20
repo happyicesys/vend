@@ -1,12 +1,21 @@
 package com.servlet;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.concurrent.TimeUnit;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +47,7 @@ import com.clsFid;
 import com.ado.SqlADO;
 import com.alipay.AlipayQrcode;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
+import com.brian.sendmail.SendMail;
 import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import com.tools.ToolBox;
 
@@ -333,6 +343,52 @@ private static final String NAK="ERROR";
 		logBean.updateResponse();
 		pw.write(str);
 	}
+	
+	public static String executePost(String targetURL, String urlParameters) {
+		  HttpURLConnection connection = null;
+
+		  try {
+		    //Create connection
+		    URL url = new URL(targetURL);
+		    connection = (HttpURLConnection) url.openConnection();
+		    connection.setRequestMethod("POST");
+		    connection.setRequestProperty("Content-Type", 
+		        "application/x-www-form-urlencoded");
+
+		    connection.setRequestProperty("Content-Length", 
+		        Integer.toString(urlParameters.getBytes().length));
+		    connection.setRequestProperty("Content-Language", "en-US");  
+
+		    connection.setUseCaches(false);
+		    connection.setDoOutput(true);
+
+		    //Send request
+		    DataOutputStream wr = new DataOutputStream (
+		        connection.getOutputStream());
+		    wr.writeBytes(urlParameters);
+		    wr.close();
+
+		    //Get Response  
+		    InputStream is = connection.getInputStream();
+		    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+		    StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
+		    String line;
+		    while ((line = rd.readLine()) != null) {
+		      response.append(line);
+		      response.append('\r');
+		    }
+		    rd.close();
+		    return response.toString();
+		  } catch (Exception e) {
+		    e.printStackTrace();
+		    return null;
+		  } finally {
+		    if (connection != null) {
+		      connection.disconnect();
+		    }
+		  }
+	}	
+	
 	
 	private String Vender_MakeSwipTrade(VenderBean vb, JSONObject obj) {
 		/*售货机刷卡消费
@@ -797,7 +853,41 @@ private static final String NAK="ERROR";
 			if(venderobj.containsKey("TEMP"))
 			{
 				fun_flg|=VenderBean.FUNC_IS_TERMPER_VALID;
-				vb.setTemperature(venderobj.getInt("TEMP"));	
+				vb.setTemperature(venderobj.getInt("TEMP"));
+				vb.setPrev_temp(vb.getTemperature());
+				
+				if(venderobj.getInt("TEMP") > vb.TEMP_ALERT_LIMIT && vb.getTemp_alert() == 1) {
+					
+					if(vb.getTemp_alert_loop() == 0) {
+						vb.setTemperLoopStartTime(ToolBox.getDateTimeString());
+						vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
+					}
+					
+					if(vb.getTemp_alert_loop() > 0) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						long timediff = 0;
+						try {
+							timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getTemperLoopStartTime()).getTime();							
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+						if(timediffmins % vb.TEMP_LOOP_TIMING == 0 && timediffmins != 0) {
+							vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
+						}
+					}		
+					
+					if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
+						vb.setIs_alert_send(1);
+						SendMail.Send(String.format("Vend Temp Rising Notification [%s]", ToolBox.getDateString()), String.format("Vending ID: %d %n Vending Name: %s %n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));
+					}
+				}else {
+					vb.setTemp_alert_loop(0);
+					vb.setIs_alert_send(0);
+					vb.setTemperLoopStartTime(null);
+				}
+				
+				
 				vb.setTemperUpdateTime(ToolBox.getDateTimeString());
 				if((vb.getTemperature()<1000)&&(vb.getTemperature()>-1000))
 				{

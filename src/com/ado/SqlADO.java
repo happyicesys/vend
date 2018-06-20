@@ -274,7 +274,7 @@ public class SqlADO {
 				"IsOnline,HuodongId,SellerTyp,TelNum,GoodsPortCount,TipMesOnLcd," +
 				"CanUse,queueMaxLength,jindu,weidu,groupid,coinAttube,MdbDeviceStatus,gprs_Sign," +
 				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,vmc_firmfile,IRErrCnt,LstSltE,pos_PWD"
-				+ ",code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime "
+				+ ",code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert "
 				+ "from [TerminalInfo] where id=?";
 		try {
 			ps=conn.prepareStatement(sql);
@@ -328,6 +328,7 @@ public class SqlADO {
 				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
+				temv.setTemp_alert(rs.getInt("temp_alert"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -361,7 +362,7 @@ public class SqlADO {
 		String sql="update [TerminalInfo] set sellertyp=?,goodsPortCount=?,HuodongId=?," +
 				"terminalAddress=?,terminalName=?,tipMesOnLcd=?,updateTime=getdate(),CanUse=?," +
 				"jindu=?,weidu=?,[TelNum]=?,[groupid]=?,vmc_firmfile=?,[AdminId]=?,[auto_refund]=?,"
-				+ "[manual_refund]=?,[AllowUpdateGoodsByPc]=?,[autoTransfer]=?,autoTransferRation=? where id=?";
+				+ "[manual_refund]=?,[AllowUpdateGoodsByPc]=?,[autoTransfer]=?,autoTransferRation=?,[temp_alert]=? where id=?";
 		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -386,6 +387,7 @@ public class SqlADO {
 			ps.setInt(i++, vb.getM_AllowUpdateGoodsByPc());
 			ps.setInt(i++, vb.getAutoTransfer());
 			ps.setDouble(i++, vb.getAutoTransferRation());//
+			ps.setInt(i++, vb.getTemp_alert());
 			ps.setInt(i++, vb.getId());
 			
 			
@@ -1871,7 +1873,9 @@ public class SqlADO {
 		ResultSet rs=null;
 		String sql=null;
 		sql="update terminalinfo set coinAttube=?,MdbDeviceStatus=?,gprs_Sign=?," +
-				"temperature=?,function_flg=?,coinAtbox=?,LstSltE=?,IRErrCnt=?,id_format=?,code_ver=?,bills=?,TemperUpdateTime=?  where id=?";
+				"temperature=?,function_flg=?,coinAtbox=?,LstSltE=?,IRErrCnt=?,id_format=?,code_ver=?,bills=?,TemperUpdateTime=?," +
+				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?" +
+				" where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1893,6 +1897,11 @@ public class SqlADO {
 			ps.setInt(i++, vb.getCode_ver());
 			ps.setInt(i++, vb.getBills());
 			ps.setString(i++, vb.getTemperUpdateTime());
+			ps.setInt(i++, vb.getPrev_temp());
+			ps.setInt(i++, vb.getTemp_alert_loop());
+			ps.setInt(i++, vb.getIs_alert_sent());
+			ps.setString(i++, vb.getTemperLoopStartTime());
+			
 			ps.setInt(i++,vb.getId());
 			ps.executeUpdate();
 			//ps.ge
