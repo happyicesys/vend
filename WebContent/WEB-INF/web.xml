@@ -81,6 +81,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>GetReportExcel</display-name>
+    <servlet-name>GetReportExcel</servlet-name>
+    <servlet-class>com.servlet.GetReportExcel</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetReportExcel</servlet-name>
+    <url-pattern>/GetReportExcel</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+    <description></description>
     <display-name>UpLoadGoodsInfo</display-name>
     <servlet-name>UpLoadGoodsInfo</servlet-name>
     <servlet-class>com.servlet.UpLoadGoodsInfo</servlet-class>

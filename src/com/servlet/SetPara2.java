@@ -850,6 +850,15 @@ private static final String NAK="ERROR";
 			{
 				fun_flg|=VenderBean.FUNC_IS_MDB_COIN_VALID;
 			}
+//			
+//			if(venderobj.getInt("CoinCnt") < 1600 && vb.getIs_coin_alert_sent() == 0) {
+//				vb.setIs_coin_alert_sent(1);
+//				SendMail.Send(String.format("Low Coin Lvl - VendID : %d [%s] - Coin: %.2f", vb.getId(), vb.getTerminalName(), venderobj.getInt("CoinCnt")/ 100), String.format("Vending ID: %d "+ System.getProperty("line.separator") + "Vending Name: %s "+ System.getProperty("line.separator") + " Coin: (%.2f)" , vb.getId(), vb.getTerminalName(), venderobj.getInt("CoinCnt")/ 100));
+//			}else {
+//				vb.setIs_coin_alert_sent(0);
+//			}
+
+			
 			if(venderobj.containsKey("TEMP"))
 			{
 				fun_flg|=VenderBean.FUNC_IS_TERMPER_VALID;
@@ -878,12 +887,12 @@ private static final String NAK="ERROR";
 					}		
 					
 					if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
-						vb.setIs_alert_send(1);
-						SendMail.Send(String.format("Vend Temp Rising Notification [%s]", ToolBox.getDateString()), String.format("Vending ID: %d %n Vending Name: %s %n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));
+						vb.setIs_alert_sent(1);
+						SendMail.Send(String.format("Vend Temp Rising [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
 					}
 				}else {
 					vb.setTemp_alert_loop(0);
-					vb.setIs_alert_send(0);
+					vb.setIs_alert_sent(0);
 					vb.setTemperLoopStartTime(null);
 				}
 				

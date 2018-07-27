@@ -320,6 +320,7 @@ function ShowTemCurve(id)
 										<th class="col-md-1">#</th>
 										<th class="col-md-1"></th>
 										<th class="col-md-1">Conn</th>
+										<th class="col-md-1">Category</th>
 										<th class="col-md-2" >Name</th>
 										<th class="col-md-1">Address</th>
 										<th class="col-md-4">Status</th>
@@ -329,7 +330,6 @@ function ShowTemCurve(id)
 										 -->
 										<th class="col-md-1">Temp Time</th>
 										<th class="col-md-1">Error</th>
-										<th class="col-md-1">Signal</th>
 										<th class="col-md-2">Setting</th>
 									</tr>											
 								</thead>
@@ -376,6 +376,7 @@ function ShowTemCurve(id)
 										<td class="center col-md-1">
 											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 										</td>
+										<td class="center col-md-1"></td>
 										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
 										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 										<td class="center col-md-4" >
@@ -403,8 +404,12 @@ function ShowTemCurve(id)
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
-											  		//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
+											  		if(obj.getCoinAttube() > 1600) {
+											  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		} else{
+											  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  		}
+											  			//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
 											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>硬币器正常</button>");
 											  	}
 											  	
@@ -441,9 +446,6 @@ function ShowTemCurve(id)
 											}
 										%>
 										<td class="center col-md-1"><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
-										<td class="center col-md-1">
-											<%=obj.getGprs_Sign()*100/31 %>%
-										</td>
 										<td class="center col-md-2">
 											<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
 												<i class="glyphicon glyphicon-map-marker icon-white"></i>

@@ -60,6 +60,7 @@ public class VenderBean {
 	private int temp_alert_loop=0;
 	private int is_alert_sent;
 	private String TemperLoopStartTime;
+	private int is_coin_alert_sent;
 	
 	public String getTemperUpdateTime() {
 		return TemperUpdateTime;
@@ -210,7 +211,7 @@ public class VenderBean {
 	//temperature degree Celcius x 10
 	public static final int TEMP_ALERT_LIMIT = -120;
 	//time looping to send alert email
-	public static final int TEMP_ALERT_LOOP = 3;
+	public static final int TEMP_ALERT_LOOP = 12;
 	//in the unit of minutes
 	public static final int TEMP_LOOP_TIMING = 10;
 
@@ -569,7 +570,7 @@ public class VenderBean {
 		return temp_alert_loop;
 	}
 	
-	public void setIs_alert_send(int is_alert_sent) {
+	public void setIs_alert_sent(int is_alert_sent) {
 		this.is_alert_sent = is_alert_sent;
 	}
 	
@@ -584,5 +585,13 @@ public class VenderBean {
 	public void setTemperLoopStartTime(String temperLoopStartTime) {
 		this.TemperLoopStartTime = temperLoopStartTime;
 	}	
+	
+	public void setIs_coin_alert_sent(int is_coin_alert_sent) {
+		this.is_coin_alert_sent = is_coin_alert_sent;
+	}
+	
+	public int getIs_coin_alert_sent() {
+		return is_coin_alert_sent;
+	}
 	
 }

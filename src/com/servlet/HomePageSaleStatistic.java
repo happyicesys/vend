@@ -98,7 +98,7 @@ public class HomePageSaleStatistic extends HttpServlet {
 			Calendar c = Calendar.getInstance();
 			
 			c.setTimeInMillis(beginDate.getTime());
-			c.add(Calendar.DAY_OF_MONTH, 1);
+			//c.add(Calendar.DAY_OF_MONTH, 1);
 			edata=new Date(c.getTimeInMillis());
 			
 			ClsSaleStatisticData salestatistic_all= SqlADO.getSalesStatisticDataFromDb(

@@ -143,9 +143,9 @@ public class SqlADO {
 		String sql="select id,BTime,TerminalName,TerminalAddress,UpdateTime," +
 				"IsOnline,HuodongId,SellerTyp,GoodsPortCount," +
 				"CanUse,AdminId,jindu,weidu,groupid,coinAttube,bills,MdbDeviceStatus,gprs_Sign," +
-				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,IRErrCnt,LstSltE,auto_refund,"
-				+ "manual_refund,AllowUpdateGoodsByPc,id_format,autoTransfer,autoTransferRation,TemperUpdateTime from [TerminalInfo] "
-				+ "where id=? and id in("+limiteid +") order by IsOnline desc,id asc";
+				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,IRErrCnt,LstSltE,auto_refund," + 
+				"manual_refund,AllowUpdateGoodsByPc,id_format,autoTransfer,autoTransferRation,TemperUpdateTime from [TerminalInfo] " +
+				"where id=? and id in("+limiteid +") order by IsOnline desc,id asc";
 		try {
 			
 			ps= conn.prepareStatement(sql);
@@ -1874,7 +1874,7 @@ public class SqlADO {
 		String sql=null;
 		sql="update terminalinfo set coinAttube=?,MdbDeviceStatus=?,gprs_Sign=?," +
 				"temperature=?,function_flg=?,coinAtbox=?,LstSltE=?,IRErrCnt=?,id_format=?,code_ver=?,bills=?,TemperUpdateTime=?," +
-				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?" +
+				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?,is_coin_alert_sent=?" +
 				" where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -1901,6 +1901,7 @@ public class SqlADO {
 			ps.setInt(i++, vb.getTemp_alert_loop());
 			ps.setInt(i++, vb.getIs_alert_sent());
 			ps.setString(i++, vb.getTemperLoopStartTime());
+			ps.setInt(i++, vb.getIs_coin_alert_sent());
 			
 			ps.setInt(i++,vb.getId());
 			ps.executeUpdate();
@@ -3423,12 +3424,12 @@ public class SqlADO {
 		if(typeid==-1)
 		{
 			sql="SELECT sum(price) AS _credit ,count(*) as _count FROM traderecordinfo WHERE "
-				+ "  receivetime BETWEEN ? and ? and changestatus=1 and goodmachineid in ("+vid+")"+str_jiesuan;
+				+ "  CONVERT(date, receivetime) >= ? and CONVERT(date, receivetime) <= ? and changestatus=1 and goodmachineid in ("+vid+")"+str_jiesuan;
 		}
 		else
 		{
 			sql="SELECT sum(price) AS _credit ,count(*) as _count FROM traderecordinfo WHERE traderecordinfo.tradetype=?"
-					+ " and receivetime BETWEEN ? and ? and changestatus=1 and goodmachineid in ("+vid+")"+str_jiesuan;
+					+ " and CONVERT(date, receivetime) >= ? and CONVERT(date, receivetime) <= ? and changestatus=1 and goodmachineid in ("+vid+")"+str_jiesuan;
 		}
 		//System.out.println(sql);
 		Connection conn=ConnManager.getConnection(CN);

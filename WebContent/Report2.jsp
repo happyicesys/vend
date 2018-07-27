@@ -37,10 +37,16 @@
 		}
 		
 	 	java.sql.Date beginDate=ToolBox.filteDate(request.getParameter("sdate"));
+	 	java.sql.Date endDate=ToolBox.filteDate(request.getParameter("edate"));
 	    
 	 	if(beginDate==null)
 	 	{
 	 		beginDate=new Date(System.currentTimeMillis());
+	 	}
+	 	
+	 	if(endDate==null)
+	 	{
+	 		endDate=new Date(System.currentTimeMillis());
 	 	}
 	 	
 		%>
@@ -72,6 +78,8 @@
     <script language="javascript" type="text/javascript" src="./jquery_ui/js/jquery-ui.min.js"></script>
     <script language="javascript" type="text/javascript" src="./jquery_ui/js/jquery.showLoading.min.js"></script>
     <script type="text/javascript" src="js/bootstrap/datePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    
    	<!-- <style type="text/css">
    		table {
     border-spacing: 0px;
@@ -135,8 +143,10 @@ $(function () {
     $("#jiesuan").click(function(){
     	/*提交结算日期到后台*/
     	var stratTime= $("#stratTime").val();
+    	var endTime= $("#endTime").val();
     	var postobj=new Object();
     	postobj.stratTime=stratTime;
+    	postobj.endTime=endTime;
     	postobj.activeid=<%=clsConst.ACTION_JIESUAN%>;
     	$("body").showLoading(); 
         $.ajax({
@@ -214,6 +224,41 @@ $(function () {
         }
         return obj;
     }
+    
+	var downExcel=function()
+	{
+		form1.method="get";
+		form1.action="./GetReportExcel";
+		form1.submit();
+	}
+	
+	$('#prevDateBtn').click(function(event) {
+		event.preventDefault();
+		var oriStartDate = moment($('#stratTime').val(), "YYYY-MM-DD");
+		var newStartDate = oriStartDate.subtract(1, "days").format("YYYY-MM-DD");
+		var oriEndDate = moment($('#endTime').val(), "YYYY-MM-DD");
+		var newEndDate = oriEndDate.subtract(1, "days").format("YYYY-MM-DD");		
+		$('#stratTime').val(newStartDate);
+		$('#endTime').val(newEndDate);
+	});
+	
+	$('#todayDateBtn').click(function(event) {
+		event.preventDefault();
+		var newStartDate = moment().format("YYYY-MM-DD");
+		var newEndDate = moment().format("YYYY-MM-DD");
+		$('#stratTime').val(newStartDate);	
+		$('#endTime').val(newEndDate);	
+	});	
+	
+	$('#nextDateBtn').click(function(event) {
+		event.preventDefault();
+		var oriStartDate = moment($('#stratTime').val(), "YYYY-MM-DD");
+		var newStartDate = oriStartDate.add(1, "days").format("YYYY-MM-DD");
+		var oriEndDate = moment($('#endTime').val(), "YYYY-MM-DD");
+		var newEndDate = oriEndDate.add(1, "days").format("YYYY-MM-DD");		
+		$('#stratTime').val(newStartDate);
+		$('#endTime').val(newEndDate);
+	});	
 
 });
 
@@ -276,34 +321,64 @@ $(function () {
 							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-			  <div class="row">
-					<div class="col-xs-12">
-						<div class="dataTables_length" id="dataTables-example_length">
-							<form class="form-horizontal" role="form">
-							<label>Machine ID:</label>
-							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
-							
-							&nbsp;<label>Select Month(Monthly)：</label>
-							
-							<label><input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" /></label>
-							<label>&nbsp;Is calculated:</label>
-							<label class="radio-inline" style="padding-top:0px;">
-  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
-							</label>
-							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 已结算
-							</label>
-							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 未结算
-							</label>
-							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							</form>
-						</div>
-					</div>
+
 								
-			  </div>
-			</div>
+							<form role="form">
+								<div class="row">
+									<div class="form-group col-md-3 col-sm-6 col-xs-12">
+										<label class="control-label">Machine ID</label>
+							  			<input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+							  		</div>
+							  		
+									<div class="form-group col-md-3 col-sm-6 col-xs-12">
+										<label class="control-label">From</label>
+							  			<input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />
+							  		</div>			
+									<div class="form-group col-md-3 col-sm-6 col-xs-12">
+										<label class="control-label">To</label>
+							  			<input  name="edate" id="endTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(endDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />
+							  		</div>
+				                    <div class="form-group col-md-3 col-sm-6 col-xs-12">
+				                        <div class="row col-md-12 col-sm-12 col-xs-12">
+				                            <label class="control-label">Date Shortcut</label>
+				                        </div>
+				                        <div class="btn-group">
+				                            <a href="" id="prevDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-backward"></i></a>
+				                            <a href="" id="todayDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-circle"></i></a>
+				                            <a href="" id="nextDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-forward"></i></a>
+				                        </div>
+				                    </div>							  		
+							  		<!--  									  						  		
+									<div class="form-group col-md-3 col-sm-6 col-xs-12">
+										<div class="row">
+											<div class="col-md-12 col-sm-12 col-xs-12">
+												<label class="control-label">Is Calculated</label>
+											</div>
+										</div>
+										<label class="radio-inline" style="padding-top:0px;">
+			  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> All
+										</label>
+										<label class="radio-inline" style="padding-top:0px;">
+										  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Already
+										</label>
+										<label class="radio-inline" style="padding-top:0px;">
+										  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent
+										</label>										
+									</div>
+									-->
+								</div>
+								<div class="row">
+									<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
+										<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
+										<!-- 
+										<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="Export EXCEL"></input>
+										 -->
+									</div>																				
+								</div>
+							</form>
+							
+
+
 			<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
@@ -384,29 +459,36 @@ $(function () {
 											c.set(Calendar.MINUTE, 0);
 											c.set(Calendar.SECOND, 0);
 										
+											Calendar ec = Calendar.getInstance();
+											ec.setTimeInMillis(endDate.getTime());
+											ec.set(Calendar.HOUR_OF_DAY, 0);
+											ec.set(Calendar.MINUTE, 0);
+											ec.set(Calendar.SECOND, 0);
 											
-											beginDate =new Date(c.getTimeInMillis());
-											c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
-											edata=new Date(c.getTimeInMillis());
-
+											endDate = new Date(ec.getTimeInMillis());
+											beginDate =new Date(c.getTimeInMillis()); 
+											//c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
+											//endDate = new Date(c.getTimeInMillis());
+											//edata=new Date(c.getTimeInMillis());
+											
 											while(it.hasNext())
 											{
 												obj=it.next();
 												/*计算相关金额*/
 												ClsSaleStatisticData salestatistic_all= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_NO_LIMIT,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_NO_LIMIT,jiesuan);
 												ClsSaleStatisticData salestatistic_al= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_AL_QR,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_AL_QR,jiesuan);
 												ClsSaleStatisticData salestatistic_wx= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_WX_QR,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_WX_QR,jiesuan);
 												ClsSaleStatisticData salestatistic_card= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CARD,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CARD,jiesuan);
 												ClsSaleStatisticData salestatistic_cash= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CASH,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CASH,jiesuan);
 												ClsSaleStatisticData salestatistic_bank= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_BANK,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_BANK,jiesuan);
 												ClsSaleStatisticData salestatistic_freevend= SqlADO.getSalesStatisticDataFromDb(
-														beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_COCO,jiesuan);
+														beginDate,endDate,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_COCO,jiesuan);
 												count++;
 												if(count<=(Page-1)*pagecount)
 												{
@@ -447,6 +529,7 @@ $(function () {
 												bank_credit+=salestatistic_bank.getM_credit();
 												
 									  %>
+
 									<tr class="odd">
 										<td class="text-center col-md-1 sorting_1"><%=venderid%></td>
 										<td class="text-left col-md-1"><button type="button" class="btn btn-danger btn-sm"><%=obj.getTerminalName() %></button></td>
