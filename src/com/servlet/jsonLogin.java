@@ -85,7 +85,7 @@ public class jsonLogin extends HttpServlet {
 					ub.setCanAccessSellerid(SqlADO.VenderBeanID());
 				}
 				HttpSession session=request.getSession();
-				session.setMaxInactiveInterval(600);
+				session.setMaxInactiveInterval(18000);
 				session.setAttribute("usermessage",ub);
 				pWriter.print("ok");
 				return;

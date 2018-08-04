@@ -165,7 +165,10 @@
 		<i class="glyphicon glyphicon-menu-left icon-white"></i>
 		Back to Vending List
 	</a>
-    <div id="placeholder" style="width:92%;height:700px; overflow-x: auto;"></div>
+	<a class="btn btn-default" href="">
+		<i class="fa fa-excel"></i>
+		7 Days Excel
+	</a>
 	
 	
 	
@@ -192,7 +195,6 @@ $(function () {
     
     
 });
-
 
 
 </script>

@@ -106,7 +106,7 @@
 </style>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
 <script type="text/javascript" src="http://dev.baidu.com/wiki/static/map/API/examples/script/convertor.js"></script>
-
+<!--  
 <script type="text/javascript"> 
 		var map;            // 创建Map实例
 		var last_div="li<%=id%>";
@@ -125,7 +125,7 @@
 					point = new BMap.Point(<%=vobj.getJindu()%>, <%=vobj.getWeidu()%>);  
 					marker = new BMap.Marker(point);  // 创建标注
 					map.addOverlay(marker);              // 将标注添加到Map中
-					label= new BMap.Label("<%=vobj.getTerminalName()%>:<%=String.format("%03d号售货机",vobj.getId())%><BR/>Address:<%= vobj.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
+					label= new BMap.Label("<%=vobj.getTerminalName()%>:<%=String.format("%03d VM",vobj.getId())%><BR/>Address:<%= vobj.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
 					marker.setLabel(label);
 					map.addOverlay(marker);
 					<%
@@ -138,7 +138,7 @@
 			marker = new BMap.Marker(point);  // 创建标注
 			map.addOverlay(marker);              // 将标注添加到Map中
 		
-			label = new BMap.Label("<%=vb.getTerminalName()%>:<%=String.format("%03d号售货机",id) %><BR/>Address:<%= vb.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
+			label = new BMap.Label("<%=vb.getTerminalName()%>:<%=String.format("%03d VM",id) %><BR/>Address:<%= vb.getTerminalAddress()%>",{offset:new BMap.Size(20,-10)});
 			marker.setLabel(label);
 			map.addOverlay(marker);
 			map.addControl(new BMap.NavigationControl());  
@@ -163,6 +163,23 @@
 			document.getElementById(last_div).style.background="#73A839";
 		}
 </script>
+-->
+<script
+    src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+var map;
+function initialize() {
+  var mapOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644)
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 </head>
 <body onload="initialize()" style="background-color: #fff;">
 	<div class="breadcrumbs" id="breadcrumbs">
@@ -181,9 +198,17 @@
 						<!-- #nav-search -->
 					</div>
 	<div class="row">
-		<div style="width:74%; height:800px; border: 2px solid #eee; float:right;margin:5px; "	 id="container">
-		
-		</div>
+
+		<iframe
+		  width="74%"
+		  height="800"
+		  style="border: 2px solid #eee; float:right;margin:5px;"
+		  id="container"
+		  frameborder="0" style="border:0"
+		  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBKvSZHWGe432ZkMEMd-0oabBxfRwW8Rns
+		    &q=Space+Needle,Seattle+WA" allowfullscreen>
+		</iframe>
+
 		<div style="width:260px; height:800px; float:left;overflow: auto; text-align: center;float:left;">
 			<%
 			for(VenderBean vobj:lst)
@@ -193,7 +218,7 @@
 					continue;
 				}
 			%>
-					<button id='li<%=vobj.getId() %>' style="width: 200px;margin: 2px;"  class="<%=((vobj.getId()==id)?"green_btn":"blue_btn")%>" onclick="ShowThisVendOnMap(<%=vobj.getId()+","+vobj.getJindu()+","+vobj.getWeidu()%>)"><%=vobj.getId()%>号售货机</button>
+					<button id='li<%=vobj.getId() %>' style="width: 200px;margin: 2px;"  class="<%=((vobj.getId()==id)?"green_btn":"blue_btn")%>" onclick="ShowThisVendOnMap(<%=vobj.getId()+","+vobj.getJindu()+","+vobj.getWeidu()%>)"> ID: <%=vobj.getId()%></button>
 			<%}%>
 		</div>
 	</div>

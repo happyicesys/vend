@@ -258,7 +258,7 @@ function ShowTemCurve(id)
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-default" 
-               data-dismiss="modal">确定
+               data-dismiss="modal">Confirm
             </button>
          </div>
       </div><!-- /.modal-content -->
@@ -281,28 +281,31 @@ function ShowTemCurve(id)
 							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-			  <div class="row">
-					<div class="col-xs-12">
-						<div class="dataTables_length" id="dataTables-example_length">
-							<form class="form-horizontal" role="form">
-							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="select_all">Select All</button>
-										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="deselect_all">Clear Selection</button>
-										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="fanxuan">Deselect</button>
-										<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
-										{%>
-										<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >Add Setting</button>
-										<%} %>
-							<label>Machine ID:</label>
-							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
-							
+				<form class="form">
+					<div class="row">			
+						<div class="form-group col-md-3 col-sm-6 col-xs-12">
+							<label class="control-label">Machine ID</label>
+				  			<input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+				  		</div>
+			  		</div>
+			  		
+					<div class="row">
+						<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							</form>
-						</div>
+							<!-- 
+							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="select_all">Select All</button>
+							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="deselect_all">Clear Selection</button>
+							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="fanxuan">Deselect</button>
+							 -->
+							<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
+							{%>
+							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >Add Setting</button>
+							<%} %>
+						</div>																				
 					</div>
-								
-			  </div>
-			</div>
+											  		
+				</form>
+			
 			<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
@@ -318,7 +321,9 @@ function ShowTemCurve(id)
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th class="col-md-1">#</th>
-										<th class="col-md-1"></th>
+										<th class="col-md-1">
+											<input type="checkbox" id="checkAll">
+										</th>
 										<th class="col-md-1">Conn</th>
 										<th class="col-md-1">Category</th>
 										<th class="col-md-2" >Name</th>
@@ -410,20 +415,20 @@ function ShowTemCurve(id)
 											  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
 											  		}
 											  			//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>硬币器正常</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coin OK</button>");
 											  	}
 											  	
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_BILL_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>纸币器正常</button>");
-											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>找零纸币:%03d</button>",obj.getBills()/100));
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill OK</button>");
+											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill:%03d</button>",obj.getBills()/100));
 											  		
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_CASHLESS_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Non cash Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>非现金设备正常</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Non cash Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Non Cash OK</button>");
 											  	}
 											  	if(!hasState)
 											  	{
@@ -513,12 +518,17 @@ function ShowTemCurve(id)
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-    $(document).ready(function() {
-    	$('#myModal').modal('hide');
-    	$('#myModal').on('hide.bs.modal', function (e) {
-    		
-    		});
-    });
+	    $(document).ready(function() {
+	    	$('#myModal').modal('hide');
+	    	$('#myModal').on('hide.bs.modal', function (e) {
+	    		
+	    		});
+	    });
+    
+	    $('#checkAll').change(function(){
+	        var all = this;
+	        $(this).closest('table').find('input[type="checkbox"]').prop('checked', all.checked);
+	    });
     </script>
 </body>
 </html>

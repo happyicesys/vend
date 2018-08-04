@@ -258,7 +258,7 @@ var _submit=function(date)
 							<table  class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr>
-										<th id="_title" colspan="12" style="text-align: center;font-size: 2em">[<%=beginDate.toString() %>]销售统计</th>
+										<th id="_title" colspan="12" style="text-align: center;font-size: 2em">[<%=beginDate.toString() %>] Sales Total</th>
 									</tr>
 								</thead>
 								<thead>

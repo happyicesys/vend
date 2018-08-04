@@ -52,19 +52,19 @@ public class ToolBox {
 
 	
 	public final static String HOMEPAGE="MainHome.jsp";
-	public final static String VERSTRING="Vender Manager 2.3.0";
+	public final static String VERSTRING="Happy Ice Vending";
 	public final static String WEB_NAME=VERSTRING;
 	
-	public final static String NOLOGIN="<script>alert(\"您没有登录或者登录超时！\");parent.location.href=\"index.jsp\";</script>";
-	public final static String GUESTUSER="<script>alert(\"您的账号为浏览账号，无权修改任何内容！\");history.go(-1);</script>";
-	public final static String CANNTACCESS="您无权管理该售货机";
-	public final static String ERRPARAMETER="<script>alert(\"参数有误！\");history.go(-1);</script>";
-	public final static String CANNTLOOK="<script>alert(\"您无权查看相关信息！\");history.go(-1);</script>";
-	public final static String CANNTMODIFY="<script>alert(\"您无权修改相关信息！\");history.go(-1);</script>";
-	public final static String USERNOTEXSIT="<script type=\"text/javascript\">alert(\"用户名或密码不正确，您的登录失败！\");location.href='index.jsp';</script>";
-	public final static String USERDENY="<script type=\"text/javascript\">alert(\"对不起，你的账号已经被管理员停用，您的登录失败！\");location.href='index.jsp';</script>";
-	public final static String EMPTY="<script type=\"text/javascript\">alert(\"密码或用户名不能为空！\");location.href='index.jsp';</script>";
-	public final static String ERR_CHKCODE="<script type=\"text/javascript\">alert(\"验证码无效！\");location.href='index.jsp';</script>";
+	public final static String NOLOGIN="<script>alert(\"Please login again!\");parent.location.href=\"index.jsp\";</script>";
+	public final static String GUESTUSER="<script>alert(\"Your access level is insufficient, please contact admin!\");history.go(-1);</script>";
+	public final static String CANNTACCESS="Access Denied.";
+	public final static String ERRPARAMETER="<script>alert(\"Parameters Error!\");history.go(-1);</script>";
+	public final static String CANNTLOOK="<script>alert(\"Your access level is insufficient!\");history.go(-1);</script>";
+	public final static String CANNTMODIFY="<script>alert(\"Your access level is insufficient!\");history.go(-1);</script>";
+	public final static String USERNOTEXSIT="<script type=\"text/javascript\">alert(\"Your credential is incorrect, please try again\");location.href='index.jsp';</script>";
+	public final static String USERDENY="<script type=\"text/javascript\">alert(\"Your access has been denied by admin\");location.href='index.jsp';</script>";
+	public final static String EMPTY="<script type=\"text/javascript\">alert(\"Please fill in both username and password\");location.href='index.jsp';</script>";
+	public final static String ERR_CHKCODE="<script type=\"text/javascript\">alert(\"Verification code is incorrect\");location.href='index.jsp';</script>";
 	
 
 
@@ -81,9 +81,9 @@ public class ToolBox {
 
 		out.append("</TITLE><link href=\"./css/styles.css\" rel=\"stylesheet\" type=\"text/css\" /></HEAD>");
 		out.append("  <BODY>");
-		out.append("<div class=\"exitbox\">出错啦！<br>");
+		out.append("<div class=\"exitbox\">There's an error<br>");
 		out.append(errmes);	
-		out.append("<a href=\"javascript:void(0);\" onclick=\"history.go(-1);\">[返回]</a></div>");
+		out.append("<a href=\"javascript:void(0);\" onclick=\"history.go(-1);\">[Back]</a></div>");
 		out.append("  </BODY>");
 		out.append("</HTML>");
 
@@ -102,9 +102,9 @@ public class ToolBox {
 
 		out.append("</TITLE><link href=\"./css/styles.css\" rel=\"stylesheet\" type=\"text/css\" /></HEAD>");
 		out.append("  <BODY>");
-		out.append("<div class=\"exitbox\">操作完成<br>");
+		out.append("<div class=\"exitbox\">Completed<br>");
 		out.append(Tipmes);	
-		out.append("<br><a href=\"javascript:void(0);\" onclick=\"history.go(-1);\">[返回]</a></div>");
+		out.append("<br><a href=\"javascript:void(0);\" onclick=\"history.go(-1);\">[Back]</a></div>");
 		out.append("  </BODY>");
 		out.append("</HTML>");
 
@@ -958,20 +958,20 @@ public class ToolBox {
 			url='?' + urlpar + "&page=";
 		}
 	
-		String pagestr = "共<font color=\"#FF0000\">" + rscount + "</font>条&nbsp;|&nbsp;";
-		String First = "首页"; 
-		String Previous = "上一页"; 
-		String Next = "下一页"; 
-		String Last = "尾页";
-		String Records = "<font color=\"#FF0000\">" + pagecount + "</font>条/页&nbsp;|&nbsp;";
-		String sDpage = "共<font color=\"#FF0000\">" + totalpages + "</font>页\n";
+		String pagestr = "Total <font color=\"#FF0000\">" + rscount + "</font> entries&nbsp;|&nbsp;";
+		String First = "Main"; 
+		String Previous = "Prev"; 
+		String Next = "Next"; 
+		String Last = "Last";
+		String Records = "<font color=\"#FF0000\">" + pagecount + "</font> entries/ page&nbsp;|&nbsp;";
+		String sDpage = "Total <font color=\"#FF0000\">" + totalpages + "</font> page(s)\n";
 		sDpage += "<select name=\"spage\" id=\"spage\" OnChange=\"window.open(this.options[this.selectedIndex].value,\'_self\')\">\n";
 		for (int i=1;i<=totalpages;i++)
 		{
 			if (i!=page){
-				sDpage += "<option value=" +url + i +">第" +i + "页</option>\n";
+				sDpage += "<option value=" +url + i +">" +i + " page</option>\n";
 			}else{
-				sDpage += "<option selected value='"+url +i +"'>第" + i + "页</option>\n";
+				sDpage += "<option selected value='"+url +i +"'>" + i + " page</option>\n";
 			}
 		}
 		sDpage += "</select>";

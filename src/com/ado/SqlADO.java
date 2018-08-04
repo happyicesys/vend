@@ -273,9 +273,9 @@ public class SqlADO {
 		String sql="select top 1 AdminId,BTime,TerminalName,TerminalAddress,UpdateTime," +
 				"IsOnline,HuodongId,SellerTyp,TelNum,GoodsPortCount,TipMesOnLcd," +
 				"CanUse,queueMaxLength,jindu,weidu,groupid,coinAttube,MdbDeviceStatus,gprs_Sign," +
-				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,vmc_firmfile,IRErrCnt,LstSltE,pos_PWD"
-				+ ",code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert "
-				+ "from [TerminalInfo] where id=?";
+				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,vmc_firmfile,IRErrCnt,LstSltE,pos_PWD,"+ 
+				"code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert "+ 
+				"from [TerminalInfo] where id=?";
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setInt(i++, id);

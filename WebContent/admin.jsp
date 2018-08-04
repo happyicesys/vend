@@ -66,7 +66,7 @@
 	            <ul class="nav navbar-top-links navbar-right">
 	                
 	                <li class="dropdown">
-	                    <i  style="color: #FFF;" class="fa fa-user fa-fw"></i> <span style="color: #FFF;"><%=ub.getAdminusername()+"欢迎您！  IP:" +request.getRemoteAddr() %></span>
+	                    <i  style="color: #FFF;" class="fa fa-user fa-fw"></i> <span style="color: #FFF;"><%="Welcome! " + ub.getAdminusername()+",  IP: " +request.getRemoteAddr() %></span>
 	                </li>
 	                
 	                <li class="dropdown">
@@ -112,7 +112,7 @@
 	                                
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_VENDER))
 									{%>
-									<li><a href="AddVender.jsp" target="main">Add Vending</a></li>
+									<li><a href="AddVender.jsp" target="main">Add Machine</a></li>
 									<%} %>
 									
 									<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER_MAP))

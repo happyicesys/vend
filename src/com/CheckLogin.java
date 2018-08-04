@@ -96,7 +96,7 @@ public class CheckLogin extends HttpServlet {
 				}
 				HttpSession session=request.getSession();
 				session.setAttribute("currentpage",null);
-				session.setMaxInactiveInterval(1800);
+				session.setMaxInactiveInterval(18000);
 				session.setAttribute("usermessage",ub);
 				response.sendRedirect("admin.jsp");
 			}

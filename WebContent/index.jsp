@@ -124,9 +124,9 @@
 <!-- external javascript -->
 <p class="center" style="font-size: 13px;">
 			<br>
-			Copyright © 2011 WWW.mCUvEND.COM All Rights Reserved 版权所有·WWW.mCUvEND.COM
+			Copyright © 2011 Happy Ice Pte Ltd All Rights Reserved
 			<br>
-			有些内容可能在IE浏览器上显示不全,推荐使用chrome或火狐等其他内核的浏览器,给您带来不便，敬请谅解！
+			Recommended Browsing with Chrome
 		</p>
 
 
