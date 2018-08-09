@@ -724,14 +724,14 @@ private static final String NAK="ERROR";
 			 	int gid=pb.getGoodsid();
 			 	if(gid==0)
 			 	{
-			 		tbBean.setGoodsName("未知名称");
+			 		tbBean.setGoodsName("");
 			 	}
 			 	else
 			 	{
 			 		clsGoodsBean g=clsGoodsBean.getGoodsBean(gid);
 			 		if(g==null)
 			 		{
-			 			tbBean.setGoodsName("未知名称");
+			 			tbBean.setGoodsName("");
 			 		}
 			 		else
 			 		{

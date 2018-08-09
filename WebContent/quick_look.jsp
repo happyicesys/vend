@@ -127,6 +127,8 @@
 										<th style="width: 100px;">Terminal ID</th>
 										<th style="width: 100px;">See Details</th>
 										<th>Sales, Remaining/Volume Count</th>
+										<th>Conn</th>
+										<th>Temp</th>
 									</tr>											
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -135,7 +137,7 @@
 									{%>
 										  <tr class="odd">
 										  	<td class="center" colspan="3" align="center">
-										    	Vending Out of Stock Quick Check
+										    	Vending Out of Stock
 											</td>
 										  </tr>
 									<%}
@@ -232,7 +234,31 @@
 														%>													
 													</li>													
 												</ul>
-											</td>											
+											</td>
+											<td class="center">
+												<%=vb.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
+											</td>	
+											<td>
+												<% 
+
+											  		if(vb.getTemperature()!=32767)
+											  		{
+												  		if(vb.getTemperature()>-120)
+												  		{
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
+												  		}
+												  		else
+												  		{
+												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
+												  		}
+											  		}
+											  		else
+											  		{
+											  			out.print("<button type='button' onclick='ShowTemCurve("+ vb.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature Abnormal</button>");
+											  		}
+											  	
+												%>
+											</td>										
 										</tr>
 										<%
 										}
@@ -252,6 +278,13 @@
 			</div>
 		</div>
 	</div>
+
+<script>
+	function ShowTemCurve(id)
+	{
+		location.href="./TempCurve.jsp?vid="+id;
+	}
+</script>
 
 </body>
 </html>

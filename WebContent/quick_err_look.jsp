@@ -137,7 +137,7 @@
 									{%>
 										  <tr class="odd">
 										  	<td class="center" colspan="3" align="center">
-										    	Vending Out of Stock Quick Check
+										    	Vending Malfunction Quick Check
 											</td>
 										  </tr>
 									<%}

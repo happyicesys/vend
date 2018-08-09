@@ -209,6 +209,11 @@ public class ToolBox {
 		return (new java.text.SimpleDateFormat("MM-dd")).format(dt);
 	}
 	
+	public static String getD(java.util.Date dt)
+	{
+		return (new java.text.SimpleDateFormat("dd")).format(dt);
+	}	
+	
 	public static String getHMS(Timestamp dt)
 	{
 		return String.format("%1$tT",dt);

@@ -299,7 +299,7 @@ function ShowTemCurve(id)
 							 -->
 							<%if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 							{%>
-							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >Add Setting</button>
+							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >Add Machine</button>
 							<%} %>
 						</div>																				
 					</div>
@@ -432,7 +432,7 @@ function ShowTemCurve(id)
 											  	}
 											  	if(!hasState)
 											  	{
-											  		out.print(String.format("该机型无实时状态参数！"));
+											  		out.print(String.format("No parameter has been detected!"));
 											  	}
 											  	%>
 

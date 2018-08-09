@@ -121,7 +121,7 @@
 			sb1.append(',');
 		}
 		//arr_xaxis[i]=ToolBox.getDateString();
-		sb2.append("["+i+",'"+ToolBox.getMD(temdate)+"']");
+		sb2.append("["+i+",'"+ToolBox.getD(temdate)+"']");
 		if(i!=day)
 		{
 			sb2.append(',');
@@ -137,33 +137,32 @@
 		<li>
 			<span class="glyphicon glyphicon-home"></span>
 			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
-				</li>
+		</li>
 
-				<li>
-					<a href="#">Transaction Management</a>
-				</li>
-				<li class="active">Transaction Staticstic</li>
-			</ul>
-		</div>
-<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-  <div class="row">
-		<div class="col-xs-12">
-			<div class="dataTables_length" id="dataTables-example_length">
-				<form class="form-horizontal" role="form">
-					<label>Date:</label>
-					<input  name="sdate" id="stratTime" size="10" class="form-control input-sm" style="width:10em;" type="text"  readonly="readonly" value="<%=ToolBox.getYMD(beginDate)%> "  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" />
-			&nbsp;-
-			<input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" readonly="readonly"  value="<%=ToolBox.getYMD(endDate)%> "  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
-			<input class="blue_btn" type="submit" value="确定"/>
-			
-			<%=tem?"<span class='waring-label'>No more than 30 days</span>":"" %>
-				</form>
-			</div>
-		</div>
-					
-  </div>
+		<li>
+			<a href="#">Transaction Management</a>
+		</li>
+		<li class="active">Transaction Statistic</li>
+	</ul>
 </div>
+	<form role="form">
+		<div class="row">
+			<div class="form-group col-md-3 col-sm-6 col-xs-12">
+				<label class="control-label">From</label>
+	  			<input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />
+	  		</div>			
+			<div class="form-group col-md-3 col-sm-6 col-xs-12">
+				<label class="control-label">To</label>
+	  			<input  name="edate" id="endTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(endDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />
+	  		</div>
 
+         </div>
+		<div class="row">
+			<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
+				<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
+			</div>																				
+		</div>         
+	</form>
 
 	
     <div id="placeholder" style="width:92%;height:700px;"></div>
@@ -175,7 +174,7 @@
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{label:"<%=ToolBox.getYMD(beginDate)%> 到 <%=ToolBox.getYMD(endDate)%> 销售柱状图",data:d1}], {
+        $.plot($("#placeholder"), [{label:"<%=ToolBox.getYMD(beginDate)%> until <%=ToolBox.getYMD(endDate)%> Sales Graph",data:d1}], {
             series: {
                 lines: { show: true,},
                 bars: { show: true, barWidth: <%=10.0/day%>,align: "center"}

@@ -275,7 +275,7 @@
 							<form class="form-horizontal" role="form">
 							<label>To:</label>
 							  <label>
-							  	<select class="form-control input-sm" onchange="window.open('?mid='+this.options[this.selectedIndex].value,'_self')">
+							  	<select class="select form-control input-sm" onchange="window.open('?mid='+this.options[this.selectedIndex].value,'_self')">
 								<% 
 									ListIterator<VenderBean> vbit= vblst.listIterator();
 									VenderBean vbobj;
@@ -291,12 +291,12 @@
 							  </label>
 								<%if(show_emptyslot==0)
 								{ %>
-								<input class="btn btn-default"  id="but_show_emptyslot"  type="button"   value="显示空货道" />
+								<input class="btn btn-default"  id="but_show_emptyslot"  type="button"   value="Show Empty Slot" />
 								<%}
 								else
 								{
 									%>
-									<input class="btn btn-default"  id="but_hide_emptyslot"  type="button"   value="不显示空货道" />
+									<input class="btn btn-default"  id="but_hide_emptyslot"  type="button"   value="Dont Show Empty" />
 									<%
 								}
 								%>

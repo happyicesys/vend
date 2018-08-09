@@ -318,7 +318,7 @@ $(function () {
 							<li>
 								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">Vending Machine List</li>
+							<li class="active">Daily Report</li>
 						</ul>
 					</div>
 

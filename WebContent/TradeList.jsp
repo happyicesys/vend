@@ -97,6 +97,7 @@
     <link href="css/bootstrap/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="./jquery_ui/css/cupertino/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="./jquery_ui/css/showLoading.css" rel="stylesheet" type="text/css" />
+    <link href="css/select2.css" rel="stylesheet" />
      <!--[if lte IE 6]>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-ie6.css">
 	<![endif]-->
@@ -108,6 +109,8 @@
     <script language="javascript" type="text/javascript" src="./jquery_ui/js/jquery.showLoading.min.js"></script>
 <!-- <script type="text/javascript" src="./js/jquery.date_input.js"></script> -->
 <script type="text/javascript" src="js/bootstrap/datePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/select2.js"></script>
 <!-- <script type="text/javascript">$($.date_input.initialize);</script> -->
 <!--[if  IE ]>
 	<style type="text/css">
@@ -233,13 +236,13 @@ background-color: #F5F5F5;
 	            }, {
 	                field: 'price',
 	                title: 'Amount'
-	            }, {
+	            }, /*{
 	                field: 'coin_credit',
 	                title: 'Insert Coin'
 	            },  {
 	                field: 'bill_credit',
 	                title: 'Insert Bill'
-	            },  /*{
+	            },  {
 	                field: 'changes',
 	                title: '找零'
 	            },*/ {
@@ -257,14 +260,16 @@ background-color: #F5F5F5;
 	            }, {
 	                field: 'changestatus',
 	                title: 'Payment'
-	            },{
+	            },
+	            /*
+	            {
 	                field: 'sendstatus',
 	                title: 'Send'
 	            },
 	            {
 	                field: 'opbut',
 	                title: 'Operation'
-	            }
+	            }*/
 	            ]
 	        });
 	    };
@@ -283,9 +288,9 @@ background-color: #F5F5F5;
 	            pageindex:params.pageNumber,
 	            portid: $("#portid").val(),
 	            CardNumber: $("#CardNumber").val(),
-	            tradetype:$('input:radio[name="tradetype"]:checked').val(),
-	            success:$('input:radio[name="success"]:checked').val(),
-	            jiesuan:$('input:radio[name="jiesuan"]:checked').val()
+	            tradetype:$('#tradetype option:selected').val(),
+	            success:$('#success option:selected').val(),
+	            jiesuan:0
 	        };
 	        return temp;
 	    };
@@ -333,26 +338,80 @@ background-color: #F5F5F5;
 			<li class="active">Transaction Inquiry</li>
 		</ul>
 	</div>
-	<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-			  <div class="row">
-			  	<form class="form-horizontal" role="form" action="TradeList.jsp" name="form1" method="post">
-					<div class="col-xs-12">
-						<div class="dataTables_length" id="dataTables-example_length">
-							<label>Time</label>
-							<label><input  name="sdate" id="stratTime" size="9" class="form-control input-sm" type="text" value="<%=StartDate%>"  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" /></label>&nbsp;-&nbsp;<label><input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" value="<%=EndDate%>"  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
-							</label>
-							<label>Transaction ID</label>
-							  <label><input type="text" size="18" class="form-control input-sm" name="orderid" id="orderid" value="<%=orderId%>" placeholder="" aria-controls="dataTables-example"></label>
-							<label>&nbsp;Credit Card No/Wechat User ID/Payment Acc:</label>
-							  <label><input type="text" size="18" class="form-control input-sm" name="CardNumber" id="CardNumber" value="<%=CardNumber%>" placeholder="" aria-controls="dataTables-example"></label>
-							<label>&nbsp;&nbsp;Vending ID:</label>
-							  <label><input size="18" type="text" class="form-control input-sm" name="sellerid" id="sellerid" value="<%=SellerId%>" placeholder="" aria-controls="dataTables-example">可以用英文“,”隔开多个机器编号，以便同时查询多台机器的交易</label>
-						</div>
+			  
+			<form role="form" action="TradeList.jsp" name="form1" method="post">
+				<div class="row">
+					<div class="form-group col-md-4 col-sm-4 col-xs-12">
+						<label class="control-label">Date From</label>
+						<input name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=StartDate%> " onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" />
 					</div>
+					<div class="form-group col-md-4 col-sm-4 col-xs-12">
+						<label class="control-label">Date To</label>
+						<input  name="edate" id="endTime" size="10" class="form-control input-sm"  type="text" value="<%=EndDate%>"  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'stratTime\',{d:0});}'})" />
+					</div>	
+                    <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Date Shortcut</label>
+                        </div>
+                        <div class="btn-group">
+                            <a href="" id="prevDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-backward"></i></a>
+                            <a href="" id="todayDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-circle"></i></a>
+                            <a href="" id="nextDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-forward"></i></a>
+                        </div>
+                    </div>
+                </div>	
+			  	<div class="row">	
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Transaction Method</label>
+						<select class="select form-control" name="tradetype" id="tradetype">
+							<option <%=((tradetype==clsConst.TRADE_TYPE_NO_LIMIT)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_NO_LIMIT%>">All</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_CASH)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_CASH%>">Cash</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_CARD)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_CARD%>">Card</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_WX_QR)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_WX_QR%>">Wechat</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_AL_QR)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_AL_QR%>">Alipay</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_BANK)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_BANK%>">Bank Card</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_COCO)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_COCO%>">Free Vend</option>
+						</select>
+		  			</div> 		
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Is Successful</label>
+						<select class="select form-control" name="success" id="success">
+							<option <%=((Success==0)?"selected=\"selected\"":"") %> value="0">All</option>
+							<option <%=((Success==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
+							<option <%=((Success==2)?"selected=\"selected\"":"") %> value="2">Failure</option>
+						</select>
+		  			</div> 			  					  			  		
+				</div>                
+                <div class="row">
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Transaction ID</label>
+			  			<input type="text" id="orderid" name="orderid" value="<%=orderId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+			  		</div>                    
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Card No/ Wechat UID/ Payment Acc</label>
+			  			<input type="text" id="CardNumber" name="CardNumber" value="<%=CardNumber %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+			  		</div> 
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Vending Machine ID</label>
+			  			<input type="text" id="sellerid" name="sellerid" value="<%=SellerId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+			  			<small>*Add "," in between to search multiple machines</small>
+			  		</div> 
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Product ID</label>
+			  			<input type="text" id="portid" name="portid" value="<%=PortId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+			  		</div> 	
+			  	</div>
+
+				<div class="row">
+					<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
+						<button class="btn btn-default" style="background-color:#f4f4f4;" onclick="getpost();">Search</button>
+						<button class="btn btn-default" style="background-color:#f4f4f4;" onclick="clr();">Clear</button>
+						<button class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();">Export Excel</button>
+					</div>																				
+				</div>	
+				<!--  			
 					<div class="col-xs-12"> 
 						<div class="dataTables_length" id="dataTables-example_length">
-							<label>Channel ID:</label>
-							  <label><input type="text" size="26" class="form-control input-sm" name="portid" id="portid" value="<%=PortId%>" placeholder="" aria-controls="dataTables-example"></label>
 							<label>Transaction Method:</label>
 							<label class="radio-inline" style="padding-top:0px;">
   								<input value="<%=clsConst.TRADE_TYPE_NO_LIMIT%>" <%=((tradetype==clsConst.TRADE_TYPE_NO_LIMIT)?"checked=\"checked\"":"")%> type="radio" name="tradetype"> 不限
@@ -402,9 +461,10 @@ background-color: #F5F5F5;
 							<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="下载EXCEL"></input>
 						</div>
 					</div>
-				</form>				
-			  </div>
-	</div>
+				-->
+			</form>				
+				
+
 	<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
@@ -422,11 +482,42 @@ background-color: #F5F5F5;
 		  </div>
 	<script src="js/bootstrap/bootstrap.min.js"></script>
 	<script src="js/bootstrap/bootstrap-table.js"></script>
-	<script src="js/bootstrap/bootstrap-table-zh-CN.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="js/bootstrap/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="js/bootstrap/admin.js"></script>
+    <script type="text/javascript">
+		$('#prevDateBtn').click(function(event) {
+			event.preventDefault();
+			var oriStartDate = moment($('#stratTime').val(), "YYYY-MM-DD");
+			var newStartDate = oriStartDate.subtract(1, "days").format("YYYY-MM-DD");
+			var oriEndDate = moment($('#endTime').val(), "YYYY-MM-DD");
+			var newEndDate = oriEndDate.subtract(1, "days").format("YYYY-MM-DD");		
+			$('#stratTime').val(newStartDate);
+			$('#endTime').val(newEndDate);
+		});
+		
+		$('#todayDateBtn').click(function(event) {
+			event.preventDefault();
+			var newStartDate = moment().format("YYYY-MM-DD");
+			var newEndDate = moment().format("YYYY-MM-DD");
+			$('#stratTime').val(newStartDate);	
+			$('#endTime').val(newEndDate);	
+		});	
+		
+		$('#nextDateBtn').click(function(event) {
+			event.preventDefault();
+			var oriStartDate = moment($('#stratTime').val(), "YYYY-MM-DD");
+			var newStartDate = oriStartDate.add(1, "days").format("YYYY-MM-DD");
+			var oriEndDate = moment($('#endTime').val(), "YYYY-MM-DD");
+			var newEndDate = oriEndDate.add(1, "days").format("YYYY-MM-DD");		
+			$('#stratTime').val(newStartDate);
+			$('#endTime').val(newEndDate);
+		});	   
+		$('.select').select2({
+			placeholder: 'Select..'
+		});
+    </script>
 </body>
 </html>

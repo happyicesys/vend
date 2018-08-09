@@ -225,14 +225,14 @@ public class TradeList extends HttpServlet {
 			jo.put("receivetime", ToolBox.getYMDHMS(tb.getReceivetime()));
 			int tradetype1 = tb.getTradetype();
 			if(tradetype1 == 0){
-				tradetypeString = "现金";
+				tradetypeString = "Cash";
 			}else if(tradetype1 == 1){
-				tradetypeString = "刷卡";
+				tradetypeString = "Card";
 			}
 			jo.put("tradetype", clsConst.TRADE_TYPE_DES[tb.getTradetype()]);
 			jo.put("tradetypeid",tb.getTradetype());
-			jo.put("changestatus", (tb.getChangestatus()!=0)?"成功":"失败");
-			jo.put("sendstatus", (tb.getSendstatus()!=0)?"成功":"失败");
+			jo.put("changestatus", (tb.getChangestatus()!=0)?"Success":"Fail");
+			jo.put("sendstatus", (tb.getSendstatus()!=0)?"Success":"Fail");
 			jo.put("bill_credit", String.format("%1.2f",tb.getBill_credit()/100.0));
 			jo.put("coin_credit", String.format("%1.2f",tb.getCoin_credit()/100.0));
 			jo.put("changes",String.format("%1.2f",tb.getChanges()/100.0));

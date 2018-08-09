@@ -275,14 +275,29 @@ $(function () {
 							<li>
 								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">Vending Machine List</li>
+							<li class="active">Monthly Report</li>
 						</ul>
 					</div>
-			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-			  <div class="row">
-					<div class="col-xs-12">
-						<div class="dataTables_length" id="dataTables-example_length">
-							<form class="form-horizontal"  role="form">
+
+
+					<form role="form">
+						<div class="row">
+							<div class="form-group col-md-3 col-sm-6 col-xs-12">
+								<label class="control-label">Machine ID</label>
+					  			<input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+					  		</div>	
+							<div class="form-group col-md-3 col-sm-6 col-xs-12">
+								<label class="control-label">Month</label>
+								<input type="hidden" value="1" name="ispost"/>
+								<input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />							
+					  		</div>
+					  	</div>
+						<div class="row">
+							<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
+								<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
+							</div>																				
+						</div>					  						  		
+					  		<!--  				
 							<label>Machine ID:</label>
 							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							
@@ -291,7 +306,7 @@ $(function () {
 							<label><input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" /></label>
 							<label>&nbsp;Is calculated:</label>
 							<label class="radio-inline" style="padding-top:0px;">
-  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
+										<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
 							  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 已结算
@@ -300,13 +315,12 @@ $(function () {
 							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 未结算
 							</label>
 							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
-							</form>
+							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>							
 						</div>
-					</div>
-								
-			  </div>
-			</div>
+						-->
+					</form>
+
+
 			<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
