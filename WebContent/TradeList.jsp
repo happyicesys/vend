@@ -290,7 +290,7 @@ background-color: #F5F5F5;
 	            CardNumber: $("#CardNumber").val(),
 	            tradetype:$('#tradetype option:selected').val(),
 	            success:$('#success option:selected').val(),
-	            jiesuan:0
+	            jiesuan:$('#jiesuan option:selected').val()
 	        };
 	        return temp;
 	    };
@@ -380,7 +380,15 @@ background-color: #F5F5F5;
 							<option <%=((Success==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
 							<option <%=((Success==2)?"selected=\"selected\"":"") %> value="2">Failure</option>
 						</select>
-		  			</div> 			  					  			  		
+		  			</div> 	
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Is Settled (结算)</label>
+						<select class="select form-control" name="jiesuan" id="jiesuan">
+							<option <%=((jiesuan==0)?"selected=\"selected\"":"") %> value="0">All</option>
+							<option <%=((jiesuan==1)?"selected=\"selected\"":"") %> value="1">Already</option>
+							<option <%=((jiesuan==2)?"selected=\"selected\"":"") %> value="2">Havent yet</option>
+						</select>
+		  			</div>		  					  					  			  		
 				</div>                
                 <div class="row">
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">

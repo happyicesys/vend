@@ -67,6 +67,7 @@
     <link href="css/bootstrap/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="./jquery_ui/css/cupertino/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="./jquery_ui/css/showLoading.css" rel="stylesheet" type="text/css" />
+    <link href="css/select2.css" rel="stylesheet" />
     
      <!--[if lte IE 6]>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-ie6.css">
@@ -79,6 +80,7 @@
     <script language="javascript" type="text/javascript" src="./jquery_ui/js/jquery.showLoading.min.js"></script>
     <script type="text/javascript" src="js/bootstrap/datePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/select2.js"></script>
     
    	<!-- <style type="text/css">
    		table {
@@ -347,7 +349,20 @@ $(function () {
 				                            <a href="" id="todayDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-circle"></i></a>
 				                            <a href="" id="nextDateBtn" onclick="event.preventDefault();" class="btn btn-default"><i class="fa fa-forward"></i></a>
 				                        </div>
-				                    </div>							  		
+				                    </div>	
+							  		<div class="form-group col-md-6 col-sm-12 col-xs-12">
+							  			<label class="control-label">Is Settle</label>
+										<label class="radio-inline" style="padding-top:0px;">
+											<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> All
+										</label>
+										<label class="radio-inline" style="padding-top:0px;">
+											<input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Already
+										</label>
+										<label class="radio-inline" style="padding-top:0px;">
+											<input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent yet
+										</label>					  		
+							  		</div>				                    
+						  		
 							  		<!--  									  						  		
 									<div class="form-group col-md-3 col-sm-6 col-xs-12">
 										<div class="row">
@@ -365,12 +380,25 @@ $(function () {
 										  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent
 										</label>										
 									</div>
+				                    <div class="row">
+										<div class="form-group col-md-3 col-sm-6 col-xs-12">
+											<label class="control-label">Is Settled (结算)</label>
+											<select class="select form-control" name="jiesuan" id="jiesuan">
+												<option <%=((jiesuan==0)?"selected=\"selected\"":"") %> value="0">All</option>
+												<option <%=((jiesuan==1)?"selected=\"selected\"":"") %> value="1">Already</option>
+												<option <%=((jiesuan==2)?"selected=\"selected\"":"") %> value="2">Havent yet</option>
+											</select>
+							  			</div>				                   
+				                    </div>										
 									-->
 								</div>
+							
 								<div class="row">
 									<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 										<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
+										<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
 										<!-- 
+										<button id="jiesuan" class="btn btn-default" style="background-color:#f4f4f4;">Settle (结算)</button>
 										<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="Export EXCEL"></input>
 										 -->
 									</div>																				
@@ -639,6 +667,9 @@ $(function () {
     	$('#myModal').on('hide.bs.modal', function (e) {
     		
     		});
+    });
+    $('.select').select2({
+    	placeholder: 'Select..'
     });
     </script>
 </body>

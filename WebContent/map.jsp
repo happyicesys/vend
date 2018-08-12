@@ -103,6 +103,13 @@
 .BMapLabel{
 	max-width: 200px;
 }
+#map {
+	border: 2px solid #eee; 
+	float:right;
+	margin:5px; 
+	width:74%; 
+	height:800px;
+}
 </style>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
 <script type="text/javascript" src="http://dev.baidu.com/wiki/static/map/API/examples/script/convertor.js"></script>
@@ -164,24 +171,28 @@
 		}
 </script>
 -->
-<script
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script>
-var map;
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKvSZHWGe432ZkMEMd-0oabBxfRwW8Rns&callback=initialize">
+</script>
+<script  type="text/javascript">
+var last_div="li<%=id%>";
 function initialize() {
-  var mapOptions = {
-    zoom: 8,
-    center: new google.maps.LatLng(-34.397, 150.644)
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+	
+	var point = new google.maps.LatLng(<%=vb.getJindu()%>, <%=vb.getWeidu()%>);
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: point,
+        zoom: 12
+    });
+	var marker = new google.maps.Marker({
+	    position: point,
+	    map: map,
+	    title: "<%=vb.getTerminalName()%>:<%=String.format("%03d VM",id) %><BR/>Address:<%= vb.getTerminalAddress()%>"
+	});	
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
 </head>
-<body onload="initialize()" style="background-color: #fff;">
+<body style="background-color: #fff;">
 	<div class="breadcrumbs" id="breadcrumbs">
 						<ul class="breadcrumb">
 							<li>
@@ -199,15 +210,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					</div>
 	<div class="row">
 
-		<iframe
-		  width="74%"
-		  height="800"
-		  style="border: 2px solid #eee; float:right;margin:5px;"
-		  id="container"
-		  frameborder="0" style="border:0"
-		  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBKvSZHWGe432ZkMEMd-0oabBxfRwW8Rns
-		    &q=Space+Needle,Seattle+WA" allowfullscreen>
-		</iframe>
+		<div id="map"></div>
 
 		<div style="width:260px; height:800px; float:left;overflow: auto; text-align: center;float:left;">
 			<%

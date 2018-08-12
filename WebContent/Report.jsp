@@ -291,10 +291,23 @@ $(function () {
 								<input type="hidden" value="1" name="ispost"/>
 								<input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />							
 					  		</div>
+					  		<div class="form-group col-md-6 col-sm-12 col-xs-12">
+					  			<label class="control-label">Is Settle</label>
+								<label class="radio-inline" style="padding-top:0px;">
+									<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> All
+								</label>
+								<label class="radio-inline" style="padding-top:0px;">
+									<input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Already
+								</label>
+								<label class="radio-inline" style="padding-top:0px;">
+									<input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent yet
+								</label>					  		
+					  		</div>
 					  	</div>
 						<div class="row">
 							<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 								<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
+								<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">Settle Month (结算)</button>
 							</div>																				
 						</div>					  						  		
 					  		<!--  				

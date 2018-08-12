@@ -170,7 +170,7 @@ var ShowMapWin=function()
 				      }
 				      else
 				      {
-				    	  out.print("没有Binding转账账号!");
+				    	  out.print("No transfer account founded");
 				      }
 				      %>
 				    </div>
@@ -188,7 +188,7 @@ var ShowMapWin=function()
 				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="Vending Logitude" readonly="readonly" value="<%=vb.getJindu() %>">
 				    </div>
 				    <div class="col-sm-5">
-				      	<input class="btn btn-success" type="button" value="在地图上查找位置" onclick="ShowMapWin()"/>
+				      	<input class="btn btn-success" type="button" value="Lat Lng On Map" onclick="ShowMapWin()"/>
 				      </div>
 				  </div>
 				  <div class="form-group">
@@ -232,12 +232,12 @@ var ShowMapWin=function()
 						</div>
 				  </div>				  
 				  <div class="form-group">
-				    <label class="col-sm-4 control-label">允许下位机更新货道商品</label>
+				    <label class="col-sm-4 control-label">Allow Update Goods by PC</label>
 				    	<div class="col-sm-3">
 						    <input name="AllowUpdateGoodsByPc" type="checkbox" value="1" <%=(vb.getM_AllowUpdateGoodsByPc()==1?"checked=\"checked\"":"")%> />
 						</div>
 				  </div>
-				  
+				  <!--  
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Profile ID</label>
 				    	<div class="col-sm-3">
@@ -245,7 +245,7 @@ var ShowMapWin=function()
 						    <%=(groupBean==null)?"集团没有归属":String.format("[%d]-%s",groupBean.getId(), groupBean.getGroupname()) %>
 						</div>
 				  </div>
-				  
+				  -->
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
 				       <input name="id" type="hidden" value="<%=vb.getId()%>" /> 

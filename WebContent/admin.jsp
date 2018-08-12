@@ -136,6 +136,10 @@
 									{%>
 									<li><a href="addGoodsInfo.jsp" target="main">Add Product</a></li>
 									<%} %>
+									<%if(ub.AccessAble(UserBean.FUNID_CAN_ADD_GOODS)) 
+									{%>
+									<li><a href="./MachineCategory" target="main">Add Machine Category</a></li>
+									<%} %>
 									
 	                            </ul>
 	                        </li>

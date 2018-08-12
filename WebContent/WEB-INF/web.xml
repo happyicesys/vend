@@ -329,6 +329,15 @@
     <url-pattern>/GoodsList</url-pattern>
   </servlet-mapping>
   <servlet>
+    <display-name>MachineCategory</display-name>
+    <servlet-name>MachineCategory</servlet-name>
+    <servlet-class>com.servlet.MachineCategory</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MachineCategory</servlet-name>
+    <url-pattern>/MachineCategory</url-pattern>
+  </servlet-mapping>  
+  <servlet>
     <display-name>VenderList</display-name>
     <servlet-name>VenderList</servlet-name>
     <servlet-class>com.servlet.VenderList</servlet-class>
