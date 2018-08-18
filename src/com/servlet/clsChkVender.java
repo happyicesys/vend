@@ -73,6 +73,12 @@ public class clsChkVender extends HttpServlet {
 			ThreadForSendOfflineMail.instance=new ThreadForSendOfflineMail();
 			ThreadForSendOfflineMail.instance.start();
 		}
+		
+		if(VendingOfflineAlertThread.instance==null)
+		{
+			VendingOfflineAlertThread.instance=new VendingOfflineAlertThread();
+			VendingOfflineAlertThread.instance.start();
+		}
 	}
 }
 class FeeBackThread extends Thread
@@ -226,10 +232,44 @@ class MyThread extends Thread
 	
 }
 
+class VendingOfflineAlertThread extends Thread 
+{
+	private static final int CHECK_OFFLINE_TIME=10*60*1000;
+	private static final int ALERT_OFFLINE_TIME=2*60*60*1000;
+	static VendingOfflineAlertThread instance=null;
+	
+	public void run() 
+	{
+		while(true)
+		{
+			try {
+				sleep(CHECK_OFFLINE_TIME);
+				
+				ArrayList<VenderBean> venderLst=SqlADO.getVenderBeanList();
+				
+
+				for (VenderBean venderBean : venderLst) {
+					if(venderBean.getIs_offline_alert_sent() == 0 && venderBean.getOffline_alert() == 1 && venderBean.getOfflinetimes() >= ALERT_OFFLINE_TIME)
+					{
+						SqlADO.updateOfflineAlertSent(venderBean.getId());
+						SendMail.Send(String.format("Vend Offline [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Last Online: (%s C)" , venderBean.getId(), venderBean.getTerminalName(), venderBean.getUpdateTime()));								
+					}
+				}
+
+			
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
 class ThreadForSendOfflineMail extends Thread
 {
 	public static ThreadForSendOfflineMail instance=null;
-	private static ArrayList<Integer> VenderIdLst=new ArrayList();
+	private static ArrayList<Integer> VenderIdLst=new ArrayList<Integer>();
 	
     static String convertToString(ArrayList<Integer> numbers) {
         StringBuilder builder = new StringBuilder();

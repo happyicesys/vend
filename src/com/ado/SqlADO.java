@@ -222,7 +222,7 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="select id,AdminId,BTime,TerminalName,TerminalAddress,UpdateTime," +
 				"IsOnline,HuodongId,SellerTyp,GoodsPortCount,CanUse,auto_refund,manual_refund,"
-				+ "AllowUpdateGoodsByPc,groupid,autoTransfer,autoTransferRation from [TerminalInfo]";
+				+ "AllowUpdateGoodsByPc,groupid,autoTransfer,autoTransferRation,is_offline_alert_sent,offline_alert,offlinetimes from [TerminalInfo]";
 		if(AdminId!=0)
 		{
 			sql+=" where AdminId="+AdminId;
@@ -252,6 +252,9 @@ public class SqlADO {
 				temv.setGroupid(rs.getInt("groupid"));
 				temv.setAutoTransfer(rs.getInt("autoTransfer"));
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
+				temv.setIs_offline_alert_sent(rs.getInt("is_offline_alert_sent"));
+				temv.setOffline_alert(rs.getInt("offline_alert"));
+				temv.setOfflinetimes(rs.getInt("offlinetimes"));
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -274,7 +277,7 @@ public class SqlADO {
 				"IsOnline,HuodongId,SellerTyp,TelNum,GoodsPortCount,TipMesOnLcd," +
 				"CanUse,queueMaxLength,jindu,weidu,groupid,coinAttube,MdbDeviceStatus,gprs_Sign," +
 				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,vmc_firmfile,IRErrCnt,LstSltE,pos_PWD,"+ 
-				"code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert "+ 
+				"code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert, offline_alert "+ 
 				"from [TerminalInfo] where id=?";
 		try {
 			ps=conn.prepareStatement(sql);
@@ -329,6 +332,7 @@ public class SqlADO {
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setTemp_alert(rs.getInt("temp_alert"));
+				temv.setOffline_alert(rs.getInt("offline_alert"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1653,7 +1657,7 @@ public class SqlADO {
 	public static void AddOffLineTimes(int pollInterval) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [terminalinfo] set offlinetimes=offlinetimes+? where [offlinetimes]<[MaxOffinetimes]";	
+		String sql="update [terminalinfo] set offlinetimes=offlinetimes+?";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1673,7 +1677,7 @@ public class SqlADO {
 	public static void ClrOffLineTimes(int vid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [terminalinfo] set [offlinetimes]=0, IsOnline=1 where id=?";	
+		String sql="update [terminalinfo] set [offlinetimes]=0, IsOnline=1, is_offline_alert_sent=0 where id=?";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1698,6 +1702,25 @@ public class SqlADO {
 		
 		exec(sql);
 		
+	}
+	
+	public static void updateOfflineAlertSent(int vid) {
+		PreparedStatement ps=null;
+		ResultSet rs=null;		
+		String sql = "UPDATE [terminalinfo] set is_offline_alert_sent=1 where id=?";
+		Connection conn=ConnManager.getConnection(CN);
+		try {
+			ps=conn.prepareStatement(sql);
+			int i=1;
+			ps.setInt(i++,vid);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnManager.freeConnection(CN, conn,rs,ps);
+		}		
 	}
 
 	public static void SubPortGoods(int vid, String inneridname, int c) {

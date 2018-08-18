@@ -61,6 +61,9 @@ public class VenderBean {
 	private int is_alert_sent;
 	private String TemperLoopStartTime;
 	private int is_coin_alert_sent;
+	private int is_offline_alert_sent;
+	private int offline_alert;
+	private int offlinetimes;
 	
 	public String getTemperUpdateTime() {
 		return TemperUpdateTime;
@@ -593,5 +596,29 @@ public class VenderBean {
 	public int getIs_coin_alert_sent() {
 		return is_coin_alert_sent;
 	}
+	
+	public void setIs_offline_alert_sent(int is_offline_alert_sent) {
+		this.is_offline_alert_sent = is_offline_alert_sent;
+	}
+	
+	public int getIs_offline_alert_sent() {
+		return is_offline_alert_sent;
+	}
+	
+	public void setOffline_alert(int offline_alert) {
+		this.offline_alert = offline_alert;
+	}
+	
+	public int getOffline_alert() {
+		return offline_alert;
+	}
+	
+	public void setOfflinetimes(int offlinetimes) {
+		this.offlinetimes = offlinetimes;
+	}
+	
+	public int getOfflinetimes() {
+		return offlinetimes;
+	}	
 	
 }

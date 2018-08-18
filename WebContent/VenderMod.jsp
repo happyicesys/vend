@@ -230,7 +230,13 @@ var ShowMapWin=function()
 				    	<div class="col-sm-3">
 						    <input name="temp_alert" type="checkbox" value="1" <%=(vb.getTemp_alert()==1?"checked=\"checked\"":"")%> />
 						</div>
-				  </div>				  
+				  </div>		
+				  <div class="form-group">
+				    <label class="col-sm-4 control-label">Enable Offline Alert</label>
+				    	<div class="col-sm-3">
+						    <input name="offline_alert" type="checkbox" value="1" <%=(vb.getOffline_alert()==1?"checked=\"checked\"":"")%> />
+						</div>
+				  </div>				  		  
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Allow Update Goods by PC</label>
 				    	<div class="col-sm-3">
