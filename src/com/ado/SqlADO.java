@@ -1707,7 +1707,7 @@ public class SqlADO {
 	public static void updateOfflineAlertSent(int vid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;		
-		String sql = "UPDATE [terminalinfo] set is_offline_alert_sent=1 where id=?";
+		String sql = "update [terminalinfo] set is_offline_alert_sent=1 where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);

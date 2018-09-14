@@ -173,7 +173,7 @@
 														int totalSold = 0;
 														for(PortBean pb:pbli)
 														{
-															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 19) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
+															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 21) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
 																//pb.getCapacity()>pb.getAmount() && 
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
@@ -182,11 +182,11 @@
 																	<span >
 																		#:<%=pb.getInneridname()%> - 
 																	</span> 
-																	<span style="color: red;">
+																	<span style="color: blue;">
 																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>, 
 																	</span> 
 																	<%
-																		if(pb.getAmount() == 0) {
+																		if(pb.getAmount() <= 2) {
 																	%>		
 																			<span style="color:red;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
@@ -214,7 +214,7 @@
 													%>
 													<li class="quick-look">
 														<%
-															if((((double)totalSold/ (double)totalVolume)*100) < 70.00) {
+															if((((double)totalSold/ (double)totalVolume)*100) < 55.00) {
 														%>
 																<span style="color: red;">
 																	<strong>
@@ -243,14 +243,26 @@
 
 											  		if(vb.getTemperature()!=32767)
 											  		{
-												  		if(vb.getTemperature()>-120)
-												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
-												  		}
-												  		else
-												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
-												  		}
+											  			if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TEMP_GRAPH)) {
+													  		if(vb.getTemperature()>-120)
+													  		{
+													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
+													  		}
+													  		else
+													  		{
+													  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getId(),vb.getTemperature()/10.0));
+													  		}
+											  			}else {
+													  		if(vb.getTemperature()>-120)
+													  		{
+													  			out.print(String.format("<button type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getTemperature()/10.0));
+													  		}
+													  		else
+													  		{
+													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getTemperature()/10.0));
+													  		}													  			
+													  	}
+
 											  		}
 											  		else
 											  		{

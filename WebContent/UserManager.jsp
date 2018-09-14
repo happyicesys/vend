@@ -242,10 +242,10 @@ $(document).ready(function(){
 									for(int i=0;i<UserBean.RIGHT_DES.length;i++)
 									{
 										/*没有允许的权限不显示*/
-										if(!ub.AccessAble(i))
-										{
-											continue;
-										}
+										//if(!ub.AccessAble(i))
+										//{
+										//	continue;
+										//}
 										
 										sb.append("<li style='width:170px;'><label><input type=\"checkbox\" ");
 										if(tub.AccessAble(i))

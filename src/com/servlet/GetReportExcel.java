@@ -107,7 +107,13 @@ public class GetReportExcel extends HttpServlet {
 			}
 		}
 	    String id=ToolBox.filter(request.getParameter("id"));
+	    int pageindex=ToolBox.filterInt(request.getParameter("pageindex"));
 
+		if(pageindex<=0)
+		{
+			pageindex=1;
+		}	    
+	    
 		String sql="";
 		if(!id.equals(""))
 		{

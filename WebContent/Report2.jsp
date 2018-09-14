@@ -397,9 +397,9 @@ $(function () {
 									<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 										<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
 										<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
+										<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="Export EXCEL"></input>
 										<!-- 
 										<button id="jiesuan" class="btn btn-default" style="background-color:#f4f4f4;">Settle (结算)</button>
-										<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="Export EXCEL"></input>
 										 -->
 									</div>																				
 								</div>

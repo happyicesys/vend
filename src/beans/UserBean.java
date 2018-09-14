@@ -20,7 +20,7 @@ public class UserBean {
     										"允许添加取货码","允许绑定账号到机器","允许删除机器","允许修改集团信息","允许删除集团信息",
     										"允许查看集团信息","允许更新本集团信息","允许指定用户集团号","允许删除取货码","允许查看取货码",
     										"允许修改个人信息","允许无限期退款","允许使用结算功能","允许添加会员帐户","允许删除会员帐户",
-    										"允许修改会员帐户","允许为会员帐户充值","允许批量取货"};
+    										"允许修改会员帐户","允许为会员帐户充值","允许批量取货","允许查看温度表","加盟商静访"};
     
 	public final static int FUNID_CAN_ACCESS_WEB			=0;	
     public final static int FUNID_ACCESS_ALL_VENDER			=1;
@@ -76,6 +76,8 @@ public class UserBean {
 	public final static int FUNID_CAN_CHARGE_FOR_CUSTOMER=41; /*为会员帐户充值*/
 	
 	public final static int FUNID_CAN_SWIPE_QUHUO=42; /*为会员帐户充值*/
+	public final static int FUNID_CAN_VIEW_TEMP_GRAPH=43;
+	public final static int FUNID_DISABLE_FRANCHISEE=44;
 	public String getRightLstString(boolean en) 
 	{
 		int i=0;

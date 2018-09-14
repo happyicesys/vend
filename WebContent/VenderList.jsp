@@ -335,7 +335,11 @@ function ShowTemCurve(id)
 										 -->
 										<th class="col-md-1">Temp Time</th>
 										<th class="col-md-1">Error</th>
+										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
+										{%>											
 										<th class="col-md-2">Setting</th>
+										<%
+										}%>
 									</tr>											
 								</thead>
 
@@ -391,14 +395,26 @@ function ShowTemCurve(id)
 											  		hasState=true;
 											  		if(obj.getTemperature()!=32767)
 											  		{
-												  		if(obj.getTemperature()>-120)
-												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-												  		}
-												  		else
-												  		{
-												  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-												  		}
+											  			if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TEMP_GRAPH)) {
+													  		if(obj.getTemperature()>-120)
+													  		{
+													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+													  		}
+													  		else
+													  		{
+													  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+													  		}
+											  			}else {
+													  		if(obj.getTemperature()>-120)
+													  		{
+													  			out.print(String.format("<button type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
+													  		}
+													  		else
+													  		{
+													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
+													  		}
+											  			}
+													  		
 											  		}
 											  		else
 											  		{
@@ -451,20 +467,25 @@ function ShowTemCurve(id)
 											}
 										%>
 										<td class="center col-md-1"><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
-										<td class="center col-md-2">
-											<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
-												<i class="glyphicon glyphicon-map-marker icon-white"></i>
-												Map
-											</a>
-											<a class="btn btn-info" href="VenderMod.jsp?mid=<%=venderid%>">
-												<i class="glyphicon glyphicon-edit icon-white"></i>
-												Detail
-											</a>
-											<a class="btn btn-danger" href="PortList.jsp?mid=<%=venderid%>">
-												<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-												Channel
-											</a>
-										</td>
+										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
+										{%>										
+											<td class="center col-md-2">
+												<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
+													<i class="glyphicon glyphicon-map-marker icon-white"></i>
+													Map
+												</a>
+												<a class="btn btn-info" href="VenderMod.jsp?mid=<%=venderid%>">
+													<i class="glyphicon glyphicon-edit icon-white"></i>
+													Detail
+												</a>
+												<a class="btn btn-danger" href="PortList.jsp?mid=<%=venderid%>">
+													<i class="glyphicon glyphicon-zoom-in icon-white"></i>
+													Channel
+												</a>
+											</td>
+										<% 
+										}
+										%>
 									</tr>
 									<% 		
 										}
