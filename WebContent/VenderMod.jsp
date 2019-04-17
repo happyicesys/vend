@@ -243,6 +243,17 @@ var ShowMapWin=function()
 						    <input name="AllowUpdateGoodsByPc" type="checkbox" value="1" <%=(vb.getM_AllowUpdateGoodsByPc()==1?"checked=\"checked\"":"")%> />
 						</div>
 				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-4 control-label">Category</label>
+				    <div class="col-sm-3">
+					    <select class="form-control input-sm input-sm" name="category" id="category">
+							<option value='0' >Please choose the keyboard type</option>
+							<option value='16' >16 buttons numeric</option>
+							<option value='18' >18 buttons alphanumeric</option>
+							<option value='12' >1 to 1 select button</option>
+						</select>
+					</div>
+				  </div>				  
 				  <!--  
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Profile ID</label>

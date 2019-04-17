@@ -64,6 +64,14 @@ public class VenderBean {
 	private int is_offline_alert_sent;
 	private int offline_alert;
 	private int offlinetimes;
+	private String vendcategory_name;
+	private int long_temp_loop;
+	private int long_temp_alert_sent;
+	private String long_temp_loop_starttime;
+	private int refill_temp_loop;
+	private int refill_temp_alert_sent;
+	private String refill_temp_loop_starttime;	
+		
 	
 	public String getTemperUpdateTime() {
 		return TemperUpdateTime;
@@ -217,7 +225,24 @@ public class VenderBean {
 	public static final int TEMP_ALERT_LOOP = 12;
 	//in the unit of minutes
 	public static final int TEMP_LOOP_TIMING = 10;
-
+	
+	
+	//temperature degree more than 5 hours not dropping below -18
+	//temp degree celcius
+	public static final int TEMP_LONG_ALERT_LIMIT = -180;
+	//time looping to send alert email
+	public static final int TEMP_LONG_ALERT_LOOP = 10;
+	//in the unit of minutes
+	public static final int TEMP_LONG_LOOP_TIMING = 30;	
+	
+	
+	//temperature degree more than 40 mins not dropping below -5
+	//temp degree celcius
+	public static final int TEMP_REFILL_ALERT_LIMIT = -50;
+	//time looping to send alert email
+	public static final int TEMP_REFILL_ALERT_LOOP = 4;
+	//in the unit of minutes
+	public static final int TEMP_REFILL_LOOP_TIMING = 10;
 
 	
 	public String getPos_TERM_NO() {
@@ -619,6 +644,64 @@ public class VenderBean {
 	
 	public int getOfflinetimes() {
 		return offlinetimes;
+	}	
+	
+	public String getVendcategoryName() {
+		return vendcategory_name;
+	}
+
+	public void setVendcategoryName(String vendcategory_name) {
+		this.vendcategory_name = vendcategory_name;
+	}	
+	
+	
+	public void setLongTempAlertLoop(int long_temp_loop) {
+		this.long_temp_loop = long_temp_loop;
+	}
+	
+	public int getLongTempAlertLoop() {
+		return long_temp_loop;
+	}
+	
+	public void setLongTempAlertSent(int long_temp_alert_sent) {
+		this.long_temp_alert_sent = long_temp_alert_sent;
+	}
+	
+	public int getLongTempAlertSent() {
+		return long_temp_alert_sent;
+	}	
+	
+	public String getLongTempLoopStarttime() {
+		return long_temp_loop_starttime;
+	}
+
+	public void setLongTempLoopStarttime(String long_temp_loop_starttime) {
+		this.long_temp_loop_starttime = long_temp_loop_starttime;
+	}	
+	
+	
+	public void setRefillTempAlertLoop(int refill_temp_loop) {
+		this.refill_temp_loop = refill_temp_loop;
+	}
+	
+	public int getRefillTempAlertLoop() {
+		return refill_temp_loop;
+	}
+	
+	public void setRefillTempAlertSent(int refill_temp_alert_sent) {
+		this.refill_temp_alert_sent = refill_temp_alert_sent;
+	}
+	
+	public int getRefillTempAlertSent() {
+		return refill_temp_alert_sent;
+	}	
+	
+	public String getRefillTempLoopStarttime() {
+		return refill_temp_loop_starttime;
+	}
+
+	public void setRefillTempLoopStarttime(String refill_temp_loop_starttime) {
+		this.refill_temp_loop_starttime = refill_temp_loop_starttime;
 	}	
 	
 }

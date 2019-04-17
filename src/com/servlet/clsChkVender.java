@@ -67,18 +67,20 @@ public class clsChkVender extends HttpServlet {
 			FeeBackThread.instance=new FeeBackThread();
 			FeeBackThread.instance.start();
 		}
-		
+		/*
 		if(ThreadForSendOfflineMail.instance==null)
 		{
 			ThreadForSendOfflineMail.instance=new ThreadForSendOfflineMail();
 			ThreadForSendOfflineMail.instance.start();
 		}
 		
+		
 		if(VendingOfflineAlertThread.instance==null)
 		{
 			VendingOfflineAlertThread.instance=new VendingOfflineAlertThread();
 			VendingOfflineAlertThread.instance.start();
 		}
+		*/
 	}
 }
 class FeeBackThread extends Thread

@@ -95,12 +95,8 @@ public class VenderList extends HttpServlet {
 			
 		}else
 		{
-
 			VenderBean vb=SqlADO.getVenderBeanByid(Integer.parseInt(id));
-			if(vb!=null)
-			{
-				lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite(),id);
-			}
+			lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite(),id);
 		}
 //		RsCount = lst.size();
 //		request.setAttribute("RsCount", RsCount);

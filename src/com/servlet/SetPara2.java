@@ -865,35 +865,99 @@ private static final String NAK="ERROR";
 				vb.setTemperature(venderobj.getInt("TEMP"));
 				vb.setPrev_temp(vb.getTemperature());
 				
-				if(venderobj.getInt("TEMP") > vb.TEMP_ALERT_LIMIT && vb.getTemp_alert() == 1) {
-					
-					if(vb.getTemp_alert_loop() == 0) {
-						vb.setTemperLoopStartTime(ToolBox.getDateTimeString());
-						vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
-					}
-					
-					if(vb.getTemp_alert_loop() > 0) {
-						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						long timediff = 0;
-						try {
-							timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getTemperLoopStartTime()).getTime();							
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
-						if(timediffmins % vb.TEMP_LOOP_TIMING == 0 && timediffmins != 0) {
+				if(vb.getTemp_alert() == 1) {
+					if(venderobj.getInt("TEMP") > vb.TEMP_ALERT_LIMIT) {
+						
+						if(vb.getTemp_alert_loop() == 0) {
+							vb.setTemperLoopStartTime(ToolBox.getDateTimeString());
 							vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
 						}
-					}		
-					
-					if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
-						vb.setIs_alert_sent(1);
-						SendMail.Send(String.format("Vend Temp Rising [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+						
+						if(vb.getTemp_alert_loop() > 0) {
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							long timediff = 0;
+							try {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getTemperLoopStartTime()).getTime();							
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							if(timediffmins % vb.TEMP_LOOP_TIMING == 0 && timediffmins != 0) {
+								vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
+							}
+						}		
+						
+						if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
+							vb.setIs_alert_sent(1);
+							SendMail.Send(String.format("2 Hours stay above -12 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+						}
+					}else {
+						vb.setTemp_alert_loop(0);
+						vb.setIs_alert_sent(0);
+						vb.setTemperLoopStartTime(null);
 					}
-				}else {
-					vb.setTemp_alert_loop(0);
-					vb.setIs_alert_sent(0);
-					vb.setTemperLoopStartTime(null);
+				
+					if(venderobj.getInt("TEMP") > vb.TEMP_LONG_ALERT_LIMIT) {
+						
+						if(vb.getLongTempAlertLoop() == 0) {
+							vb.setLongTempLoopStarttime(ToolBox.getDateTimeString());
+							vb.setLongTempAlertLoop(vb.getLongTempAlertLoop() + 1);
+						}
+						
+						if(vb.getLongTempAlertLoop() > 0) {
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							long timediff = 0;
+							try {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getLongTempLoopStarttime()).getTime();							
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							if(timediffmins % vb.TEMP_LONG_LOOP_TIMING == 0 && timediffmins != 0) {
+								vb.setLongTempAlertLoop(vb.getLongTempAlertLoop() + 1);
+							}
+						}		
+						
+						if(vb.getLongTempAlertLoop() >= VenderBean.TEMP_LONG_ALERT_LOOP + 1 && vb.getLongTempAlertSent() == 0){
+							vb.setLongTempAlertSent(1);
+							SendMail.Send(String.format("5 Hours stay above -18 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+						}
+					}else {
+						vb.setLongTempAlertLoop(0);
+						vb.setLongTempAlertSent(0);
+						vb.setLongTempLoopStarttime(null);
+					}
+					
+					if(venderobj.getInt("TEMP") > vb.TEMP_REFILL_ALERT_LIMIT) {
+						
+						if(vb.getRefillTempAlertLoop() == 0) {
+							vb.setRefillTempLoopStarttime(ToolBox.getDateTimeString());
+							vb.setRefillTempAlertLoop(vb.getRefillTempAlertLoop() + 1);
+						}
+						
+						if(vb.getRefillTempAlertLoop() > 0) {
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							long timediff = 0;
+							try {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getRefillTempLoopStarttime()).getTime();							
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							if(timediffmins % vb.TEMP_LONG_LOOP_TIMING == 0 && timediffmins != 0) {
+								vb.setRefillTempAlertLoop(vb.getRefillTempAlertLoop() + 1);
+							}
+						}		
+						
+						if(vb.getRefillTempAlertLoop() >= VenderBean.TEMP_REFILL_ALERT_LOOP + 1 && vb.getRefillTempAlertSent() == 0){
+							vb.setRefillTempAlertSent(1);
+							SendMail.Send(String.format("40 mins above -5 : Door not closed alert, [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+						}
+					}else {
+						vb.setRefillTempAlertLoop(0);
+						vb.setRefillTempAlertSent(0);
+						vb.setRefillTempLoopStarttime(null);
+					}					
 				}
 				
 				

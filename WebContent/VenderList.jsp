@@ -385,7 +385,9 @@ function ShowTemCurve(id)
 										<td class="center col-md-1">
 											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 										</td>
-										<td class="center col-md-1"></td>
+										<td class="center col-md-1">
+											<%=obj.getVendcategoryName() %>
+										</td>
 										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
 										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 										<td class="center col-md-4" >

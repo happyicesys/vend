@@ -93,7 +93,7 @@
 	margin:3px;
 	display:block;
 	float:left;
-	width:300px;
+	width:200px;
 	font-size:13px;
 }
 </style>
@@ -124,8 +124,9 @@
 							<table class="table table-bordered table-hover" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th style="width: 100px;">Terminal ID</th>
-										<th style="width: 100px;">See Details</th>
+										<th style="width: 30px;">Terminal ID</th>
+										<th style="width: 100px;">Name</th>
+										<th style="width: 50px;">Postcode</th>
 										<th>Sales, Remaining/Volume Count</th>
 										<th>Conn</th>
 										<th>Temp</th>
@@ -152,6 +153,7 @@
 											for(PortBean pb:pbli)
 											{
 												if(pb.getCapacity()>pb.getAmount())
+												//if(pb.getAmount()>pb.getCapacity())	
 												{
 													quehuo=true;
 													break;
@@ -165,15 +167,19 @@
 										%>
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
-											<td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
+											<%-- <td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td> --%>
+											<td class="center "><a href="VenderMod.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
+											<td class="center "><%= vb.getTerminalAddress() %>
 											<td class="center"> 
 												<ul style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
+														int	runOutChannel = 0;
+														int actualSold = 0;
 														for(PortBean pb:pbli)
 														{
-															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 21) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53))) {
+															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53)) && pb.getCapacity() != 0 ) {
 																//pb.getCapacity()>pb.getAmount() && 
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
@@ -199,6 +205,10 @@
 																			</span> 																			
 																	<%
 																		}
+																																																		
+																		if(pb.getAmount() == 0) {
+																			runOutChannel += 1;
+																		}
 																	%>	
 																	
 																	
@@ -207,26 +217,43 @@
 																		Name:<%=pb.getGoodroadname() %>
 																	</span>
 																	-->
-																</li>																
-														<%
+																</li>															
+														<%															
 															}
 														}
+														
+														actualSold = totalVolume - totalSold;
 													%>
-													<li class="quick-look">
+													<li class="quick-look row">
 														<%
-															if((((double)totalSold/ (double)totalVolume)*100) < 55.00) {
+															//if((((double)totalSold/ (double)totalVolume)*100) < 40.00) {
+															if(actualSold >= 70 || runOutChannel >= 4) {
 														%>
 																<span style="color: red;">
 																	<strong>
-																		Subtotal:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		<br>
+																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
 																</span>
 														<%
+															}else if((actualSold >= 50 && actualSold < 70) || (runOutChannel >= 3 && runOutChannel < 4)) {
+														%>	
+																<span style="color: blue;">
+																	<strong>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		<br>
+																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
+																	</strong>
+																</span>																														
+														<%	
 															}else {
 														%>
 																<span>
 																	<strong>
-																		Subtotal:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		<br>
+																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
 																</span>	
 														<%
@@ -277,7 +304,7 @@
 										
 										%>
 													<tr class="odd">
-													 <td colspan="3" align="center" >Finish loading</td>
+													 <td colspan="12" align="center" >Finish loading</td>
 													</tr>
 										<%
 									}

@@ -65,12 +65,13 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ArrayList<VenderBean> li=new ArrayList<VenderBean>(5);
 		Connection conn=ConnManager.getConnection(CN);
-		String sql="select id,BTime,TerminalName,TerminalAddress,UpdateTime," +
-				"IsOnline,HuodongId,SellerTyp,GoodsPortCount," +
-				"CanUse,AdminId,jindu,weidu,groupid,coinAttube,bills,MdbDeviceStatus,gprs_Sign," +
-				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,IRErrCnt,LstSltE,auto_refund,"
-				+ "manual_refund,AllowUpdateGoodsByPc,id_format,autoTransfer,autoTransferRation,TemperUpdateTime from [TerminalInfo] "
-				+ "where id in("+limiteid +") order by IsOnline desc,id asc";
+		String sql="select t.id,t.BTime,t.TerminalName,t.TerminalAddress,t.UpdateTime,"
+				+ "t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount,"
+				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
+				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
+				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
+				+ "left join vendcategories v on v.id = t.vendcategory_id " 
+				+ "where t.id in("+limiteid +") order by IsOnline desc,id asc";
 		try {
 			
 			ps= conn.prepareStatement(sql);
@@ -116,6 +117,7 @@ public class SqlADO {
 				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
+				temv.setVendcategoryName(rs.getString("name"));				
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -140,12 +142,13 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ArrayList<VenderBean> li=new ArrayList<VenderBean>(5);
 		Connection conn=ConnManager.getConnection(CN);
-		String sql="select id,BTime,TerminalName,TerminalAddress,UpdateTime," +
-				"IsOnline,HuodongId,SellerTyp,GoodsPortCount," +
-				"CanUse,AdminId,jindu,weidu,groupid,coinAttube,bills,MdbDeviceStatus,gprs_Sign," +
-				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,IRErrCnt,LstSltE,auto_refund," + 
-				"manual_refund,AllowUpdateGoodsByPc,id_format,autoTransfer,autoTransferRation,TemperUpdateTime from [TerminalInfo] " +
-				"where id=? and id in("+limiteid +") order by IsOnline desc,id asc";
+		String sql="select t.id,t.BTime,t.TerminalName,t.TerminalAddress,t.UpdateTime," +
+				"t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount," +
+				"t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign," +
+				"t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund," + 
+				"t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,vc.name from TerminalInfo t" +
+				"left join vendcategories vc on vc.id = t.vendcategory_id " +
+				"where t.id=? and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc";
 		try {
 			
 			ps= conn.prepareStatement(sql);
@@ -192,6 +195,7 @@ public class SqlADO {
 				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
+				temv.setVendcategoryName(rs.getString("name"));
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -220,9 +224,11 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ArrayList<VenderBean> li=new ArrayList<VenderBean>(5);
 		Connection conn=ConnManager.getConnection(CN);
-		String sql="select id,AdminId,BTime,TerminalName,TerminalAddress,UpdateTime," +
-				"IsOnline,HuodongId,SellerTyp,GoodsPortCount,CanUse,auto_refund,manual_refund,"
-				+ "AllowUpdateGoodsByPc,groupid,autoTransfer,autoTransferRation,is_offline_alert_sent,offline_alert,offlinetimes from [TerminalInfo]";
+		String sql="select t.id,t.AdminId,t.BTime,t.TerminalName,t.TerminalAddress,t.UpdateTime," +
+				"t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount,t.CanUse,t.auto_refund,t.manual_refund,"
+				+ "t.AllowUpdateGoodsByPc,t.groupid,t.autoTransfer,t.autoTransferRation,t.is_offline_alert_sent,t.offline_alert,t.offlinetimes,vc.name "
+				+ "from TerminalInfo t"
+				+ "left join vendcategories vc on vc.id = t.vendcategory_id ";
 		if(AdminId!=0)
 		{
 			sql+=" where AdminId="+AdminId;
@@ -255,6 +261,7 @@ public class SqlADO {
 				temv.setIs_offline_alert_sent(rs.getInt("is_offline_alert_sent"));
 				temv.setOffline_alert(rs.getInt("offline_alert"));
 				temv.setOfflinetimes(rs.getInt("offlinetimes"));
+				temv.setVendcategoryName(rs.getString("name"));
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -273,12 +280,16 @@ public class SqlADO {
 		
 		int i=1;
 		Connection conn=ConnManager.getConnection(CN);
-		String sql="select top 1 AdminId,BTime,TerminalName,TerminalAddress,UpdateTime," +
-				"IsOnline,HuodongId,SellerTyp,TelNum,GoodsPortCount,TipMesOnLcd," +
-				"CanUse,queueMaxLength,jindu,weidu,groupid,coinAttube,MdbDeviceStatus,gprs_Sign," +
-				"temperature,flags1,flags2,function_flg,coinAtbox,gprs_event_flg,vmc_firmfile,IRErrCnt,LstSltE,pos_PWD,"+ 
-				"code_ver,id_format,auto_refund,manual_refund,AllowUpdateGoodsByPc,autoTransfer,autoTransferRation,TemperUpdateTime,temp_alert, offline_alert "+ 
-				"from [TerminalInfo] where id=?";
+		String sql="select top 1 t.AdminId, t.BTime, t.TerminalName, t.TerminalAddress, t.UpdateTime," +
+				" t.IsOnline, t.HuodongId, t.SellerTyp, t.TelNum, t.GoodsPortCount, t.TipMesOnLcd," +
+				" t.CanUse, t.queueMaxLength, t.jindu, t.weidu, t.groupid, t.coinAttube, t.MdbDeviceStatus, t.gprs_Sign," +
+				" t.temperature, t.flags1, t.flags2, t.function_flg, t.coinAtbox, t.gprs_event_flg, t.vmc_firmfile, t.IRErrCnt, t.LstSltE, t.pos_PWD,"+ 
+				" t.code_ver, t.id_format, t.auto_refund, t.manual_refund, t.AllowUpdateGoodsByPc, t.autoTransfer, t.autoTransferRation, t.TemperUpdateTime, t.temp_alert, t.offline_alert, vc.name, t.long_temp_loop, t.long_temp_alert_sent, t.long_temp_loop_starttime, "+ 
+				" t.refill_temp_loop, t.refill_temp_alert_sent, t.refill_temp_loop_starttime " +
+				" from TerminalInfo t " +
+				" left join vendcategories vc on vc.id=t.vendcategory_id " +
+				" where t.id=?";
+		
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setInt(i++, id);
@@ -333,6 +344,13 @@ public class SqlADO {
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setTemp_alert(rs.getInt("temp_alert"));
 				temv.setOffline_alert(rs.getInt("offline_alert"));
+				temv.setVendcategoryName(rs.getString("name"));
+				temv.setLongTempAlertLoop(rs.getInt("long_temp_loop"));
+				temv.setLongTempAlertSent(rs.getInt("long_temp_alert_sent"));
+				temv.setLongTempLoopStarttime(rs.getString("long_temp_loop_starttime"));
+				temv.setRefillTempAlertLoop(rs.getInt("refill_temp_loop"));
+				temv.setRefillTempAlertSent(rs.getInt("refill_temp_alert_sent"));
+				temv.setRefillTempLoopStarttime(rs.getString("refill_temp_loop_starttime"));				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1350,7 +1368,7 @@ public class SqlADO {
 	}
 	public static boolean updatePortFault(int sellerId, int innerid, int i) {
 		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+ 
-				" ,errorinfo=(select top(1) des from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;
+				" ,errorinfo=(select top(1) CONCAT(des,' - Error: ',errcode) from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;
 		return exec(sql);
 	}
 	public static boolean ChkVenderRepeat(int vid) {
@@ -1375,7 +1393,7 @@ public class SqlADO {
 			ps.setInt(i++, 0);
 			ps.setInt(i++, 100);
 			ps.setInt(i++,5);
-			ps.setString(i++, "货道"+sid);
+			ps.setString(i++, "Channel "+sid);
 			ps.setTimestamp(i++, new Timestamp(ClsTime.SystemTime()));
 			ps.setInt(i++, 0);
 			ps.setString(i++,"");
@@ -1657,7 +1675,7 @@ public class SqlADO {
 	public static void AddOffLineTimes(int pollInterval) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [terminalinfo] set offlinetimes=offlinetimes+?";	
+		String sql="update [terminalinfo] set offlinetimes=offlinetimes+? where offlinetimes<(MaxOffinetimes+1000)";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1897,7 +1915,8 @@ public class SqlADO {
 		String sql=null;
 		sql="update terminalinfo set coinAttube=?,MdbDeviceStatus=?,gprs_Sign=?," +
 				"temperature=?,function_flg=?,coinAtbox=?,LstSltE=?,IRErrCnt=?,id_format=?,code_ver=?,bills=?,TemperUpdateTime=?," +
-				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?,is_coin_alert_sent=?" +
+				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?,is_coin_alert_sent=?,long_temp_loop=?,long_temp_alert_sent=?,long_temp_loop_starttime=?," +
+				"refill_temp_loop=?,refill_temp_alert_sent=?,refill_temp_loop_starttime=? "+
 				" where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -1925,6 +1944,12 @@ public class SqlADO {
 			ps.setInt(i++, vb.getIs_alert_sent());
 			ps.setString(i++, vb.getTemperLoopStartTime());
 			ps.setInt(i++, vb.getIs_coin_alert_sent());
+			ps.setInt(i++, vb.getLongTempAlertLoop());
+			ps.setInt(i++, vb.getLongTempAlertSent());
+			ps.setString(i++, vb.getLongTempLoopStarttime());
+			ps.setInt(i++, vb.getRefillTempAlertLoop());
+			ps.setInt(i++, vb.getRefillTempAlertSent());
+			ps.setString(i++, vb.getRefillTempLoopStarttime());			
 			
 			ps.setInt(i++,vb.getId());
 			ps.executeUpdate();
