@@ -29,8 +29,7 @@ import beans.clsGoodsBean;
 import beans.clsGroupBean;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import weixin.popular.bean.clsWxPara;
-import weixin.popular.util.PayUtil;
+import wx.pay.util.PayUtil;
 
 /**
  * Servlet implementation class SetParaByPC

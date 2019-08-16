@@ -141,7 +141,7 @@ public class WCallBack extends HttpServlet {
 		
 		ServletInputStream is= request.getInputStream();
 		
-		String xmlstr=StreamUtils.copyToString(is,request.getContentLength(), Charset.forName("utf-8"));
+		String xmlstr=StreamUtils.copyToString(is, Charset.forName("utf-8"));
 		
 		EventMessage xml=XMLConverUtil.convertToObject(EventMessage.class, xmlstr);
 		

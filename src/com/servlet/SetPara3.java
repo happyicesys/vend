@@ -24,7 +24,7 @@ import beans.clsFromGprs;
 import beans.clsGoodsBean;
 import beans.clsGroupBean;
 import net.sf.json.JSONObject;
-import weixin.popular.util.PayUtil;
+import wx.pay.util.PayUtil;
 
 import com.ClsTime;
 import com.clsConst;

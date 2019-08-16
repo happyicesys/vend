@@ -15,8 +15,9 @@ public class TextMsgSendProcess extends Thread
 	{
 		while(true)
 		{
+			
 			try {
-				sleep(5000);
+				sleep(30000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -34,7 +35,7 @@ public class TextMsgSendProcess extends Thread
 						if(textMsgBean!=null)
 						{
 							groupBean=clsGroupBean.getGroup(textMsgBean.getGroupid());
-							access_token=TokenManager.FreshToken(groupBean);
+							access_token=TokenManager.getToken(groupBean.getWx_appid());
 							if(access_token!=null)
 							{
 								message=new TextMessage(textMsgBean.getTouser(), textMsgBean.getContent());
@@ -44,7 +45,7 @@ public class TextMsgSendProcess extends Thread
 							}
 							else
 							{
-								System.out.println("access_token=null");
+								//System.out.println(groupBean.getGroupname()+"access_token=null");
 							}
 						}
 					}

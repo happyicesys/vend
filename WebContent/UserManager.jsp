@@ -13,7 +13,7 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-	
+
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
 		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
@@ -21,8 +21,8 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-    
-    
+
+
     if(!ub.AccessAble(UserBean.FUNID_CAN_UPDATE_USER))
 	{
 		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_UPDATE_USER]);
@@ -35,17 +35,17 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-		
+
 		int id=ToolBox.filterInt(request.getParameter("id"));
 		UserBean tub=UserBean.getUserBeanById(id);
-		
+
 		if(tub==null)
 		{
 			request.setAttribute("message", "Parameter error, no records found!");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		
+
 		clsGroupBean groupBean =clsGroupBean.getGroup(tub.getGroupid());
 		//tub.setCanAccessSellerid(SqlADO.VenderBeanID());
     %>
@@ -85,7 +85,7 @@ var chk=function()
 	try
 	{
 	var objDiv=document.getElementById("tips");
-	
+
 	if(form1.pwd.value!="")
 	{
 		if(form1.pwd.value.length<6)
@@ -93,7 +93,7 @@ var chk=function()
 			objDiv.innerText="Password must more than 6 characters";
 			return false;
 		}
-		
+
 		if((form1.pwd.value)!=(form1.repwd.value))
 		{
 
@@ -101,9 +101,9 @@ var chk=function()
 			return false;
 		}
 	}
-	
 
-	
+
+
 	var venderlst=$("input[name='canAccessVender1']");
 	var s_vender="";
 	for(var i=0;i<venderlst.length;i++)
@@ -126,7 +126,7 @@ var chk=function()
 
 $(document).ready(function(){
 
-	  
+
 	  /*添加货道窗口*/
 	  $("#dialog").dialog({autoOpen: false,width:500,height:600,modal: false,
 	      buttons: {
@@ -135,13 +135,13 @@ $(document).ready(function(){
 	            }
 	      }
 	  });
-		  
+
 		$("#SetAccessVender").click(function(){
 			$('#myModal').modal('show');
 		})
-	  
+
 	});
-	
+
 
 
 </script>
@@ -177,7 +177,7 @@ $(document).ready(function(){
 				    <label class="col-sm-4 control-label">Password</label>
 				    <div class="col-sm-3">
 				      <input type="password" id="pwd" name="pwd" class="form-control input-sm input-sm" >
-				      
+
 				    </div>
 				    <div class="col-sm-5">
 				      <label>Leave blank to remain the same</label>
@@ -197,7 +197,7 @@ $(document).ready(function(){
 				    <div class="col-sm-3">
 				      <input name="firmtel" type="text" class="form-control input-sm" value="<%=tub.getAdmintelephone()%>" >
 				    </div>
-				    
+
 				  </div>
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Mobile Number</label>
@@ -233,11 +233,17 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 				  <div class="form-group">
+				    <label class="col-sm-4 control-label">Alert Email Send to</label>
+				    <div class="col-sm-3">
+				      <input name="emails" type="text" class="form-control input-sm" value="<%=tub.getAdminEmails()%>" placeholder="use ; to separate more than 1 email"/>
+				    </div>
+				  </div>
+				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Access Level</label>
 				    	<div class="col-sm-8">
 						    <ul class="list-inline">
 								<%
-								//=tub.getRightLstString(ub.AccessAble(UserBean.FUNID_CAN_EDIT_RIGHT)) 
+								//=tub.getRightLstString(ub.AccessAble(UserBean.FUNID_CAN_EDIT_RIGHT))
 									StringBuilder sb=new StringBuilder();
 									for(int i=0;i<UserBean.RIGHT_DES.length;i++)
 									{
@@ -246,7 +252,7 @@ $(document).ready(function(){
 										//{
 										//	continue;
 										//}
-										
+
 										sb.append("<li style='width:170px;'><label><input type=\"checkbox\" ");
 										if(tub.AccessAble(i))
 										{
@@ -266,7 +272,7 @@ $(document).ready(function(){
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Access Vending</label>
 				    <div class="col-sm-8">
-				    <%if(tub.AccessAble(UserBean.FUNID_ACCESS_ALL_VENDER)) 
+				    <%if(tub.AccessAble(UserBean.FUNID_ACCESS_ALL_VENDER))
 					{
 						out.println("<span class='normal-label'>该用户已具有查看所有机器的权限，该参数不需要设置！</span>");
 					}
@@ -306,7 +312,7 @@ $(document).ready(function(){
 						<%
 						} %>
 					</ul>
-					<%} 
+					<%}
 					System.out.println(ub.getCanAccessSellerid());
 					if(ub.AccessAble(UserBean.FUNID_CAN_ASIGN_VENDER))
 					{
@@ -315,12 +321,12 @@ $(document).ready(function(){
 					%>
 				    <input type="hidden" name="canAccessVender" id="canAccessVender" value="<%=tub.getCanAccessSellerid()%>" />
 					<!-- 模态框（Modal） -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 				   aria-labelledby="myModalLabel" aria-hidden="true">
 				   <div class="modal-dialog">
 				      <div class="modal-content">
 				         <div class="modal-header">
-				            <button type="button" class="close" data-dismiss="modal" 
+				            <button type="button" class="close" data-dismiss="modal"
 				               aria-hidden="true">×
 				            </button>
 				            <h4 class="modal-title" id="myModalLabel">
@@ -348,15 +354,15 @@ $(document).ready(function(){
 							</ul>
 				         </div>
 				         <div class="modal-footer">
-				            <button type="button" class="btn btn-default" 
+				            <button type="button" class="btn btn-default"
 				               data-dismiss="modal">Confirm
 				            </button>
 				         </div>
 				      </div><!-- /.modal-content -->
 				   </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->  
-					
-					<%} 
+				</div><!-- /.modal -->
+
+					<%}
 					%>
 				    </div>
 				  </div>
@@ -380,7 +386,7 @@ $(document).ready(function(){
 						    <%=String.format("[%d]-%s", groupBean.getId(),groupBean.getGroupname()) %>
 							<%}else{
 								%>
-								Invalid Profile ID 
+								Invalid Profile ID
 								<%
 							} %>
 						</div>
@@ -416,7 +422,7 @@ $(document).ready(function(){
     $(document).ready(function() {
     	$('#myModal').modal('hide');
     	$('#myModal').on('hide.bs.modal', function (e) {
-    		
+
     		});
     });
     </script>

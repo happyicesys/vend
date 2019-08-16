@@ -22,9 +22,10 @@ import beans.TradeBean;
 import beans.UserBean;
 import beans.VenderBean;
 import beans.clsGroupBean;
-import weixin.popular.bean.WxTradeLog;
+
 import weixin.popular.bean.paymch.SecapiPayRefundResult;
-import weixin.popular.util.WxRefund;
+import wx.pay.util.WxRefund;
+
 
 /**
  * Servlet implementation class PayBack

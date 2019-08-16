@@ -25,10 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import sun.misc.BASE64Decoder;
-import weixin.popular.bean.clsWxPara;
+
 import weixin.popular.bean.paymch.Transfers;
-import weixin.popular.util.PayUtil;
-import weixin.popular.util.WxCoporTransfor;
+import wx.pay.util.PayUtil;
 import beans.CustomerBean;
 import beans.PortBean;
 import beans.TempBean;
@@ -56,7 +55,7 @@ import com.tools.ToolBox;
  */
 public class SetPara2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 //	private static final int HTTP_INVALID_TYPE =-1;
 //	private static final int HTTP_COL_DATA=1;
 //	private static final int HTTP_COL_LIST_DATA=2;
@@ -87,8 +86,8 @@ private static final String NAK="ERROR";
         // TODO Auto-generated constructor stub
     }
 
-    
-    
+
+
     /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -99,12 +98,12 @@ private static final String NAK="ERROR";
 		response.setContentType("text/html; charset=GBK");
 		PrintWriter pw=response.getWriter();
 		pw.print("TEST_OK");
-		
+
 	}
 
 	final String CHAR_CODE="GBK";
 	final  String START_LETTER="{\"";
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -114,24 +113,24 @@ private static final String NAK="ERROR";
 		response.setCharacterEncoding(CHAR_CODE);
 		response.setContentType("text/html; charset=GBK");
 		PrintWriter pw=response.getWriter();
-		
-		InputStream is = request.getInputStream(); 
-		DataInputStream input = new DataInputStream(is); 
-		
+
+		InputStream is = request.getInputStream();
+		DataInputStream input = new DataInputStream(is);
+
 		byte[] strb=new byte[20480];
 		int poststrlen=0;
 		int need_len=request.getContentLength();
-		while (poststrlen<need_len) 
+		while (poststrlen<need_len)
 		{
-			poststrlen+=input.read(strb,poststrlen,need_len-poststrlen); 
+			poststrlen+=input.read(strb,poststrlen,need_len-poststrlen);
 		}
 		String ret_str="1";
 
 		String poststr=new String(strb,0,poststrlen,CHAR_CODE);
 
 		String[] arrstr=poststr.split("&",0);
-		
-		Hashtable<String, String> hash=new Hashtable<String, String>(2,(float)0.8);		
+
+		Hashtable<String, String> hash=new Hashtable<String, String>(2,(float)0.8);
 		for (String string : arrstr) {
 			String[] subarrstr=string.split("=",2);
 			if(subarrstr.length>=2)
@@ -143,19 +142,22 @@ private static final String NAK="ERROR";
 				hash.put(subarrstr[0], null);
 			}
 		}
-		
+
 		int f=ToolBox.filterInt(hash.get("f"));/*帧编号，服务器上保存1条最近的编号信息，如果收到的是重复的信息，那么不处理数据，仅仅回传上次发送过的数据*/
 		int t=ToolBox.filterInt(hash.get("t"));/*数据类型*/
 		int machineid=ToolBox.filterInt(hash.get("m"));/*机器编号，必须填写*/
 		int gprs=ToolBox.filterInt(hash.get("g"));/*GPRS信号*/
 		String p=hash.get("p");
-		System.out.println(p);
+		//System.out.println(p);
 		p=p.replaceFirst("!", "=");
 		clsFromGprs  gprsdata=new clsFromGprs(machineid, f, t, gprs, p);
 		VenderLogBean logBean=new VenderLogBean(gprsdata.getStr_content(),null,machineid,poststr,f,t);
-		System.out.println(gprsdata.getStr_content());
+		if(!gprsdata.getStr_content().equals("{\"Type\":\"P\"}"))
+		{
+			System.out.println(gprsdata.getStr_content());
+		}
 		logBean.add();/*添加日志到数据库*/
-		
+
 		VenderBean vb=VenderBean.ChkVender(machineid);
 		if(vb!=null)
 		{
@@ -180,7 +182,7 @@ private static final String NAK="ERROR";
 		{
 			return;
 		}
-		
+
 			if(gprsdata.getStr_content().startsWith(START_LETTER))
 			{
 				JSONObject obj=JSONObject.fromObject(gprsdata.getStr_content());
@@ -223,7 +225,7 @@ private static final String NAK="ERROR";
 										tradeBean.getTradetype()
 										);
 										*/
-								
+
 							}
 							else
 							{
@@ -243,7 +245,7 @@ private static final String NAK="ERROR";
 								ret_str=String.format("HEART%s,%d,%d", tradeBean.getOrderid(),
 										tradeBean.getGoodroadid(),
 										tradeBean.getTradetype()
-										);								
+										);
 							}
 							else
 							{
@@ -293,13 +295,13 @@ private static final String NAK="ERROR";
 						{
 							/*刷卡消费
 							 * {"Type":"VSWIP","CARD":"12345678","PRICE":1000,"PARA":"12","Vid":1}
-							 * 
+							 *
 							 * */
 							ret_str=Vender_MakeSwipTrade(vb,obj);
 						}
 						else
 						{
-							
+
 						}
 					}
 				}
@@ -331,7 +333,7 @@ private static final String NAK="ERROR";
 					}
 				}
 			}
-		
+
 		String base64_str=ToolBox.getBASE64(ret_str);
 		base64_str=base64_str.replace("\r", "");
 		base64_str=base64_str.replace("\n", "");
@@ -343,7 +345,7 @@ private static final String NAK="ERROR";
 		logBean.updateResponse();
 		pw.write(str);
 	}
-	
+
 	public static String executePost(String targetURL, String urlParameters) {
 		  HttpURLConnection connection = null;
 
@@ -352,12 +354,12 @@ private static final String NAK="ERROR";
 		    URL url = new URL(targetURL);
 		    connection = (HttpURLConnection) url.openConnection();
 		    connection.setRequestMethod("POST");
-		    connection.setRequestProperty("Content-Type", 
+		    connection.setRequestProperty("Content-Type",
 		        "application/x-www-form-urlencoded");
 
-		    connection.setRequestProperty("Content-Length", 
+		    connection.setRequestProperty("Content-Length",
 		        Integer.toString(urlParameters.getBytes().length));
-		    connection.setRequestProperty("Content-Language", "en-US");  
+		    connection.setRequestProperty("Content-Language", "en-US");
 
 		    connection.setUseCaches(false);
 		    connection.setDoOutput(true);
@@ -368,7 +370,7 @@ private static final String NAK="ERROR";
 		    wr.writeBytes(urlParameters);
 		    wr.close();
 
-		    //Get Response  
+		    //Get Response
 		    InputStream is = connection.getInputStream();
 		    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 		    StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
@@ -387,13 +389,13 @@ private static final String NAK="ERROR";
 		      connection.disconnect();
 		    }
 		  }
-	}	
-	
-	
+	}
+
+
 	private String Vender_MakeSwipTrade(VenderBean vb, JSONObject obj) {
 		/*售货机刷卡消费
 		 * {"Type":"VSWIP","CARD":"12345678","PRICE":1000,"PARA":12,"Vid":1,"CNT":2}
-		 * 
+		 *
 		 * */
 		int para=obj.getInt("PARA");
 		String Type=obj.getString("Type");
@@ -401,7 +403,7 @@ private static final String NAK="ERROR";
 		int Price=obj.getInt("PRICE");
 		int Vid=obj.getInt("Vid");
 		int stock=obj.getInt("CNT");
-		
+
 		CustomerBean c=CustomerBean.getCustomerBeanByCardID(Cardinfo);
 		int ret=CustomerBean.CUSTOMER_OK;
 		String str_ret;
@@ -419,9 +421,9 @@ private static final String NAK="ERROR";
 			str_ret=String.format("%d,%d,%s,%d,%d",ret,Price,"0",para,0);
 			return "SWIPE"+str_ret;
 		}
-		
+
 		ret=c.Cusume(Price);
-		
+
 		//创建支付定单
 		if(ret==CustomerBean.CUSTOMER_OK)
 		{
@@ -453,40 +455,40 @@ private static final String NAK="ERROR";
 
 
 
-	private String CancelTrade(VenderBean vb,JSONObject obj) 
+	private String CancelTrade(VenderBean vb,JSONObject obj)
 	{
 		String ret_str="1";
 					/*查询数据库记录，看看是否当前有支付宝或者微信的交易记录*/
 		String tradeid=obj.getString("TRADE");
-		
+
 		TradeBean tb=SqlADO.getTradeBean(tradeid);
-		
+
 		if(tb!=null)
 		{
 			/*到支付平台查询订单*/
-			
-			
+
+
 			/*如果已经支付就准备退款*/
-			
+
 			/*如果还没有支付就关闭订单*/
 		}
-		
+
 		return ret_str;
 	}
 
 
 
-	private String GetTradeState(VenderBean vb, JSONObject obj) 
+	private String GetTradeState(VenderBean vb, JSONObject obj)
 	  {
 		    String ret_str;
 			/*查询数据库记录，看看是否当前有支付宝或者微信的交易记录*/
 			String tradeid=obj.getString("TRADE");
-			
+
 			/*查询交易是否已经支付完成traderecordinfo_tem*/
 			TradeBean tb=SqlADO.getTradeBeanFromTemp(tradeid);
 			int paid=0;/*设置为没有支付的状态*/
 			int paytype=99;
-		
+
 			if(tb!=null)
 			{
 				if(tb.getSendstatus()==0)
@@ -496,7 +498,7 @@ private static final String NAK="ERROR";
 						//ret_str="TRADE1"++tradeid;/*支付完成*/
 						paid=1;
 						paytype=tb.getTradetype();
-						
+
 						/*只要有过来获取交易状态的,将status字段改一下,*/
 						tb.setStatus(-2);
 						SqlADO.updateTradeBeanTemp(tb);
@@ -513,17 +515,17 @@ private static final String NAK="ERROR";
 				//ret_str="TRADE2"+tradeid;/*不存在的交易*/
 				paid=2;
 			}
-			
+
 			ret_str=String.format("TRADE%d%02d%s",paid,paytype,tradeid);
 			return ret_str;
 	}
 
-	  private String GetVerifyTrade(VenderBean vb, JSONObject obj) 
+	  private String GetVerifyTrade(VenderBean vb, JSONObject obj)
 	  {
 		    String ret_str;
 			/*查询数据库记录，看看是否当前有支付宝或者微信的交易记录*/
 			String tradeid=obj.getString("VERIFY");
-			
+
 			/*查询交易是否已经支付完成*/
 			TradeBean tb=SqlADO.getTradeBeanFromTemp(tradeid);
 			int paid=0;/*设置为没有支付的状态*/
@@ -552,7 +554,7 @@ private static final String NAK="ERROR";
 				//ret_str="TRADE2"+tradeid;/*不存在的交易*/
 				paid=2;
 			}
-			
+
 			ret_str=String.format("TRADE%d%02d%03d%s",paid,paytype,slotid,tradeid);
 			return ret_str;
 	}
@@ -564,7 +566,7 @@ private static final String NAK="ERROR";
 				  page =obj.getInt("Page");
 			  }
 			  ArrayList<clsGoodsBean> goodslst= clsGoodsBean.getGoodsBeanLst(page,50,vb.getGroupid());
-			  
+
 			  JSONArray json=new JSONArray();
 			  json.addAll(goodslst);
 			  return json.toString();
@@ -572,23 +574,23 @@ private static final String NAK="ERROR";
 
 	 private String GetQrCodeData(VenderBean vb, JSONObject obj) {
 		 String ret_str=null;
-		 
+
 		 int sid= obj.getInt("SId") ;
 		 int price= obj.getInt("PRICE") ;
 		 int cnt=obj.getInt("CNT") ;
 		 String alqrcode="",wxqrcode="",altrade="",wxtrade="";
 		 //int payType=obj.getInt("ptype");
 		 /*到支付宝*/
-		 
+
 		 PortBean pb=SqlADO.getPortBean(vb.getId(), sid);
 		 if(pb==null)
 		 {
 			 ret_str+=",,";
 			 return ret_str;
 		 }
-		 
+
 		 pb.setAmount(cnt);
-		 
+
 		 if(pb.getPrice()!=price)
 		 {
 			 /*需要更新二维码*/
@@ -612,8 +614,9 @@ private static final String NAK="ERROR";
 				}
 			}
 
-			
+
 			String qrcode=PayUtil.MakeWxQrcode(pb,altrade,groupBean);
+			wxqrcode="Invalid Code";
 			if(qrcode!=null)
 			{
 				//SqlADO.UpdateGoodsPortWxQrCode(pb.getMachineid(),pb.getGoodsid(),qrcode,qrcode_img_url);
@@ -621,7 +624,7 @@ private static final String NAK="ERROR";
 				pb.setWx_qrcode(wxqrcode);
 				pb.setWx_trade(wxtrade);
 			}
-		 
+
 
 			 ret_str=String.format("QRCODE%s,%s,%s,", alqrcode,wxqrcode,altrade);
 			 //System.out.println(ret_str);
@@ -647,15 +650,15 @@ private static final String NAK="ERROR";
 	 	TradeBean tbBean=new TradeBean();
 	 	int vid=vb.getId();
 	 	tbBean.setGoodmachineid(vid);
-	 
+
 	 	tbBean.setPrice(trade.getInt("Price"));
-	 	
+
 	 	tbBean.setCoin_credit(trade.getInt("COINS"));
-	 	
+
 	 	tbBean.setBill_credit(trade.getInt("BILLS"));
 
-	 	
-	 	
+
+
 	 	tbBean.setGoodroadid(trade.getInt("SId") );
 	 	if(vb.getId_Format().equals("HEX"))
 	 	{
@@ -665,9 +668,9 @@ private static final String NAK="ERROR";
 	 	{
 	 		tbBean.setInneridname(String.format(clsConst.SLOT_FORMAT, tbBean.getGoodroadid()));
 	 	}
-	 	
+
 	 	tbBean.setChanges(trade.getInt("CHANEGS"));
-	 	
+
 	 	int lid=trade.getInt("TId");
 	 	if(trade.containsKey("ORDRID"))
 	 	{
@@ -681,7 +684,7 @@ private static final String NAK="ERROR";
 	 	tbBean.setLiushuiid(String.format("%08d", lid));
 
 	 	//tbBean.setGoodroadid(trade.getInt("SId"));
-	 	
+
 	 	if(trade.containsKey("PAY_TYPE"))//
 	 	{
 	 		tbBean.setTradetype(trade.getInt("PAY_TYPE"));	/*支付类型*/
@@ -690,18 +693,18 @@ private static final String NAK="ERROR";
 	 	{
 	 		tbBean.setTradetype(clsConst.TRADE_TYPE_CASH);	/*支付类型*/
 	 	}
-	 	
-	 	
+
+
 	 	//tbBean.setPaystatus(1);/*支付状态*/
 	 	tbBean.setChangestatus(1);/*支付状态*/
-	 	
+
 	 	tbBean.setSendstatus(trade.getInt("ISOK"));/*出货状态*/
 	 	if(tbBean.getSendstatus()!=0)
 	 	{
 	 		/*transfor success*/
 	 		/*uodate slot*/
 	 		SqlADO.SubPortGoods(vid, tbBean.getInneridname(),1);
-	 		
+
 	 	}
 	 	int errcode=trade.getInt("SErr");/*写入货道故障*/
 	 	if(errcode!=0)
@@ -709,8 +712,8 @@ private static final String NAK="ERROR";
 	 		/**/
 	 		SqlADO.updatePortFault(vid, tbBean.getGoodroadid(), 1);
 	 	}
-	 	
-	 	
+
+
 	 	if(trade.containsKey("GOODS"))
 	 	{
 	 		//timestr=trade.getString("TIME");
@@ -749,11 +752,11 @@ private static final String NAK="ERROR";
 	 	{
 	 		timestr=ToolBox.getDateTimeString();
 	 	}
-	 	
-	 	
+
+
 	 	tbBean.setReceivetime(Timestamp.valueOf(timestr));
 
-	 	
+
 	 	TradeBean temtrade=SqlADO.getTradeBeanFromTemp(tbBean.getOrderid());
 	 	int sourceFlg=0;
 	 	if(temtrade==null)
@@ -783,7 +786,7 @@ private static final String NAK="ERROR";
 		 				return;
 		 			}
 		 		}
-		 		
+
 
 // 		 		//if(1==1)//这里添加代码用于获取该机器是否允许自动分帐
 // 		 		{
@@ -791,14 +794,14 @@ private static final String NAK="ERROR";
 // 		 			{
 //	 	 				UserBean ub=UserBean.getUserBeanById(vb.getAdminId());
 //	 	 				boolean ret= WxCoporTransfor.CreateTransfor(temtrade, clsGroupBean.getGroup(vb.getGroupid()), ub, 1-0.036);
-//	 	 				
+//
 //	 	 				if(ret)
 //	 	 				{
 //	 	 					temtrade.setHas_jiesuan(1);
 //	 	 				}
 // 		 			}
 // 		 		}
-		 		
+
  				if(sourceFlg==0)
  				{
  					//如果数据来源是临时表格，那么就添加一个记录到正式交易表
@@ -809,14 +812,14 @@ private static final String NAK="ERROR";
  					//如果数据来源是正式交易表，那么就直接更新正式交易表
  					SqlADO.updateTradeBean(temtrade);
  				}
- 				SqlADO.DeleteFromTemp(temtrade);		 		
+ 				SqlADO.DeleteFromTemp(temtrade);
 	 		}
 	 	}
 	 }
-	
 
 
-	private void SetVend( VenderBean vb, JSONObject venderobj) 
+
+	private void SetVend( VenderBean vb, JSONObject venderobj)
 	{
 		if(venderobj==null)
 		{
@@ -825,14 +828,14 @@ private static final String NAK="ERROR";
 		if(vb!=null)
 		{
 			int bill_stat=venderobj.getInt("BILLStat");
-			int coin_stat=venderobj.getInt("CHGEStat");			
-			
+			int coin_stat=venderobj.getInt("CHGEStat");
+
 			int mdb_flg=0;
 			if((bill_stat&(1<<1))==0x02)
 			{
 				mdb_flg|=VenderBean.MDB_COMMUNICATION_BILL;
 			}
-			
+
 			if((coin_stat&(1<<1))==0x02)
 			{
 				mdb_flg|=VenderBean.MDB_COMMUNICATION_COIN;
@@ -845,12 +848,14 @@ private static final String NAK="ERROR";
 			{
 				fun_flg|=VenderBean.FUNC_IS_MDB_BILL_VALID;
 			}
-			
+
 			if((coin_stat&(1<<0))==0x01)
 			{
 				fun_flg|=VenderBean.FUNC_IS_MDB_COIN_VALID;
 			}
-//			
+
+			UserBean ub = UserBean.getUserBeanById(vb.getAdminId());
+//
 //			if(venderobj.getInt("CoinCnt") < 1600 && vb.getIs_coin_alert_sent() == 0) {
 //				vb.setIs_coin_alert_sent(1);
 //				SendMail.Send(String.format("Low Coin Lvl - VendID : %d [%s] - Coin: %.2f", vb.getId(), vb.getTerminalName(), venderobj.getInt("CoinCnt")/ 100), String.format("Vending ID: %d "+ System.getProperty("line.separator") + "Vending Name: %s "+ System.getProperty("line.separator") + " Coin: (%.2f)" , vb.getId(), vb.getTerminalName(), venderobj.getInt("CoinCnt")/ 100));
@@ -858,109 +863,123 @@ private static final String NAK="ERROR";
 //				vb.setIs_coin_alert_sent(0);
 //			}
 
-			
+
 			if(venderobj.containsKey("TEMP"))
 			{
 				fun_flg|=VenderBean.FUNC_IS_TERMPER_VALID;
 				vb.setTemperature(venderobj.getInt("TEMP"));
 				vb.setPrev_temp(vb.getTemperature());
-				
+
 				if(vb.getTemp_alert() == 1) {
 					if(venderobj.getInt("TEMP") > vb.TEMP_ALERT_LIMIT) {
-						
+
 						if(vb.getTemp_alert_loop() == 0) {
 							vb.setTemperLoopStartTime(ToolBox.getDateTimeString());
 							vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
 						}
-						
+
 						if(vb.getTemp_alert_loop() > 0) {
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							long timediff = 0;
 							try {
-								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getTemperLoopStartTime()).getTime();							
-							} catch (ParseException e) {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getTemperLoopStartTime()).getTime();
+							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff);
 							if(timediffmins % vb.TEMP_LOOP_TIMING == 0 && timediffmins != 0) {
 								vb.setTemp_alert_loop(vb.getTemp_alert_loop() + 1);
 							}
-						}		
-						
+						}
+
 						if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
 							vb.setIs_alert_sent(1);
-							SendMail.Send(String.format("2 Hours stay above -12 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+							try {
+								SendMail.Send(String.format("2 Hours stay above -12 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}else {
 						vb.setTemp_alert_loop(0);
 						vb.setIs_alert_sent(0);
 						vb.setTemperLoopStartTime(null);
 					}
-				
+
 					if(venderobj.getInt("TEMP") > vb.TEMP_LONG_ALERT_LIMIT) {
-						
+
 						if(vb.getLongTempAlertLoop() == 0) {
 							vb.setLongTempLoopStarttime(ToolBox.getDateTimeString());
 							vb.setLongTempAlertLoop(vb.getLongTempAlertLoop() + 1);
 						}
-						
+
 						if(vb.getLongTempAlertLoop() > 0) {
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							long timediff = 0;
 							try {
-								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getLongTempLoopStarttime()).getTime();							
-							} catch (ParseException e) {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getLongTempLoopStarttime()).getTime();
+							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff);
 							if(timediffmins % vb.TEMP_LONG_LOOP_TIMING == 0 && timediffmins != 0) {
 								vb.setLongTempAlertLoop(vb.getLongTempAlertLoop() + 1);
 							}
-						}		
-						
+						}
+
 						if(vb.getLongTempAlertLoop() >= VenderBean.TEMP_LONG_ALERT_LOOP + 1 && vb.getLongTempAlertSent() == 0){
 							vb.setLongTempAlertSent(1);
-							SendMail.Send(String.format("5 Hours stay above -18 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+							try {
+								SendMail.Send(String.format("5 Hours stay above -18 Celsius Alert [%s]", ToolBox.getDateString()),
+										String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)", vb.getId(), vb.getTerminalName(),
+												venderobj.getDouble("TEMP") / 10), vb.getTempAlertExtraEmails());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}else {
 						vb.setLongTempAlertLoop(0);
 						vb.setLongTempAlertSent(0);
 						vb.setLongTempLoopStarttime(null);
 					}
-					
+
 					if(venderobj.getInt("TEMP") > vb.TEMP_REFILL_ALERT_LIMIT) {
-						
+
 						if(vb.getRefillTempAlertLoop() == 0) {
 							vb.setRefillTempLoopStarttime(ToolBox.getDateTimeString());
 							vb.setRefillTempAlertLoop(vb.getRefillTempAlertLoop() + 1);
 						}
-						
+
 						if(vb.getRefillTempAlertLoop() > 0) {
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							long timediff = 0;
 							try {
-								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getRefillTempLoopStarttime()).getTime();							
-							} catch (ParseException e) {
+								timediff = format.parse(vb.getTemperUpdateTime()).getTime() - format.parse(vb.getRefillTempLoopStarttime()).getTime();
+							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff); 
+							long timediffmins = TimeUnit.MILLISECONDS.toMinutes(timediff);
 							if(timediffmins % vb.TEMP_LONG_LOOP_TIMING == 0 && timediffmins != 0) {
 								vb.setRefillTempAlertLoop(vb.getRefillTempAlertLoop() + 1);
 							}
-						}		
-						
+						}
+
 						if(vb.getRefillTempAlertLoop() >= VenderBean.TEMP_REFILL_ALERT_LOOP + 1 && vb.getRefillTempAlertSent() == 0){
 							vb.setRefillTempAlertSent(1);
-							SendMail.Send(String.format("40 mins above -5 : Door not closed alert, [%s]", ToolBox.getDateString()), String.format("Vend ID: %d ; %s ; Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10));								
+							try {
+								SendMail.Send(String.format("40 mins above -5 : Door not closed alert, [%s]", ToolBox.getDateString()), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}else {
 						vb.setRefillTempAlertLoop(0);
 						vb.setRefillTempAlertSent(0);
 						vb.setRefillTempLoopStarttime(null);
-					}					
+					}
 				}
-				
-				
+
+
 				vb.setTemperUpdateTime(ToolBox.getDateTimeString());
 				if((vb.getTemperature()<1000)&&(vb.getTemperature()>-1000))
 				{
@@ -976,30 +995,30 @@ private static final String NAK="ERROR";
 
 			vb.setIRErrCnt(venderobj.getInt("IRErrCnt"));
 			vb.setLstSltE(venderobj.getInt("LstSltE"));
-			
+
 			vb.setCoinAttube(venderobj.getInt("CoinCnt"));		/*4B 硬币桶钱币总额*/
-			
+
 			if(venderobj.containsKey("Ver"))
 			{
-			
+
 				vb.setCode_ver(venderobj.getInt("Ver"));		/*4B 硬币桶钱币总额*/
 			}
 			if(venderobj.containsKey("BllCnt"))
 			{
-			
-				vb.setBills(venderobj.getInt("BllCnt"));		
+
+				vb.setBills(venderobj.getInt("BllCnt"));
 			}
 
 			SqlADO.UpdateMechinePara(vb);
 		}
 	}
-	
+
 	 void SaveColListData(byte[] b,int mid) throws Exception
 	 {
 		 int i=0,j;
 		 int num=0;
 		 ArrayList<PortBean> plst=new ArrayList<PortBean>();
-		 
+
 		 if(b==null)
 		 {
 			  throw new Exception("无效参数，null");
@@ -1013,9 +1032,9 @@ private static final String NAK="ERROR";
 		 for(j=0;j<count;j++)
 		 {
 			 PortBean p=new PortBean();
-			 
+
 			 p.setMachineid(mid);
-			 
+
 			 /*货道编号*/
 			 p.setInnerid(ToolBox.arrbyteToint_Little(b, i, 2));
 			 //System.out.println(p.getInnerid());
@@ -1037,7 +1056,7 @@ private static final String NAK="ERROR";
 			 i+=2;
 			 plst.add(p);
 		 }
-		 
+
 		 SqlADO.UpdatePort(plst);
 	 }
 }

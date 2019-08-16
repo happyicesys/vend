@@ -20,8 +20,7 @@ import weixin.popular.bean.BaseResult;
 import weixin.popular.bean.message.message.Message;
 import weixin.popular.bean.message.message.TextMessage;
 import weixin.popular.support.TokenManager;
-import weixin.popular.util.PayUtil;
-import weixin.popular.util.WxCoporTransfor;
+import wx.pay.util.PayUtil;
 
 import com.clsConst;
 import com.clsEvent;
@@ -185,13 +184,7 @@ public class AjaxRequest extends HttpServlet {
 				pw.write(String.format("共保存%d条数据，ok", count));
 			}
 			return;
-		case clsConst.ACTION_MANUAL_TRANSFER:	
-			if(ub.getAdminusername().toLowerCase().equals(clsConst.POWER_USER_NAME))
-			{
-				WxCoporTransfor.AutoTransfer();
-				pw.write("指令执行完成");
-			}
-			return;			
+	
 		case clsConst.ACTION_SET_VENDER_CAN_USE:
 			if(!ub.AccessAble(UserBean.FUNID_CAN_UPDATE_VENDER))
 			{

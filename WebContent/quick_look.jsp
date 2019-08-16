@@ -177,6 +177,7 @@
 														int totalSold = 0;
 														int	runOutChannel = 0;
 														int actualSold = 0;
+														double balancePercent = 0;
 														for(PortBean pb:pbli)
 														{
 															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53)) && pb.getCapacity() != 0 ) {
@@ -223,11 +224,13 @@
 														}
 														
 														actualSold = totalVolume - totalSold;
+														balancePercent = 100 - (actualSold / totalVolume * 100);
+														
 													%>
 													<li class="quick-look row">
 														<%
-															//if((((double)totalSold/ (double)totalVolume)*100) < 40.00) {
-															if(actualSold >= 70 || runOutChannel >= 4) {
+															if((((double)totalSold/ (double)totalVolume)*100) <= 32.00 || runOutChannel >= 4) {
+															//if(balancePercent <= 32 || runOutChannel >= 4) {
 														%>
 																<span style="color: red;">
 																	<strong>
@@ -237,7 +240,7 @@
 																	</strong>
 																</span>
 														<%
-															}else if((actualSold >= 50 && actualSold < 70) || (runOutChannel >= 3 && runOutChannel < 4)) {
+															}else if(((((double)totalSold/ (double)totalVolume)*100) > 32.00 && (((double)totalSold/ (double)totalVolume)*100) <= 55.00)  || (runOutChannel >= 3 && runOutChannel < 4)) {
 														%>	
 																<span style="color: blue;">
 																	<strong>

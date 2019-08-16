@@ -236,7 +236,14 @@ var ShowMapWin=function()
 				    	<div class="col-sm-3">
 						    <input name="offline_alert" type="checkbox" value="1" <%=(vb.getOffline_alert()==1?"checked=\"checked\"":"")%> />
 						</div>
-				  </div>				  		  
+				  </div>	
+				  <div class="form-group">
+				    <label class="col-sm-4 control-label">Temp Alert Extra Emails</label>
+				    <div class="col-sm-3">
+				      <input name="temp_alert_extra_emails" type="text" class="form-control input-sm"  placeholder="Seperate emails by comma (,)" value="<%= vb.getTempAlertExtraEmails() %>"/>
+				    </div>
+				    
+				  </div>				  			  		  
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Allow Update Goods by PC</label>
 				    	<div class="col-sm-3">

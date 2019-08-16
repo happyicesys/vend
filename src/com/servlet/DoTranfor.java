@@ -17,7 +17,6 @@ import com.tools.ToolBox;
 import beans.TradeBean;
 import beans.UserBean;
 import beans.clsGroupBean;
-import weixin.popular.util.WxCoporTransfor;
 
 /**
  * Servlet implementation class DoTranfor
@@ -103,7 +102,7 @@ public class DoTranfor extends HttpServlet {
 	    
 	    UserBean userBean=UserBean.getUserBeanById(uid);
 	    clsGroupBean groupBean=clsGroupBean.getGroup(userBean.getGroupid());
-	    pw.print(WxCoporTransfor.CreateTransfor(groupBean,userBean,(int)(amount*100),des,ub.getAdminusername()+"-"+ub.getAdminname()));
+	    //pw.print(WxCoporTransfor.CreateTransfor(groupBean,userBean,(int)(amount*100),des,ub.getAdminusername()+"-"+ub.getAdminname()));
 		
 	}
 

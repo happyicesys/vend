@@ -18,7 +18,7 @@ import com.tools.ToolBox;
  */
 public class UpdateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,10 +32,10 @@ public class UpdateUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		doPost(request, response);	
+
+		doPost(request, response);
 		}
-	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +45,7 @@ public class UpdateUser extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter pw=response.getWriter();
-		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
+		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");
 		if(ub==null)
 		{
 			request.setAttribute("message", "用户名或密码错误！请联系管理员！");
@@ -53,22 +53,22 @@ public class UpdateUser extends HttpServlet {
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		int id=ToolBox.filterInt(request.getParameter("uid"));		
+		int id=ToolBox.filterInt(request.getParameter("uid"));
 		UserBean tub=UserBean.getUserBeanById(id);
-		
+
 		if(tub==null)
 		{
 			request.setAttribute("message", "参数错误，没有找到相关的账号！");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		
-		String pwd=request.getParameter("pwd");	
+
+		String pwd=request.getParameter("pwd");
 		if(pwd==null)
 		{
 			pwd="";
 		}
-		
+
 		if (!pwd.equals(""))
 		{
 			if(pwd.length()<6)
@@ -90,7 +90,7 @@ public class UpdateUser extends HttpServlet {
 		tub.setAdmintelephone(ToolBox.filter(request.getParameter("firmtel")));
 		tub.setAdminname(ToolBox.filter(request.getParameter("name")));
 		tub.setAdminsex(ToolBox.filter(request.getParameter("sextype")));
-		
+		tub.setAdminEmails(ToolBox.filter(request.getParameter("emails")));
 
 
 		String[] stra=request.getParameterValues("right");
@@ -99,7 +99,7 @@ public class UpdateUser extends HttpServlet {
 		int limit_id=0;
 		for(String str:stra)
 		{
-			
+
 			try {
 				limit_id=Integer.parseInt(str);
 				if(ub.AccessAble(limit_id))
@@ -110,25 +110,25 @@ public class UpdateUser extends HttpServlet {
 				{
 					arr[limit_id]=0;
 				}
-			} catch (Exception e) 
+			} catch (Exception e)
 			{
-				
+
 			}
 		}
-		
-		for (int i : arr) 
+
+		for (int i : arr)
 		{
 			right+=i;
 		}
 		tub.setAdminrights(right);
-		
+
 	    String canAccessVender=request.getParameter("canAccessVender");
 
-		tub.setCanAccessSellerid(canAccessVender);  
-		
-		
+		tub.setCanAccessSellerid(canAccessVender);
+
+
 		UserBean.updateUser(tub);
-	    
+
 		response.sendRedirect("UserList.jsp");
 	}
 }

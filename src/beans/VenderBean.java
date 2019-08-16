@@ -71,6 +71,7 @@ public class VenderBean {
 	private int refill_temp_loop;
 	private int refill_temp_alert_sent;
 	private String refill_temp_loop_starttime;	
+	private String temp_alert_extra_emails;	
 		
 	
 	public String getTemperUpdateTime() {
@@ -703,5 +704,19 @@ public class VenderBean {
 	public void setRefillTempLoopStarttime(String refill_temp_loop_starttime) {
 		this.refill_temp_loop_starttime = refill_temp_loop_starttime;
 	}	
+
+	public String getTempAlertExtraEmails() {
+		if(temp_alert_extra_emails==null)
+		{
+			return "";
+		}else
+		{
+			return temp_alert_extra_emails;
+		}		
+	}
+
+	public void setTempAlertExtraEmails(String temp_alert_extra_emails) {
+		this.temp_alert_extra_emails = temp_alert_extra_emails;
+	}		
 	
 }

@@ -46,7 +46,7 @@
              <url>jdbc:sqlserver://127.0.0.1:3433;databasename=zhouwenjing</url> 
          <username>sa</username> 
                  <password>ZHou198411</password> 
-                 <maxconn>20</maxconn>
+                 <maxconn>200</maxconn>
     </pool> 
     <pool>
          <type>sql2005</type>

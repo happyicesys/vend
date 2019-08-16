@@ -34,7 +34,7 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-	
+
     %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -56,7 +56,7 @@
     <link href="css/bootstrap/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="./jquery_ui/css/cupertino/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="./jquery_ui/css/showLoading.css" rel="stylesheet" type="text/css" />
-    
+
      <!--[if lte IE 6]>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-ie6.css">
 	<![endif]-->
@@ -70,27 +70,27 @@
 
  </head>
  <%
-	//java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
- 
+	//java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
  	Timestamp endDate=ToolBox.filterTime(request.getParameter("edate"));
  	int vid=ToolBox.filterInt(request.getParameter("vid"));
-    
+
 	Timestamp beginDate;
  	if(endDate==null)
  	{
  		endDate= new Timestamp(ClsTime.SystemTime());
  	}
- 	
- 	beginDate= new Timestamp(endDate.getTime()-(long)48*60*60*1000);
+
+ 	beginDate= new Timestamp(endDate.getTime()-(long)2*24*60*60*1000);
 
 	long count=48;
 	int day=(int)count;
-	
+
 	boolean tem=false;
 
 	int i=0;
-	int[] arr_count=new int[day+1];
-	String[] arr_xaxis=new String[day+1];
+	int[] arr_count=new int[day+2];
+	String[] arr_xaxis=new String[day+2];
 	java.util.Date temdate=(java.util.Date)beginDate.clone();
 	StringBuilder sb1=new StringBuilder();
 	StringBuilder sb2=new StringBuilder();
@@ -100,51 +100,37 @@
 	beginDate2.setMinutes(0);
 	beginDate2.setNanos(0);
 	beginDate2.setSeconds(0);
-	
+
 	for(i=0;i<lst.size();i++)
 	{
 		//arr_count[i]=SqlADO.getAllSalesByDate(temdate);
-		
+
 		sb1.append("["+((lst.get(i).getTtime().getTime()-beginDate2.getTime())/7200000.0)+","+String.format("%1.1f",lst.get(i).getTemp()/10.0)+"]");
 		if(i!=day)
 		{
 			sb1.append(',');
 		}
-		//arr_xaxis[i]=ToolBox.getDateString();
-		//sb2.append("["+i+",'"+ToolBox.getMD(temdate)+"']");
-		//if(i!=day)
-		//{
-			//sb2.append(',');
-		//}
-		//temdate=new Date(temdate.getTime()+(24*60*60*1000));
 	}
 	int x_tem=0;
 	for(i=0;i<24;i++)
 	{
-		x_tem=(beginDate.getHours()+1+(i*2));
-		//x_tem = (int)x_tem;
-		
-		if(x_tem >= 24 && x_tem < 48){
-			
-			x_tem = x_tem - 24;
-			
-		}else if(x_tem >= 48){
-			
-			x_tem = x_tem - 48;
-		}
-		
-			
-		sb2.append("["+i+","+x_tem+"],");
+		x_tem=(beginDate.getHours()+1+i*2);
+		if(x_tem>=24 && x_tem<48)
+		{
+			x_tem-=24;
+		}else if(x_tem>=48) {
+      x_tem-=48;
+    }
 
-		
-		//if(i!=23)
-		//{
-			//sb2.append(',');
-		//}
-		
+		sb2.append("["+i+",'"+ x_tem +"']");
+		if(i!=23)
+		{
+			sb2.append(',');
+		}
+
 	}
 %>
- 
+
     <body  >
 
 <div class="breadcrumbs" id="breadcrumbs" style="margin-top:5px;">
@@ -152,32 +138,27 @@
 		<li>
 			<span class="glyphicon glyphicon-home"></span>
 			<a href="MainHome.jsp" target="main" style="padding-left:5px;margin-left:5px;">Home</a>
-		</li>
+				</li>
 
-		<li>
-			<a href="#">Setting Management</a>
-		</li>
-		<li class="active">Temp Line Graph</li>
-	</ul>
-</div>
+				<li>
+					<a href="#">Setting Management</a>
+				</li>
+				<li class="active">Temp Line Graph</li>
+			</ul>
+		</div>
 
-	<a class="btn btn-danger" href="javascript:void(0);" onclick="window.history.back(-1);" >
-		<i class="glyphicon glyphicon-menu-left icon-white"></i>
-		Back to Vending List
-	</a>
-	<a class="btn btn-default" href="">
-		<i class="fa fa-excel"></i>
-		7 Days Excel
-	</a>
-	
-	
-	
+		<a class="btn btn-danger" href="javascript:void(0);" onclick="window.history.back(-1);" >
+			<i class="glyphicon glyphicon-menu-left icon-white"></i>
+			Back to Vending List
+		</a>
+    <div id="placeholder" style="width:92%;height:700px;"></div>
+
 
 <script language="javascript" type="text/javascript" >
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{"label":"<%=String.format("#%d Temp Line Graph (48 Hours)", vid)%>",data:d1}], {
+        $.plot($("#placeholder"), [{"label":"<%=String.format("48 Hours Temp Line Graph", vid)%>",data:d1}], {
             series: {
                 lines: { show: true,}
         //,
@@ -188,13 +169,14 @@ $(function () {
             	min: 0,
                 max: 24
         	},
-            
+
         });
     }
     plotWithOptions();
-    
-    
+
+
 });
+
 
 
 </script>

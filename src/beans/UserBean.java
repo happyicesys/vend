@@ -21,64 +21,64 @@ public class UserBean {
     										"允许查看集团信息","允许更新本集团信息","允许指定用户集团号","允许删除取货码","允许查看取货码",
     										"允许修改个人信息","允许无限期退款","允许使用结算功能","允许添加会员帐户","允许删除会员帐户",
     										"允许修改会员帐户","允许为会员帐户充值","允许批量取货","允许查看温度表","加盟商静访"};
-    
-	public final static int FUNID_CAN_ACCESS_WEB			=0;	
+
+	public final static int FUNID_CAN_ACCESS_WEB			=0;
     public final static int FUNID_ACCESS_ALL_VENDER			=1;
 	public final static int FUNID_CAN_VIEW_VENDER			=2;
 	public final static int FUNID_CAN_UPDATE_VENDER			=3;
 	public final static int FUNID_CAN_ADD_VENDER			=4;
-	
+
 	public final static int FUNID_CAN_VIEW_VENDER_MAP		=5;
 	public final static int FUNID_CAN_UPDATE_PORT			=6;
 	public final static int FUNID_CAN_VIEW_PORT				=7;
 	public final static int FUNID_CAN_VIEW_TRADE_RECORD		=8;
 	public final static int FUNID_CAN_DOWNLOAD_TRADE_RECORD	=9;
-	
+
 	public final static int FUNID_CAN_VIEW_STASTIC			=10;
 	public final static int FUNID_CAN_VIEW_USER_LST			=11;
 	public final static int FUNID_CAN_UPDATE_USER			=12;
 	public final static int FUNID_CAN_ASIGN_VENDER			=13;
 	public final static int FUNID_CAN_ADD_USER				=14;
-	
+
 	public final static int FUNID_CAN_ADD_GOODS				=15;
 	public final static int FUNID_CAN_VIEW_GOODS			=16;
 	public final static int FUNID_CAN_UPDATE_GOODS			=17;
 	public final static int FUNID_CAN_UPLOAD_FILE			=18;
 	public final static int FUNID_CAN_EDIT_RIGHT			=19;
-	
-	public final static int FUNID_CAN_REFUND        		=20;	
-	public final static int FUNID_CAN_VIEW_REFUND_LOG		=21;	
+
+	public final static int FUNID_CAN_REFUND        		=20;
+	public final static int FUNID_CAN_VIEW_REFUND_LOG		=21;
 
 	public final static int FUNID_CAN_DEL_USER				=22;/**/
 	public final static int FUNID_CAN_CREATE_GROUP_ID		=23;
-	
+
 	public final static int FUNID_CAN_EDIT_FETCH_GOODS_CODE =24;
 	public final static int FUNID_CAN_ADD_FETCH_GOODS_CODE	=25;/*允许添加取货码*/
 	public final static int FUNID_CAN_ADD_BIND_AL_WX_USER	=26;/*允许绑定微信账号到机器*/
 	public final static int FUNID_CAN_DELTE_VENDER			=27;/*允许绑定微信账号到机器*/
-	
+
 	public final static int FUNID_CAN_CHANGE_GROUP_ID		=28;
 	public final static int FUNID_CAN_DEL_GROUP_ID			=29;
 	public final static int FUNID_CAN_VIEW_GROUP_ID			=30;
 	public final static int FUNID_CAN_MOD_SELF_GROUP_ID		=31;
 	public final static int FUNID_CAN_SET_USER_GROUP_ID_WHEN_ADD=32;
-	
+
 	public final static int FUNID_CAN_DELETE_FETCH_GOODS_CODE=33;
 	public final static int FUNID_CAN_VIEW_FETCH_GOODS_CODE=34;
 	public final static int FUNID_CAN_SET_MYSELF_INFO=35;
 	public final static int FUNID_CAN_PAY_BACK_NO_LIMIT_TIME=36;
 
-	public final static int FUNID_CAN_JIESUAN=37;	
-	
+	public final static int FUNID_CAN_JIESUAN=37;
+
 	public final static int FUNID_CAN_ADD_CUSTOMER=38; /*添加会员帐户*/
 	public final static int FUNID_CAN_DEL_CUSTOMER=39; /*删除会员帐户*/
 	public final static int FUNID_CAN_CHANGE_CUSTOMER=40; /*修改会员帐户*/
 	public final static int FUNID_CAN_CHARGE_FOR_CUSTOMER=41; /*为会员帐户充值*/
-	
+
 	public final static int FUNID_CAN_SWIPE_QUHUO=42; /*为会员帐户充值*/
 	public final static int FUNID_CAN_VIEW_TEMP_GRAPH=43;
 	public final static int FUNID_DISABLE_FRANCHISEE=44;
-	public String getRightLstString(boolean en) 
+	public String getRightLstString(boolean en)
 	{
 		int i=0;
 		StringBuilder sb=new StringBuilder();
@@ -91,7 +91,7 @@ public class UserBean {
 				{
 					continue;
 				}
-				
+
 				sb.append("<li style='float:left;width: 170px;'><label><input type=\"checkbox\" ");
 				if(this.AccessAble(i))
 				{
@@ -113,7 +113,7 @@ public class UserBean {
 				{
 					continue;
 				}
-				
+
 				sb.append("<li style='float: left;width: 170px;'><label><input type='checkbox' disabled='disabled'");
 
 				if(this.AccessAble(i))
@@ -130,8 +130,8 @@ public class UserBean {
 		return sb.toString();
 	}
 
-	
-	
+
+
     private int id;
 	private String adminusername;
 	private String adminpassword;
@@ -140,18 +140,19 @@ public class UserBean {
 	private String adminname;
 	private String adminsex;
 	private String adminaddress;
-	
+
 	private String adminrights;
-	
+
 	private String wx_name;
 	private String al_name;
 	private String wx_openid;
-	
+	private String adminemails;
+
 	private String OneceId;/*绑定微信公众号到用户的随机码*/
-	
+
 	private Timestamp OneceIdValidTime;/*绑定微信公众号到用户的随机码的有效时间*/
-	
-	
+
+
 	private int VenderId[];
 	public String getWx_name() {
 		return wx_name;
@@ -172,13 +173,22 @@ public class UserBean {
 		this.wx_openid = wx_openid;
 	}
 
+	public String getAdminEmails() {
+		return adminemails;
+	}
 
-	
+	public void setAdminEmails(String adminemails) {
+		if (adminemails == null)
+			this.adminemails = "";
+		else
+			this.adminemails = adminemails;
+	}
+
 
 	private String CanAccessSellerid;
-	
+
 	private int groupid;
-	
+
 	private int type;
 	public int getType() {
 		return type;
@@ -195,8 +205,8 @@ public class UserBean {
 	private String lastloginip;
 	private Timestamp createtime;
 	private Timestamp lastLoginTime;
-	
-	
+
+
 	public Timestamp getLastLoginTime() {
 		return lastLoginTime;
 	}
@@ -294,15 +304,15 @@ public class UserBean {
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
 	}
-	
+
 	public boolean CanAccessSeller(int sellerid)
 	{
 		return CanManageThisVender(sellerid);
 	}
-	
+
 	public String getVenderLimite()
 	{
-		
+
 		if(CanAccessSellerid==null)
 		{
 			return "-1";
@@ -316,15 +326,15 @@ public class UserBean {
 			return CanAccessSellerid;
 		}
 	}
-	public int[] getVenderId() 
+	public int[] getVenderId()
 	{
 		return VenderId;
 	}
-	public void setVenderId(int[] venderId) 
+	public void setVenderId(int[] venderId)
 	{
 		VenderId = venderId;
 	}
-	public void setCanAccessSellerid(String canAccessSellerid) 
+	public void setCanAccessSellerid(String canAccessSellerid)
 	{
 		if(canAccessSellerid==null)
 		{
@@ -334,44 +344,44 @@ public class UserBean {
 		{
 		    int i;
 		    String canAccessVender="";
-		    
+
 		    String[] stra=canAccessSellerid.split(",",0);
 		    if(stra!=null)
 		    {
 			    for (i=0;i<stra.length-1;i++) {
-			    	
+
 			    	if(ToolBox.isInt(stra[i]))
 			    	{
 			    		canAccessVender+=stra[i]+",";
 			    	}
-			    	
+
 				}
 		    	if(ToolBox.isInt(stra[i]))
 		    	{
 		    		canAccessVender+=stra[i];
 		    	}
-		    	  	
+
 		    }
 		    CanAccessSellerid=canAccessVender;
 		}
 	}
-	public String getCanAccessSellerid() 
+	public String getCanAccessSellerid()
 	{
 		return CanAccessSellerid;
 	}
-	
-	
+
+
 	public int getPagecount() {
 		return 300;
 	}
-	
-	
+
+
 	 public boolean AccessAble(int funid)
 	 {
 		 String sign=adminrights.substring(funid, funid+1);
 		 return (sign.equals("1"));
 	 }
-	public boolean CanManageThisVender(int sellerId) 
+	public boolean CanManageThisVender(int sellerId)
 	{
 		if(AccessAble(FUNID_ACCESS_ALL_VENDER))
 		{
@@ -382,7 +392,7 @@ public class UserBean {
 			int[] int_arr=ToolBox.StringToIntArray(CanAccessSellerid);
 			if(int_arr!=null)
 			{
-				for (int i : int_arr) 
+				for (int i : int_arr)
 				{
 					if(sellerId==i)
 					{
@@ -401,7 +411,7 @@ public class UserBean {
 	}
 	private static DBConnectionManager ConnManager=DBConnectionManager.getInstance();
 	private final static String CN="BlueShine";
-	public final static String CMPPDB="CMPPDB";	
+	public final static String CMPPDB="CMPPDB";
 	public static UserBean getUserByWxOpenId(String user_openid) {
 		UserBean ub=null;
 		PreparedStatement ps=null;
@@ -448,12 +458,12 @@ public class UserBean {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-		
+
 		return ub;
 	}
-	
-	
-	
+
+
+
 	public static UserBean getUserBean(String username, String pwd) {
 		UserBean ub=null;
 		PreparedStatement ps=null;
@@ -465,7 +475,7 @@ public class UserBean {
 				"lastLoginTime,type,CanAccessSeller,groupid,adminpassword,[wx_name],[al_name],[wx_openid] from admininfo  " +
 				"where adminusername=? and adminpassword=?";
 		try {
-		
+
 			ps=conn.prepareStatement(sql);
 			ps.setString(1,username);
 			ps.setString(2,pwd);
@@ -499,10 +509,10 @@ public class UserBean {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-		
+
 		return ub;
 	}
-	
+
 
 	public static UserBean getUserBean(String username) {
 		UserBean ub=null;
@@ -516,7 +526,7 @@ public class UserBean {
 				+ " OneceIdValidTime from admininfo " +
 				"where adminusername=?";
 		try {
-		
+
 			ps=conn.prepareStatement(sql);
 			ps.setString(1,username);
 			rs=ps.executeQuery();
@@ -551,11 +561,11 @@ public class UserBean {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-		
+
 		return ub;
 	}
-	
-	
+
+
 	public static UserBean getUserBeanById(int id) {
 		UserBean ub=null;
 		PreparedStatement ps=null;
@@ -563,7 +573,7 @@ public class UserBean {
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="select top 1 adminusername,id,admintelephone,adminmobilephone,adminname," +
 				"adminsex,adminaddress,adminrights,lastloginip,createtime,lastLoginTime," +
-				"type,CanAccessSeller,adminpassword,groupid,adminpassword,[wx_name],[al_name],[wx_openid] from admininfo where id="+id;
+				"type,CanAccessSeller,adminpassword,groupid,adminpassword,[wx_name],[al_name],[wx_openid], adminemails from admininfo where id="+id;
 		try {
 			ps=conn.prepareStatement(sql);rs=ps.executeQuery();
 			if(rs.next())
@@ -587,6 +597,7 @@ public class UserBean {
 				ub.setWx_name(rs.getString("wx_name"));
 				ub.setWx_openid(rs.getString("wx_openid"));
 				ub.setAl_name(rs.getString("al_name"));
+				ub.setAdminEmails(rs.getString("adminemails"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -597,12 +608,12 @@ public class UserBean {
 		}
 		return ub;
 	}
-	
+
 	public static ArrayList<UserBean> getUserBeanListByright(int groupid)
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		
+
 		int i=1;
 		ArrayList<UserBean> ubli=new ArrayList<UserBean>(5);
 		Connection conn=ConnManager.getConnection(CN);
@@ -625,9 +636,9 @@ public class UserBean {
 				ub.setAdminsex(rs.getString("adminsex"));
 				ub.setAdminaddress(rs.getString("adminaddress"));
 				ub.setAdminrights(rs.getString("adminrights"));
-				ub.setWx_name(rs.getString("wx_name"));				
-				ub.setAl_name(rs.getString("al_name"));				
-				ub.setWx_openid(rs.getString("wx_openid"));				
+				ub.setWx_name(rs.getString("wx_name"));
+				ub.setAl_name(rs.getString("al_name"));
+				ub.setWx_openid(rs.getString("wx_openid"));
 				ub.setLastloginip(rs.getString("lastloginip"));
 				ub.setCreatetime(rs.getTimestamp("createtime"));
 				ub.setLastLoginTime(rs.getTimestamp("lastLoginTime"));
@@ -670,9 +681,9 @@ public class UserBean {
 				ub.setAdminsex(rs.getString("adminsex"));
 				ub.setAdminaddress(rs.getString("adminaddress"));
 				ub.setAdminrights(rs.getString("adminrights"));
-				ub.setWx_name(rs.getString("wx_name"));				
-				ub.setAl_name(rs.getString("al_name"));				
-				ub.setWx_openid(rs.getString("wx_openid"));				
+				ub.setWx_name(rs.getString("wx_name"));
+				ub.setAl_name(rs.getString("al_name"));
+				ub.setWx_openid(rs.getString("wx_openid"));
 				ub.setLastloginip(rs.getString("lastloginip"));
 				ub.setCreatetime(rs.getTimestamp("createtime"));
 				ub.setLastLoginTime(rs.getTimestamp("lastLoginTime"));
@@ -692,7 +703,7 @@ public class UserBean {
 		}
 		return ubli;
 	}
-	
+
 
 	public static boolean addUser(UserBean obj)
 	{
@@ -725,8 +736,8 @@ public class UserBean {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-		
-	
+
+
 	}
 	public static void updateUser(UserBean ub) {
 		PreparedStatement ps=null;
@@ -737,14 +748,14 @@ public class UserBean {
 			sql="update admininfo set " +
 					"CanAccessSeller=?,adminmobilephone=?,adminname=?," +
 					"adminaddress=?,adminrights=?,type=?,lastLoginTime=?,"
-					+ "lastloginip=?,[wx_name]=?,[al_name]=?,[wx_openid]=?,admintelephone=?,oneceId=? where id=?";
+					+ "lastloginip=?,[wx_name]=?,[al_name]=?,[wx_openid]=?,admintelephone=?,oneceId=?,adminemails=? where id=?";
 		}
 		else
 		{
 			sql="update admininfo set adminpassword=?," +
 					"CanAccessSeller=?,adminmobilephone=?,adminname=?," +
 					"adminaddress=?,adminrights=?,type=?,lastLoginTime=?,"
-					+ "lastloginip=?,[wx_name]=?,[al_name]=?,[wx_openid]=?,admintelephone=?,oneceId=? where id=?";
+					+ "lastloginip=?,[wx_name]=?,[al_name]=?,[wx_openid]=?,admintelephone=?,oneceId=?,adminemails=? where id=?";
 		}
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -767,6 +778,7 @@ public class UserBean {
 			ps.setString(i++,ub.getWx_openid());
 			ps.setString(i++,ub.getAdmintelephone());
 			ps.setString(i++,ub.getOneceId());
+			ps.setString(i++,ub.getAdminEmails());
 			ps.setInt(i++, ub.getId());
 			ps.executeUpdate();
 		} catch (Exception e1) {
@@ -776,14 +788,14 @@ public class UserBean {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-		
+
 	}
-	
+
 	public static void deleteUser(int id) {
 		String sql="delete from [admininfo] where id="+id;
 		SqlADO.exec(sql);
 	}
-	
+
 	public static boolean ChkUserRepeat(String username) {
 		UserBean ub= getUserBean(username);
 		return (ub!=null);

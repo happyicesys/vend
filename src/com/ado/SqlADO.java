@@ -20,8 +20,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 
-import weixin.popular.bean.WxTradeLog;
-import weixin.popular.util.WxCoporTransfor;
+
 import beans.ClsGprsCfg;
 import beans.ClsLiuyan;
 import beans.ClsSaleStatisticData;
@@ -29,11 +28,13 @@ import beans.PortBean;
 import beans.RefundBean;
 
 import beans.VenderBean;
+import beans.WxTradeLog;
 import beans.TradeBean;
 import beans.clsGetGoodsCode;
 import beans.clsGroupBean;
 import beans.clsSellerPara;
 import beans.clsTableCmd;
+
 
 import com.ClsTime;
 
@@ -215,6 +216,59 @@ public class SqlADO {
 		}
 	}	
 	
+	public static ArrayList<VenderBean> getVenderBeanList_cv() {
+		return getVenderBeanList_cv(0);
+	}
+	
+	public static ArrayList<VenderBean> getVenderBeanList_cv(int AdminId) {
+		ResultSet rs=null;
+		PreparedStatement ps=null;
+		ArrayList<VenderBean> li=new ArrayList<VenderBean>(5);
+		Connection conn=ConnManager.getConnection(CN);
+		String sql="select id,AdminId,BTime,TerminalName,TerminalAddress,UpdateTime," +
+				"IsOnline,HuodongId,SellerTyp,GoodsPortCount,CanUse,auto_refund,manual_refund,"
+				+ "AllowUpdateGoodsByPc,groupid,autoTransfer,autoTransferRation from [TerminalInfo]";
+		if(AdminId!=0)
+		{
+			sql+=" where AdminId="+AdminId;
+		}
+		sql+=" order by id asc";
+		try {
+			ps=conn.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next())
+			{
+				VenderBean temv=new VenderBean();
+				temv.setAdminId(rs.getInt("AdminId"));
+				temv.setBTime(rs.getTimestamp("BTime"));
+				temv.setCanUse(rs.getBoolean("CanUse"));
+				temv.setGoodsPortCount(rs.getInt("goodsPortCount"));
+				temv.setHuodongId(rs.getInt("HuodongId"));
+				temv.setId(rs.getInt("id"));
+				temv.setIsOnline(rs.getBoolean("isOnline"));
+				temv.setSellerTyp(rs.getString("sellerTyp"));
+				temv.setTerminalAddress(rs.getString("terminalAddress"));
+				temv.setTerminalName(rs.getString("terminalName"));
+				temv.setUpdateTime(rs.getTimestamp("updateTime"));
+				
+				temv.setAuto_refund(rs.getInt("auto_refund"));	
+				temv.setManual_refund(rs.getInt("manual_refund"));
+				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
+				temv.setGroupid(rs.getInt("groupid"));
+				temv.setAutoTransfer(rs.getInt("autoTransfer"));
+				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
+				li.add(temv);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnManager.freeConnection(CN, conn,rs,ps);
+		}
+		return li;
+	}
+	
 	public static ArrayList<VenderBean> getVenderBeanList() {
 		return getVenderBeanList(0);
 	}
@@ -285,7 +339,7 @@ public class SqlADO {
 				" t.CanUse, t.queueMaxLength, t.jindu, t.weidu, t.groupid, t.coinAttube, t.MdbDeviceStatus, t.gprs_Sign," +
 				" t.temperature, t.flags1, t.flags2, t.function_flg, t.coinAtbox, t.gprs_event_flg, t.vmc_firmfile, t.IRErrCnt, t.LstSltE, t.pos_PWD,"+ 
 				" t.code_ver, t.id_format, t.auto_refund, t.manual_refund, t.AllowUpdateGoodsByPc, t.autoTransfer, t.autoTransferRation, t.TemperUpdateTime, t.temp_alert, t.offline_alert, vc.name, t.long_temp_loop, t.long_temp_alert_sent, t.long_temp_loop_starttime, "+ 
-				" t.refill_temp_loop, t.refill_temp_alert_sent, t.refill_temp_loop_starttime " +
+				" t.refill_temp_loop, t.refill_temp_alert_sent, t.refill_temp_loop_starttime, t.temp_alert_extra_emails " +
 				" from TerminalInfo t " +
 				" left join vendcategories vc on vc.id=t.vendcategory_id " +
 				" where t.id=?";
@@ -350,7 +404,8 @@ public class SqlADO {
 				temv.setLongTempLoopStarttime(rs.getString("long_temp_loop_starttime"));
 				temv.setRefillTempAlertLoop(rs.getInt("refill_temp_loop"));
 				temv.setRefillTempAlertSent(rs.getInt("refill_temp_alert_sent"));
-				temv.setRefillTempLoopStarttime(rs.getString("refill_temp_loop_starttime"));				
+				temv.setRefillTempLoopStarttime(rs.getString("refill_temp_loop_starttime"));
+				temv.setTempAlertExtraEmails(rs.getString("temp_alert_extra_emails"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -384,7 +439,7 @@ public class SqlADO {
 		String sql="update [TerminalInfo] set sellertyp=?,goodsPortCount=?,HuodongId=?," +
 				"terminalAddress=?,terminalName=?,tipMesOnLcd=?,updateTime=getdate(),CanUse=?," +
 				"jindu=?,weidu=?,[TelNum]=?,[groupid]=?,vmc_firmfile=?,[AdminId]=?,[auto_refund]=?,"
-				+ "[manual_refund]=?,[AllowUpdateGoodsByPc]=?,[autoTransfer]=?,autoTransferRation=?,[temp_alert]=? where id=?";
+				+ "[manual_refund]=?,[AllowUpdateGoodsByPc]=?,[autoTransfer]=?,autoTransferRation=?,[temp_alert]=?,[temp_alert_extra_emails]=? where id=?";
 		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -410,6 +465,7 @@ public class SqlADO {
 			ps.setInt(i++, vb.getAutoTransfer());
 			ps.setDouble(i++, vb.getAutoTransferRation());//
 			ps.setInt(i++, vb.getTemp_alert());
+			ps.setString(i++, vb.getTempAlertExtraEmails());
 			ps.setInt(i++, vb.getId());
 			
 			
@@ -1368,7 +1424,7 @@ public class SqlADO {
 	}
 	public static boolean updatePortFault(int sellerId, int innerid, int i) {
 		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+ 
-				" ,errorinfo=(select top(1) CONCAT(des,' - Error: ',errcode) from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;
+				" ,errorinfo=(select top(1) des from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;		
 		return exec(sql);
 	}
 	public static boolean ChkVenderRepeat(int vid) {
@@ -2882,7 +2938,7 @@ public class SqlADO {
 	}
 	
 	
-	public static void 	UpdateWxTradeLog(WxTradeLog trade)
+	public static void 	UpdateWxTradeLog(beans.WxTradeLog trade)
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -3771,55 +3827,62 @@ public class SqlADO {
 	}
 
 
-
-	public static void AddTransforLog(WxCoporTransfor wxCoporTransfor) 
-	{
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		Connection conn=ConnManager.getConnection(CN);
-		String sql="INSERT INTO [WxTransfor] ([re_user_name], [amount], [desc],"
-				+ " [groupid], [err_code], [rescode], [err_code_des], [payment_no], [payment_time], "
-				+ "[device_info], [nonce_str], [partner_trade_no], [openid], [check_name],adminid) VALUES "
-				+ "( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+//
+//	public static void AddTransforLog(WxCoporTransfor wxCoporTransfor) 
+//	{
+//		PreparedStatement ps=null;
+//		ResultSet rs=null;
+//		Connection conn=ConnManager.getConnection(CN);
+//		String sql="INSERT INTO [WxTransfor] ([re_user_name], [amount], [desc],"
+//				+ " [groupid], [err_code], [rescode], [err_code_des], [payment_no], [payment_time], "
+//				+ "[device_info], [nonce_str], [partner_trade_no], [openid], [check_name],adminid) VALUES "
+//				+ "( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+//		
+//		try {
+//			int i=1;
+//			
+//			ps=conn.prepareStatement(sql);
+//			ps.setString(i++,wxCoporTransfor.getRe_user_name());
+//			ps.setString(i++,wxCoporTransfor.getAmount());
+//			ps.setString(i++,wxCoporTransfor.getDesc());
+//			
+//			clsGroupBean g=wxCoporTransfor.getGroupBean();
+//			if(g!=null)
+//			{
+//				ps.setInt(i++,g.getId());
+//			}
+//			
+//			ps.setString(i++,wxCoporTransfor.getErr_code());
+//			ps.setString(i++,wxCoporTransfor.getRescode());
+//			ps.setString(i++,wxCoporTransfor.getErr_code_des());
+//			ps.setString(i++,wxCoporTransfor.getPayment_no());
+//			ps.setString(i++,wxCoporTransfor.getPayment_time());
+//			
+//			ps.setString(i++,wxCoporTransfor.getDevice_info());
+//			ps.setString(i++,wxCoporTransfor.getNonce_str());
+//			ps.setString(i++,wxCoporTransfor.getPartner_trade_no());
+//			ps.setString(i++,wxCoporTransfor.getOpenid());
+//			ps.setString(i++,wxCoporTransfor.getCheck_name());
+//			ps.setInt(i++,wxCoporTransfor.getAdminid());
+//			ps.executeUpdate();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		finally
+//		{
+//			ConnManager.freeConnection(CN, conn,rs,ps);
+//		}
+//		
+//	}
+	
+	public static void deleteData() {
 		
-		try {
-			int i=1;
-			
-			ps=conn.prepareStatement(sql);
-			ps.setString(i++,wxCoporTransfor.getRe_user_name());
-			ps.setString(i++,wxCoporTransfor.getAmount());
-			ps.setString(i++,wxCoporTransfor.getDesc());
-			
-			clsGroupBean g=wxCoporTransfor.getGroupBean();
-			if(g!=null)
-			{
-				ps.setInt(i++,g.getId());
-			}
-			
-			ps.setString(i++,wxCoporTransfor.getErr_code());
-			ps.setString(i++,wxCoporTransfor.getRescode());
-			ps.setString(i++,wxCoporTransfor.getErr_code_des());
-			ps.setString(i++,wxCoporTransfor.getPayment_no());
-			ps.setString(i++,wxCoporTransfor.getPayment_time());
-			
-			ps.setString(i++,wxCoporTransfor.getDevice_info());
-			ps.setString(i++,wxCoporTransfor.getNonce_str());
-			ps.setString(i++,wxCoporTransfor.getPartner_trade_no());
-			ps.setString(i++,wxCoporTransfor.getOpenid());
-			ps.setString(i++,wxCoporTransfor.getCheck_name());
-			ps.setInt(i++,wxCoporTransfor.getAdminid());
-			ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally
-		{
-			ConnManager.freeConnection(CN, conn,rs,ps);
-		}
+		String str= ToolBox.getTimeLongString(new Timestamp(System.currentTimeMillis()-3600000*3*24));
+		exec("DELETE FROM tempTab where ttime<'"+ str +"';"
+				+ "DELETE FROM traderecordinfo_tem where receivetime<'"+ str +"';"
+				+ "DELETE from WxTextMsg where gmt_create<'"+ str +"'");
 		
 	}
-	
-
 
 }

@@ -6,10 +6,10 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 public class SendMail {
     private static final String ALIDM_SMTP_HOST = "smtp.webfaction.com";
-    
-    public static void Send(String subject, String content) {
+
+    public static void Send(String subject, String content, String extraemails) {
         final Properties props = new Properties();
-        
+
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", ALIDM_SMTP_HOST);
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -17,7 +17,7 @@ public class SendMail {
         props.put("mail.smtp.port", "465");
         props.put("mail.user", "system_happyice");
         props.put("mail.password", "1234574");
-        
+
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -30,12 +30,15 @@ public class SendMail {
         Session mailSession = Session.getInstance(props, authenticator);
         MimeMessage message = new MimeMessage(mailSession);
         try {
+        	
         InternetAddress from = new InternetAddress("system@happyice.com.sg");
         message.setFrom(from);
-       // InternetAddress to = new InternetAddress("leehongjie91@gmail.com");
-        String to = "brianlee@happyice.com.my, daniel.ma@happyice.com.sg, kent@happyice.com.sg, jiahaur@happyice.com.sg";
-       // message.setRecipient(MimeMessage.RecipientType.TO, to);
-        message.setRecipients(MimeMessage.RecipientType.TO, to);
+        String happyiceadmin = "brianlee@happyice.com.my,daniel.ma@happyice.com.sg,kent@happyice.com.sg";
+        if(extraemails != null) {
+        	happyiceadmin = happyiceadmin + "," + extraemails;
+        }
+       message.setRecipients(MimeMessage.RecipientType.TO, happyiceadmin);
+    
         message.setSubject(subject);
         message.setContent(content, "text/html;charset=UTF-8");
 
@@ -45,5 +48,5 @@ public class SendMail {
             String err = e.getMessage();
             System.out.println(err);
         }
-    }    
+    }
 }
