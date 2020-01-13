@@ -50,7 +50,7 @@ public class CustomerCharge extends HttpServlet {
 			
 			if(ub==null)
 			{
-				request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+				request.setAttribute("message", "You don't have permission to access this page, please try again");
 				request.setAttribute("LAST_URL", "index.jsp");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
@@ -77,14 +77,14 @@ public class CustomerCharge extends HttpServlet {
 			String cardinfo= ToolBox.filter(request.getParameter("cardinfo"));
 			if(cardinfo.equals(""))
 			{
-				request.setAttribute("message", "卡号不能为空，本次充值失败");
+				request.setAttribute("message", "Card number cannot be blank, top up failure");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
 			
 			if(cardinfo.length()<8)
 			{
-				request.setAttribute("message", "卡号必须大于8位，本次充值失败");
+				request.setAttribute("message", "Card number must be greater than 8 digits, top up failure");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -92,7 +92,7 @@ public class CustomerCharge extends HttpServlet {
 			
 			if(tem_ub==null)
 			{
-				request.setAttribute("message", "卡片没有绑定会员！本次充值失败");
+				request.setAttribute("message", "Card is not member, top up failure");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}

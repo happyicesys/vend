@@ -53,7 +53,7 @@ public class AddCustomer extends HttpServlet {
 			
 			if(ub==null)
 			{
-				request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+				request.setAttribute("message", "You don't have permission to access this page, please try again");
 				request.setAttribute("LAST_URL", "index.jsp");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
@@ -85,7 +85,7 @@ public class AddCustomer extends HttpServlet {
 			}
 			if(pwd.length()<6)
 			{
-				request.setAttribute("message", "密码参数至少6位");
+				request.setAttribute("message", "Password is too short");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -97,7 +97,7 @@ public class AddCustomer extends HttpServlet {
 			}
 			if(tem_username.equals(""))
 			{
-				request.setAttribute("message", "会员名不能为空");
+				request.setAttribute("message", "Username cannot be empty");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -105,21 +105,21 @@ public class AddCustomer extends HttpServlet {
 			CustomerBean tem_ub=CustomerBean.getCustomerBeanByUserName(tem_username);
 			if(tem_ub!=null)
 			{
-				request.setAttribute("message", "会员名已经存在，请使用其他会员名");
+				request.setAttribute("message", "Username has been used, please try again");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
 			String cardinfo= ToolBox.filter(request.getParameter("cardinfo"));
 			if(cardinfo.equals(""))
 			{
-				request.setAttribute("message", "卡号不能为空");
+				request.setAttribute("message", "Card number cannot be empty");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
 			
 			if(cardinfo.length()<8)
 			{
-				request.setAttribute("message", "卡号必须大于8位");
+				request.setAttribute("message", "Card number must greater than 8 digits");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -127,7 +127,7 @@ public class AddCustomer extends HttpServlet {
 			
 			if(tem_ub!=null)
 			{
-				request.setAttribute("message", "卡号已经被使用,请填写其他卡号");
+				request.setAttribute("message", "Card has been used, please try again");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -135,7 +135,7 @@ public class AddCustomer extends HttpServlet {
 			int jine=(int)(100*ToolBox.filterDble(request.getParameter("jine")));
 			if(jine>100000)
 			{
-				request.setAttribute("message", "预充值金额最大1000元");
+				request.setAttribute("message", "Prepaid value bigger than 1000");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}

@@ -265,7 +265,7 @@ var chk=function()
 				      <input type="text" name="id" id="vid" class="form-control input-sm input-sm" placeholder="Terminal ID(Required)" id="chk_repeat">
 				    </div>
 				    <div class="col-sm-5">
-				      <input class="btn btn-success" type="button" value="检测#是否重复" id="chk_repeat" name="chk_repeat" />
+				      <input class="btn btn-success" type="button" value="Check # Duplication" id="chk_repeat" name="chk_repeat" />
 				      <span id="tips" style="color:red;"></span>
 				    </div>
 				  </div>
@@ -318,7 +318,7 @@ var chk=function()
 					<select  class="form-control input-sm input-sm"  name="motorbrd_count" id="motorbrd_count">
 					<%for(int i_tem=0;i_tem<=16;i_tem++) 
 					{%>
-						<option value='<%=i_tem %>' ><%=i_tem %>片</option>
+						<option value='<%=i_tem %>' ><%=i_tem %> pc</option>
 					<%} %>	
 					</select>
 					</div>
@@ -349,7 +349,7 @@ var chk=function()
 				      <input id="lng" name="lng" type="text" class="form-control input-sm"  placeholder="Vending Logitude">
 				    </div>
 				    <div class="col-sm-5">
-				      	<input class="btn btn-success" type="button" value="在地图上查找位置" onclick="ShowMapWin()"/>
+				      	<input class="btn btn-success" type="button" value="Location on map" onclick="ShowMapWin()"/>
 				      </div>
 				  </div>
 				  <div class="form-group">
@@ -394,8 +394,8 @@ var chk=function()
 				  
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
-				      <input type="submit" class="btn btn-primary" value="添&nbsp;&nbsp;&nbsp;&nbsp;加"></input>
-				      <button type="submit" class="btn btn-primary" value="取消">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+				      <input type="submit" class="btn btn-primary" value="Add"></input>
+				      <button type="submit" class="btn btn-primary" value="取消">Cancel</button>
 				      <button class="btn btn-primary"  value="返回列表" type="button" onclick="location.href='VenderList';" >Back</button>
 				    </div>
 				  </div>

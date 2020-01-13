@@ -224,10 +224,10 @@ public class GetReportExcel extends HttpServlet {
 				label = new Label(j++,i,  tradeBean.getGoodsName());
 				sheet.addCell(label);					
 				
-				label = new Label(j++,i,  ((tradeBean.getChangestatus()!=0)?"成功":"失败"));
+				label = new Label(j++,i,  ((tradeBean.getChangestatus()!=0)?"Success":"Failure"));
 				sheet.addCell(label);		
 				
-				label = new Label(j++,i,  ((tradeBean.getSendstatus()!=0)?"成功":"失败"));
+				label = new Label(j++,i,  ((tradeBean.getSendstatus()!=0)?"Success":"Failure"));
 				sheet.addCell(label);					
 			}
 

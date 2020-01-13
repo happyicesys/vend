@@ -49,11 +49,11 @@ public class ClrPortFault extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");			
 		if(ub==null)
 		{
-			pw.println("更新失败");
+			pw.println("Update Failure");
 	    	return;		
 		}else if(ub.getType()==0)//游客账号
 		{
-			pw.println("更新失败");
+			pw.println("Update Failure");
 	    	return;
 		}
 		else
@@ -65,12 +65,12 @@ public class ClrPortFault extends HttpServlet {
 				SqlADO.updatePortFault(SellerId,innerid,clsConst.ERR_NO_ERR);
 				clsEvent.WriteMCFlg(SellerId,clsEvent.FLG_SET_COLLIST);
 				//response.sendRedirect("PortList.jsp?id="+SellerId);
-				pw.println("更新成功");
+				pw.println("Update Successful");
 			}
 			else
 			{
 				//pw.println(ToolBox.CANNTACCESS);
-				pw.println("更新失败");
+				pw.println("Update Failure");
 			}
 		}
 	}

@@ -136,7 +136,7 @@ $(document).ready(function(){
 	  /*Add Channel窗口*/
 	  $("#dialog").dialog({autoOpen: false,width:500,height:600,modal: false,
 	      buttons: {
-	          "确定": function() {
+	          "Confirm": function() {
 	              $( this ).dialog( "close" );
 	            }
 	      }
@@ -217,14 +217,14 @@ var closePanel=function()
 				      <input name="cardinfo" id="cardinfo" type="text" class="form-control input-sm input-sm"  placeholder="Credit Card No(Required)">
 				      </div>
 				    <div class="col-sm-5">
-				      <input class="btn btn-success" type="button" value="检测卡号是否被使用" name="chkcardinfo" id="chkcardinfo" />
+				      <input class="btn btn-success" type="button" value="Check Card Duplication" name="chkcardinfo" id="chkcardinfo" />
 				      <span id="tips_cradinfo" style="color:red;"></span>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="col-sm-4 control-label">Amount(Dollar)</label>
 				    <div class="col-sm-3">
-				      <input name="jine" id="jine" value="0" type="text" class="form-control input-sm input-sm"  placeholder="预充值金额(Required)">
+				      <input name="jine" id="jine" value="0" type="text" class="form-control input-sm input-sm"  placeholder="Topup Amount(Required)">
 				    </div>
 				    <div class="col-sm-5">
 				      <span id="tips_jine" style="color:red;"></span>
@@ -268,8 +268,8 @@ var closePanel=function()
 				    <label class="col-sm-4 control-label">Gender</label>
 				    <div class="col-sm-3">
 				    <label>
-				      <input checked='checked' name="sextype" type="radio" value="男" />Male
-						<input name="sextype" type="radio" value="女" />Female
+				      <input checked='checked' name="sextype" type="radio" value="男" /> Male
+						<input name="sextype" type="radio" value="女" /> Female
 						</label>
 				    </div>
 				  </div>
@@ -287,8 +287,8 @@ var closePanel=function()
 				  </div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
-				      <input type="button" onclick="chk();" class="btn btn-primary" value="添&nbsp;&nbsp;&nbsp;&nbsp;加"></input>
-				      <button type="reset" class="btn btn-primary" value="取消">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+				      <input type="button" onclick="chk();" class="btn btn-primary" value="Add"></input>
+				      <button type="reset" class="btn btn-primary" value="Cancel">Cancel</button>
 				    </div>
 				  </div>
 				  </div>

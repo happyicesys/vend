@@ -51,7 +51,7 @@ public class EditGoods extends HttpServlet {
 		
 	    if(ub==null)
 	    {
-	    	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	    	request.setAttribute("message", "You don't have permission to access this page, please try again");
 	    	request.setAttribute("LAST_URL", "index.jsp");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
@@ -79,20 +79,20 @@ public class EditGoods extends HttpServlet {
 		
 		if(goodsid==0)
 		{
-	    	request.setAttribute("message", "产品参数无效！");
+	    	request.setAttribute("message", "Invalid product parameter");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
 		}
 
 		if(goodsname==null)
 		{
-	    	request.setAttribute("message", "产品名称无效！");
+	    	request.setAttribute("message", "Invalid product name");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
 		}
 		else if(goodsname.trim().equalsIgnoreCase(("")))
 		{
-	    	request.setAttribute("message", "产品名称无效！");
+	    	request.setAttribute("message", "Invalid product name");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
 		}
@@ -102,7 +102,7 @@ public class EditGoods extends HttpServlet {
 		{
 			if(gb.getId()!=goodsid)
 			{
-				request.setAttribute("message", "产品已经存在！");
+				request.setAttribute("message", "Product existed");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}

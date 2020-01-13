@@ -51,7 +51,7 @@ public class AddVender extends HttpServlet {
 		System.out.println("123");
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -81,7 +81,7 @@ public class AddVender extends HttpServlet {
 		
 		if(id<=0)
 		{
-			request.setAttribute("message", "售货机编号必须大于0，且不能为空！");
+			request.setAttribute("message", "Machine ID must be greater than 0, cannot be blank");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -90,7 +90,7 @@ public class AddVender extends HttpServlet {
 			vb=SqlADO.getVenderBeanByid(id);
 			if(vb!=null)
 			{
-				request.setAttribute("message", "该售货机编号已经存在！");
+				request.setAttribute("message", "Machine ID has been used, please try again");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}
@@ -101,7 +101,7 @@ public class AddVender extends HttpServlet {
 		//System.out.println("t="+(tname==""));
 		if(tname=="")
 		{
-			request.setAttribute("message", "售货机名称不能为空！");
+			request.setAttribute("message", "Machine ID cannot be blank");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}

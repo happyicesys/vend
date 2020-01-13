@@ -60,7 +60,7 @@ public class HomePageSaleStatistic extends HttpServlet {
 		if(ub==null)
 		{
 			jsmb.setMsg(1);
-			jsmb.setDetail("您没有登录或无权访问！请联系管理员！");
+			jsmb.setDetail("You don't have permission to access this page, please try again");
 			pw.print(JSONObject.fromObject(jsmb).toString());
 			return;
 		}
@@ -68,7 +68,7 @@ public class HomePageSaleStatistic extends HttpServlet {
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
 			jsmb.setMsg(1);
-			jsmb.setDetail("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]+"，您没有权限");
+			jsmb.setDetail("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]+", you don't have the permission to access");
 			pw.print(JSONObject.fromObject(jsmb).toString());
 			return;
 		}

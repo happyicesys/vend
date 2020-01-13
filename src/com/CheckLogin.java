@@ -60,7 +60,7 @@ public class CheckLogin extends HttpServlet {
 		}
 		if (username.equals("")||pwd.equals(""))
 		{
-			request.setAttribute("message", "用户名和密码不能为空！");
+			request.setAttribute("message", "Username and password cannot be blank");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -71,13 +71,13 @@ public class CheckLogin extends HttpServlet {
 
 			if(ub==null)
 			{
-				request.setAttribute("message", "用户名或密码错误！请联系管理员！");
+				request.setAttribute("message", "Username or Password error, please contact admin!");
 				request.setAttribute("LAST_URL", "index.jsp");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;
 			}else if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 			{
-				request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+				request.setAttribute("message", "You don't have permission to access this page, please try again");
 				request.setAttribute("LAST_URL", "index.jsp");
 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				return;

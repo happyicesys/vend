@@ -120,7 +120,7 @@ $(document).ready(function(){
 				      <input type="text" name="goodsname" id="goodsname" class="form-control input-sm" placeholder=""/>
 				    </div>
 				    <div class="col-sm-5">
-				      <input class="btn btn-success" type="button" value="检测产品是否重复" id="chk_repeat" name="chk_repeat" />
+				      <input class="btn btn-success" type="button" value="Check Product Duplication" id="chk_repeat" name="chk_repeat" />
 				      <span id="tips" style="color:red;"></span>
 				    </div>
 				  </div>
@@ -149,8 +149,8 @@ $(document).ready(function(){
 				  
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
-				      <button type="submit" class="btn btn-primary" value="添加">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
-				      <button type="reset" class="btn btn-primary" value="取消" onclick="javascript:history.go(-1)">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+				      <button type="submit" class="btn btn-primary" value="Add">Add</button>
+				      <button type="reset" class="btn btn-primary" value="Back" onclick="javascript:history.go(-1)">Back</button>
 				    </div>
 				  </div>
 				  </div>

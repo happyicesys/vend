@@ -51,7 +51,7 @@ public class DoDeletGetGoodsCode extends HttpServlet {
 		
 	    if(ub==null)
 	    {
-	    	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	    	request.setAttribute("message", "You don't have permission to access this page, please try again");
 	    	request.setAttribute("LAST_URL", "index.jsp");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
@@ -76,12 +76,12 @@ public class DoDeletGetGoodsCode extends HttpServlet {
 		
 		if(id==0)
 		{
-	    	request.setAttribute("message", "参数无效！");
+	    	request.setAttribute("message", "Invalid parameter");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
 		}
 			SqlADO.deleteGetGoodsCode(id);
-			request.setAttribute("message", "取货码删除成功");
+			request.setAttribute("message", "Retieve code deleted");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	}
 

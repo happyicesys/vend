@@ -39,7 +39,7 @@ public class WriteEvent extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");	
 		if(ub==null)
 		{
-			pw.print("您没有登录或无权访问！请联系管理员！");
+			pw.print("You don't have permission to access this page, please try again");
 			return;
 		}
 		
@@ -58,7 +58,7 @@ public class WriteEvent extends HttpServlet {
 		String strString=request.getParameter("action");
 		if(strString==null)
 		{
-			pw.print("参数错误！");
+			pw.print("Invalid Parameter");
 			return;
 		}
 		int action=ToolBox.filterInt(strString);
@@ -66,7 +66,7 @@ public class WriteEvent extends HttpServlet {
 		strString=request.getParameter("obj");
 		if(strString==null)
 		{
-			pw.print("参数错误！");
+			pw.print("Invalid Parameter");
 			return;
 		}
 		int obj=ToolBox.filterInt(strString);
@@ -74,7 +74,7 @@ public class WriteEvent extends HttpServlet {
 		strString=request.getParameter("mid");
 		if(strString==null)
 		{
-			pw.print("参数错误！");
+			pw.print("Invalid Parameter");
 			return;
 		}
 		int mid=ToolBox.filterInt(strString);

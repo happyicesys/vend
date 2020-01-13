@@ -51,16 +51,16 @@ public class ChkVenderRepeat extends HttpServlet {
 			
 			if(vid<=0)
 			{
-				pw.print("编号必须大于零");
+				pw.print("Machine ID must be numeric and greater than 0");
 				return;
 			}
 			if(SqlADO.ChkVenderRepeat(vid))
 			{
-				pw.print("该编号机器已经存在！");
+				pw.print("Machine ID has been used, please try again");
 			}
 			else
 			{
-				pw.print("该编号可以使用！");
+				pw.print("Machine ID Okay");
 			}
 			break;
 			
@@ -68,21 +68,21 @@ public class ChkVenderRepeat extends HttpServlet {
 			String username=ToolBox.filter(request.getParameter("username"));
 			if(username==null)
 			{
-				pw.print("用户名错误");
+				pw.print("Username is not correct");
 				return;
 			}
 			if(username.trim().equals(""))
 			{
-				pw.print("用户名不能为空");
+				pw.print("Username cannot be blank");
 				return;
 			}
 			if(UserBean.ChkUserRepeat(username))
 			{
-				pw.print("该用户名已经存在！");
+				pw.print("Username has been used, please try again");
 			}
 			else
 			{
-				pw.print("该用户名可以使用！");
+				pw.print("Username Okay");
 			}
 			break;
 			
@@ -90,21 +90,21 @@ public class ChkVenderRepeat extends HttpServlet {
 			String goodsname=ToolBox.filter(request.getParameter("goodsname"));
 			if(goodsname==null)
 			{
-				pw.print("产品名称错误");
+				pw.print("Invalid product name");
 				return;
 			}
 			if(goodsname.trim().equals(""))
 			{
-				pw.print("产品名称不能为空");
+				pw.print("Product name cannot be blank");
 				return;
 			}
 			if(clsGoodsBean.getGoodsBean(goodsname,ub.getGroupid())!=null)
 			{
-				pw.print("该产品已经存在！");
+				pw.print("Product name has been used, please try again");
 			}
 			else
 			{
-				pw.print("该产品不存在，可以添加！");
+				pw.print("Product name okay");
 			}
 			break;
 			
@@ -112,40 +112,40 @@ public class ChkVenderRepeat extends HttpServlet {
 			cardinfo=ToolBox.filter(request.getParameter("cardinfo"));
 			if(cardinfo==null)
 			{
-				pw.print("卡号错误");
+				pw.print("Invalid Card number");
 				return;
 			}
 			if(cardinfo.trim().equals(""))
 			{
-				pw.print("卡号不能为空");
+				pw.print("Card number cannot be blank");
 				return;
 			}
 			if(CustomerBean.getCustomerBeanByCardID(cardinfo)!=null)
 			{
-				pw.print("该卡号已经被使用！");
+				pw.print("Card number has been used, please try again");
 				return;
 			}
 			else
 			{
-				pw.print("该卡号可以使用！");
+				pw.print("Card number okay");
 				return;
 			}
 		case 4:
 			cardinfo=ToolBox.filter(request.getParameter("cardinfo"));
 			if(cardinfo==null)
 			{
-				pw.print("卡号错误");
+				pw.print("Invalid card number");
 				return;
 			}
 			if(cardinfo.trim().equals(""))
 			{
-				pw.print("卡号不能为空");
+				pw.print("Card number cannot be blank");
 				return;
 			}
 			CustomerBean c=CustomerBean.getCustomerBeanByCardID(cardinfo);
 			if(c!=null)
 			{
-				pw.print(String.format("卡上余额：%1.2f元", c.get_user_amount()/100.0));
+				pw.print(String.format("Card Balance：%1.2f ", c.get_user_amount()/100.0));
 				return;
 			}
 			else

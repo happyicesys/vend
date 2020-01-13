@@ -38,7 +38,7 @@ public class SetAccessDisable extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -75,7 +75,7 @@ public class SetAccessDisable extends HttpServlet {
 		
 		if(tub==null)
 		{
-			request.setAttribute("message", "参数错误，没有找到管理员！");
+			request.setAttribute("message", "Invalid parameter, manager not found");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}

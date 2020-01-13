@@ -48,7 +48,7 @@ public class AddLiuyan extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -74,14 +74,14 @@ public class AddLiuyan extends HttpServlet {
 	    
 	    if(!username.equals(ub.getAdminusername()))
 	    {
-			request.setAttribute("message", "非法用户名！");
+			request.setAttribute("message", "Invalid username");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 	    }
 	    
 	    if(username.equals(""))
 	    {
-			request.setAttribute("message", "用户名不能为空！");
+			request.setAttribute("message", "Username cannot be empty");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 	    }
@@ -96,21 +96,21 @@ public class AddLiuyan extends HttpServlet {
 		
 	    if(mobiletel.equals(""))
 	    {
-			request.setAttribute("message", "手机号码不能为空！");
+			request.setAttribute("message", "Mobile number cannot be empty");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 	    }
 	    
 	    if(content.equals(""))
 	    {
-			request.setAttribute("message", "内容不能为空！");
+			request.setAttribute("message", "Content cannot be empty");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 	    }
 		
 	    if(content.length()>200)
 	    {
-			request.setAttribute("message", "内容不能大于200个字符");
+			request.setAttribute("message", "Content cannot more than 200 words");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 	    }
@@ -124,7 +124,7 @@ public class AddLiuyan extends HttpServlet {
 	    
 	    SqlADO.addLiuyan(cly);
 	    
-		request.setAttribute("message", "留言发送成功，感谢您的建议！");
+		request.setAttribute("message", "Feedback has been submitted, thanks");
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 

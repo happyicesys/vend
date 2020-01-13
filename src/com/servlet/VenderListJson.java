@@ -55,7 +55,7 @@ public class VenderListJson extends HttpServlet {
 		PrintWriter out= response.getWriter();
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -75,8 +75,8 @@ public class VenderListJson extends HttpServlet {
 			json.put("CoinCount", venderBean.getCoinAtbox());
 			json.put("BillState", venderBean.getMdbDeviceStatus());
 			json.put("Temperature", (venderBean.getTemperature()/10.0)+"℃");
-			json.put("VenderLink", venderBean.isIsOnline()?"在线":"离线");
-			json.put("VenderCanUse", venderBean.isCanUse()?"是":"否");
+			json.put("VenderLink", venderBean.isIsOnline()?"Online":"Offline");
+			json.put("VenderCanUse", venderBean.isCanUse()?"Yes":"No");
 			json.put("VenderGPRS", (venderBean.getGprs_Sign()*100/31)+"%");
 			//json.put("ManagerBut", "<button type=\"button\" value=\"详情\"/>");
 			json2.add(json);

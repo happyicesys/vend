@@ -52,7 +52,7 @@ public class DoSelect extends HttpServlet {
 		
 	    if(ub==null)
 	    {
-	    	out.print(ToolBox.ErrRequest("您没有登录或无权访问！"));
+	    	out.print(ToolBox.ErrRequest("Please login or you don't have permission to access"));
 	    	return;
 	    } 
 
@@ -64,7 +64,7 @@ public class DoSelect extends HttpServlet {
 		
 		if((colid==0)&&(goodsid==0))
 		{
-	    	out.print(ToolBox.ErrRequest("参数有误！"));
+	    	out.print(ToolBox.ErrRequest("Parameter error!"));
 	    	return;
 		}
 		
@@ -94,7 +94,7 @@ public class DoSelect extends HttpServlet {
 		out.append("</HTML>");
 		
 		
-		out.print(ToolBox.TipRequest("商品绑定成功"));
+		out.print(ToolBox.TipRequest("Product binding successful"));
 	}
 
 }

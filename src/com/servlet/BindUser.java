@@ -51,20 +51,20 @@ public class BindUser extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
 		if(ub==null)
 		{
-			pw.print("您没有登录或无权访问！请联系管理员！");
+			pw.print("You don't have permission to access this page, please try again");
 			return;
 		}
 		
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
-			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]+"，您没有权限");
+			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]+", You don't have permission to access");
 			return;
 		}
 	    
 	    
 	    if(!ub.AccessAble(UserBean.FUNID_CAN_ADD_BIND_AL_WX_USER))
 		{
-			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_BIND_AL_WX_USER]+"，您没有权限");
+			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ADD_BIND_AL_WX_USER]+", You don't have permission to access");
 			return;
 		}
 
@@ -78,12 +78,12 @@ public class BindUser extends HttpServlet {
 	    	
 	    	vb.setAdminId(uid);
 	    	SqlADO.updateSeller(vb);
-			pw.print("更新完成");
+			pw.print("Update complete");
 			return;
 	    }
 	    else
 	    {
-			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]+"，您没有权限");
+			pw.print("不被"+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]+", You don't have permission to access");
 			return;
 	    }
 

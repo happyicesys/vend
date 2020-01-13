@@ -45,7 +45,7 @@ public class AddUser extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
@@ -76,7 +76,7 @@ public class AddUser extends HttpServlet {
 		}
 		if(pwd.length()<6)
 		{
-			request.setAttribute("message", "密码参数至少6位");
+			request.setAttribute("message", "Password is too short");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -92,7 +92,7 @@ public class AddUser extends HttpServlet {
 		}
 		if(tem_username.equals(""))
 		{
-			request.setAttribute("message", "用户名不能为空");
+			request.setAttribute("message", "Username cannot be empty");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
@@ -100,7 +100,7 @@ public class AddUser extends HttpServlet {
 		UserBean tem_ub=UserBean.getUserBean(tem_username);
 		if(tem_ub!=null)
 		{
-			request.setAttribute("message", "用户名已经存在，请使用其他用户名");
+			request.setAttribute("message", "Username has been used, please try again");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}

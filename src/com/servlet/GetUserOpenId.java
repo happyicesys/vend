@@ -58,16 +58,16 @@ public class GetUserOpenId extends HttpServlet {
 		    	SnsToken token =SnsAPI.oauth2AccessToken(appid, AppSecret, code);
 		    	ub.setWx_openid(token.getOpenid());
 		    	UserBean.updateUser(ub);
-		    	pw.println("<html> <body style=\"font-size:2em\"> 微信OPENID获取成功，请刷新用户信息页面！ </body> </html>");
+		    	pw.println("<html> <body style=\"font-size:2em\"> Wechat OPENID successfully obtained, please refresh the page </body> </html>");
 	    	}
 	    	else
 	    	{
-	    		pw.println("<html> <body style=\"font-size:2em\"> 用户无效！ </body> </html>");
+	    		pw.println("<html> <body style=\"font-size:2em\"> Invalid user </body> </html>");
 	    	}
 	    }
 	    else
 	    {
-	    	pw.println("<html> <body style=\"font-size:2em\"> 参数错误！ </body> </html>");
+	    	pw.println("<html> <body style=\"font-size:2em\"> Invalid parameter </body> </html>");
 	    }
     	
     	

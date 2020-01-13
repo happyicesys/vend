@@ -51,7 +51,7 @@ public class DoDeletcGoods extends HttpServlet {
 		
 	    if(ub==null)
 	    {
-	    	request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+	    	request.setAttribute("message", "You don't have permission to access this page, please try again");
 	    	request.setAttribute("LAST_URL", "index.jsp");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
@@ -76,7 +76,7 @@ public class DoDeletcGoods extends HttpServlet {
 		
 		if(goodsid==0)
 		{
-	    	request.setAttribute("message", "产品参数无效！");
+	    	request.setAttribute("message", "Invalid product parameter");
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
 		}
@@ -85,7 +85,7 @@ public class DoDeletcGoods extends HttpServlet {
 		
 		if(SqlADO.IsGoodsBind(goodsid))
 		{
-	    	request.setAttribute("message", "产品与货道有绑定关系,请先取消产品与货道的绑定关系！");
+	    	request.setAttribute("message", "Product is binded to the channel, please unbind first");
 	    	request.setAttribute("LAST_URL", "GoodsList");	
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;
@@ -98,7 +98,7 @@ public class DoDeletcGoods extends HttpServlet {
 			File file=new File(p);
 			file.delete();
 			SqlADO.deleteGoods(goodsid);
-	    	request.setAttribute("message", "产品删除成功");
+	    	request.setAttribute("message", "Product successfully deleted");
 	    	request.setAttribute("LAST_URL", "GoodsList");	    	
 	    	request.getRequestDispatcher("message.jsp").forward(request, response);
 	    	return;

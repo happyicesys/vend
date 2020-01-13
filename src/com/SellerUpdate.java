@@ -45,7 +45,7 @@ public class SellerUpdate extends HttpServlet {
 		UserBean ub=(UserBean)request.getSession().getAttribute("usermessage");		
 		if(ub==null)
 		{
-			request.setAttribute("message", "您没有登录或无权访问！请联系管理员！");
+			request.setAttribute("message", "You don't have permission to access this page, please try again");
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;

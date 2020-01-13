@@ -41,7 +41,7 @@
 </head>
 <body style="margin: 0px; text-align: left;">
 	<form action="./UpLoadFile" name="smartForm" method="post" enctype="multipart/form-data">
-		<input class="white-text" type="file" name="pic1" /> Recommanded Size:367*435 <input class="green_btn" type="submit" value="提交">
+		<input class="white-text" type="file" name="pic1" /> Recommanded Size:367*435 <input class="green_btn" type="submit" value="Upload">
 	</form>
 	
 </body>

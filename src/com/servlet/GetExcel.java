@@ -46,19 +46,19 @@ public class GetExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	String[] TitleString=new String[]{
-			  "序号",
-			  "交易编号",
-			  "订单号",
-			  "交易时间",
-			  "银行卡号码",
-			  "金额",
-			  "找零",
-			  "交易类型",
-			  "货机号",
-			  "货道号",
-			  "商品名称",
-			  "支付",
-			  "出货"
+			  "#",
+			  "Transaction #",
+			  "Order #",
+			  "Date Time",
+			  "Bank Card #",
+			  "Amount",
+			  "Change",
+			  "Method",
+			  "Machine #",
+			  "Channel #",
+			  "Product",
+			  "Payment Status",
+			  "Dispense Status"
 			  };
 	
     /**
@@ -197,7 +197,7 @@ public class GetExcel extends HttpServlet {
 			// 打开文件
 			WritableWorkbook book = Workbook.createWorkbook(new File(xlsfilename));
 			// 生成名为“第一页”的工作表，参数0表示这是第一页
-			WritableSheet sheet = book.createSheet("第一页", 0);
+			WritableSheet sheet = book.createSheet("Page 1", 0);
 			
 			Label label;
 			int i;
@@ -238,30 +238,30 @@ public class GetExcel extends HttpServlet {
 				String tradetype_name=null;
 				switch (tradetype_int) {
 				case clsConst.TRADE_TYPE_CASH:
-					tradetype_name="现金";
+					tradetype_name="Cash";
 					break;
 				case clsConst.TRADE_TYPE_AL_QR:
-					tradetype_name="支付宝";
+					tradetype_name="Alipay";
 					break;
 				case clsConst.TRADE_TYPE_BANK:
-					tradetype_name="银行卡";
+					tradetype_name="Debit Card";
 					break;
 				case clsConst.TRADE_TYPE_CARD:
-					tradetype_name="刷卡";
+					tradetype_name="Credit Card";
 					break;
 				case clsConst.TRADE_TYPE_GOODS_CODE:
-					tradetype_name="取货码";
+					tradetype_name="Passcode";
 					break;
 				case clsConst.TRADE_TYPE_AL_SOUND:
-					tradetype_name="声波支付";
+					tradetype_name="Sonic Pay";
 					break;
 					
 				case clsConst.TRADE_TYPE_SANFU:
-					tradetype_name="银联闪付";
+					tradetype_name="Union Pay";
 					break;
 					
 				case clsConst.TRADE_TYPE_WX_QR:
-					tradetype_name="微信";
+					tradetype_name="Wechat";
 					break;
 				case clsConst.TRADE_TYPE_COCO:
 					tradetype_name="FreeVend";
@@ -283,10 +283,10 @@ public class GetExcel extends HttpServlet {
 				label = new Label(j++,i,  tradeBean.getGoodsName());
 				sheet.addCell(label);					
 				
-				label = new Label(j++,i,  ((tradeBean.getChangestatus()!=0)?"成功":"失败"));
+				label = new Label(j++,i,  ((tradeBean.getChangestatus()!=0)?"Success":"Failure"));
 				sheet.addCell(label);		
 				
-				label = new Label(j++,i,  ((tradeBean.getSendstatus()!=0)?"成功":"失败"));
+				label = new Label(j++,i,  ((tradeBean.getSendstatus()!=0)?"Success":"Failure"));
 				sheet.addCell(label);					
 			}
 

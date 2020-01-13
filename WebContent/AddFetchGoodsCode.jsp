@@ -120,8 +120,8 @@ $(document).ready(function(){
 				  
 				  <div class="form-group">
 				    <div class="col-sm-offset-4 col-sm-3">
-				      <button type="submit" class="btn btn-primary" value="添加">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
-				      <button type="reset" class="btn btn-primary" value="取消" onclick="javascript:history.go(-1)">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+				      <button type="submit" class="btn btn-primary" value="添加">Add</button>
+				      <button type="reset" class="btn btn-primary" value="取消" onclick="javascript:history.go(-1)">Cancel</button>
 				    </div>
 				  </div>
 				  </div>

@@ -96,8 +96,8 @@
 								<label>
 								  <input type="search" class="form-control input-sm" placeholder="" aria-controls="dataTables-example" name="goodsname" value="<%=goodsname%>"/></label>
 								
-								<button class="btn btn-default" style="background-color:#f4f4f4;" type="submit">查找产品</button>
-								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" type="button" value="添加商品信息" onclick="javascript:location.href='addGoodsInfo.jsp';">添加商品信息</button>
+								<button class="btn btn-default" style="background-color:#f4f4f4;" type="submit">Search</button>
+								<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" type="button" value="Add Product" onclick="javascript:location.href='addGoodsInfo.jsp';">Add Product</button>
 							</form>
 						</div>
 					</div>
