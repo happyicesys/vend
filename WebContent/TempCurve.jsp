@@ -1,5 +1,6 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="beans.TempBean"%>
+<%@page import="beans.VenderBean"%>
 <%@page import="com.ClsTime"%>
 <%@page import="java.sql.Date"%>
 <%@page import="com.sun.org.apache.bcel.internal.generic.DADD"%>
@@ -74,6 +75,9 @@
 
  	Timestamp endDate=ToolBox.filterTime(request.getParameter("edate"));
  	int vid=ToolBox.filterInt(request.getParameter("vid"));
+ 	
+	VenderBean vb=null;
+	vb=SqlADO.getVenderBeanByid(vid);
 
 	Timestamp beginDate;
  	if(endDate==null)
@@ -158,7 +162,7 @@
 $(function () {
     var d1 =[<%=sb1.toString()%>];
     function plotWithOptions() {
-        $.plot($("#placeholder"), [{"label":"<%=String.format("48 Hours Temp Line Graph", vid)%>",data:d1}], {
+        $.plot($("#placeholder"), [{"label":"<%=String.format("48 Hours Temp Line Graph. ID: %d (%s)", vid, vb.getTerminalName())%>",data:d1}], {
             series: {
                 lines: { show: true,}
         //,

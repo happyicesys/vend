@@ -180,7 +180,7 @@
 														double balancePercent = 0;
 														for(PortBean pb:pbli)
 														{
-															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53)) && pb.getCapacity() != 0 ) {
+															if(((Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || (Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53) || Integer.parseInt(pb.getInneridname()) == 33) && pb.getCapacity() != 0 ) {
 																//pb.getCapacity()>pb.getAmount() && 
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();

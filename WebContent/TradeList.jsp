@@ -260,12 +260,11 @@ background-color: #F5F5F5;
 	            }, {
 	                field: 'changestatus',
 	                title: 'Payment'
-	            },
-	            /*
-	            {
+	            },{
 	                field: 'sendstatus',
-	                title: 'Send'
-	            },
+	                title: 'Dispense'
+	            }
+	            /*
 	            {
 	                field: 'opbut',
 	                title: 'Operation'
@@ -374,7 +373,7 @@ background-color: #F5F5F5;
 						</select>
 		  			</div> 		
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">
-						<label class="control-label">Is Successful</label>
+						<label class="control-label">Payment Status</label>
 						<select class="select form-control" name="success" id="success">
 							<option <%=((Success==0)?"selected=\"selected\"":"") %> value="0">All</option>
 							<option <%=((Success==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
