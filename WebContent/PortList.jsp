@@ -380,7 +380,7 @@
 											{
 													if(ub.AccessAble(UserBean.FUNID_CAN_UPDATE_PORT))
 													{
-														out.print("<span class='waring-label'><a href='UpdatePort?id="+ sellerId +"&innerid="+ innerid +"'>有</a></span>");
+														out.print("<span class='waring-label'><a href='UpdatePort?id="+ sellerId +"&innerid="+ innerid +"'>Yes</a></span>");
 													}
 													else
 													{

@@ -895,7 +895,7 @@ private static final String NAK="ERROR";
 						if(vb.getTemp_alert_loop() >= VenderBean.TEMP_ALERT_LOOP + 1 && vb.getIs_alert_sent() == 0){
 							vb.setIs_alert_sent(1);
 							try {
-								SendMail.Send(String.format("2 Hours stay above -12 Celsius Alert [%s]", ToolBox.getDateString()), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
+								SendMail.Send(String.format("Temp Alert ID: %d [%s], 2 Hours above -11 Celsius [%.1f C]", vb.getId(), ToolBox.getDateString(), venderobj.getDouble("TEMP") / 10), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -930,7 +930,7 @@ private static final String NAK="ERROR";
 						if(vb.getLongTempAlertLoop() >= VenderBean.TEMP_LONG_ALERT_LOOP + 1 && vb.getLongTempAlertSent() == 0){
 							vb.setLongTempAlertSent(1);
 							try {
-								SendMail.Send(String.format("5 Hours stay above -18 Celsius Alert [%s]", ToolBox.getDateString()),
+								SendMail.Send(String.format("Temp Alert ID: %d [%s], 5 Hours above -17 Celsius [%.1f C]", vb.getId(), ToolBox.getDateString(), venderobj.getDouble("TEMP") / 10),
 										String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)", vb.getId(), vb.getTerminalName(),
 												venderobj.getDouble("TEMP") / 10), vb.getTempAlertExtraEmails());
 							} catch (Exception e) {
@@ -967,7 +967,7 @@ private static final String NAK="ERROR";
 						if(vb.getRefillTempAlertLoop() >= VenderBean.TEMP_REFILL_ALERT_LOOP + 1 && vb.getRefillTempAlertSent() == 0){
 							vb.setRefillTempAlertSent(1);
 							try {
-								SendMail.Send(String.format("40 mins above -5 : Door not closed alert, [%s]", ToolBox.getDateString()), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
+								SendMail.Send(String.format("Temp Alert ID: %d [%s], 40 mins above -5 : Door not closed [%.1f C]", vb.getId(), ToolBox.getDateString(), venderobj.getDouble("TEMP")/ 10), String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)" , vb.getId(), vb.getTerminalName(), venderobj.getDouble("TEMP")/ 10), vb.getTempAlertExtraEmails());
 							} catch (Exception e) {
 								e.printStackTrace();
 							}

@@ -79,7 +79,7 @@ public class VenderList extends HttpServlet {
 	    }
 
 		session.setAttribute("currentpage", request.getRequestURI());
-		String id= ToolBox.filter(request.getParameter("id"));
+		String SellerId= ToolBox.filter(request.getParameter("sellerid"));
 		int pageindex=ToolBox.filterInt(request.getParameter("page"));
 
 		if(pageindex==0)
@@ -89,21 +89,21 @@ public class VenderList extends HttpServlet {
 		int count_per_page =ub.getPagecount();
 		ArrayList<VenderBean> lst = null;
 		int RsCount=0;
-		if(StringUtil.isBlank(id))
+		if(StringUtil.isBlank(SellerId))
 		{
 			lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite());
 			
 		}else
 		{
-			VenderBean vb=SqlADO.getVenderBeanByid(Integer.parseInt(id));
-			lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite(),id);
+			//VenderBean vb=SqlADO.getVenderBeanByid(Integer.parseInt(SellerId));
+			lst=SqlADO.getVenderListById(SellerId);
 		}
 //		RsCount = lst.size();
 //		request.setAttribute("RsCount", RsCount);
 		request.setAttribute("lst", lst);
 		request.setAttribute("count_per_page", count_per_page);
 		request.setAttribute("pageindex", pageindex);
-		request.setAttribute("id", id);
+		request.setAttribute("id", SellerId);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("VenderList.jsp");    // 使用req对象获取RequestDispatcher对象
         dispatcher.forward(request, response);                                            // 使用RequestDispatcher对象在服务器端向目的路径跳转

@@ -266,7 +266,9 @@ var _submit=function(date)
 										<th class="col-md-1 text-center">Sales #</th>
 										<th class="col-md-1 text-center">Total</th>
 										<th class="col-md-1 text-center">Cash #</th>
-										<th class="col-md-1 text-center">Cash Amount</th>										
+										<th class="col-md-1 text-center">Cash Amount</th>	
+										<th class="col-md-1 text-center">Cashless #</th>
+										<th class="col-md-1 text-center">Cashless Amount</th>																				
 										<th class="col-md-1 text-center">Wechat #</th>
 										<th class="col-md-1 text-center">Wechat Amt</th>
 										<th class="col-md-1 text-center">Alipay #</th>
@@ -293,7 +295,7 @@ var _submit=function(date)
 											c.add(Calendar.DAY_OF_MONTH, 1);
 											edata=new Date(c.getTimeInMillis());
 											ClsSaleStatisticData salestatistic_all= SqlADO.getSalesStatisticDataFromDb(
-													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_NO_LIMIT,jiesuan);
+													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_NO_LIMIT,jiesuan);										
 											ClsSaleStatisticData salestatistic_al= SqlADO.getSalesStatisticDataFromDb(
 													beginDate,edata,ub.getVenderLimite(),clsConst.TRADE_TYPE_AL_QR,jiesuan);
 											ClsSaleStatisticData salestatistic_wx= SqlADO.getSalesStatisticDataFromDb(
@@ -314,6 +316,9 @@ var _submit=function(date)
 										<td class="col-md-1 text-right" id="cash_count"><%=salestatistic_cash.getM_count() %></td>
 										<td class="col-md-1 text-right" id="cash_credit"><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>										
 										  
+										<td class="col-md-1 text-right" id="card_count"><%=salestatistic_card.getM_count() %></td>
+										<td class="col-md-1 text-right" id="card_credit"><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>										  
+										  
 										<td class="col-md-1 text-right" id="wx_count"><%=salestatistic_wx.getM_count() %></td>
 										<td class="col-md-1 text-right" id="wx_credit"><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
 										
@@ -323,8 +328,6 @@ var _submit=function(date)
 										<td class="col-md-1 text-right" id="freevend_count"><%=salestatistic_freevend.getM_count() %></td>
 										<td class="col-md-1 text-right" id="freevend_credit"><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>										
 										<!--
-										<td id="card_count"><%=salestatistic_card.getM_count() %></td>
-										<td id="card_credit"><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>
 										
 										<td id="bank_count"><%=salestatistic_bank.getM_count() %></td>
 										<td id="bank_credit"><%=String.format("%1.2f",salestatistic_bank.getM_credit()/100.0) %></td>

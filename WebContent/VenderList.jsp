@@ -237,7 +237,7 @@ function ShowTemCurve(id)
 	
 	ArrayList<VenderBean> lst = (ArrayList<VenderBean>)request.getAttribute("lst");
 	
-	String id = request.getAttribute("id").toString();
+	String SellerId = ToolBox.filter(request.getParameter("sellerid"));
 %>
 <body style="background-color: #fff;">
 	<!-- 模态框（Modal） -->
@@ -285,7 +285,7 @@ function ShowTemCurve(id)
 					<div class="row">			
 						<div class="form-group col-md-3 col-sm-6 col-xs-12">
 							<label class="control-label">Machine ID</label>
-				  			<input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+				  			<input type="search" id="sellerid" name="sellerid" value="<%=SellerId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
 				  		</div>
 			  		</div>
 			  		

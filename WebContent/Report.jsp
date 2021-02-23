@@ -275,42 +275,14 @@ $(function () {
 							<li>
 								<a href="#">Transaction Management</a>
 							</li>
-							<li class="active">Monthly Report</li>
+							<li class="active">Vending Machine List</li>
 						</ul>
 					</div>
-
-
-					<form role="form">
-						<div class="row">
-							<div class="form-group col-md-3 col-sm-6 col-xs-12">
-								<label class="control-label">Machine ID</label>
-					  			<input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
-					  		</div>	
-							<div class="form-group col-md-3 col-sm-6 col-xs-12">
-								<label class="control-label">Month</label>
-								<input type="hidden" value="1" name="ispost"/>
-								<input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" />							
-					  		</div>
-					  		<div class="form-group col-md-6 col-sm-12 col-xs-12">
-					  			<label class="control-label">Is Settle</label>
-								<label class="radio-inline" style="padding-top:0px;">
-									<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> All
-								</label>
-								<label class="radio-inline" style="padding-top:0px;">
-									<input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Already
-								</label>
-								<label class="radio-inline" style="padding-top:0px;">
-									<input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent yet
-								</label>					  		
-					  		</div>
-					  	</div>
-						<div class="row">
-							<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
-								<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-								<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">Settle Month (结算)</button>
-							</div>																				
-						</div>					  						  		
-					  		<!--  				
+			<div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+			  <div class="row">
+					<div class="col-xs-12">
+						<div class="dataTables_length" id="dataTables-example_length">
+							<form class="form-horizontal"  role="form">
 							<label>Machine ID:</label>
 							  <label><input type="search" name="id" value="<%=id %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example"></label>
 							
@@ -319,7 +291,7 @@ $(function () {
 							<label><input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" /></label>
 							<label>&nbsp;Is calculated:</label>
 							<label class="radio-inline" style="padding-top:0px;">
-										<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
+  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
 							  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 已结算
@@ -328,12 +300,13 @@ $(function () {
 							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 未结算
 							</label>
 							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>							
+							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
+							</form>
 						</div>
-						-->
-					</form>
-
-
+					</div>
+								
+			  </div>
+			</div>
 			<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
@@ -348,25 +321,21 @@ $(function () {
 							<table id="yourTableID" class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th class="col-md-1">#</th>
-										<th class="col-md-1">Name</th>
-										<th class="col-md-1">Address</th>
-										<th class="col-md-1">Sales #</th>
-										<th class="col-md-1">Total</th>
-										<th class="col-md-1">Cash #</th>
-										<th class="col-md-1">Cash</th>										
-										<th class="col-md-1">Wechat #</th>
-										<th class="col-md-1">Wechat Amt</th>
-										<th class="col-md-1">Alipay #</th>
-										<th class="col-md-1">Alipay Amt</th>
-										<th class="col-md-1">Freevend#</th>
-										<th class="col-md-1">Freevend Amt</th> 										
-										<!--
-										<th>Card Sales</th>
-										<th>Card</th>
-										<th>China Union Pay Sales</th>
-										<th>China Union Pay</th>
-										 -->
+										<th>#</th>
+										<th >Name</th>
+										<th >Address</th>
+										<th>Sales #</th>
+										<th>Total</th>
+										<th>Cash #</th>
+										<th>Cash</th>
+										<th>Cashless #</th>
+										<th>Cashless</th>										
+										<th>Wechat #</th>
+										<th>WechatPay</th>
+										<th>Alipay #</th>
+										<th>Alipay</th>
+										<th>Freevend #</th>
+										<th>Freevend</th>
 									</tr>											
 								</thead>
 
@@ -391,9 +360,6 @@ $(function () {
 												int cash_count=0;
 												int cash_credit=0;
 												
-												int freevend_count=0;
-												int freevend_credit=0;
-												
 												int wx_count=0;
 												int wx_credit=0;
 												
@@ -403,8 +369,8 @@ $(function () {
 												int card_count=0;
 												int cardal_credit=0;
 												
-												int bank_count=0;
-												int bank_credit=0;
+												int freevend_count=0;
+												int freevend_credit=0;
 												
 												Date edata=null;
 	
@@ -434,8 +400,6 @@ $(function () {
 															beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CARD,jiesuan);
 													ClsSaleStatisticData salestatistic_cash= SqlADO.getSalesStatisticDataFromDb(
 															beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_CASH,jiesuan);
-													ClsSaleStatisticData salestatistic_bank= SqlADO.getSalesStatisticDataFromDb(
-															beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_BANK,jiesuan);
 													ClsSaleStatisticData salestatistic_freevend= SqlADO.getSalesStatisticDataFromDb(
 															beginDate,edata,String.format("%d", obj.getId()),clsConst.TRADE_TYPE_COCO,jiesuan);
 													count++;
@@ -461,9 +425,6 @@ $(function () {
 													
 													cash_count+=salestatistic_cash.getM_count();
 													cash_credit+=salestatistic_cash.getM_credit();
-
-													freevend_count+=salestatistic_freevend.getM_count();
-													freevend_credit+=salestatistic_freevend.getM_credit();													
 													
 													wx_count+=salestatistic_wx.getM_count();
 													wx_credit+=salestatistic_wx.getM_credit();
@@ -474,20 +435,23 @@ $(function () {
 													card_count+=salestatistic_card.getM_count();
 													cardal_credit+=salestatistic_card.getM_credit();
 													
-													bank_count+=salestatistic_bank.getM_count();
-													bank_credit+=salestatistic_bank.getM_credit();
+													freevend_count+=salestatistic_freevend.getM_count();
+													freevend_credit+=salestatistic_freevend.getM_credit();	
 													
 										  %>
 										<tr class="odd">
-											<td class="col-md-1 sorting_1"><%=venderid%></td>
-											<td class="col-md-1"><button type="button" class="btn btn-danger btn-sm"><%=obj.getTerminalName() %></button></td>
-											<td class="col-md-1"><%=obj.getTerminalAddress() %></td>
+											<td class=" sorting_1"><%=venderid%></td>
+											<td ><button type="button" class="btn btn-danger btn-sm"><%=obj.getTerminalName() %></button></td>
+											<td ><%=obj.getTerminalAddress() %></td>
 											<td class="col-md-1 text-right" <%=salestatistic_all.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_all.getM_count() %></td>
 											<td class="col-md-1 text-right" <%=salestatistic_all.getM_credit()>0?"style='color:red;'":"" %> ><%=String.format("%1.2f", salestatistic_all.getM_credit()/100.0) %></td>
 											
 											<td class="col-md-1 text-right" <%=salestatistic_cash.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_cash.getM_count() %></td>
 											<td class="col-md-1 text-right" <%=salestatistic_cash.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_cash.getM_credit()/100.0) %></td>
-  						
+											
+											<td class="col-md-1 text-right" <%=salestatistic_card.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_card.getM_count() %></td>
+											<td class="col-md-1 text-right" <%=salestatistic_card.getM_credit()>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>
+																						
 											<td class="col-md-1 text-right" <%=salestatistic_wx.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_wx.getM_count() %></td>
 											<td class="col-md-1 text-right" <%=salestatistic_wx.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_wx.getM_credit()/100.0) %></td>
 											
@@ -495,14 +459,7 @@ $(function () {
 											<td class="col-md-1 text-right" <%=salestatistic_al.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_al.getM_credit()/100.0) %></td>
 											
 											<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_freevend.getM_count() %></td>
-											<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>											
-											<!--
-											<td <%=salestatistic_card.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_card.getM_count() %></td>
-											<td <%=salestatistic_card.getM_credit()>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",salestatistic_card.getM_credit()/100.0) %></td>
-											
-											<td <%=salestatistic_bank.getM_count()>0?"style='color:red;'":"" %>><%=salestatistic_bank.getM_count() %></td>
-											<td <%=salestatistic_bank.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_bank.getM_credit()/100.0) %></td>
-											-->
+											<td class="col-md-1 text-right" <%=salestatistic_freevend.getM_credit()>0?"style='color:red;'":"" %>><%=String.format("%1.2f",salestatistic_freevend.getM_credit()/100.0) %></td>
 										</tr>
 										<% 		
 											}
@@ -510,24 +467,20 @@ $(function () {
 										%>
 										
 										<tr class="odd">
-											<td class=" sorting_1" colspan="3"><strong>Current Month Total</strong></td>
+											<td class=" sorting_1" colspan="3">Current Month Total</td>
 											
 											<td class="col-md-1 text-right" <%=all_count>0?"style='color:red;'":"" %>><%=all_count %></td>
 											<td class="col-md-1 text-right" <%=all_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f", all_credit/100.0) %></td>
 											<td class="col-md-1 text-right" <%=cash_count>0?"style='color:red;'":"" %>><%=cash_count %></td>
-											<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>											
+											<td class="col-md-1 text-right" <%=cash_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",cash_credit/100.0) %></td>
+											<td class="col-md-1 text-right" <%=card_count>0?"style='color:red;'":"" %>><%=card_count %></td>
+											<td class="col-md-1 text-right" <%=cardal_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",cardal_credit/100.0) %></td>											
 											<td class="col-md-1 text-right" <%=wx_count>0?"style='color:red;'":"" %>><%=wx_count %></td>
 											<td class="col-md-1 text-right" <%=wx_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",wx_credit/100.0) %></td>
 											<td class="col-md-1 text-right" <%=al_count>0?"style='color:red;'":"" %>><%=al_count %></td>
 											<td class="col-md-1 text-right" <%=al_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",al_credit/100.0) %></td>
 											<td class="col-md-1 text-right" <%=freevend_count>0?"style='color:red;'":"" %>><%=freevend_count %></td>
 											<td class="col-md-1 text-right" <%=freevend_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",freevend_credit/100.0) %></td>
-<!--											
-											<td <%=card_count>0?"style='color:red;'":"" %>><%=card_count %></td>
-											<td <%=cardal_credit>0?"style='color:red;'":"" %> ><%=String.format("%1.2f",cardal_credit/100.0) %></td>
-											<td <%=bank_count>0?"style='color:red;'":"" %>><%=bank_count %></td>
-											<td <%=bank_credit>0?"style='color:red;'":"" %>><%=String.format("%1.2f",bank_credit/100.0) %></td>
--->										
 										</tr>
 										<% 		
 											}

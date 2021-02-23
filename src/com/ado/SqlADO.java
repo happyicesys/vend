@@ -136,6 +136,83 @@ public class SqlADO {
 		{
 			return null;
 		}
+	}
+	
+	public static ArrayList<VenderBean> getVenderListById(String id) {
+		ResultSet rs=null;
+		PreparedStatement ps=null;
+		ArrayList<VenderBean> li=new ArrayList<VenderBean>(5);
+		Connection conn=ConnManager.getConnection(CN);
+		String sql="select t.id,t.BTime,t.TerminalName,t.TerminalAddress,t.UpdateTime,"
+				+ "t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount,"
+				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
+				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
+				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
+				+ "left join vendcategories v on v.id = t.vendcategory_id " 
+				+ "where t.id ="+id +" order by IsOnline desc,id asc";
+		try {
+			
+			ps= conn.prepareStatement(sql);
+			rs= ps.executeQuery();
+			while(rs.next())
+			{
+				VenderBean temv=new VenderBean();
+				temv.setAdminId(rs.getInt("AdminId"));
+				temv.setBTime(rs.getTimestamp("BTime"));
+				temv.setCanUse(rs.getBoolean("CanUse"));
+				temv.setGoodsPortCount(rs.getInt("goodsPortCount"));
+				temv.setHuodongId(rs.getInt("HuodongId"));
+				temv.setId(rs.getInt("id"));
+				temv.setIsOnline(rs.getBoolean("isOnline"));
+				temv.setSellerTyp(rs.getString("sellerTyp"));
+				temv.setTerminalAddress(rs.getString("terminalAddress"));
+				temv.setTerminalName(rs.getString("terminalName"));
+				temv.setUpdateTime(rs.getTimestamp("updateTime"));
+				
+				temv.setJindu(rs.getDouble("jindu"));
+				temv.setWeidu(rs.getDouble("weidu"));
+				temv.setGroupid(rs.getInt("groupid"));
+				
+				temv.setCoinAttube(rs.getInt("coinAttube"));
+				temv.setBills(rs.getInt("bills"));				
+				temv.setMdbDeviceStatus(rs.getInt("MdbDeviceStatus"));
+				temv.setGprs_Sign(rs.getInt("gprs_Sign"));
+				
+				temv.setTemperature(rs.getInt("temperature"));
+				temv.setFlags1(rs.getInt("flags1"));
+				temv.setFlags2(rs.getInt("flags2"));
+				temv.setFunction_flg(rs.getInt("function_flg"));
+				temv.setCoinAtbox(rs.getInt("coinAtbox"));
+				temv.setGprs_event_flg(rs.getShort("gprs_event_flg"));
+				
+				temv.setIRErrCnt(rs.getInt("IRErrCnt"));
+				temv.setLstSltE(rs.getInt("LstSltE"));
+				temv.setAuto_refund(rs.getInt("auto_refund"));				
+				temv.setManual_refund(rs.getInt("manual_refund"));	
+				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));	
+				temv.setId_Format(rs.getString("id_format"));	
+				temv.setAutoTransfer(rs.getInt("autoTransfer"));
+				
+				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
+				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
+				temv.setVendcategoryName(rs.getString("name"));				
+				li.add(temv);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnManager.freeConnection(CN, conn,rs,ps);
+		}
+		if(li.size()>0)
+		{
+			return li;
+		}
+		else
+		{
+			return null;
+		}
 	}	
 	
 	public static ArrayList<VenderBean> getVenderListByIdLimint(String limiteid,String id) {
@@ -149,11 +226,11 @@ public class SqlADO {
 				"t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund," + 
 				"t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,vc.name from TerminalInfo t" +
 				"left join vendcategories vc on vc.id = t.vendcategory_id " +
-				"where t.id=? and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc";
+				"where t.id="+id+" and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc";
 		try {
 			
 			ps= conn.prepareStatement(sql);
-			ps.setString(1, id);
+			//ps.setString(1, id);
 			rs= ps.executeQuery();
 			while(rs.next())
 			{
@@ -163,7 +240,7 @@ public class SqlADO {
 				temv.setCanUse(rs.getBoolean("CanUse"));
 				temv.setGoodsPortCount(rs.getInt("goodsPortCount"));
 				temv.setHuodongId(rs.getInt("HuodongId"));
-				temv.setId(rs.getInt("id"));
+				temv.setId(rs.getInt("Id"));
 				temv.setIsOnline(rs.getBoolean("isOnline"));
 				temv.setSellerTyp(rs.getString("sellerTyp"));
 				temv.setTerminalAddress(rs.getString("terminalAddress"));

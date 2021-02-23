@@ -33,7 +33,7 @@ public class SendMail {
         	
         InternetAddress from = new InternetAddress("system@happyice.com.sg");
         message.setFrom(from);
-        String happyiceadmin = "brianlee@happyice.com.my,daniel.ma@happyice.com.sg,kent@happyice.com.sg";
+        String happyiceadmin = "brianlee@happyice.com.my,daniel.ma@happyice.com.sg,kent@happyice.com.sg,technician1@happyice.com.sg";
         if(extraemails != null) {
         	happyiceadmin = happyiceadmin + "," + extraemails;
         }

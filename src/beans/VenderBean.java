@@ -221,7 +221,7 @@ public class VenderBean {
 	public static final int MDB_COMMUNICATION_CASHLESS=(1<<2);
 	
 	//temperature degree Celcius x 10
-	public static final int TEMP_ALERT_LIMIT = -120;
+	public static final int TEMP_ALERT_LIMIT = -110;
 	//time looping to send alert email
 	public static final int TEMP_ALERT_LOOP = 12;
 	//in the unit of minutes
@@ -230,7 +230,7 @@ public class VenderBean {
 	
 	//temperature degree more than 5 hours not dropping below -18
 	//temp degree celcius
-	public static final int TEMP_LONG_ALERT_LIMIT = -180;
+	public static final int TEMP_LONG_ALERT_LIMIT = -170;
 	//time looping to send alert email
 	public static final int TEMP_LONG_ALERT_LOOP = 10;
 	//in the unit of minutes
