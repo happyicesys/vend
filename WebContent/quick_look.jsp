@@ -181,10 +181,11 @@
 														for(PortBean pb:pbli)
 														{
 															if(
-																	((Integer.parseInt(pb.getInneridname()) == 41) ||
+																	((Integer.parseInt(pb.getInneridname()) >= 41 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
 																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || 
 																	(Integer.parseInt(pb.getInneridname()) >= 31 && Integer.parseInt(pb.getInneridname()) <= 36) || 
-																	(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 53)
+																	(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 54) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 63)
 																	) && pb.getCapacity() != 0 ) {
 																//pb.getCapacity()>pb.getAmount() && 
 																totalVolume += pb.getCapacity();

@@ -127,12 +127,14 @@ public class TradeList extends HttpServlet {
 			pageindex+= 1;
 			String orderId=ToolBox.filter(json1.getString("orderid"));
 			String  SellerId =ToolBox.filter(json1.getString("sellerid"));
+			String Serrcode=ToolBox.filter(json1.getString("serrcode"));
 			String PortId= ToolBox.filter(json1.getString("portid"));
 			String CardNumber=ToolBox.filter(json1.getString("CardNumber"));
-			int Success=ToolBox.filterInt(json1.getString("success"));
+			int Changestatus=ToolBox.filterInt(json1.getString("changestatus"));
 			int jiesuan=ToolBox.filterInt(json1.getString("jiesuan"));
 			/*int PaySuccess=ToolBox.filterInt(json1.getString("paysuccess"));*/
 			int maxrows=ToolBox.filterInt(json1.getString("maxrows"));
+			int Sendstatus = ToolBox.filterInt(json1.getString("sendstatus"));
 			
 			int tradetype=ToolBox.filterInt(json1.getString("tradetype"));
 			if(maxrows<=0)
@@ -177,18 +179,43 @@ public class TradeList extends HttpServlet {
 			{
 				sql+=" (traderecordinfo.goodmachineid in("+ub.getCanAccessSellerid()+")) and";
 			}
+			
+			if(!Serrcode.equals(""))
+			{
+				Serrcode=Serrcode.replaceAll("，",",");
+				String[] serrcodeStr;
+				serrcodeStr=Serrcode.split(",",0);
+				Serrcode="";
+				for(int i=0;i<serrcodeStr.length;i++)
+				{
+					int codes=ToolBox.filterInt(serrcodeStr[i]);
+					//检查所输入的是否全部位数字
+					if(codes>0)
+					{
+
+						Serrcode+=codes+",";
+					}
+				}
+				if(Serrcode.endsWith(",")) 
+				{
+					Serrcode=Serrcode.substring(0,Serrcode.length()-1);
+				}
+
+				sql+=" (traderecordinfo.sErr in("+Serrcode+")) and";
+			}
+		
 				
 			if(!PortId.equals(""))
 			{
 				PortId=PortId.replaceAll("，",",");
 				sql+=" (traderecordinfo.goodroadid in("+PortId+")) and";
 			}
-			if(Success==1)//成功的
+			if(Changestatus==1)//成功的
 			{
-				sql+=" traderecordinfo.sendstatus=1 and";
-			}else if(Success==2)//不成功的
+				sql+=" traderecordinfo.changestatus=1 and";
+			}else if(Changestatus==2)//不成功的
 			{
-				sql+=" traderecordinfo.sendstatus=0 and";
+				sql+=" traderecordinfo.changestatus=0 and";
 			}
 			
 			if(jiesuan==1)//已经结算的
@@ -198,6 +225,14 @@ public class TradeList extends HttpServlet {
 			{
 				sql+=" traderecordinfo.has_jiesuan=0 and";
 			}
+			
+			if(Sendstatus==1)//成功的
+			{
+				sql+=" traderecordinfo.sendstatus=1 and";
+			}else if(Sendstatus==2)//不成功的
+			{
+				sql+=" traderecordinfo.sendstatus=0 and";
+			}			
 			
 			if(tradetype!=clsConst.TRADE_TYPE_NO_LIMIT)
 			{
@@ -241,6 +276,7 @@ public class TradeList extends HttpServlet {
 			jo.put("SmsContent", tb.getSmsContent());
 			jo.put("orderid", tb.getOrderid());
 			jo.put("goodsName", tb.getGoodsName());
+			jo.put("sErr", tb.getSErr());
 			
 			jo.put("inneridname", tb.getInneridname());
 			//jo.put("xmlstr", tb.getXmlstr());

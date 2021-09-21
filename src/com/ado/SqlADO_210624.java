@@ -1,6 +1,6 @@
 package com.ado;
 
-//SELECT     TOP (500) id, liushuiid, cardinfo, price, mobilephone, receivetime, tradetype, goodmachineid, goodroadid, goodsname, sendstatus, changestatus,
+//SELECT     TOP (500) id, liushuiid, cardinfo, price, mobilephone, receivetime, tradetype, goodmachineid, goodroadid, goodsname, sendstatus, changestatus, 
 //orderid
 //FROM         traderecordinfo
 //WHERE     (id NOT IN
@@ -29,7 +29,6 @@ import beans.RefundBean;
 
 import beans.VenderBean;
 import beans.WxTradeLog;
-import beans.TempBean;
 import beans.TradeBean;
 import beans.clsGetGoodsCode;
 import beans.clsGroupBean;
@@ -45,21 +44,21 @@ import com.connectionpool.DBConnectionManager;
 import com.tools.ToolBox;
 
 public class SqlADO {
-
+	
 	public static final int EVENT_UPDATA_SLOT=0;
 	public static final int EVENT_UPDATA_VNEDER=1;
-
-
+	
+	
 	private static DBConnectionManager ConnManager=DBConnectionManager.getInstance();
 	private final static String CN="BlueShine";
-	public final static String CMPPDB="CMPPDB";
-
-
+	public final static String CMPPDB="CMPPDB";	
+	
+	
 	//private static c3p0Connect ConnManager=c3p0Connect.getInstance();
 //	private final static String CN="BlueShine";
-//	public final static String CMPPDB="CMPPDB";
+//	public final static String CMPPDB="CMPPDB";	
 
-
+	
 
 
 	public static ArrayList<VenderBean> getVenderListByIdLimint(String limiteid) {
@@ -72,10 +71,10 @@ public class SqlADO {
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
 				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
-				+ "left join vendcategories v on v.id = t.vendcategory_id "
+				+ "left join vendcategories v on v.id = t.vendcategory_id " 
 				+ "where t.id in("+limiteid +") order by IsOnline desc,id asc";
 		try {
-
+			
 			ps= conn.prepareStatement(sql);
 			rs= ps.executeQuery();
 			while(rs.next())
@@ -92,34 +91,34 @@ public class SqlADO {
 				temv.setTerminalAddress(rs.getString("terminalAddress"));
 				temv.setTerminalName(rs.getString("terminalName"));
 				temv.setUpdateTime(rs.getTimestamp("updateTime"));
-
+				
 				temv.setJindu(rs.getDouble("jindu"));
 				temv.setWeidu(rs.getDouble("weidu"));
 				temv.setGroupid(rs.getInt("groupid"));
-
+				
 				temv.setCoinAttube(rs.getInt("coinAttube"));
-				temv.setBills(rs.getInt("bills"));
+				temv.setBills(rs.getInt("bills"));				
 				temv.setMdbDeviceStatus(rs.getInt("MdbDeviceStatus"));
 				temv.setGprs_Sign(rs.getInt("gprs_Sign"));
-
+				
 				temv.setTemperature(rs.getInt("temperature"));
 				temv.setFlags1(rs.getInt("flags1"));
 				temv.setFlags2(rs.getInt("flags2"));
 				temv.setFunction_flg(rs.getInt("function_flg"));
 				temv.setCoinAtbox(rs.getInt("coinAtbox"));
 				temv.setGprs_event_flg(rs.getShort("gprs_event_flg"));
-
+				
 				temv.setIRErrCnt(rs.getInt("IRErrCnt"));
 				temv.setLstSltE(rs.getInt("LstSltE"));
-				temv.setAuto_refund(rs.getInt("auto_refund"));
-				temv.setManual_refund(rs.getInt("manual_refund"));
-				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
-				temv.setId_Format(rs.getString("id_format"));
+				temv.setAuto_refund(rs.getInt("auto_refund"));				
+				temv.setManual_refund(rs.getInt("manual_refund"));	
+				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));	
+				temv.setId_Format(rs.getString("id_format"));	
 				temv.setAutoTransfer(rs.getInt("autoTransfer"));
-
+				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
-				temv.setVendcategoryName(rs.getString("name"));
+				temv.setVendcategoryName(rs.getString("name"));				
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -138,7 +137,7 @@ public class SqlADO {
 			return null;
 		}
 	}
-
+	
 	public static ArrayList<VenderBean> getVenderListById(String id) {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
@@ -149,10 +148,10 @@ public class SqlADO {
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
 				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
-				+ "left join vendcategories v on v.id = t.vendcategory_id "
+				+ "left join vendcategories v on v.id = t.vendcategory_id " 
 				+ "where t.id ="+id +" order by IsOnline desc,id asc";
 		try {
-
+			
 			ps= conn.prepareStatement(sql);
 			rs= ps.executeQuery();
 			while(rs.next())
@@ -169,34 +168,34 @@ public class SqlADO {
 				temv.setTerminalAddress(rs.getString("terminalAddress"));
 				temv.setTerminalName(rs.getString("terminalName"));
 				temv.setUpdateTime(rs.getTimestamp("updateTime"));
-
+				
 				temv.setJindu(rs.getDouble("jindu"));
 				temv.setWeidu(rs.getDouble("weidu"));
 				temv.setGroupid(rs.getInt("groupid"));
-
+				
 				temv.setCoinAttube(rs.getInt("coinAttube"));
-				temv.setBills(rs.getInt("bills"));
+				temv.setBills(rs.getInt("bills"));				
 				temv.setMdbDeviceStatus(rs.getInt("MdbDeviceStatus"));
 				temv.setGprs_Sign(rs.getInt("gprs_Sign"));
-
+				
 				temv.setTemperature(rs.getInt("temperature"));
 				temv.setFlags1(rs.getInt("flags1"));
 				temv.setFlags2(rs.getInt("flags2"));
 				temv.setFunction_flg(rs.getInt("function_flg"));
 				temv.setCoinAtbox(rs.getInt("coinAtbox"));
 				temv.setGprs_event_flg(rs.getShort("gprs_event_flg"));
-
+				
 				temv.setIRErrCnt(rs.getInt("IRErrCnt"));
 				temv.setLstSltE(rs.getInt("LstSltE"));
-				temv.setAuto_refund(rs.getInt("auto_refund"));
-				temv.setManual_refund(rs.getInt("manual_refund"));
-				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
-				temv.setId_Format(rs.getString("id_format"));
+				temv.setAuto_refund(rs.getInt("auto_refund"));				
+				temv.setManual_refund(rs.getInt("manual_refund"));	
+				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));	
+				temv.setId_Format(rs.getString("id_format"));	
 				temv.setAutoTransfer(rs.getInt("autoTransfer"));
-
+				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
-				temv.setVendcategoryName(rs.getString("name"));
+				temv.setVendcategoryName(rs.getString("name"));				
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -214,8 +213,8 @@ public class SqlADO {
 		{
 			return null;
 		}
-	}
-
+	}	
+	
 	public static ArrayList<VenderBean> getVenderListByIdLimint(String limiteid,String id) {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
@@ -224,12 +223,12 @@ public class SqlADO {
 		String sql="select t.id,t.BTime,t.TerminalName,t.TerminalAddress,t.UpdateTime," +
 				"t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount," +
 				"t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign," +
-				"t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund," +
+				"t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund," + 
 				"t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,vc.name from TerminalInfo t" +
 				"left join vendcategories vc on vc.id = t.vendcategory_id " +
 				"where t.id="+id+" and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc";
 		try {
-
+			
 			ps= conn.prepareStatement(sql);
 			//ps.setString(1, id);
 			rs= ps.executeQuery();
@@ -247,31 +246,31 @@ public class SqlADO {
 				temv.setTerminalAddress(rs.getString("terminalAddress"));
 				temv.setTerminalName(rs.getString("terminalName"));
 				temv.setUpdateTime(rs.getTimestamp("updateTime"));
-
+				
 				temv.setJindu(rs.getDouble("jindu"));
 				temv.setWeidu(rs.getDouble("weidu"));
 				temv.setGroupid(rs.getInt("groupid"));
-
+				
 				temv.setCoinAttube(rs.getInt("coinAttube"));
-				temv.setBills(rs.getInt("bills"));
+				temv.setBills(rs.getInt("bills"));				
 				temv.setMdbDeviceStatus(rs.getInt("MdbDeviceStatus"));
 				temv.setGprs_Sign(rs.getInt("gprs_Sign"));
-
+				
 				temv.setTemperature(rs.getInt("temperature"));
 				temv.setFlags1(rs.getInt("flags1"));
 				temv.setFlags2(rs.getInt("flags2"));
 				temv.setFunction_flg(rs.getInt("function_flg"));
 				temv.setCoinAtbox(rs.getInt("coinAtbox"));
 				temv.setGprs_event_flg(rs.getShort("gprs_event_flg"));
-
+				
 				temv.setIRErrCnt(rs.getInt("IRErrCnt"));
 				temv.setLstSltE(rs.getInt("LstSltE"));
-				temv.setAuto_refund(rs.getInt("auto_refund"));
+				temv.setAuto_refund(rs.getInt("auto_refund"));	
 				temv.setManual_refund(rs.getInt("manual_refund"));
 				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
 				temv.setId_Format(rs.getString("id_format"));
 				temv.setAutoTransfer(rs.getInt("autoTransfer"));
-
+				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setVendcategoryName(rs.getString("name"));
@@ -292,12 +291,12 @@ public class SqlADO {
 		{
 			return null;
 		}
-	}
-
+	}	
+	
 	public static ArrayList<VenderBean> getVenderBeanList_cv() {
 		return getVenderBeanList_cv(0);
 	}
-
+	
 	public static ArrayList<VenderBean> getVenderBeanList_cv(int AdminId) {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
@@ -328,8 +327,8 @@ public class SqlADO {
 				temv.setTerminalAddress(rs.getString("terminalAddress"));
 				temv.setTerminalName(rs.getString("terminalName"));
 				temv.setUpdateTime(rs.getTimestamp("updateTime"));
-
-				temv.setAuto_refund(rs.getInt("auto_refund"));
+				
+				temv.setAuto_refund(rs.getInt("auto_refund"));	
 				temv.setManual_refund(rs.getInt("manual_refund"));
 				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
 				temv.setGroupid(rs.getInt("groupid"));
@@ -346,11 +345,11 @@ public class SqlADO {
 		}
 		return li;
 	}
-
+	
 	public static ArrayList<VenderBean> getVenderBeanList() {
 		return getVenderBeanList(0);
 	}
-
+	
 	public static ArrayList<VenderBean> getVenderBeanList(int AdminId) {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
@@ -383,8 +382,8 @@ public class SqlADO {
 				temv.setTerminalAddress(rs.getString("terminalAddress"));
 				temv.setTerminalName(rs.getString("terminalName"));
 				temv.setUpdateTime(rs.getTimestamp("updateTime"));
-
-				temv.setAuto_refund(rs.getInt("auto_refund"));
+				
+				temv.setAuto_refund(rs.getInt("auto_refund"));	
 				temv.setManual_refund(rs.getInt("manual_refund"));
 				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
 				temv.setGroupid(rs.getInt("groupid"));
@@ -409,19 +408,19 @@ public class SqlADO {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
 		VenderBean temv=null;
-
+		
 		int i=1;
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="select top 1 t.AdminId, t.BTime, t.TerminalName, t.TerminalAddress, t.UpdateTime," +
 				" t.IsOnline, t.HuodongId, t.SellerTyp, t.TelNum, t.GoodsPortCount, t.TipMesOnLcd," +
 				" t.CanUse, t.queueMaxLength, t.jindu, t.weidu, t.groupid, t.coinAttube, t.MdbDeviceStatus, t.gprs_Sign," +
-				" t.temperature, t.flags1, t.flags2, t.function_flg, t.coinAtbox, t.gprs_event_flg, t.vmc_firmfile, t.IRErrCnt, t.LstSltE, t.pos_PWD,"+
-				" t.code_ver, t.id_format, t.auto_refund, t.manual_refund, t.AllowUpdateGoodsByPc, t.autoTransfer, t.autoTransferRation, t.TemperUpdateTime, t.temp_alert, t.offline_alert, vc.name, t.long_temp_loop, t.long_temp_alert_sent, t.long_temp_loop_starttime, "+
+				" t.temperature, t.flags1, t.flags2, t.function_flg, t.coinAtbox, t.gprs_event_flg, t.vmc_firmfile, t.IRErrCnt, t.LstSltE, t.pos_PWD,"+ 
+				" t.code_ver, t.id_format, t.auto_refund, t.manual_refund, t.AllowUpdateGoodsByPc, t.autoTransfer, t.autoTransferRation, t.TemperUpdateTime, t.temp_alert, t.offline_alert, vc.name, t.long_temp_loop, t.long_temp_alert_sent, t.long_temp_loop_starttime, "+ 
 				" t.refill_temp_loop, t.refill_temp_alert_sent, t.refill_temp_loop_starttime, t.temp_alert_extra_emails " +
 				" from TerminalInfo t " +
 				" left join vendcategories vc on vc.id=t.vendcategory_id " +
 				" where t.id=?";
-
+		
 		try {
 			ps=conn.prepareStatement(sql);
 			ps.setInt(i++, id);
@@ -449,29 +448,29 @@ public class SqlADO {
 
 				temv.setCoinAttube(rs.getInt("coinAttube"));
 				temv.setMdbDeviceStatus(rs.getInt("MdbDeviceStatus"));
-				temv.setGprs_Sign(rs.getInt("gprs_Sign"));
+				temv.setGprs_Sign(rs.getInt("gprs_Sign"));	
 				temv.setTemperature(rs.getInt("temperature"));
 				temv.setFlags1(rs.getInt("flags1"));
 				temv.setFlags2(rs.getInt("flags2"));
 				temv.setFunction_flg(rs.getInt("function_flg"));
 				temv.setCoinAtbox(rs.getInt("coinAtbox"));
 				temv.setGprs_event_flg(rs.getShort("gprs_event_flg"));
-
+				
 				temv.setVmc_firmfile(rs.getString("vmc_firmfile"));
-
+				
 				temv.setIRErrCnt(rs.getInt("IRErrCnt"));
 				temv.setLstSltE(rs.getInt("LstSltE"));
-
+				
 				temv.setPos_PWD(rs.getString("pos_PWD"));
-
+				
 				temv.setId_Format(rs.getString("id_format"));
-
+				
 				temv.setCode_ver(rs.getInt("code_ver"));
 				temv.setAuto_refund(rs.getInt("auto_refund"));
-				temv.setManual_refund(rs.getInt("manual_refund"));
+				temv.setManual_refund(rs.getInt("manual_refund"));	
 				temv.setM_AllowUpdateGoodsByPc(rs.getInt("AllowUpdateGoodsByPc"));
 				temv.setAutoTransfer(rs.getInt("autoTransfer"));
-
+				
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setTemp_alert(rs.getInt("temp_alert"));
@@ -510,7 +509,7 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,s);
 		}
-	}
+	}	
 	public static void updateSeller(VenderBean vb) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -518,7 +517,7 @@ public class SqlADO {
 				"terminalAddress=?,terminalName=?,tipMesOnLcd=?,updateTime=getdate(),CanUse=?," +
 				"jindu=?,weidu=?,[TelNum]=?,[groupid]=?,vmc_firmfile=?,[AdminId]=?,[auto_refund]=?,"
 				+ "[manual_refund]=?,[AllowUpdateGoodsByPc]=?,[autoTransfer]=?,autoTransferRation=?,[temp_alert]=?,[temp_alert_extra_emails]=? where id=?";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -532,10 +531,10 @@ public class SqlADO {
 			ps.setBoolean(i++, vb.isCanUse());//
 			ps.setDouble(i++, vb.getJindu());//
 			ps.setDouble(i++, vb.getWeidu());//
-
+			
 			ps.setString(i++, vb.getTelNum());//
 			ps.setInt(i++, vb.getGroupid());//
-			ps.setString(i++, vb.getVmc_firmfile());//
+			ps.setString(i++, vb.getVmc_firmfile());//	
 			ps.setInt(i++, vb.getAdminId());//
 			ps.setInt(i++, vb.getAuto_refund());//
 			ps.setInt(i++, vb.getManual_refund());//
@@ -545,8 +544,8 @@ public class SqlADO {
 			ps.setInt(i++, vb.getTemp_alert());
 			ps.setString(i++, vb.getTempAlertExtraEmails());
 			ps.setInt(i++, vb.getId());
-
-
+			
+			
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -557,7 +556,7 @@ public class SqlADO {
 		}
 
 	}
-
+	
 	//INSERT [TerminalInfo] ([Id],[AdminId],[BTime],[TerminalName],[TerminalAddress],[UpdateTime],[IsOnline],[HuodongId],[SellerTyp],[GoodsPortCount],[TipMesOnLcd],[CanUse],[queueMaxLength],[isActive],[jindu],[weidu],[pos_TERM_NO],[pos_INST_NO],[pos_MERCH_NO],[pos_CLIENTAUTHCOD],[pos_USERNAME],[pos_PWD],[TelNum],[groupid]) VALUES ( 1,0,N'2012-9-27 15:24:30',N'智能微超-1',N'贵州省贵阳市云岩区中华北路99号美佳大厦南楼',N'2013-5-8 9:49:51',1,0,N'WX_WINE_8',8,N'/#/欢迎使用手机支付自动售货机。/#/',1,1,1,106.71785,26.593861,N'60688014',N'00000000',N'011100592100015',N'3131313131313131',N'lqbj',N'1234',N'13910349593',0)
 
 	public static boolean AddSeller(VenderBean vb) {
@@ -570,7 +569,7 @@ public class SqlADO {
 				"[pos_CLIENTAUTHCOD],[pos_USERNAME],[pos_PWD],[TelNum],[groupid],[auto_refund],"
 				+ "[manual_refund],[id_format],[AllowUpdateGoodsByPc],[autoTransfer],[autoTransferRation]) " +
 				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -589,17 +588,17 @@ public class SqlADO {
 			ps.setBoolean(i++, vb.isCanUse());
 			ps.setInt(i++, vb.getQueueMaxLength());
 			ps.setBoolean(i++, vb.isActive());
-
+			
 			ps.setDouble(i++, vb.getJindu());
 			ps.setDouble(i++, vb.getWeidu());
-
+			
 			ps.setString(i++, vb.getPos_TERM_NO());
 			ps.setString(i++, vb.getPos_INST_NO());
 			ps.setString(i++, vb.getPos_MERCH_NO());
 			ps.setString(i++, vb.getPos_CLIENTAUTHCOD());
 			ps.setString(i++, vb.getPos_USERNAME());
 			ps.setString(i++, vb.getPos_PWD());
-
+			
 			ps.setString(i++, vb.getTelNum());
 			ps.setInt(i++, vb.getGroupid());
 			ps.setInt(i++, vb.getAuto_refund());
@@ -619,7 +618,7 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
+	
 
 	public static int getAdminIdofSeller(int sellerid) {
 		PreparedStatement ps=null;
@@ -642,7 +641,7 @@ public class SqlADO {
 		}
 		return tem;
 	}
-
+	
 	public static PortBean getPortBean(int mid,int sid)
 	{
 		PreparedStatement ps=null;
@@ -655,7 +654,7 @@ public class SqlADO {
 					"al_tradeid,al_tradeid2,wx_tradeid,wx_tradeid2,updateqrtime,updateqrtime2" +
 					" FROM goodroadinfo ";
 
-		sql+="WHERE machineid ="+mid +" and innerid="+sid;
+		sql+="WHERE machineid ="+mid +" and innerid="+sid;	
 
 		sql+=" order by machineid,innerid asc";
 		try {
@@ -681,12 +680,12 @@ public class SqlADO {
 				temp.setDeviceid(rs.getInt("deviceid"));
 				temp.setDiscount(rs.getInt("discount"));
 				temp.setPauseFlg(rs.getInt("PauseFlg"));
-
+				
 				temp.setQrcode(rs.getString("qrcode"));
 				temp.setQrcode2(rs.getString("qrcode2"));
 				temp.setAl_trade(rs.getString("al_tradeid"));
 				temp.setAl_trade2(rs.getString("al_tradeid2"));
-
+				
 				temp.setWx_qrcode(rs.getString("wx_qrcode"));
 				temp.setWx_qrcode2(rs.getString("wx_qrcode2"));
 				temp.setWx_trade(rs.getString("wx_tradeid"));
@@ -703,7 +702,7 @@ public class SqlADO {
 		}
 		return temp;
 	}
-
+	
 	public static PortBean getPortBean(int id)
 	{
 		PreparedStatement ps=null;
@@ -715,7 +714,7 @@ public class SqlADO {
 					" FROM goodroadinfo WHERE id=? " +
 					"order by machineid,innerid asc";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, id);
@@ -803,7 +802,7 @@ public class SqlADO {
 				temp.setQrcode2(rs.getString("qrcode2"));
 				temp.setAl_trade(rs.getString("al_tradeid"));
 				temp.setAl_trade2(rs.getString("al_tradeid2"));
-
+				
 				temp.setWx_qrcode(rs.getString("wx_qrcode"));
 				temp.setWx_qrcode2(rs.getString("wx_qrcode2"));
 				temp.setWx_trade(rs.getString("wx_tradeid"));
@@ -819,7 +818,7 @@ public class SqlADO {
 		}
 		return li;
 	}
-
+	
 	public static int getPortBeanCount(int SellerId,int deviceid)
 	{
 		int count=0;
@@ -847,11 +846,11 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return count;
 	}
-
-
+	
+	
 	public static ArrayList<PortBean> getPortBeanList(int SellerId,int pageindex,int countperpage,int deviceid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -870,14 +869,14 @@ public class SqlADO {
 		{
 			sql+="WHERE id not in(select top("+((pageindex-1)*countperpage)+") id from goodroadinfo where deviceid="+deviceid+" and machineid="+SellerId+" order by innerid asc) and machineid ="+SellerId;
 		}
-
+		
 		if(deviceid>0)
 		{
 			sql+=" and deviceid ="+deviceid;
 		}
 
 		sql+=" order by innerid asc";
-
+		
 		//System.out.println(sql);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -903,7 +902,7 @@ public class SqlADO {
 				temp.setProduct_img(rs.getString("product_img"));
 				temp.setPauseFlg(rs.getInt("PauseFlg"));
 				li.add(temp);
-
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -914,8 +913,8 @@ public class SqlADO {
 		}
 		return li;
 	}
-
-
+	
+	
 	public static int getTradeRowsCount(String str)
 	{
 		ResultSet rs=null;
@@ -923,13 +922,13 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		String sql=null;
 		int c=0;
-
+		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("SELECT count(traderecordinfo.id) as c FROM traderecordinfo where ");
 		stringBuilder.append(str);
 		sql=stringBuilder.toString();
 
-
+		
 		try {
 			st=conn.createStatement();
 			rs=st.executeQuery(sql);
@@ -946,7 +945,7 @@ public class SqlADO {
 		}
 		return c;
 	}
-
+	
 	public static ArrayList<TradeBean> getTradeList(String str,int page,int max)
 	{
 		ArrayList<TradeBean> li=new ArrayList<TradeBean>(max);
@@ -954,7 +953,7 @@ public class SqlADO {
 		Statement st=null;
 		Connection conn=ConnManager.getConnection(CN);
 		String sql=null;
-
+		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("SELECT top ");
 		stringBuilder.append(max);
@@ -980,7 +979,7 @@ public class SqlADO {
 			{
 				TradeBean tb=new TradeBean();
 				tb.setId(rs.getInt(1));
-
+				
 				tb.setLiushuiid(rs.getString(2));
 				tb.setCardinfo(rs.getString(3));
 				tb.setPrice(rs.getInt(4));
@@ -989,12 +988,12 @@ public class SqlADO {
 				tb.setTradetype(rs.getInt(7));
 				tb.setGoodmachineid(rs.getInt(8));
 				tb.setGoodroadid(rs.getInt(9));
-				tb.setGoodsName(rs.getString(10));
+				tb.setGoodsName(rs.getString(10));				
 				tb.setSendstatus(rs.getInt(11));
 				tb.setChangestatus(rs.getInt(12));
 				tb.setOrderid(rs.getString(13));
 				tb.setChanges(rs.getInt(14));
-				tb.setCoin_credit(rs.getInt(15));
+				tb.setCoin_credit(rs.getInt(15));				
 				tb.setBill_credit(rs.getInt(16));
 				tb.setInneridname(rs.getString("inneridname"));
 				tb.setXmlstr(rs.getString("xmlstr"));
@@ -1013,7 +1012,7 @@ public class SqlADO {
 		}
 		return li;
 	}
-
+	
 	public static ArrayList<TradeBean> getTradeListFromTemp(String where)
 	{
 		ArrayList<TradeBean> li=new ArrayList<TradeBean>();
@@ -1064,14 +1063,14 @@ public class SqlADO {
 		}
 		return li;
 	}
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
 	public static boolean updatePort(int id, String fieldname, String value) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1093,7 +1092,7 @@ public class SqlADO {
 		}
 		return true;
 	}
-
+	
 	public static boolean updatePort(int id, String fieldname, int value) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1116,7 +1115,7 @@ public class SqlADO {
 		return true;
 	}
 
-
+	
 	public static String VenderBeanID() {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1141,8 +1140,8 @@ public class SqlADO {
 		}
 		return st.toString();
 	}
-
-
+	
+	
 //	public static void updateSelf(UserBean ub) {
 //		StringBuilder stringBuilder = new StringBuilder();
 //		stringBuilder.append("update admininfo set ");
@@ -1155,11 +1154,11 @@ public class SqlADO {
 //		stringBuilder.append("admintelephone='");
 //		stringBuilder.append(ub.getAdmintelephone());
 //		stringBuilder.append("',");
-//
+//		
 //		stringBuilder.append("Adminrights='");
 //		stringBuilder.append(ub.getAdminrights());
 //		stringBuilder.append("',");
-//
+//		
 //		stringBuilder.append("adminmobilephone='");
 //		stringBuilder.append(ub.getAdminmobilephone());
 //		stringBuilder.append("',");
@@ -1194,7 +1193,7 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
+	
 	public static void updatePort(int sellerId, int s, int e, String fieldname,int value) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1217,8 +1216,8 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
-
+	
+	
 	public static String getSmsContent(int id) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1242,7 +1241,7 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		TradeBean tb=null;
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="SELECT top 1 id,liushuiid,cardinfo,orderid,price,mobilephone,tradetype,goodmachineid,"
 				+ "goodroadid,changestatus,sendstatus,status,receivetime,xmlstr,goodsname,"
@@ -1258,14 +1257,14 @@ public class SqlADO {
 				tb=new TradeBean();
 				tb.setId(rs.getInt("id"));
 				tb.setLiushuiid(rs.getString("liushuiid"));
-
+				
 				tb.setCardinfo(rs.getString("cardinfo"));
-
+				
 				tb.setOrderid(rs.getString("orderid"));
 				tb.setPrice(rs.getInt("price"));
 				tb.setMobilephone(rs.getString("mobilephone"));
 				tb.setTradetype(rs.getInt("tradetype"));
-
+				
 				tb.setGoodmachineid(rs.getInt("goodmachineid"));
 				tb.setGoodroadid(rs.getInt("goodroadid"));
 				tb.setChangestatus(rs.getInt("changestatus"));
@@ -1275,9 +1274,9 @@ public class SqlADO {
 				tb.setXmlstr(rs.getString("xmlstr"));
 				tb.setGoodsName(rs.getString("goodsname"));
 				tb.setChanges(rs.getInt("changes"));
-
+				
 				tb.setCoin_credit(rs.getInt("coin_credit"));
-
+				
 				tb.setBill_credit(rs.getInt("bill_credit"));
 				tb.setInneridname(rs.getString("inneridname"));
 				tb.setHas_feeback(rs.getInt("has_feeback"));
@@ -1300,12 +1299,12 @@ public class SqlADO {
 	{
 		return getTradeBean(orderid,"traderecordinfo_tem");
 	}
-
+	
 	public static TradeBean getTradeBean(String orderid,String tablename) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		TradeBean tb=null;
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="SELECT top 1 id,liushuiid,cardinfo,orderid,price,mobilephone,tradetype,goodmachineid,"
 				+ "goodroadid,changestatus,sendstatus,status,receivetime,xmlstr,goodsname,"
@@ -1321,14 +1320,14 @@ public class SqlADO {
 				tb=new TradeBean();
 				tb.setId(rs.getInt("id"));
 				tb.setLiushuiid(rs.getString("liushuiid"));
-
+				
 				tb.setCardinfo(rs.getString("cardinfo"));
-
+				
 				tb.setOrderid(rs.getString("orderid"));
 				tb.setPrice(rs.getInt("price"));
 				tb.setMobilephone(rs.getString("mobilephone"));
 				tb.setTradetype(rs.getInt("tradetype"));
-
+				
 				tb.setGoodmachineid(rs.getInt("goodmachineid"));
 				tb.setGoodroadid(rs.getInt("goodroadid"));
 				tb.setChangestatus(rs.getInt("changestatus"));
@@ -1359,18 +1358,18 @@ public class SqlADO {
 
 
 
+	
 
+	
+	
+	
 
-
-
-
-
-	public static boolean SetPortGoods(int colid, int goodsid,int price)
+	public static boolean SetPortGoods(int colid, int goodsid,int price) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="update goodroadinfo set goodsid=?,price=?,updatetime=getdate() where id=?";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1388,8 +1387,8 @@ public class SqlADO {
 		}
 		return false;
 	}
-
-	public static boolean SetPortGoods(int colid, int goodsid)
+	
+	public static boolean SetPortGoods(int colid, int goodsid) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1411,7 +1410,7 @@ public class SqlADO {
 		}
 		return false;
 	}
-
+	
 	public static boolean deleteGoods(int goodsid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1431,12 +1430,12 @@ public class SqlADO {
 		}
 		return false;
 	}
-
+	
 	public static boolean UpdateGoods(int goodsid,int price,String goodsname, String des1, String des2,String des3, String pic1) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="update goodsinfo set goodsname=?, price=?,picname=?,des1=?,des2=?,des3=? where id=?";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1486,26 +1485,26 @@ public class SqlADO {
 	}
 	public static boolean updatePort(int sellerId, int i, int amount,int capacity, int price,int discount) {
 		String sql="update [goodroadinfo] set updatetime=getdate(),price="
-				+price+ ",amount="+amount+
+				+price+ ",amount="+amount+ 
 				",capacity="+capacity+",discount="+ discount +" where machineid="+sellerId +" and innerid="+i;
 		return exec(sql);
-
+		
 	}
 	public static boolean updatePort(int sellerId, int i, int amount,int capacity, int price, int discount, int goodsid) {
 		String sql="update [goodroadinfo] set updatetime=getdate(),price="
-				+price+ ",amount="+amount+
+				+price+ ",amount="+amount+ 
 				",capacity="+capacity+",discount="+ discount +",goodsid="+ goodsid +" where machineid="+sellerId +" and innerid="+i;
 		return exec(sql);
 	}
-
+	
 	public static boolean updatePortFault(int sellerId, String inneridname, int i) {
-		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+
+		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+ 
 				",errorinfo=(select top(1) des from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and inneridname='"+inneridname+"'";
 		return exec(sql);
 	}
 	public static boolean updatePortFault(int sellerId, int innerid, int i) {
-		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+
-				" ,errorinfo=(select top(1) des from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;
+		String sql="update [goodroadinfo] set lastErrorTime=getdate(),iserror="+i+ 
+				" ,errorinfo=(select top(1) des from [slot_errcode_tab] where errcode="+ i+") where machineid="+sellerId +" and innerid="+innerid;		
 		return exec(sql);
 	}
 	public static boolean ChkVenderRepeat(int vid) {
@@ -1520,7 +1519,7 @@ public class SqlADO {
 		String sql="INSERT INTO [goodroadinfo] ([machineid],[innerid],[amount],[price],[capacity]" +
 				",[goodroadname],[updatetime],[iserror],[errorinfo],[lastErrorTime],[goodsid]" +
 				",[DeviceId],[inneridname]) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1548,7 +1547,7 @@ public class SqlADO {
 		}
 	}
 
-
+	
 	public static int getAllSalesByDate(java.util.Date temdate,String limit)
 	{
 		PreparedStatement ps=null;
@@ -1560,7 +1559,7 @@ public class SqlADO {
 		{
 			limit="-1";
 		}
-
+		
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("SELECT ");
 		String sql="select sum(price) as amount from [traderecordinfo] where (receivetime between ? and ?)" +
@@ -1569,7 +1568,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(sql);
 			ps.setDate(1,new Date(temdate.getTime()));
 			ps.setDate(2,new Date(temdate.getTime()+24*60*60*1000));
-
+			
 			ps.setBoolean(3,true);
 			ps.setBoolean(4,true);
 			rs=ps.executeQuery();
@@ -1587,10 +1586,10 @@ public class SqlADO {
 		}
 		return amount;
 	}
+	
 
-
-
-
+	
+	
 	public static boolean SetPortGoodsCount(int vid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1610,7 +1609,7 @@ public class SqlADO {
 		}
 		return false;
 	}
-
+	
 
 	public static void UpdateMechine_CoinAmont(int vid, int amount) {
 		PreparedStatement ps=null;
@@ -1634,7 +1633,7 @@ public class SqlADO {
 
 
 
-	public static void UpdatePortAndGoodsid(ArrayList<PortBean> plst)
+	public static void UpdatePortAndGoodsid(ArrayList<PortBean> plst) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1643,7 +1642,7 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
-			for (PortBean portBean : plst)
+			for (PortBean portBean : plst) 
 			{
 				int i=1;
 				ps.setInt(i++,portBean.getAmount());
@@ -1652,9 +1651,9 @@ public class SqlADO {
 				ps.setInt(i++,portBean.getGoodsid());
 				ps.setInt(i++,portBean.getError_id());
 				ps.setInt(i++,portBean.getError_id());
-
+				
 				ps.setInt(i++,portBean.getPauseFlg());
-
+				
 				ps.setInt(i++,portBean.getMachineid());
 				ps.setInt(i++,portBean.getInnerid());
 				ps.executeUpdate();
@@ -1667,8 +1666,8 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
-	public static void UpdatePort(ArrayList<PortBean> plst)
+	
+	public static void UpdatePort(ArrayList<PortBean> plst) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1677,7 +1676,7 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
-			for (PortBean portBean : plst)
+			for (PortBean portBean : plst) 
 			{
 				int i=1;
 				ps.setInt(i++,portBean.getAmount());
@@ -1685,9 +1684,9 @@ public class SqlADO {
 				ps.setInt(i++,portBean.getPrice());
 				ps.setInt(i++,portBean.getError_id());
 				ps.setInt(i++,portBean.getError_id());
-
+				
 				ps.setInt(i++,portBean.getPauseFlg());
-
+				
 				ps.setInt(i++,portBean.getMachineid());
 				ps.setInt(i++,portBean.getInnerid());
 				ps.executeUpdate();
@@ -1700,9 +1699,9 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
-
-	public static void UpdatePortByInnername(ArrayList<PortBean> plst)
+	
+	
+	public static void UpdatePortByInnername(ArrayList<PortBean> plst) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1712,7 +1711,7 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
-			for (PortBean portBean : plst)
+			for (PortBean portBean : plst) 
 			{
 				int i=1;
 				ps.setInt(i++,portBean.getAmount());
@@ -1721,9 +1720,9 @@ public class SqlADO {
 				ps.setInt(i++,portBean.getPrice());
 				ps.setInt(i++,portBean.getError_id());
 				ps.setInt(i++,portBean.getError_id());
-
+				
 				ps.setInt(i++,portBean.getPauseFlg());
-
+				
 				ps.setInt(i++,portBean.getMachineid());
 				ps.setString(i++, portBean.getInneridname());
 				ps.executeUpdate();
@@ -1736,15 +1735,15 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
+	
 	public static void insertTradeObj(TradeBean tbBean) {
 		insertTradeObj(tbBean,"traderecordinfo");
 	}
-
+	
 	public static void insertTradeObjToTemp(TradeBean tbBean) {
 		insertTradeObj(tbBean,"traderecordinfo_tem");
 	}
-
+	
 	public static void insertTradeObj(TradeBean tbBean,String tablename) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1752,9 +1751,9 @@ public class SqlADO {
 		{
 			return;
 		}
-
+		
 		//(select goodsname from goodsinfo where goodsinfo.id=goodroadinfo.goodsid)
-
+		
 		//getg
 		/*添加找零数量字段
 		 * changes
@@ -1765,7 +1764,7 @@ public class SqlADO {
 				"Changestatus,orderid,changes,coin_credit,bill_credit,xmlstr,inneridname,"
 				+ "status,tradeid,has_jiesuan,has_feeback,sErr) values" +
 				"(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+				
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1778,24 +1777,24 @@ public class SqlADO {
 
 			ps.setInt(i++, tbBean.getGoodmachineid());
 			ps.setInt(i++, tbBean.getGoodroadid());
-
+			
 			ps.setString(i++, tbBean.getGoodsName());
-
+			
 			ps.setInt(i++,tbBean.getSendstatus());
-
+			
 			ps.setInt(i++,tbBean.getChangestatus());
-
+			
 			ps.setString(i++,tbBean.getOrderid());
-
+			
 			ps.setInt(i++,tbBean.getChanges());
-
+			
 			ps.setInt(i++,tbBean.getCoin_credit());
 			ps.setInt(i++,tbBean.getBill_credit());
-
+			
 			ps.setString(i++,tbBean.getXmlstr());
 			ps.setString(i++,tbBean.getInneridname());
 			ps.setInt(i++,tbBean.getStatus());
-
+			
 			ps.setString(i++,tbBean.getTradeid());
 			ps.setInt(i++,tbBean.getHas_jiesuan());
 			ps.setInt(i++,tbBean.getHas_feeback());
@@ -1813,12 +1812,12 @@ public class SqlADO {
 	public static void AddOffLineTimes(int pollInterval) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [terminalinfo] set offlinetimes=offlinetimes+? where offlinetimes<(MaxOffinetimes+1000)";
+		String sql="update [terminalinfo] set offlinetimes=offlinetimes+? where offlinetimes<(MaxOffinetimes+1000)";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
 			int i=1;
-
+			
 			ps.setInt(i++,pollInterval);
 			ps.executeUpdate();
 		} catch (Exception e) {
@@ -1829,11 +1828,11 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
+	
 	public static void ClrOffLineTimes(int vid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [terminalinfo] set [offlinetimes]=0, IsOnline=1, is_offline_alert_sent=0 where id=?";
+		String sql="update [terminalinfo] set [offlinetimes]=0, IsOnline=1, is_offline_alert_sent=0 where id=?";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1851,18 +1850,18 @@ public class SqlADO {
 
 	public static void SetTerminalOffLine() {
 		String sql="update [terminalinfo] set IsOnline=1 where offlinetimes<MaxOffinetimes";
-
+		
 		exec(sql);
-
+		
 		sql="update [terminalinfo] set IsOnline=0,Gprs_Sign=0 where [offlinetimes]>=[MaxOffinetimes]";
-
+		
 		exec(sql);
-
+		
 	}
-
+	
 	public static void updateOfflineAlertSent(int vid) {
 		PreparedStatement ps=null;
-		ResultSet rs=null;
+		ResultSet rs=null;		
 		String sql = "update [terminalinfo] set is_offline_alert_sent=1 where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -1876,13 +1875,13 @@ public class SqlADO {
 		finally
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
-		}
+		}		
 	}
 
 	public static void SubPortGoods(int vid, String inneridname, int c) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-		String sql="update [goodroadinfo] set amount=amount-? where amount>0 and  machineid=? and inneridname=?";
+		String sql="update [goodroadinfo] set amount=amount-? where amount>0 and  machineid=? and inneridname=?";	
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -1939,7 +1938,7 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
+	
 	public static void UpdateMechine_Temperature(int mid, int temperature) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -1981,7 +1980,7 @@ public class SqlADO {
 		}
 		return key;
 	}
-
+	
 	public static void SetVendLinkKey(int mid,String key) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2024,7 +2023,7 @@ public class SqlADO {
 		return key;
 	}
 
-
+	
 	public static void SetVendPublicKey(int mid,String key) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2060,19 +2059,19 @@ public class SqlADO {
 		try {
 			ps=conn.prepareStatement(sql);
 			int i=1;
-
+			
 			ps.setInt(i++, vb.getCoinAttube());
 			ps.setInt(i++, vb.getMdbDeviceStatus());
 			ps.setInt(i++, vb.getGprs_Sign());
 			ps.setInt(i++, vb.getTemperature());
-
+			
 			ps.setInt(i++, vb.getFunction_flg());
-
+			
 			ps.setInt(i++, vb.getCoinAtbox());
 			ps.setInt(i++, vb.getLstSltE());
-
+			
 			ps.setInt(i++, vb.getIRErrCnt());
-
+			
 			ps.setString(i++, vb.getId_Format());
 			ps.setInt(i++, vb.getCode_ver());
 			ps.setInt(i++, vb.getBills());
@@ -2088,8 +2087,8 @@ public class SqlADO {
 			ps.setString(i++, vb.getLongTempLoopStarttime());
 			ps.setInt(i++, vb.getRefillTempAlertLoop());
 			ps.setInt(i++, vb.getRefillTempAlertSent());
-			ps.setString(i++, vb.getRefillTempLoopStarttime());
-
+			ps.setString(i++, vb.getRefillTempLoopStarttime());			
+			
 			ps.setInt(i++,vb.getId());
 			ps.executeUpdate();
 			//ps.ge
@@ -2104,7 +2103,7 @@ public class SqlADO {
 
 //	private int id;
 //	private int activeInterval;
-//
+//	
 //	private String serverUrl;
 //	private int valid;
 	public static ClsGprsCfg getGprsConfig(int id) {
@@ -2156,14 +2155,14 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-
-	public static int getClsGprsCfgCount()
+	
+	public static int getClsGprsCfgCount() 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		int c=0;
 		String sql="SELECT count(id) as count from dbo.GprsCfg";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);rs=ps.executeQuery();
@@ -2186,11 +2185,11 @@ public class SqlADO {
 		ResultSet rs=null;
 		ArrayList<ClsGprsCfg> lstArrayList=new ArrayList<ClsGprsCfg>();
 		//String sql="SELECT id,activeInterval,serverUrl,valid,objttl,vercode,firmfile,firmcompiletime from dbo.GprsCfg";
-
+		
 		String sql=("SELECT top("+count_per_page+") id, activeInterval,serverUrl,valid,objttl,vercode,firmfile,firmcompiletime " +
 				" FROM GprsCfg where id not in (SELECT top("+((page-1)*count_per_page)+") id FROM GprsCfg order by id asc) order by id asc");
-
-
+		
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);rs=ps.executeQuery();
@@ -2216,14 +2215,14 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 		return lstArrayList;
-	}
+	}	
 	public static ArrayList<ClsGprsCfg> getClsGprsCfgsLst()
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		ArrayList<ClsGprsCfg> lstArrayList=new ArrayList<ClsGprsCfg>();
 		String sql="SELECT id,activeInterval,serverUrl,valid,objttl,vercode,firmfile,firmcompiletime from dbo.GprsCfg";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);rs=ps.executeQuery();
@@ -2276,7 +2275,7 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 	}
 
 	public static void UpdateMechine_CanUse(int mid, boolean canuse) {
@@ -2311,16 +2310,16 @@ public class SqlADO {
 		String sql="SELECT DISTINCT	goodroadinfo.machineid,goodroadinfo.goodsid,SUM (goodroadinfo.amount) AS inventory,goodroadinfo.price,goodsinfo.des1,goodsinfo.goodsname "
 				+ "FROM goodroadinfo"
 				+ "INNER JOIN goodsinfo ON (goodroadinfo.goodsid = goodsinfo.id)"
-				+ "WHERE	goodroadinfo.goodsid = ? AND goodroadinfo.machineid = ?	 AND iserror =0 and pauseFlg=0"
+				+ "WHERE	goodroadinfo.goodsid = ? AND goodroadinfo.machineid = ?	 AND iserror =0 and pauseFlg=0" 
 				+ "GROUP BY goodroadinfo.machineid,goodroadinfo.goodsid,goodroadinfo.price,goodsinfo.des1,goodsinfo.goodsname";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, goodsid);
 			ps.setInt(i++, vendid);
 			rs=ps.executeQuery();
-
+			
 			while(rs.next())
 			{
 				temp=new PortBean();
@@ -2341,7 +2340,7 @@ public class SqlADO {
 		}
 		return temp;
 	}
-
+	
 	public static ArrayList<PortBean> getDistinctPortBeanLst(String vendids) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2354,10 +2353,10 @@ public class SqlADO {
 				+ "WHERE	goodroadinfo.pauseFlg = 0 and goodroadinfo.machineid  in ("+ vendids +") "
 				+ "GROUP BY goodroadinfo.machineid,goodroadinfo.goodsid,goodroadinfo.price,goodsinfo.des1,goodsinfo.goodsname";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			rs=ps.executeQuery();
-
+			
 			while(rs.next())
 			{
 				temp=new PortBean();
@@ -2381,12 +2380,12 @@ public class SqlADO {
 
 
 
+	
 
 
 
-
-
-	public static void InsertAliQrCodeLog(Cls_AliQrCodeLog alicodelog)
+	
+	public static void InsertAliQrCodeLog(Cls_AliQrCodeLog alicodelog) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2404,7 +2403,7 @@ public class SqlADO {
 					ps.setInt(i++, alicodelog.getIsok());
 					ps.setString(i++, alicodelog.getQrcode());
 					ps.setString(i++, alicodelog.getQrcode_img_url());
-
+					
 					ps.executeUpdate();
 
 				} catch (Exception e) {
@@ -2429,7 +2428,7 @@ public class SqlADO {
 			ps.setInt(i++, machineid);
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2439,7 +2438,7 @@ public class SqlADO {
 		}
 
 	}
-
+	
 	public static void UpdateGoodsPortWxQrCode(int machineid, int goodsid,String wx_qrcode, String wx_qrcodeurl) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2453,7 +2452,7 @@ public class SqlADO {
 			ps.setInt(i++, machineid);
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2482,7 +2481,7 @@ public class SqlADO {
 			ps.setString(i++, trade.getUserid());
 			ps.setString(i++, trade.getMachineid());
 			ps.setString(i++, trade.getGoodsid());
-
+			
 			ps.setString(i++, trade.getGmt_payment());
 			ps.setString(i++, trade.getPartner());
 			ps.setString(i++, trade.getBuyer_email());
@@ -2493,7 +2492,7 @@ public class SqlADO {
 			ps.setString(i++, trade.getNotifyXML());
 			ps.setInt(i++, trade.getTransfor_status());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2523,7 +2522,7 @@ public class SqlADO {
 			ps.setInt(i++, trade.getTransfor_status());
 			ps.setString(i++, trade.getOut_trade_no());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2556,7 +2555,7 @@ public class SqlADO {
 			ps.setString(i++,rem);
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2581,7 +2580,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setInt(i++, id);
 			rs = ps.executeQuery();
-
+			
 			if(rs.next())
 			{
 				para=new clsSellerPara();
@@ -2597,13 +2596,13 @@ public class SqlADO {
 //				para.set_outgoodsovertime(rs.getInt(""));
 //				para.set_payovertime(rs.getInt(""));
 //				para.set_pwd(rs.getString(""));
-
+				
 				para.set_sellerport(rs.getInt("SellerPort"));
-
+				
 				//para.set_smsthreadcount(_smsthreadcount);
 				//para.set
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2629,7 +2628,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setInt(i++, transfor_status);
 			rs = ps.executeQuery();
-
+			
 			if(rs.next())
 			{
 				para=new Cls_AliTradeLog();
@@ -2641,7 +2640,7 @@ public class SqlADO {
 				para.setTotal_fee(rs.getString("total_fee"));
 				para.setGmt_create(rs.getString("gmt_create"));
 				para.setOut_trade_no(rs.getString("out_trade_no"));
-
+				
 				para.setSubject(rs.getString("subject"));
 				para.setTrade_status(rs.getString("trade_status"));
 				para.setQrcode(rs.getString("qrcode"));
@@ -2651,7 +2650,7 @@ public class SqlADO {
 				para.setGoodsid(rs.getString("goodsid"));
 				para.setTransfor_status(rs.getInt("transfor_status"));
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2659,10 +2658,10 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return para;
 	}
-
+	
 	public static Cls_AliTradeLog getclsAliTradeLog(String out_trade_no) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -2678,7 +2677,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setString(i++, out_trade_no);
 			rs = ps.executeQuery();
-
+			
 			if(rs.next())
 			{
 				para=new Cls_AliTradeLog();
@@ -2690,7 +2689,7 @@ public class SqlADO {
 				para.setTotal_fee(rs.getString("total_fee"));
 				para.setGmt_create(rs.getString("gmt_create"));
 				para.setOut_trade_no(rs.getString("out_trade_no"));
-
+				
 				para.setSubject(rs.getString("subject"));
 				para.setTrade_status(rs.getString("trade_status"));
 				para.setQrcode(rs.getString("qrcode"));
@@ -2700,7 +2699,7 @@ public class SqlADO {
 				para.setGoodsid(rs.getString("goodsid"));
 				para.setTransfor_status(rs.getInt("transfor_status"));
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2708,11 +2707,11 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return para;
 	}
 
-	public static ArrayList<clsTableCmd> getclsTableCmdLst(int status,int mid)
+	public static ArrayList<clsTableCmd> getclsTableCmdLst(int status,int mid) 
 	{
 		//
 		PreparedStatement ps=null;
@@ -2728,7 +2727,7 @@ public class SqlADO {
 			int i=1;
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setInt(i++, status);
-			ps.setInt(i++, mid);
+			ps.setInt(i++, mid);	
 			rs = ps.executeQuery();
 			clsTableCmd tablecmd=null;
 			while(rs.next())
@@ -2746,7 +2745,7 @@ public class SqlADO {
 				tablecmd.set_status(rs.getInt("status"));
 				tablecmdlst.add(tablecmd);
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2754,7 +2753,7 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return tablecmdlst;
 	}
 
@@ -2779,7 +2778,7 @@ public class SqlADO {
 			ps.setString(i++, tcmd.getRem());
 			ps.setInt(i++, tcmd.get_id());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2802,7 +2801,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setString(i++, goodscodeid);
 			rs = ps.executeQuery();
-
+			
 			if(rs.next())
 			{
 				para=new clsGetGoodsCode();
@@ -2813,7 +2812,7 @@ public class SqlADO {
 				para.setTradeno(rs.getString("trade_no"));
 				para.setTotalfee(rs.getString("total_fee"));
 				para.setGmtcreate(rs.getString("gmt_create"));
-
+				
 				para.setSubject(rs.getString("subject"));
 				para.setTradestatus(rs.getString("trade_status"));
 				para.setTransforstatus(rs.getInt("transfor_status"));
@@ -2821,7 +2820,7 @@ public class SqlADO {
 				para.setMachineid(rs.getString("machineid"));
 				para.setGoodsid(rs.getString("goodsid"));
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2829,9 +2828,9 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return para;
-
+		
 	}
 	public static PortBean getValidPortBeanByGoods(int mid, int goodsid, int err) {
 		PreparedStatement ps=null;
@@ -2843,7 +2842,7 @@ public class SqlADO {
 					" FROM goodroadinfo WHERE machineid=? and goodsid=? and iserror=? and amount>0" +
 					"order by machineid,innerid asc";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, mid);
@@ -2891,7 +2890,7 @@ public class SqlADO {
 					" FROM goodroadinfo WHERE machineid=? and goodsid=? and iserror=? " +
 					"order by machineid,innerid asc";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, mid);
@@ -2940,28 +2939,28 @@ public class SqlADO {
 			ps=conn.prepareStatement(sql);
 			ps.setString(i++, trade.getGmt_payment());
 			ps.setString(i++, trade.getPartner());
-
+			
 			ps.setString(i++, trade.getBuyer_email());
 			ps.setString(i++, trade.getTrade_no());
-
+			
 			ps.setString(i++, trade.getTotal_fee());
 			ps.setString(i++, trade.getGmt_create());
-
+			
 			ps.setString(i++, trade.getOut_trade_no());
 			ps.setString(i++, trade.getSubject());
-
+			
 			ps.setString(i++, trade.getTrade_status());
 			ps.setString(i++, trade.getQrcode());
-
+			
 			ps.setString(i++, trade.getUserid());
-
+			
 			ps.setString(i++, trade.getNotifyXML());
-
+			
 			ps.setString(i++, trade.getMachineid());
 			ps.setString(i++, trade.getGoodsid());
 			ps.setInt(i++, trade.getTransfor_status());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -2986,7 +2985,7 @@ public class SqlADO {
 			ps=conn.prepareStatement(strSql.toString());
 			ps.setString(i++, out_trade_no);
 			rs = ps.executeQuery();
-
+			
 			if(rs.next())
 			{
 				para=new WxTradeLog();
@@ -2998,7 +2997,7 @@ public class SqlADO {
 				para.setTotal_fee(rs.getString("total_fee"));
 				para.setGmt_create(rs.getString("gmt_create"));
 				para.setOut_trade_no(rs.getString("out_trade_no"));
-
+				
 				para.setSubject(rs.getString("subject"));
 				para.setTrade_status(rs.getString("trade_status"));
 				para.setQrcode(rs.getString("qrcode"));
@@ -3008,7 +3007,7 @@ public class SqlADO {
 				para.setGoodsid(rs.getString("goodsid"));
 				para.setTransfor_status(rs.getInt("transfor_status"));
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3016,11 +3015,11 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 		return para;
 	}
-
-
+	
+	
 	public static void 	UpdateWxTradeLog(beans.WxTradeLog trade)
 	{
 		PreparedStatement ps=null;
@@ -3041,7 +3040,7 @@ public class SqlADO {
 			ps.setInt(i++, trade.getTransfor_status());
 			ps.setString(i++, trade.getOut_trade_no());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3103,7 +3102,7 @@ public class SqlADO {
 				temp.setQrcode2(rs.getString("qrcode2"));
 				temp.setAl_trade(rs.getString("al_tradeid"));
 				temp.setAl_trade2(rs.getString("al_tradeid2"));
-
+				
 				temp.setWx_qrcode(rs.getString("wx_qrcode"));
 				temp.setWx_qrcode2(rs.getString("wx_qrcode2"));
 				temp.setWx_trade(rs.getString("wx_tradeid"));
@@ -3135,27 +3134,27 @@ public class SqlADO {
 			ps.setInt(i++, pb.getPrice());
 			ps.setString(i++, pb.getQrcode());
 			ps.setString(i++, pb.getQrcode2());
-
+			
 			ps.setString(i++, pb.getWx_qrcode());
 			ps.setString(i++, pb.getWx_qrcode2());
-
+			
 			ps.setString(i++, pb.getAl_trade());
 			ps.setString(i++, pb.getAl_trade2());
-
+			
 			ps.setString(i++, pb.getWx_trade());
 			ps.setString(i++, pb.getWx_trade2());
-
-
+			
+			
 			ps.setTimestamp(i++, pb.getUpdateqrtime());
 			ps.setTimestamp(i++, pb.getUpdateqrtime2());
-
+			
 			ps.setInt(i++, pb.getInnerid());
 			ps.setInt(i++, pb.getMachineid());
 
 
-
+			
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3173,7 +3172,7 @@ public class SqlADO {
 	{
 		updateTradeBean(tb,"traderecordinfo_tem");
 	}
-	public static void updateTradeBean(TradeBean tb,String tablename)
+	public static void updateTradeBean(TradeBean tb,String tablename) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -3184,49 +3183,49 @@ public class SqlADO {
 				+ " has_feeback=?,retmes=?,sErr=? "
 				+ " WHERE ([id]=?)";
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			int i=1;
 			ps=conn.prepareStatement(sql);
 			ps.setString(i++, tb.getLiushuiid());
 			ps.setString(i++, tb.getCardinfo());
-
+			
 			ps.setString(i++, tb.getOrderid());
 			ps.setInt(i++, tb.getPrice());
-
+			
 			ps.setString(i++, tb.getMobilephone());
 			ps.setInt(i++, tb.getTradetype());
-
+			
 			ps.setInt(i++, tb.getGoodmachineid());
 			ps.setInt(i++, tb.getGoodroadid());
-
-
+			
+			
 			ps.setInt(i++, tb.getChangestatus());
 			ps.setInt(i++, tb.getSendstatus());
-
+			
 			ps.setInt(i++, tb.getStatus());
 			ps.setString(i++, ToolBox.getYMDHMS(tb.getReceivetime()));
-
+			
 			ps.setString(i++, tb.getXmlstr());
 			ps.setString(i++, tb.getGoodsName());
-
+			
 			ps.setInt(i++, tb.getChanges());
-
+			
 			ps.setInt(i++, tb.getCoin_credit());
 			ps.setInt(i++, tb.getBill_credit());
-
+			
 			ps.setString(i++, tb.getInneridname());
 			ps.setString(i++, tb.getTradeid());
-
+			
 			ps.setInt(i++, tb.getHas_jiesuan());
 			ps.setInt(i++, tb.getHas_feeback());
 			ps.setString(i++, tb.getRetmes());
 			ps.setInt(i++, tb.getSErr());
-
+			
 			ps.setInt(i++, tb.getId());
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3234,10 +3233,10 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 	}
 
-
+		
 	public static ArrayList<clsGetGoodsCode> getclsGetGoodsCode()
 	{
 		PreparedStatement ps=null;
@@ -3288,17 +3287,17 @@ public class SqlADO {
 			ps.setString(i++, ce.getPartner());
 			ps.setString(i++, ce.getBuyeremail());
 			ps.setString(i++, ce.getTradeno());
-
+			
 			ps.setString(i++, ce.getTotalfee());
 			ps.setString(i++, ToolBox.getYMDHMS(new Timestamp(ClsTime.SystemTime())));
 			ps.setString(i++, ce.getSubject());
 			ps.setString(i++, ce.getTradestatus());
 			ps.setString(i++, ce.getMachineid());
 			ps.setString(i++, ce.getGoodsid());
-
+			
 			ps.setInt(i++, ce.getTransforstatus());
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3307,14 +3306,14 @@ public class SqlADO {
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
 	}
-	public static void updateGetGoodsCode(int id,int goodsid,String total_fee)
+	public static void updateGetGoodsCode(int id,int goodsid,String total_fee) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="UPDATE getgoodscode SET goodsid=?,total_fee=?"
 				+ "WHERE id=?";
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			int i=1;
 			ps=conn.prepareStatement(sql);
@@ -3323,7 +3322,7 @@ public class SqlADO {
 			ps.setInt(i++, id);
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3331,11 +3330,11 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 	}
-	public static int getGetGoodsCodeCount()
+	public static int getGetGoodsCodeCount() 
 	{
-
+		
 		int count=0;
 		ResultSet rs=null;
 		Statement st=null;
@@ -3362,9 +3361,9 @@ public class SqlADO {
 		}
 		return count;
 	}
-	public static ArrayList<clsGetGoodsCode> getGetGoodsCodeLst(int page,int count_per_page)
+	public static ArrayList<clsGetGoodsCode> getGetGoodsCodeLst(int page,int count_per_page) 
 	{
-
+		
 		ArrayList<clsGetGoodsCode> li=new ArrayList<clsGetGoodsCode>();
 		ResultSet rs=null;
 		Statement st=null;
@@ -3376,7 +3375,7 @@ public class SqlADO {
 				+ "trade_status,machineid,goodsid,transfor_status FROM GetGoodsCode where id not in (SELECT top("+((page-1)*count_per_page)+") id FROM GetGoodsCode order by id desc) order by id desc");
 			sql=stringBuilder.toString();
 			//System.out.println(sql);
-
+			
 		try {
 			st=conn.createStatement();
 			rs=st.executeQuery(sql);
@@ -3408,7 +3407,7 @@ public class SqlADO {
 		}
 		return li;
 	}
-
+	
 	public static PortBean getPortBeanByGoods(int mid, int goodsid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -3419,7 +3418,7 @@ public class SqlADO {
 					" FROM goodroadinfo WHERE machineid=? and goodsid=? and iserror=0 " +
 					"order by machineid,innerid asc";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, mid);
@@ -3464,7 +3463,7 @@ public class SqlADO {
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="SELECT * FROM GetGoodsCode WHERE id=?";
 		try {
-
+			
 			ps=conn.prepareStatement(sql);
 			int i=1;
 			ps.setInt(i++, id);
@@ -3501,7 +3500,7 @@ public class SqlADO {
 		String sql="delete from GetGoodsCode where id="+id;
 		exec(sql);
 	}
-
+	
 
 	public static void addGoodsPortByLst(ArrayList<PortBean> lst) {
 		PreparedStatement ps=null;
@@ -3509,18 +3508,18 @@ public class SqlADO {
 		String sql="INSERT INTO [goodroadinfo] ([machineid],[innerid],[amount],[price],[capacity]" +
 				",[goodroadname],[updatetime],[iserror],[errorinfo],[lastErrorTime],[goodsid]" +
 				",[DeviceId],[inneridname]) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+		
 		if(lst==null)
 		{
 			return;
 		}
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			ps=conn.prepareStatement(sql);
 			for(PortBean pb :lst)
 			{
-
+				
 				int i=1;
 				ps.setInt(i++,pb.getMachineid());
 				ps.setInt(i++,pb.getInnerid());
@@ -3550,7 +3549,7 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="delete from TerminalInfo where id=?";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -3569,7 +3568,7 @@ public class SqlADO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="delete from goodroadinfo where machineid=?";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		try {
 			ps=conn.prepareStatement(sql);
@@ -3582,8 +3581,8 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-	}
-
+	}	
+	
 	public static ClsSaleStatisticData getSalesStatisticDataFromDb(Date sdate,Date edate,String vid,int typeid,int jiesuan)
 	{
 		ClsSaleStatisticData obj=new ClsSaleStatisticData();
@@ -3603,12 +3602,12 @@ public class SqlADO {
 		{
 			str_jiesuan=" and has_jiesuan=0";
 		}
-
+		
 		if(vid.equals(""))
 		{
 			vid="-1";
 		}
-
+		
 		if(typeid==-1)
 		{
 			sql="SELECT sum(price) AS _credit ,count(*) as _count FROM traderecordinfo WHERE "
@@ -3645,7 +3644,7 @@ public class SqlADO {
 		return obj;
 	}
 
-	public static void addLiuyan(ClsLiuyan cly)
+	public static void addLiuyan(ClsLiuyan cly) 
 	{
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -3655,9 +3654,9 @@ public class SqlADO {
 		}
 		String sql="INSERT INTO [liuyan] ([admin_id],[op_datetime],[op_content],[mobiletel]" +
 				",[username],[realname]) VALUES(?,?,?,?,?,?)";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			ps=conn.prepareStatement(sql);
 				int i=1;
@@ -3667,9 +3666,9 @@ public class SqlADO {
 				ps.setString(i++, cly.getMobiletel());
 				ps.setString(i++, cly.getUsername());
 				ps.setString(i++, cly.getRealname());
-
+				
 				ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3693,9 +3692,9 @@ public class SqlADO {
 		String sql="INSERT INTO [refundtab] ([orderid], [trade_id], [refundtime], [terminalid], "
 				+ "[goodsroadid], [goodsname], [ret_msg], [refundid], [issuccess], [trade_type], [op_user], [Refund_amount],groupid) "
 				+ "VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
-
+		
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			ps=conn.prepareStatement(sql);
 				int i=1;
@@ -3706,17 +3705,17 @@ public class SqlADO {
 				ps.setInt(i++,refundBean.getGoodsroadid());
 				ps.setString(i++,refundBean.getGoodsname());
 				ps.setString(i++, refundBean.getRet_msg());
-
+				
 				ps.setString(i++, refundBean.getRefundid());
 				ps.setInt(i++,refundBean.getIssuccess());
-
+				
 				ps.setInt(i++,refundBean.getTrade_type());
-
+				
 				ps.setString(i++, refundBean.getOp_user());
 				ps.setInt(i++, refundBean.getRefund_amount());
 				ps.setInt(i++, refundBean.getGroupid());
 				ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3726,7 +3725,7 @@ public class SqlADO {
 		}
 	}
 
-
+	
 	public static ArrayList<RefundBean> getRefundBeanLst(String venderLimite,int groupid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -3752,19 +3751,19 @@ public class SqlADO {
 				refundBean.setId(rs.getInt("id"));
 				refundBean.setIssuccess(rs.getInt("issuccess"));
 				refundBean.setOp_user(rs.getString("op_user"));
-
+				
 				refundBean.setOrderid(rs.getString("orderid"));
 				refundBean.setRefund_amount(rs.getInt("Refund_amount"));
 				refundBean.setRefundid(rs.getString("refundid"));
 				refundBean.setRefundtime(rs.getTimestamp("refundtime"));
 				refundBean.setRet_msg(rs.getString("ret_msg"));
 				refundBean.setTerminalid(rs.getInt("terminalid"));
-
+				
 				refundBean.setTrade_id(rs.getInt("trade_id"));
 				refundBean.setTrade_type(rs.getInt("trade_type"));
 				list.add(refundBean);
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3772,13 +3771,13 @@ public class SqlADO {
 		{
 			ConnManager.freeConnection(CN, conn,rs,ps);
 		}
-
+		
 
 		return list;
-
-
+		
+		
 	}
-
+	
 	/**
 	 * 获取需要出货的交易记录
 	 * @param machineid 售货机编号
@@ -3798,9 +3797,9 @@ public class SqlADO {
 	public static TradeBean getSingleTrade(int machineid,int sendstatus,int changestatus,String tablename) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
-
+		
 		TradeBean tb=null;
-
+		
 		Connection conn=ConnManager.getConnection(CN);
 		String sql="SELECT top 1 id,liushuiid,cardinfo,orderid,price,mobilephone,tradetype,goodmachineid,"
 				+ "goodroadid,changestatus,sendstatus,status,receivetime,xmlstr,goodsname,"
@@ -3819,14 +3818,14 @@ public class SqlADO {
 				tb=new TradeBean();
 				tb.setId(rs.getInt("id"));
 				tb.setLiushuiid(rs.getString("liushuiid"));
-
+				
 				tb.setCardinfo(rs.getString("cardinfo"));
-
+				
 				tb.setOrderid(rs.getString("orderid"));
 				tb.setPrice(rs.getInt("price"));
 				tb.setMobilephone(rs.getString("mobilephone"));
 				tb.setTradetype(rs.getInt("tradetype"));
-
+				
 				tb.setGoodmachineid(rs.getInt("goodmachineid"));
 				tb.setGoodroadid(rs.getInt("goodroadid"));
 				tb.setChangestatus(rs.getInt("changestatus"));
@@ -3852,26 +3851,26 @@ public class SqlADO {
 		}
 		return tb;
 	}
-
+	
 	public static void insertWxLog(int group_id, String str, String xmlstr, String res) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		String sql="INSERT INTO [WxLog] ( [gmt_create], [querystring], [groupid], [notifyXML],[response]) "
 				+ "VALUES ( ?, ?, ?, ?,?)";
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			int i=1;
 			ps=conn.prepareStatement(sql);
 			ps.setString(i++, ToolBox.getDateTimeString());
 			ps.setString(i++, str);
-
+			
 			ps.setInt(i++, group_id);
 
 			ps.setString(i++,xmlstr);
 			ps.setString(i++,res);
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3882,12 +3881,12 @@ public class SqlADO {
 	}
 
 	public static void SetTradeJiesuan(Date sdate, Date edate, String vid) {
-
+		
 		String sql="update traderecordinfo set has_jiesuan=1 WHERE  receivetime BETWEEN ? and ? and goodmachineid in ("+vid+")";
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		Connection conn=ConnManager.getConnection(CN);
-
+		
 		try {
 			int i=1;
 			ps=conn.prepareStatement(sql);
@@ -3895,7 +3894,7 @@ public class SqlADO {
 			ps.setDate(i++, edate);
 
 			ps.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -3906,13 +3905,13 @@ public class SqlADO {
 	}
 
 	public static void DeleteFromTemp(TradeBean tradeBean) {
-
+		
 		exec("delete from [traderecordinfo_tem] where orderid='"+ tradeBean.getOrderid() +"'");
 	}
 
 
 //
-//	public static void AddTransforLog(WxCoporTransfor wxCoporTransfor)
+//	public static void AddTransforLog(WxCoporTransfor wxCoporTransfor) 
 //	{
 //		PreparedStatement ps=null;
 //		ResultSet rs=null;
@@ -3921,27 +3920,27 @@ public class SqlADO {
 //				+ " [groupid], [err_code], [rescode], [err_code_des], [payment_no], [payment_time], "
 //				+ "[device_info], [nonce_str], [partner_trade_no], [openid], [check_name],adminid) VALUES "
 //				+ "( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-//
+//		
 //		try {
 //			int i=1;
-//
+//			
 //			ps=conn.prepareStatement(sql);
 //			ps.setString(i++,wxCoporTransfor.getRe_user_name());
 //			ps.setString(i++,wxCoporTransfor.getAmount());
 //			ps.setString(i++,wxCoporTransfor.getDesc());
-//
+//			
 //			clsGroupBean g=wxCoporTransfor.getGroupBean();
 //			if(g!=null)
 //			{
 //				ps.setInt(i++,g.getId());
 //			}
-//
+//			
 //			ps.setString(i++,wxCoporTransfor.getErr_code());
 //			ps.setString(i++,wxCoporTransfor.getRescode());
 //			ps.setString(i++,wxCoporTransfor.getErr_code_des());
 //			ps.setString(i++,wxCoporTransfor.getPayment_no());
 //			ps.setString(i++,wxCoporTransfor.getPayment_time());
-//
+//			
 //			ps.setString(i++,wxCoporTransfor.getDevice_info());
 //			ps.setString(i++,wxCoporTransfor.getNonce_str());
 //			ps.setString(i++,wxCoporTransfor.getPartner_trade_no());
@@ -3949,7 +3948,7 @@ public class SqlADO {
 //			ps.setString(i++,wxCoporTransfor.getCheck_name());
 //			ps.setInt(i++,wxCoporTransfor.getAdminid());
 //			ps.executeUpdate();
-//
+//			
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
@@ -3957,57 +3956,16 @@ public class SqlADO {
 //		{
 //			ConnManager.freeConnection(CN, conn,rs,ps);
 //		}
-//
+//		
 //	}
-
+	
 	public static void deleteData() {
-
-		String str= ToolBox.getTimeLongString(new Timestamp(System.currentTimeMillis()-3600000*7*24));
+		
+		String str= ToolBox.getTimeLongString(new Timestamp(System.currentTimeMillis()-3600000*3*24));
 		exec("DELETE FROM tempTab where ttime<'"+ str +"';"
 				+ "DELETE FROM traderecordinfo_tem where receivetime<'"+ str +"';"
 				+ "DELETE from WxTextMsg where gmt_create<'"+ str +"'");
-
-	}
-	
-	public static ArrayList<TempBean> getTempListByVid(int vid) {
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		ArrayList<TempBean> list=new ArrayList<TempBean>();
-
-		String sql="SELECT id, temp, ttime, vid"
-				+ " FROM tempTab "
-				+ " where vid=?";
 		
-		Connection conn=ConnManager.getConnection(CN);
-		TempBean tb =null;
-		try {
-			int i=1;
-			ps=conn.prepareStatement(sql);
-			ps.setInt(i++, vid);
-			rs = ps.executeQuery();
-			while(rs.next())
-			{
-				tb=new TempBean();
-				tb.setId(rs.getInt("id"));
-				tb.setTemp(rs.getInt("temp"));
-				tb.setTtime(rs.getTimestamp("ttime"));
-				tb.setVid(rs.getInt("vid"));
-				list.add(tb);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally
-		{
-			ConnManager.freeConnection(CN, conn,rs,ps);
-		}
-
-
-		return list;
-
-
 	}
-
 
 }

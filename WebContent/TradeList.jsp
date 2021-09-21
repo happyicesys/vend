@@ -63,12 +63,14 @@
 	}
     String orderId=ToolBox.filter(request.getParameter("orderid"));
 	String  SellerId =ToolBox.filter(request.getParameter("sellerid"));
+	String serrcode = ToolBox.filter(request.getParameter("serrcode"));
 	String PortId= ToolBox.filter(request.getParameter("portid"));
 	String CardNumber=ToolBox.filter(request.getParameter("CardNumber"));
-	int Success=ToolBox.filterInt(request.getParameter("success"));
+	int Changestatus=ToolBox.filterInt(request.getParameter("changestatus"));
 	int jiesuan=ToolBox.filterInt(request.getParameter("jiesuan"));
 	//int PaySuccess=ToolBox.filterInt(request.getParameter("paysuccess"));
 	int maxrows=ToolBox.filterInt(request.getParameter("maxrows"));
+	int Sendstatus = ToolBox.filterInt(request.getParameter("sendstatus"));
 	
 	String str_tradetype =request.getParameter("tradetype");
 
@@ -164,10 +166,12 @@ background-color: #F5F5F5;
 	{
 		form1.orderid.value="";
 		form1.sellerid.value="";
+		form1.serrcode.value="";
 		form1.portid.value="";
 		form1.CardNumber.value="";
-		form1.success[0].checked=true;
+		form1.changestatus[0].checked=true;
 		form1.tradetype[0].checked=true;
+		form1.sendstatus[0].checked=true;
 	}
 	
 	var downExcel=function()
@@ -263,6 +267,9 @@ background-color: #F5F5F5;
 	            },{
 	                field: 'sendstatus',
 	                title: 'Dispense'
+	            },{
+	                field: 'sErr',
+	                title: 'Error Code'
 	            }
 	            /*
 	            {
@@ -281,6 +288,7 @@ background-color: #F5F5F5;
 	            sdate: $("#stratTime").val(),
 	            edate: $("#endTime").val(),
 	            sellerid: $("#sellerid").val(),
+	            serrcode: $("#serrcode").val(),
 	            orderid: $("#orderid").val(),
 	            CardNumber: $("#CardNumber").val(),
 	            maxrows: params.limit,
@@ -288,8 +296,9 @@ background-color: #F5F5F5;
 	            portid: $("#portid").val(),
 	            CardNumber: $("#CardNumber").val(),
 	            tradetype:$('#tradetype option:selected').val(),
-	            success:$('#success option:selected').val(),
-	            jiesuan:$('#jiesuan option:selected').val()
+	            changestatus:$('#changestatus option:selected').val(),
+	            jiesuan:$('#jiesuan option:selected').val(),
+	            sendstatus:$('#sendstatus option:selected').val()
 	        };
 	        return temp;
 	    };
@@ -365,7 +374,7 @@ background-color: #F5F5F5;
 						<select class="select form-control" name="tradetype" id="tradetype">
 							<option <%=((tradetype==clsConst.TRADE_TYPE_NO_LIMIT)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_NO_LIMIT%>">All</option>
 							<option <%=((tradetype==clsConst.TRADE_TYPE_CASH)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_CASH%>">Cash</option>
-							<option <%=((tradetype==clsConst.TRADE_TYPE_CARD)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_CARD%>">Card</option>
+							<option <%=((tradetype==clsConst.TRADE_TYPE_CARD)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_CARD%>">Cashless</option>
 							<option <%=((tradetype==clsConst.TRADE_TYPE_WX_QR)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_WX_QR%>">Wechat</option>
 							<option <%=((tradetype==clsConst.TRADE_TYPE_AL_QR)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_AL_QR%>">Alipay</option>
 							<option <%=((tradetype==clsConst.TRADE_TYPE_BANK)?"selected=\"selected\"":"")%> value="<%=clsConst.TRADE_TYPE_BANK%>">Bank Card</option>
@@ -374,10 +383,10 @@ background-color: #F5F5F5;
 		  			</div> 		
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">
 						<label class="control-label">Payment Status</label>
-						<select class="select form-control" name="success" id="success">
-							<option <%=((Success==0)?"selected=\"selected\"":"") %> value="0">All</option>
-							<option <%=((Success==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
-							<option <%=((Success==2)?"selected=\"selected\"":"") %> value="2">Failure</option>
+						<select class="select form-control" name="changestatus" id="changestatus">
+							<option <%=((Changestatus==0)?"selected=\"selected\"":"") %> value="0">All</option>
+							<option <%=((Changestatus==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
+							<option <%=((Changestatus==2)?"selected=\"selected\"":"") %> value="2">Failure</option>
 						</select>
 		  			</div> 	
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">
@@ -407,6 +416,21 @@ background-color: #F5F5F5;
 						<label class="control-label">Product ID</label>
 			  			<input type="text" id="portid" name="portid" value="<%=PortId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
 			  		</div> 	
+			  	</div>
+			  	<div class="row">
+			  		<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Dispense</label>
+						<select class="select form-control" name="sendstatus" id="sendstatus">
+							<option <%=((Sendstatus==0)?"selected=\"selected\"":"") %> value="0">All</option>
+							<option <%=((Sendstatus==1)?"selected=\"selected\"":"") %> value="1">Succeed</option>
+							<option <%=((Sendstatus==2)?"selected=\"selected\"":"") %> value="2">Failure</option>
+						</select>
+			  		</div>
+					<div class="form-group col-md-3 col-sm-6 col-xs-12">
+						<label class="control-label">Error Code</label>
+			  			<input type="text" id="serrcode" name="serrcode" value="<%=serrcode %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+			  			<small>*Add "," in between to search multiple codes</small>
+			  		</div> 			  		
 			  	</div>
 
 				<div class="row">
@@ -443,13 +467,13 @@ background-color: #F5F5F5;
 							</label>
 							<label>&nbsp;Is Successful:</label>
 							<label class="radio-inline" style="padding-top:0px;">
-  								<input value="0" <%=((Success==0)?"checked=\"checked\"":"") %> type="radio" name="success"> 不限
+  								<input value="0" <%=((Changestatus==0)?"checked=\"checked\"":"") %> type="radio" name="success"> 不限
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="1" <%=((Success==1)?"checked=\"checked\"":"") %> type="radio" name="success"> 成功
+							  <input value="1" <%=((Changestatus==1)?"checked=\"checked\"":"") %> type="radio" name="success"> 成功
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="2" <%=((Success==2)?"checked=\"checked\"":"") %> type="radio" name="success"> 失败
+							  <input value="2" <%=((Changestatus==2)?"checked=\"checked\"":"") %> type="radio" name="success"> 失败
 							</label>
 							
 							<label>&nbsp;Is calculated:</label>

@@ -346,4 +346,14 @@
     <servlet-name>VenderList</servlet-name>
     <url-pattern>/VenderList</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TempExcel</display-name>
+    <servlet-name>TempExcel</servlet-name>
+    <servlet-class>com.servlet.TempExcel</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TempExcel</servlet-name>
+    <url-pattern>/TempExcel</url-pattern>
+  </servlet-mapping>  
 </web-app>

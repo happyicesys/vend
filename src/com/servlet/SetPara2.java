@@ -707,6 +707,8 @@ private static final String NAK="ERROR";
 
 	 	}
 	 	int errcode=trade.getInt("SErr");/*写入货道故障*/
+	 	tbBean.setSErr(errcode);
+	 	
 	 	if(errcode!=0)
 	 	{
 	 		/**/
@@ -863,6 +865,11 @@ private static final String NAK="ERROR";
 //				vb.setIs_coin_alert_sent(0);
 //			}
 
+			if(venderobj.containsKey("Sensor"))
+			{
+				fun_flg|=VenderBean.FUNC_IS_SENSOR_VALID;
+				vb.setFlags1(venderobj.getInt("Sensor"));
+			}
 
 			if(venderobj.containsKey("TEMP"))
 			{
@@ -930,7 +937,7 @@ private static final String NAK="ERROR";
 						if(vb.getLongTempAlertLoop() >= VenderBean.TEMP_LONG_ALERT_LOOP + 1 && vb.getLongTempAlertSent() == 0){
 							vb.setLongTempAlertSent(1);
 							try {
-								SendMail.Send(String.format("Temp Alert ID: %d [%s], 5 Hours above -17 Celsius [%.1f C]", vb.getId(), ToolBox.getDateString(), venderobj.getDouble("TEMP") / 10),
+								SendMail.Send(String.format("Temp Alert ID: %d [%s], 5 Hours above -16 Celsius [%.1f C]", vb.getId(), ToolBox.getDateString(), venderobj.getDouble("TEMP") / 10),
 										String.format("Vend ID: %d \r\n %s \r\n Current Temp: (%.1f C)", vb.getId(), vb.getTerminalName(),
 												venderobj.getDouble("TEMP") / 10), vb.getTempAlertExtraEmails());
 							} catch (Exception e) {

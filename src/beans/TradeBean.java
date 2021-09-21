@@ -43,6 +43,7 @@ public class TradeBean {
 	
 	private int has_feeback;
 	private String retmes;
+	private int sErr;
 	
 	public int getHas_jiesuan() {
 		return has_jiesuan;
@@ -228,6 +229,13 @@ public class TradeBean {
 	}
 	public void setRetmes(String retmes) {
 		this.retmes = retmes;
+	}
+	
+	public int getSErr() {
+		return sErr;
+	}
+	public void setSErr(int sErr) {
+		this.sErr = sErr;
 	}
 
 	public static ArrayList<TradeBean> getTradeByVenderLst(int lasttime, int status) {

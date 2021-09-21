@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 public class SendMail {
-    private static final String ALIDM_SMTP_HOST = "smtp.webfaction.com";
+    private static final String ALIDM_SMTP_HOST = "smtp.us.opalstack.com";
 
     public static void Send(String subject, String content, String extraemails) {
         final Properties props = new Properties();
@@ -16,7 +16,7 @@ public class SendMail {
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.port", "465");
         props.put("mail.user", "vend_happyice");
-        props.put("mail.password", "1234586");
+        props.put("mail.password", "happy1234586");
 
         Authenticator authenticator = new Authenticator() {
             @Override
@@ -33,7 +33,7 @@ public class SendMail {
         	
         InternetAddress from = new InternetAddress("system@happyice.com.sg");
         message.setFrom(from);
-        String happyiceadmin = "brianlee@happyice.com.my,daniel.ma@happyice.com.sg,kent@happyice.com.sg,technician1@happyice.com.sg";
+        String happyiceadmin = "brianlee@happyice.com.my,daniel.ma@happyice.com.sg,kent@happyice.com.sg,technician1@happyice.com.sg,stephen@happyice.com.sg";
         if(extraemails != null) {
         	happyiceadmin = happyiceadmin + "," + extraemails;
         }

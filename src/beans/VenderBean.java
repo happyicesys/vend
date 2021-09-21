@@ -215,6 +215,8 @@ public class VenderBean {
 	public static final int FUNC_IS_MDB_BILL_VALID=(1<<1);
 	public static final int FUNC_IS_MDB_COIN_VALID=(1<<2);
 	public static final int FUNC_IS_MDB_CASHLESS_VALID=(1<<3);
+	public static final int FUNC_IS_SENSOR_VALID=(1<<4);
+	
 	
 	public static final int MDB_COMMUNICATION_COIN=(1<<0);
 	public static final int MDB_COMMUNICATION_BILL=(1<<1);
@@ -230,7 +232,7 @@ public class VenderBean {
 	
 	//temperature degree more than 5 hours not dropping below -18
 	//temp degree celcius
-	public static final int TEMP_LONG_ALERT_LIMIT = -170;
+	public static final int TEMP_LONG_ALERT_LIMIT = -160;
 	//time looping to send alert email
 	public static final int TEMP_LONG_ALERT_LOOP = 10;
 	//in the unit of minutes

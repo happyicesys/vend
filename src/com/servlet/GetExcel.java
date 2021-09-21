@@ -58,7 +58,8 @@ public class GetExcel extends HttpServlet {
 			  "Channel #",
 			  "Product",
 			  "Payment Status",
-			  "Dispense Status"
+			  "Dispense Status",
+			  "Error Code"
 			  };
 	
     /**
@@ -287,7 +288,10 @@ public class GetExcel extends HttpServlet {
 				sheet.addCell(label);		
 				
 				label = new Label(j++,i,  ((tradeBean.getSendstatus()!=0)?"Success":"Failure"));
-				sheet.addCell(label);					
+				sheet.addCell(label);			
+				
+				label = new Label(j++,i,  String.format("%d", tradeBean.getSErr()));
+				sheet.addCell(label);	
 			}
 
 					

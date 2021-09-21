@@ -75,7 +75,7 @@
 
  	Timestamp endDate=ToolBox.filterTime(request.getParameter("edate"));
  	int vid=ToolBox.filterInt(request.getParameter("vid"));
- 	
+
 	VenderBean vb=null;
 	vb=SqlADO.getVenderBeanByid(vid);
 
@@ -155,8 +155,19 @@
 			<i class="glyphicon glyphicon-menu-left icon-white"></i>
 			Back to Vending List
 		</a>
+		<%-- <a class="btn btn-info" href="javascript:void(0);" onclick="exportTemp()" disabled>
+			<i class="glyphicon glyphicon glyphicon-save-file"></i>
+			Download Temp Excel (36 hours)
+		</a> --%>
+		<button type="submit" class="btn btn-info"  onclick="tempExcel();">
+			<i class="glyphicon glyphicon glyphicon-save-file"></i>
+			Download Temp
+		</button>
     <div id="placeholder" style="width:92%;height:700px;"></div>
 
+<form role="form" name="form1" method="post">
+	<input type="hidden" id="vid" name="vid" value="<%=vid %>" class="hidden">
+</form>
 
 <script language="javascript" type="text/javascript" >
 $(function () {
@@ -177,9 +188,14 @@ $(function () {
         });
     }
     plotWithOptions();
-
-
 });
+
+var tempExcel = function()
+{
+	form1.method="get";
+	form1.action="./TempExcel";
+	form1.submit();
+}
 
 
 
