@@ -57,6 +57,7 @@
     <link href="css/bootstrap/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="./jquery_ui/css/cupertino/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="./jquery_ui/css/showLoading.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/bootstrap/datePicker/WdatePicker.js"></script>
 
      <!--[if lte IE 6]>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-ie6.css">
@@ -163,6 +164,12 @@
 			<i class="glyphicon glyphicon glyphicon-save-file"></i>
 			Download Temp
 		</button>
+
+		<div class="form-group col-md-4 col-sm-4 col-xs-12">
+			<label class="control-label">Date To</label>
+			<input name="endDate" id="endTime" size="10" type="text" class="form-control input-sm" value="<%=endDate%> " onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endTime\',{M:3});}'})" onchange="showTempCurve(<%=vid%>, <%=endDate=>)"/>
+		</div>
+
     <div id="placeholder" style="width:92%;height:700px;"></div>
 
 <form role="form" name="form1" method="post">
@@ -196,6 +203,12 @@ var tempExcel = function()
 	form1.action="./TempExcel";
 	form1.submit();
 }
+
+var showTempCurve = function(id, edate)
+{
+	location.href="./TempCurve.jsp?vid="+id+"&edate="+edate;
+}
+
 
 
 
