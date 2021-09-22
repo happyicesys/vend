@@ -15,8 +15,8 @@ public class SendMail {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.port", "465");
-        props.put("mail.user", "vend_happyice");
-        props.put("mail.password", "happy1234586");
+        props.put("mail.user", "sys_singapore");
+        props.put("mail.password", "Happyice2022!");
 
         Authenticator authenticator = new Authenticator() {
             @Override
