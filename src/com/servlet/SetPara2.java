@@ -726,6 +726,8 @@ private static final String NAK="ERROR";
 		 	 PortBean pb=SqlADO.getPortBean(vid, tbBean.getGoodroadid());
 		 	 if(pb!=null)
 		 	 {
+		 		 tbBean.setBalanceQty(pb.getAmount());
+		 		 
 			 	int gid=pb.getGoodsid();
 			 	if(gid==0)
 			 	{

@@ -382,7 +382,7 @@ $(function () {
 									</div>
 				                    <div class="row">
 										<div class="form-group col-md-3 col-sm-6 col-xs-12">
-											<label class="control-label">Is Settled (结算)</label>
+											<label class="control-label">Is Settled</label>
 											<select class="select form-control" name="jiesuan" id="jiesuan">
 												<option <%=((jiesuan==0)?"selected=\"selected\"":"") %> value="0">All</option>
 												<option <%=((jiesuan==1)?"selected=\"selected\"":"") %> value="1">Already</option>
@@ -396,10 +396,10 @@ $(function () {
 								<div class="row">
 									<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 										<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-										<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
+										<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">Settle This Month</button>
 										<input type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="downExcel();" value="Export EXCEL"></input>
 										<!-- 
-										<button id="jiesuan" class="btn btn-default" style="background-color:#f4f4f4;">Settle (结算)</button>
+										<button id="jiesuan" class="btn btn-default" style="background-color:#f4f4f4;">Settle</button>
 										 -->
 									</div>																				
 								</div>

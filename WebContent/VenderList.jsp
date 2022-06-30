@@ -96,6 +96,9 @@
     {
         top:200px;
     }
+    .btn {
+    	margin-bottom: 5px;
+    }
 </style>
     <script type="text/javascript">
     (function ($) {
@@ -238,6 +241,8 @@ function ShowTemCurve(id)
 	ArrayList<VenderBean> lst = (ArrayList<VenderBean>)request.getAttribute("lst");
 	
 	String SellerId = ToolBox.filter(request.getParameter("sellerid"));
+	String terminalName = ToolBox.filter(request.getParameter("terminalName"));
+	int isOnline = ToolBox.filterInt(request.getParameter("isOnline"));
 %>
 <body style="background-color: #fff;">
 	<!-- 模态框（Modal） -->
@@ -287,6 +292,27 @@ function ShowTemCurve(id)
 							<label class="control-label">Machine ID</label>
 				  			<input type="search" id="sellerid" name="sellerid" value="<%=SellerId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
 				  		</div>
+				  		<div class="form-group col-md-3 col-sm-6 col-xs-12">
+							<label class="control-label">Machine ID</label>
+				  			<input type="search" id="terminalName" name="terminalName" value="<%=terminalName %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
+				  		</div>
+						<div class="form-group col-md-3 col-sm-6 col-xs-12">
+							<label class="control-label">Is Online?</label>
+							<select class="select form-control" name="isOnline" id="isOnline">
+								<option value="">All</option>
+								<option value="false">Offline</option>
+								<option value="true">Online</option>
+							</select>
+			  			</div> 		
+						<div class="form-group col-md-3 col-sm-6 col-xs-12">
+							<label class="control-label">Temp</label>
+							<select class="select form-control" name="tempCat" id="tempCat">
+								<option value="">All</option>
+								<option value="1">Red (>-12)</option>
+								<option value="2">Blue (-12 to -18)</option>
+								<option value="3">Blue (&gt-18)</option>
+							</select>
+			  			</div>	  						  		
 			  		</div>
 			  		
 					<div class="row">
@@ -402,16 +428,22 @@ function ShowTemCurve(id)
 													  		{
 													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 													  		}
-													  		else
+													  		else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
+													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+													  		}else
 													  		{
 													  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 													  		}
+											
 											  			}else {
 													  		if(obj.getTemperature()>-120)
 													  		{
 													  			out.print(String.format("<button type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
 													  		}
-													  		else
+													  		else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
+													  			out.print(String.format("<button type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+														  		
+													  		}else
 													  		{
 													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
 													  		}

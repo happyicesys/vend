@@ -291,16 +291,16 @@ $(function () {
 							<label><input  name="sdate" id="stratTime" size="10" type="text" class="form-control input-sm" value="<%=ToolBox.getYMD(beginDate)%> "  readonly="readonly" onFocus="WdatePicker({readOnly:true})" /></label>
 							<label>&nbsp;Is calculated:</label>
 							<label class="radio-inline" style="padding-top:0px;">
-  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 不限
+  								<input value="0" <%=((jiesuan==0)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> All
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 已结算
+							  <input value="1" <%=((jiesuan==1)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Already
 							</label>
 							<label class="radio-inline" style="padding-top:0px;">
-							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> 未结算
+							  <input value="2" <%=((jiesuan==2)?"checked=\"checked\"":"") %> type="radio" name="jiesuan"> Havent yet
 							</label>
 							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">结算本月数据</button>
+							<button id="jiesuan" type="button" class="btn btn-default" style="background-color:#f4f4f4;">Settle This Month</button>
 							</form>
 						</div>
 					</div>

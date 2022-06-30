@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 public class SendMail {
-    private static final String ALIDM_SMTP_HOST = "smtp.us.opalstack.com";
+    private static final String ALIDM_SMTP_HOST = "";
 
     public static void Send(String subject, String content, String extraemails) {
         final Properties props = new Properties();
@@ -15,8 +15,8 @@ public class SendMail {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.port", "465");
-        props.put("mail.user", "sys_singapore");
-        props.put("mail.password", "Happyice2022!");
+        props.put("mail.user", "sys");
+        props.put("mail.password", "123");
 
         Authenticator authenticator = new Authenticator() {
             @Override

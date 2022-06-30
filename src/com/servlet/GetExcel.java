@@ -115,6 +115,7 @@ public class GetExcel extends HttpServlet {
 		//int maxrows=ToolBox.filterInt(request.getParameter("maxrows"));
 		int tradetype=ToolBox.filterInt(request.getParameter("tradetype"));
 		int pageindex=ToolBox.filterInt(request.getParameter("pageindex"));
+		String serrorCode = ToolBox.filter(request.getParameter("serrcode"));
 		//if(maxrows<=0)
 		//{
 		//	maxrows=500;
@@ -180,6 +181,12 @@ public class GetExcel extends HttpServlet {
 		else 
 		{
 			sql+=" traderecordinfo.tradetype="+ tradetype +" and";
+		}
+		
+		if(!serrorCode.equals(""))
+		{
+			serrorCode=serrorCode.replaceAll("，",",");
+			sql+=" (traderecordinfo.sErr in("+serrorCode+")) and ";
 		}
 		
 		sql+=" traderecordinfo.receivetime between '"+StartDate+"' and '"+ToolBox.addDate(EndDate,1)+"' and liushuiid<>''" ;
@@ -303,7 +310,7 @@ public class GetExcel extends HttpServlet {
 		       File f = new File(xlsfilename);
 		       FileInputStream fis = new FileInputStream(f);
 		       BufferedInputStream bis = new BufferedInputStream(fis);
-		       byte[] buf = new byte[1024];
+		       byte[] buf = new byte[4096];
 		       int len;
 		       FileOutputStream fos = new FileOutputStream(zipfilename);
 		       BufferedOutputStream bos = new BufferedOutputStream(fos);

@@ -390,7 +390,7 @@ background-color: #F5F5F5;
 						</select>
 		  			</div> 	
 					<div class="form-group col-md-3 col-sm-6 col-xs-12">
-						<label class="control-label">Is Settled (结算)</label>
+						<label class="control-label">Is Settled</label>
 						<select class="select form-control" name="jiesuan" id="jiesuan">
 							<option <%=((jiesuan==0)?"selected=\"selected\"":"") %> value="0">All</option>
 							<option <%=((jiesuan==1)?"selected=\"selected\"":"") %> value="1">Already</option>

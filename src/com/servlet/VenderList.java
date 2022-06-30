@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.util.ObjectUtils;
+
 import weixin.popular.util.StringUtils;
 import beans.UserBean;
 import beans.VenderBean;
@@ -80,6 +82,9 @@ public class VenderList extends HttpServlet {
 
 		session.setAttribute("currentpage", request.getRequestURI());
 		String SellerId= ToolBox.filter(request.getParameter("sellerid"));
+		String terminalName = ToolBox.filter(request.getParameter("TerminalName"));
+		Boolean isOnline = ToolBox.filterBol(request.getParameter("isOnline"));
+		int tempCat = ToolBox.filterInt(request.getParameter("tempCat"));
 		int pageindex=ToolBox.filterInt(request.getParameter("page"));
 
 		if(pageindex==0)
@@ -89,14 +94,13 @@ public class VenderList extends HttpServlet {
 		int count_per_page =ub.getPagecount();
 		ArrayList<VenderBean> lst = null;
 		int RsCount=0;
-		if(StringUtil.isBlank(SellerId))
+		if(!StringUtil.isBlank(SellerId) || !StringUtil.isBlank(terminalName) || isOnline == true || isOnline == false || tempCat > 0)
 		{
-			lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite());
-			
+			lst=SqlADO.getVenderListByParams(SellerId, terminalName, isOnline, tempCat);
 		}else
 		{
 			//VenderBean vb=SqlADO.getVenderBeanByid(Integer.parseInt(SellerId));
-			lst=SqlADO.getVenderListById(SellerId);
+			lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite());
 		}
 //		RsCount = lst.size();
 //		request.setAttribute("RsCount", RsCount);
