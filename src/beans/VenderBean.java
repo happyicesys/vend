@@ -216,7 +216,9 @@ public class VenderBean {
 	public static final int FUNC_IS_MDB_COIN_VALID=(1<<2);
 	public static final int FUNC_IS_MDB_CASHLESS_VALID=(1<<3);
 	public static final int FUNC_IS_SENSOR_VALID=(1<<4);
+	public static final int FUNC_IS_ACB_VALID=(1<<5);
 	
+	public static final int INVALID_TEMPER=32767;
 	
 	public static final int MDB_COMMUNICATION_COIN=(1<<0);
 	public static final int MDB_COMMUNICATION_BILL=(1<<1);
@@ -305,7 +307,12 @@ public class VenderBean {
 	private String pos_USERNAME;
 	private String pos_PWD;
 	private String TelNum;
-
+	
+	private int tem2; 
+	private int tem3; 
+	private int tem4; 
+	private int fan; 
+	private String doorisopen; 
 	
 	public int getBills() {
 		return bills;
@@ -719,6 +726,46 @@ public class VenderBean {
 
 	public void setTempAlertExtraEmails(String temp_alert_extra_emails) {
 		this.temp_alert_extra_emails = temp_alert_extra_emails;
+	}
+
+	public int getTem3() {
+		return tem3;
+	}
+
+	public void setTem3(int tem3) {
+		this.tem3 = tem3;
+	}
+
+	public int getTem2() {
+		return tem2;
+	}
+
+	public void setTem2(int tem2) {
+		this.tem2 = tem2;
+	}
+
+	public int getTem4() {
+		return tem4;
+	}
+
+	public void setTem4(int tem4) {
+		this.tem4 = tem4;
+	}
+
+	public int getFan() {
+		return fan;
+	}
+
+	public void setFan(int fan) {
+		this.fan = fan;
+	}
+
+	public String getDoorisopen() {
+		return doorisopen;
+	}
+
+	public void setDoorisopen(String doorisopen) {
+		this.doorisopen = doorisopen;
 	}		
 	
 }

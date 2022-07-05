@@ -94,7 +94,7 @@ public class VenderList extends HttpServlet {
 		int count_per_page =ub.getPagecount();
 		ArrayList<VenderBean> lst = null;
 		int RsCount=0;
-		if(!StringUtil.isBlank(SellerId) || !StringUtil.isBlank(terminalName) || isOnline == true || isOnline == false || tempCat > 0)
+		if(!StringUtil.isBlank(SellerId) || !StringUtil.isBlank(terminalName))
 		{
 			lst=SqlADO.getVenderListByParams(SellerId, terminalName, isOnline, tempCat);
 		}else

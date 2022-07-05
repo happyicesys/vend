@@ -488,19 +488,6 @@ function ShowTemCurve(id)
 											  		out.print("<button type='button' class='btn "+ (((flags1&2)==0)?"btn-success":"btn-danger") +" btn-sm' style='margin-right:3px;'>Error Code 9:"+ (((flags1&2)==0)?"N":"Y") +"</button>");
 											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Fan Status:"+ (((flags1&4)==0)?"0":"1") +"</button>");
 											  	}
-											  	if(0!=(Function_flg&VenderBean.FUNC_IS_ACB_VALID))
-											  	{
-											  		hasState=true;
-											  		//int flags1=obj.getFlags1();
-											  		//out.print("<button type='button' class='btn "+ (((flags1&1)==0)?"btn-danger":"btn-success") +" btn-sm' style='margin-right:3px;'>Sensor Status:"+ (((flags1&1)==0)?"0":"1") +"</button>");
-											  		//out.print("<button type='button' class='btn "+ (((flags1&2)==0)?"btn-success":"btn-danger") +" btn-sm' style='margin-right:3px;'>Error Code 9:"+ (((flags1&2)==0)?"N":"Y") +"</button>");
-											  		//out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Fan Status:"+ (((flags1&4)==0)?"0":"1") +"</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T2:"+ ((obj.getTem2()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T3:"+ ((obj.getTem3()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T4:"+ ((obj.getTem4()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>FAN:"+ obj.getFan() +"</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>DOOR:"+ obj.getDoorisopen()+"</button>");
-											  	}
 											  	if(!hasState)
 											  	{
 											  		out.print(String.format("No parameter has been detected!"));

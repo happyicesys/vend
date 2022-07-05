@@ -71,9 +71,11 @@ public class SqlADO {
 				+ "t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount,"
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
-				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
+				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name,"
+				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen from TerminalInfo t "
 				+ "left join vendcategories v on v.id = t.vendcategory_id "
 				+ "where t.id in("+limiteid +") order by IsOnline desc,id asc";
+		System.out.println(sql);
 		try {
 
 			ps= conn.prepareStatement(sql);
@@ -120,6 +122,12 @@ public class SqlADO {
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setVendcategoryName(rs.getString("name"));
+				
+				temv.setTem2(rs.getInt("tem2"));
+				temv.setTem3(rs.getInt("tem3"));
+				temv.setTem4(rs.getInt("tem4"));
+				temv.setFan(rs.getInt("fan"));
+				temv.setDoorisopen(rs.getString("doorisopen"));
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -225,7 +233,8 @@ public class SqlADO {
 				+ "t.IsOnline,t.HuodongId,t.SellerTyp,t.GoodsPortCount,"
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
-				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name from TerminalInfo t "
+				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name,"
+				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen from TerminalInfo t "
 				+ "left join vendcategories v on v.id = t.vendcategory_id "
 				+ "where t.id ="+id;
 		
@@ -257,6 +266,7 @@ public class SqlADO {
 			}
 		
 			sql += " order by IsOnline desc,id asc";
+			System.out.println(sql);
 		try {
 
 			ps= conn.prepareStatement(sql);
@@ -303,6 +313,13 @@ public class SqlADO {
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setVendcategoryName(rs.getString("name"));
+				
+				temv.setTem2(rs.getInt("tem2"));
+				temv.setTem3(rs.getInt("tem3"));
+				temv.setTem4(rs.getInt("tem4"));
+				temv.setFan(rs.getInt("fan"));
+				temv.setDoorisopen(rs.getString("doorisopen"));
+				
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -2160,7 +2177,7 @@ public class SqlADO {
 		sql="update terminalinfo set coinAttube=?,MdbDeviceStatus=?,gprs_Sign=?," +
 				"temperature=?,function_flg=?,coinAtbox=?,LstSltE=?,IRErrCnt=?,id_format=?,code_ver=?,bills=?,TemperUpdateTime=?,flags1=?," +
 				"prev_temp=?,temp_alert_loop=?,is_alert_sent=?,TemperLoopStartTime=?,is_coin_alert_sent=?,long_temp_loop=?,long_temp_alert_sent=?,long_temp_loop_starttime=?," +
-				"refill_temp_loop=?,refill_temp_alert_sent=?,refill_temp_loop_starttime=? "+
+				"refill_temp_loop=?,refill_temp_alert_sent=?,refill_temp_loop_starttime=? ,tem2=?,tem3=?,tem4=?,fan=?,doorisopen=? "+
 				" where id=?";
 		Connection conn=ConnManager.getConnection(CN);
 		try {
@@ -2196,7 +2213,15 @@ public class SqlADO {
 			ps.setInt(i++, vb.getRefillTempAlertSent());
 			ps.setString(i++, vb.getRefillTempLoopStarttime());
 
+			//2022-7-2 zhouwenjing add
+			ps.setInt(i++,vb.getTem2());
+			ps.setInt(i++,vb.getTem3());
+			ps.setInt(i++,vb.getTem4());
+			ps.setInt(i++,vb.getFan());
+			ps.setString(i++,vb.getDoorisopen());
+			
 			ps.setInt(i++,vb.getId());
+			
 			ps.executeUpdate();
 			//ps.ge
 		} catch (Exception e) {

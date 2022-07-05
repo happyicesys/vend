@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
 import java.util.Date;
+import java.util.Enumeration;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -39,6 +40,7 @@ import beans.clsFeeBackParaBean;
 import beans.clsFromGprs;
 import beans.clsGoodsBean;
 import beans.clsGroupBean;
+import jdk.nashorn.internal.runtime.GlobalConstants;
 
 import com.UpdatePort;
 import com.clsConst;
@@ -344,6 +346,8 @@ private static final String NAK="ERROR";
 		logBean.setResponse(str);
 		logBean.updateResponse();
 		pw.write(str);
+		
+		//forwardRequest("POST", request, response);
 	}
 
 	public static String executePost(String targetURL, String urlParameters) {
@@ -477,6 +481,57 @@ private static final String NAK="ERROR";
 	}
 
 
+    private void forwardRequest(String method, HttpServletRequest req, HttpServletResponse resp) {
+        final boolean hasoutbody = (method.equals("POST"));
+
+        try {
+            final URL url = new URL("https://vend-system.happyice.com.sg/api/v1/vending-machine-transaction"  // no trailing slash
+                    + req.getRequestURI()
+                    + (req.getQueryString() != null ? "?" + req.getQueryString() : ""));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+
+            final Enumeration<String> headers = req.getHeaderNames();
+            while (headers.hasMoreElements()) {
+                final String header = headers.nextElement();
+                final Enumeration<String> values = req.getHeaders(header);
+                while (values.hasMoreElements()) {
+                    final String value = values.nextElement();
+                    conn.addRequestProperty(header, value);
+                }
+            }
+
+          //conn.setFollowRedirects(false);  // throws AccessDenied exception
+            conn.setUseCaches(false);
+            conn.setDoInput(true);
+            conn.setDoOutput(hasoutbody);
+            conn.connect();
+
+            final byte[] buffer = new byte[16384];
+            while (hasoutbody) {
+                final int read = req.getInputStream().read(buffer);
+                if (read <= 0) break;
+                conn.getOutputStream().write(buffer, 0, read);
+            }
+
+            resp.setStatus(conn.getResponseCode());
+            for (int i = 0; ; ++i) {
+                final String header = conn.getHeaderFieldKey(i);
+                if (header == null) break;
+                final String value = conn.getHeaderField(i);
+                resp.setHeader(header, value);
+            }
+
+            while (true) {
+                final int read = conn.getInputStream().read(buffer);
+                if (read <= 0) break;
+                resp.getOutputStream().write(buffer, 0, read);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // pass
+        }
+    }
 
 	private String GetTradeState(VenderBean vb, JSONObject obj)
 	  {
@@ -1000,7 +1055,7 @@ private static final String NAK="ERROR";
 					TempBean.InsertclsGroupBean(temp);
 				}
 			}
-			vb.setFunction_flg(fun_flg);	/*4B,包含机器状态，设备有效性标示*/
+			
 
 			vb.setIRErrCnt(venderobj.getInt("IRErrCnt"));
 			vb.setLstSltE(venderobj.getInt("LstSltE"));
@@ -1009,15 +1064,37 @@ private static final String NAK="ERROR";
 
 			if(venderobj.containsKey("Ver"))
 			{
-
 				vb.setCode_ver(venderobj.getInt("Ver"));		/*4B 硬币桶钱币总额*/
 			}
 			if(venderobj.containsKey("BllCnt"))
 			{
-
 				vb.setBills(venderobj.getInt("BllCnt"));
 			}
-
+			
+			//2022-7-2 zhouwenjing add
+			if(venderobj.containsKey("t2"))
+			{
+				fun_flg|=VenderBean.FUNC_IS_ACB_VALID;
+				vb.setTem2(venderobj.getInt("t2"));
+			}
+			if(venderobj.containsKey("t3"))
+			{
+				vb.setTem3(venderobj.getInt("t3"));
+			}
+			if(venderobj.containsKey("t4"))
+			{
+				vb.setTem4(venderobj.getInt("t4"));
+			}
+			if(venderobj.containsKey("fan"))
+			{
+				vb.setFan(venderobj.getInt("fan"));
+			}
+			if(venderobj.containsKey("door"))
+			{
+				vb.setDoorisopen(venderobj.getString("door"));
+			}	
+			
+			vb.setFunction_flg(fun_flg);	/*4B,包含机器状态，设备有效性标示*/
 			SqlADO.UpdateMechinePara(vb);
 		}
 	}
