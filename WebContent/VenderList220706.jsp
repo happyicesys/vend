@@ -292,7 +292,6 @@ function ShowTemCurve(id)
 							<label class="control-label">Machine ID</label>
 				  			<input type="search" id="sellerid" name="sellerid" value="<%=SellerId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
 				  		</div>
-				<!--    		
 				  		<div class="form-group col-md-3 col-sm-6 col-xs-12">
 							<label class="control-label">Machine ID</label>
 				  			<input type="search" id="terminalName" name="terminalName" value="<%=terminalName %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
@@ -313,8 +312,7 @@ function ShowTemCurve(id)
 								<option value="2">Blue (-12 to -18)</option>
 								<option value="3">Blue (&gt-18)</option>
 							</select>
-			  			</div>	
-			  			-->  						  		
+			  			</div>	  						  		
 			  		</div>
 			  		
 					<div class="row">

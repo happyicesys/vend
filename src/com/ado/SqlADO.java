@@ -237,33 +237,33 @@ public class SqlADO {
 				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen from TerminalInfo t "
 				+ "left join vendcategories v on v.id = t.vendcategory_id "
 				+ "where t.id ="+id;
-		
-			if(terminalName != null) {
-				sql += " and t.TerminalName LIKE %" + terminalName + "%";
-			}
-		
-			if(isOnline != null) {
-				if(isOnline == true) {
-					sql += " and t.IsOnline = 1";
-				}else if(isOnline == false) {
-					sql += " and t.IsOnline = 0";
-				}		
-			}
-			
-			if(tempCat > 0) {
-				switch(tempCat) {
-					case 1:
-						sql += " and t.temperature > -120 ";
-						break;
-					case 2:
-						sql += " and t.temperature <= -120 and t.temperature > -180 ";
-						break;
-					case 3:
-						sql += " and t.temperature < -180 ";
-						break;
-				}
-				
-			}
+//		
+//			if(terminalName != null) {
+//				sql += " and t.TerminalName LIKE %" + terminalName + "%";
+//			}
+//		
+//			if(isOnline != null) {
+//				if(isOnline == true) {
+//					sql += " and t.IsOnline = 1";
+//				}else if(isOnline == false) {
+//					sql += " and t.IsOnline = 0";
+//				}		
+//			}
+//			
+//			if(tempCat > 0) {
+//				switch(tempCat) {
+//					case 1:
+//						sql += " and t.temperature > -120 ";
+//						break;
+//					case 2:
+//						sql += " and t.temperature <= -120 and t.temperature > -180 ";
+//						break;
+//					case 3:
+//						sql += " and t.temperature < -180 ";
+//						break;
+//				}
+//				
+//			}
 		
 			sql += " order by IsOnline desc,id asc";
 			System.out.println(sql);
