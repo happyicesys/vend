@@ -72,7 +72,7 @@ public class SqlADO {
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
 				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name,"
-				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen from TerminalInfo t "
+				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen, t.code_ver from TerminalInfo t "
 				+ "left join vendcategories v on v.id = t.vendcategory_id "
 				+ "where t.id in("+limiteid +") order by IsOnline desc,id asc";
 		System.out.println(sql);
@@ -128,6 +128,7 @@ public class SqlADO {
 				temv.setTem4(rs.getInt("tem4"));
 				temv.setFan(rs.getInt("fan"));
 				temv.setDoorisopen(rs.getString("doorisopen"));
+				temv.setCode_ver(rs.getInt("code_ver"));
 				li.add(temv);
 			}
 		} catch (Exception e) {

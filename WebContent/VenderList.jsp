@@ -353,7 +353,6 @@ function ShowTemCurve(id)
 											<input type="checkbox" id="checkAll">
 										</th>
 										<th class="col-md-1">Conn</th>
-										<th class="col-md-1">Category</th>
 										<th class="col-md-2" >Name</th>
 										<th class="col-md-1">Address</th>
 										<th class="col-md-4">Status</th>
@@ -362,6 +361,7 @@ function ShowTemCurve(id)
 											<th style="width: 250px;">Setting</th>
 										 -->
 										<th class="col-md-1">Temp Time</th>
+										<th class="col-md-1">Firmware</th>
 										<th class="col-md-1">Error</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>											
@@ -412,9 +412,6 @@ function ShowTemCurve(id)
 										  </td>
 										<td class="center col-md-1">
 											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
-										</td>
-										<td class="center col-md-1">
-											<%=obj.getVendcategoryName() %>
 										</td>
 										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
 										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
@@ -512,6 +509,7 @@ function ShowTemCurve(id)
 										</td>
 
 										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
+										<td class="center col-md-1 text-center"><%=obj.getCode_ver() %></td>
 										<%
 											String slot_format="";
 											if(obj.getId_Format().equals("HEX"))

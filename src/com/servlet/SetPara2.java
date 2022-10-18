@@ -152,7 +152,7 @@ public class SetPara2 extends HttpServlet {
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
-			executePost(gprsdata.getStr_content());
+			//executePost(gprsdata.getStr_content());
 		}
 		logBean.add();/* 添加日志到数据库 */
 
@@ -297,7 +297,7 @@ public class SetPara2 extends HttpServlet {
 
 	public static String executePost(String urlParameters) {
 		HttpURLConnection connection = null;
-		String targetURL = "https://sys.happyice.com.sg/api/v1/vending-machine-data";
+		String targetURL = "https://sys.happyice.com.sg/api/v1/vend-data";
 		try {
 			// Create connection
 			URL url = new URL(targetURL);
@@ -557,7 +557,7 @@ public class SetPara2 extends HttpServlet {
 
 	void SaveTradeObj(VenderBean vb, JSONObject trade) {
 		System.out.println("收到一条交易记录" + trade.toString());
-		executePost("收到一条交易记录" + trade.toString());
+		//executePost("收到一条交易记录" + trade.toString());
 
 		TradeBean tbBean = new TradeBean();
 		int vid = vb.getId();
@@ -972,12 +972,15 @@ public class SetPara2 extends HttpServlet {
 			plst.add(p);
 			allChannelJsonObj.put(j, channelJsonObj);
 		}
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("Vid", mid);
-		jsonObj.put("Type", "CHANNEL");
-		jsonObj.put("channels", allChannelJsonObj);
+	    //JSONObject jsonObj = new JSONObject();
+		//jsonObj.put("Vid", mid);
+		//jsonObj.put("Type", "CHANNEL");
+		//jsonObj.put("channels", allChannelJsonObj);
 
-		executePost(jsonObj.toString());
+		//executePost(jsonObj.toString());
+
 		SqlADO.UpdatePort(plst);
+
+
 	}
 }
