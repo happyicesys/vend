@@ -317,7 +317,7 @@
 
 
 												<%
-												if(outSkuPercent < 60) {
+												if(outSkuPercent >= 60) {
 												%>
 														<span style="color: red;">
 												<%
