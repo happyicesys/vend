@@ -95,7 +95,7 @@
 	margin:3px;
 	display:block;
 	float:left;
-	width:200px;
+	width:180px;
 	font-size:13px;
 }
 </style>
@@ -296,9 +296,9 @@
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																(<%= String.format("%.0f", balancePercent) %>%)
-																<br>
+																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br>
+																<br><br>
 																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
@@ -310,9 +310,9 @@
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																(<%= String.format("%.0f", balancePercent) %>%)
-																<br>
+																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br>
+																<br><br>
 																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
@@ -324,9 +324,9 @@
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																(<%= String.format("%.0f", balancePercent) %>%)
-																<br>
+																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br>
+																<br><br>
 																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
