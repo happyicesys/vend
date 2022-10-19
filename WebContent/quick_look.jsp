@@ -95,7 +95,7 @@
 	margin:3px;
 	display:block;
 	float:left;
-	width:180px;
+	width:170px;
 	font-size:13px;
 }
 </style>
@@ -287,7 +287,7 @@
 
 												</ul>
 											</td>
-											<td>
+											<td style="min-width: 50px;">
 											<%
 												if((((double)totalSold/ (double)totalVolume)*100) <= 32.00 || runOutChannel >= 4) {
 													//if(balancePercent <= 32 || runOutChannel >= 4) {
