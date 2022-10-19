@@ -178,9 +178,13 @@
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
+														int totalChannel = 0;
+														int totalChannelError = 0;
 														int	runOutChannel = 0;
+														int runOutSku = 0;
 														int actualSold = 0;
 														double balancePercent = 0;
+														double outSkuPercent = 0;
 														for(PortBean pb:pbli)
 														{
 															if(
@@ -191,10 +195,11 @@
 																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
 																	) && pb.getCapacity() != 0 ) {
 
-																//if(pb.getError_id() > 0) {
+																if(pb.getError_id() > 0) {
+																	totalChannelError += 1;
 																	//channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
-																//}
-
+																}
+																totalChannel += 1;
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
@@ -256,7 +261,8 @@
 
 														actualSold = totalVolume - totalSold;
 														balancePercent = ((double)totalSold / (double)totalVolume) * 100;
-
+														runOutSku = runOutChannel + totalChannelError;
+														outSkuPercent = ((double)runOutSku/ (double)totalChannel) * 100;
 													%>
 													<li class="quick-look row">
 														<%
@@ -269,6 +275,9 @@
 																		(<%= String.format("%.0f", balancePercent) %>%)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
+																		<br>
+																		Out SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																		(<%= String.format("%.0f", outSkuPercent) %>%)
 																	</strong>
 																</span>
 														<%
@@ -280,6 +289,9 @@
 																		(<%= String.format("%.0f", balancePercent) %>%)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
+																		<br>
+																		Out SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																		(<%= String.format("%.0f", outSkuPercent) %>%)
 																	</strong>
 																</span>
 														<%
@@ -291,6 +303,9 @@
 																		(<%= String.format("%.0f", balancePercent) %>%)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
+																		<br>
+																		Out SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																		(<%= String.format("%.0f", outSkuPercent) %>%)
 																	</strong>
 																</span>
 														<%
