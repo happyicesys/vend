@@ -255,7 +255,7 @@
 														}
 
 														actualSold = totalVolume - totalSold;
-														balancePercent = 100 - (actualSold / totalVolume * 100);
+														balancePercent = ((double)totalSold / (double)totalVolume) * 100;
 
 													%>
 													<li class="quick-look row">
@@ -266,7 +266,7 @@
 																<span style="color: red;">
 																	<strong>
 																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																		(<%= totalSold/totalVolume*100 %>)
+																		(<%= balancePercent %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
@@ -277,7 +277,7 @@
 																<span style="color: blue;">
 																	<strong>
 																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																		(<%= totalSold/totalVolume*100 %>)
+																		(<%= balancePercent %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
@@ -288,7 +288,7 @@
 																<span>
 																	<strong>
 																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																		(<%= totalSold/totalVolume*100 %>)
+																		(<%= balancePercent %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
