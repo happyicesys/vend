@@ -265,7 +265,7 @@
 														%>
 																<span style="color: red;">
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/totalVolume*100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
@@ -275,7 +275,7 @@
 														%>
 																<span style="color: blue;">
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/totalVolume*100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
@@ -285,7 +285,7 @@
 														%>
 																<span>
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/totalVolume*100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
