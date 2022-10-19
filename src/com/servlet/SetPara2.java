@@ -128,9 +128,7 @@ public class SetPara2 extends HttpServlet {
 		String ret_str = "1";
 
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
-
-
-		executePost(poststr);
+		executePost(input);
 
 		String[] arrstr = poststr.split("&", 0);
 
@@ -152,6 +150,7 @@ public class SetPara2 extends HttpServlet {
 		// System.out.println(p);
 		p = p.replaceFirst("!", "=");
 		clsFromGprs gprsdata = new clsFromGprs(machineid, f, t, gprs, p);
+		executePost(gprsdata.getStr_content());
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
