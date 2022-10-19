@@ -65,6 +65,12 @@
     <script type="text/javascript" src="./jquery_ui/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="./jquery_ui/js/jquery.showLoading.min.js"></script>
     <script type="text/javascript" src="./jquery_ui/js/jquery.ui.datepicker-zh-TW.js"></script>
+		<script type="text/javascript">
+			function ShowTemCurve(id)
+			{
+				location.href="./TempCurve.jsp?vid="+id;
+			}
+		</script>
 <style type="text/css">
 .quick-look
 {
@@ -309,11 +315,11 @@
 															(<%= String.format("%.0f", balancePercent) %>%)
 															<br><br>
 														</span>
-
+<%--
 														<span style="color:black;">
 															Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 															<br><br>
-														</span>
+														</span> --%>
 
 
 												<%
@@ -388,13 +394,13 @@
 			</div>
 		</div>
 	</div>
-
+<%--
 <script>
 	function ShowTemCurve(id)
 	{
 		location.href="./TempCurve.jsp?vid="+id;
 	}
-</script>
+</script> --%>
 
 </body>
 </html>
