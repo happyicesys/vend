@@ -299,7 +299,7 @@
 												%>
 														<span style="color: blue;">
 												<%
-													}else if(balancePercent > 30 && balancePercent <= 60) {
+													}else if(balancePercent > 60) {
 												%>
 														<span style="color: black;">
 												<%
