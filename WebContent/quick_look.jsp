@@ -265,33 +265,30 @@
 														%>
 																<span style="color: red;">
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/ totalVolume * 100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
-																	(<%= balancePercent %>)
 																</span>
 														<%
 															}else if(((((double)totalSold/ (double)totalVolume)*100) > 32.00 && (((double)totalSold/ (double)totalVolume)*100) <= 55.00)  || (runOutChannel >= 3 && runOutChannel < 4)) {
 														%>
 																<span style="color: blue;">
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/ totalVolume * 100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
-																	(<%= balancePercent %>)
 																</span>
 														<%
 															}else {
 														%>
 																<span>
 																	<strong>
-																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %> (<%= String.format("%.0f", totalSold/ totalVolume * 100) %>)
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
-																	(<%= balancePercent %>)
 																</span>
 														<%
 															}
