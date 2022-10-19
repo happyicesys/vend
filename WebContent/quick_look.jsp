@@ -130,7 +130,7 @@
 										<th style="width: 100px;">Name</th>
 										<th style="width: 50px;">Postcode</th>
 										<th>Sales, Remaining/Volume Count</th>
-										<th>Total</th>
+										<th style="width: 120px;">Total</th>
 										<th>Conn</th>
 										<th>Temp</th>
 									</tr>
@@ -287,7 +287,7 @@
 
 												</ul>
 											</td>
-											<td style="min-width: 50px;">
+											<td>
 											<%
 												if((((double)totalSold/ (double)totalVolume)*100) <= 32.00 || runOutChannel >= 4) {
 													//if(balancePercent <= 32 || runOutChannel >= 4) {
