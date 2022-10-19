@@ -510,8 +510,6 @@ function ShowTemCurve(id)
 
 										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
 										<td class="center col-md-1 text-center">
-											<%= obj.getCode_ver() %>
-											<br>
 											<%= Integer.toHexString(obj.getCode_ver()) %>
 										</td>
 										<%
