@@ -288,53 +288,51 @@
 												</ul>
 											</td>
 											<td>
-											<%
-												if((((double)totalSold/ (double)totalVolume)*100) <= 32.00 || runOutChannel >= 4) {
-													//if(balancePercent <= 32 || runOutChannel >= 4) {
+
+											<strong>
+												<%
+												if(balancePercent <= 30) {
 												%>
 														<span style="color: red;">
-															<strong>
-																Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																(<%= String.format("%.0f", balancePercent) %>%)
-																<br><br>
-																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br><br>
-																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
-																(<%= String.format("%.0f", outSkuPercent) %>%)
-															</strong>
-														</span>
 												<%
-													}else if(((((double)totalSold/ (double)totalVolume)*100) > 32.00 && (((double)totalSold/ (double)totalVolume)*100) <= 55.00)  || (runOutChannel >= 3 && runOutChannel < 4)) {
+													}else if(balancePercent > 30 && balancePercent <= 60) {
 												%>
 														<span style="color: blue;">
-															<strong>
-																Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																(<%= String.format("%.0f", balancePercent) %>%)
-																<br><br>
-																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br><br>
-																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
-																(<%= String.format("%.0f", outSkuPercent) %>%)
-															</strong>
-														</span>
 												<%
-													}else {
+													}else if(balancePercent > 30 && balancePercent <= 60) {
 												%>
-														<span>
-															<strong>
-																Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-																(<%= String.format("%.0f", balancePercent) %>%)
-																<br><br>
-																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-																<br><br>
-																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
-																(<%= String.format("%.0f", outSkuPercent) %>%)
-															</strong>
-														</span>
+														<span style="color: black;">
 												<%
 													}
 												%>
+															Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+															(<%= String.format("%.0f", balancePercent) %>%)
+															<br><br>
+														</span>
+
+														<span style="color:black;">
+															Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
+															<br><br>
+														</span>
+
+
+												<%
+												if(outSkuPercent < 60) {
+												%>
+														<span style="color: red;">
+												<%
+													}else {
+												%>
+														<span style="color: black;">
+												<%
+													}
+												%>
+															Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+															(<%= String.format("%.0f", outSkuPercent) %>%)
+														</span>
+
 											</td>
+											</strong>
 											<td class="center">
 												<%=vb.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 											</td>

@@ -7,7 +7,7 @@
 <%@ page import="com.tools.ToolBox"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% 
+<%
 		UserBean ub=(UserBean)session.getAttribute("usermessage");
 		if(ub==null)
 		{
@@ -16,7 +16,7 @@
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		
+
 		if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 		{
 			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
@@ -24,15 +24,15 @@
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		
+
 		if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_VENDER))
 		{
 			request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_VENDER]);
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
 		}
-		
-		
+
+
 		%>
 <!DOCTYPE html>
 <html>
@@ -114,29 +114,29 @@ $(function () {
         }
     	//alert("select_all");
     });
-    
+
     $("#fanxuan").click(function(){
         var idLists= $("input[name='vendid']");
         for(var i=0;i<idLists.length;i++){
             idLists[i].checked=!idLists[i].checked;
         }
     });
-    
+
   //取消选择
-    $("#deselect_all").click(function(){  
-        $("input[name='vendid']").removeAttr("checked"); 
+    $("#deselect_all").click(function(){
+        $("input[name='vendid']").removeAttr("checked");
     });
-    
+
   /*提示窗口*/
     $("#alertdlg").dialog({autoOpen: false,width:300,modal: true,
         buttons: {
             "确定": function() {
                 $( this ).dialog( "close" );
-                
+
               }
         }
     });
-  
+
     var isSelectObj=function(){
         var idLists= $("input[name='vendid']");
         for(var i=0;i<idLists.length;i++)
@@ -148,15 +148,15 @@ $(function () {
         }
         return false;
     };
-    
+
     var showAlert=function(title,content)
     {
-        
+
         $( "#alertcontent" ).html(title);
         $( "#myModalLabel" ).html(content);
         $('#myModal').modal('show');
     }
-    
+
     var getListVal=function()
     {
     	var obj=new Object();;
@@ -173,7 +173,7 @@ $(function () {
         return obj;
     }
     //Generating Alipay 2D barcode
-    $("#but_al_qrcode").click(function(){  
+    $("#but_al_qrcode").click(function(){
        var obj;
     	if(!isSelectObj())
    	    {
@@ -182,23 +182,23 @@ $(function () {
    	    }
        obj=getListVal();
        obj.qrcode_type="al";
-       $("body").showLoading();  
+       $("body").showLoading();
        /*发送ajax*/
        $.ajax({
          type: "POST",
          url: "./AjaxQrCodeFactory",
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
-             $("body").hideLoading();  
+             $("body").hideLoading();
         	 showAlert(obj,"Generating Alipay 2D barcode");
              }),
          dataType: "text"
        });
-       
-       
+
+
     });
     //Generating Wechat 2D barcode
-    $("#but_wx_qrcode").click(function(){  
+    $("#but_wx_qrcode").click(function(){
     	//showAlert("微信功能暂未添加！");
         var obj;
         if(!isSelectObj())
@@ -208,14 +208,14 @@ $(function () {
         }
        obj=getListVal();
        obj.qrcode_type="wx";
-       $("body").showLoading();  
+       $("body").showLoading();
        /*发送ajax*/
        $.ajax({
          type: "POST",
          url: "./AjaxQrCodeFactory",
          data:{data:JSON.stringify(obj)} ,
          success: (function(obj){
-             $("body").hideLoading();  
+             $("body").hideLoading();
              showAlert(obj,"Generating Wechat 2D barcode");
              }),
          dataType: "text"
@@ -233,36 +233,36 @@ function ShowTemCurve(id)
 <%
 	int RsCount=0;
   	int pagecount=ub.getPagecount();
- 	
+
  	int Page=ToolBox.filterInt(request.getAttribute("pageindex").toString());
 
 	int count_per_page = ToolBox.filterInt(request.getAttribute("count_per_page").toString());
-	
+
 	ArrayList<VenderBean> lst = (ArrayList<VenderBean>)request.getAttribute("lst");
-	
+
 	String SellerId = ToolBox.filter(request.getParameter("sellerid"));
 	String terminalName = ToolBox.filter(request.getParameter("terminalName"));
 	int isOnline = ToolBox.filterInt(request.getParameter("isOnline"));
 %>
 <body style="background-color: #fff;">
 	<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" 
+            <button type="button" class="close" data-dismiss="modal"
                aria-hidden="true">×
             </button>
             <h4 class="modal-title" id="myModalLabel">
-            
+
             </h4>
          </div>
          <div class="modal-body" id="alertcontent">
-            
+
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-default" 
+            <button type="button" class="btn btn-default"
                data-dismiss="modal">Confirm
             </button>
          </div>
@@ -287,12 +287,12 @@ function ShowTemCurve(id)
 						</ul>
 					</div>
 				<form class="form">
-					<div class="row">			
+					<div class="row">
 						<div class="form-group col-md-3 col-sm-6 col-xs-12">
 							<label class="control-label">Machine ID</label>
 				  			<input type="search" id="sellerid" name="sellerid" value="<%=SellerId %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
 				  		</div>
-				<!--    		
+				<!--
 				  		<div class="form-group col-md-3 col-sm-6 col-xs-12">
 							<label class="control-label">Machine ID</label>
 				  			<input type="search" id="terminalName" name="terminalName" value="<%=terminalName %>" class="form-control input-sm" placeholder="" aria-controls="dataTables-example">
@@ -304,7 +304,7 @@ function ShowTemCurve(id)
 								<option value="false">Offline</option>
 								<option value="true">Online</option>
 							</select>
-			  			</div> 		
+			  			</div>
 						<div class="form-group col-md-3 col-sm-6 col-xs-12">
 							<label class="control-label">Temp</label>
 							<select class="select form-control" name="tempCat" id="tempCat">
@@ -313,14 +313,14 @@ function ShowTemCurve(id)
 								<option value="2">Blue (-12 to -18)</option>
 								<option value="3">Blue (&gt-18)</option>
 							</select>
-			  			</div>	
-			  			-->  						  		
+			  			</div>
+			  			-->
 			  		</div>
-			  		
+
 					<div class="row">
 						<div class="button-group col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 15px;">
 							<button type="submit" class="btn btn-default" style="background-color:#f4f4f4;">Search</button>
-							<!-- 
+							<!--
 							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="select_all">Select All</button>
 							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="deselect_all">Clear Selection</button>
 							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" id="fanxuan">Deselect</button>
@@ -329,11 +329,11 @@ function ShowTemCurve(id)
 							{%>
 							<button type="button" class="btn btn-default" style="background-color:#f4f4f4;" onclick="javascript:location.href='AddVender.jsp';" >Add Machine</button>
 							<%} %>
-						</div>																				
+						</div>
 					</div>
-											  		
+
 				</form>
-			
+
 			<div class="row" style="overflow-y:auto;">
             <div class="col-xs-12">
 
@@ -341,7 +341,7 @@ function ShowTemCurve(id)
                 <div class="box-body">
 					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
 						<%
-							int td_count=11; 
+							int td_count=11;
 						%>
 						<form action="./VenderList" method="post" name="form1" id="form1">
 						<div class="table-responsive">
@@ -356,7 +356,7 @@ function ShowTemCurve(id)
 										<th class="col-md-2" >Name</th>
 										<th class="col-md-1">Address</th>
 										<th class="col-md-4">Status</th>
-										<!-- 
+										<!--
 											<th style="width:400px;">Real time Status</th>
 											<th style="width: 250px;">Setting</th>
 										 -->
@@ -364,19 +364,19 @@ function ShowTemCurve(id)
 										<th class="col-md-1">Firmware</th>
 										<th class="col-md-1">Error</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
-										{%>											
+										{%>
 										<th class="col-md-2">Setting</th>
 										<%
 										}%>
-									</tr>											
+									</tr>
 								</thead>
 
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
 									<%
 									 	int count=0;
-									
+
 									  /* ArrayList<VenderBean> lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite()); */
-									  	
+
 										if(lst!=null)
 										{
 											RsCount=lst.size();
@@ -391,19 +391,19 @@ function ShowTemCurve(id)
 												{
 													continue;
 												}
-												
+
 												if(count>(Page)*pagecount)
 												{
 													break;
 												}
-												
+
 												int venderid=obj.getId();
 												int MdbDeviceStatus=obj.getMdbDeviceStatus();
 												int Function_flg=obj.getFunction_flg();
 												//Function_flg|=VenderBean.FUNC_IS_MDB_BILL_VALID|VenderBean.FUNC_IS_MDB_COIN_VALID|VenderBean.FUNC_IS_TERMPER_VALID;
 												boolean hasState=false;
 												//PrintWriter pw=response.getWriter();
-													
+
 									  %>
 									<tr class="odd" id="BMS<%=venderid%>">
 										<td class=" sorting_1 col-md-1"><%=venderid%></td>
@@ -433,7 +433,7 @@ function ShowTemCurve(id)
 													  		{
 													  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 													  		}
-											
+
 											  			}else {
 													  		if(obj.getTemperature()>-120)
 													  		{
@@ -441,20 +441,20 @@ function ShowTemCurve(id)
 													  		}
 													  		else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
 													  			out.print(String.format("<button type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-														  		
+
 													  		}else
 													  		{
 													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
 													  		}
 											  			}
-													  		
+
 											  		}
 											  		else
 											  		{
 											  			out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature Abnormal</button>");
 											  		}
 											  	}
-											  	
+
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
@@ -466,13 +466,13 @@ function ShowTemCurve(id)
 											  			//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
 											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coin OK</button>");
 											  	}
-											  	
+
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_BILL_VALID))
 											  	{
 											  		hasState=true;
 											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill OK</button>");
 											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill:%03d</button>",obj.getBills()/100));
-											  		
+
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_CASHLESS_VALID))
 											  	{
@@ -509,7 +509,7 @@ function ShowTemCurve(id)
 										</td>
 
 										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
-										<td class="center col-md-1 text-center"><%=obj.getCode_ver() %></td>
+										<td class="center col-md-1 text-center"><%= Integer.toHexString(obj.getCode_ver()) %></td>
 										<%
 											String slot_format="";
 											if(obj.getId_Format().equals("HEX"))
@@ -523,7 +523,7 @@ function ShowTemCurve(id)
 										%>
 										<td class="center col-md-1"><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
-										{%>										
+										{%>
 											<td class="center col-md-2">
 												<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
 													<i class="glyphicon glyphicon-map-marker icon-white"></i>
@@ -538,46 +538,46 @@ function ShowTemCurve(id)
 													Channel
 												</a>
 											</td>
-										<% 
+										<%
 										}
 										%>
 									</tr>
-									<% 		
+									<%
 										}
 									}
 									%>
 									<tr class="odd">
 										<td class="center" colspan="<%=td_count %>">
 											<%
-										    	if(RsCount>0) 
+										    	if(RsCount>0)
 										    	{
 										    		out.println(ToolBox.getpages(null, "#999", Page, pagecount, RsCount));
 												 }
-										    	else 
+										    	else
 										    	{
 										    		out.println("<span class='waring-label'>No records found, please contact admin</span>");
 										    	}
-										    			
+
 										    	%>
 										 </td>
 									</tr>
-								
+
 								</tbody>
 							</table>
 							</div>
-							</form>				
-						
+							</form>
+
 					</div>
                 </div><!-- /.box-body -->
-				
+
               </div><!-- /.box -->
-			  
+
             </div><!-- /.col -->
-			
+
           <!-- /.row -->
-          
+
 		  </div>
-        
+
                 <!-- /.col-lg-6 -->
                 <!-- jQuery -->
    <!-- jQuery -->
@@ -597,10 +597,10 @@ function ShowTemCurve(id)
 	    $(document).ready(function() {
 	    	$('#myModal').modal('hide');
 	    	$('#myModal').on('hide.bs.modal', function (e) {
-	    		
+
 	    		});
 	    });
-    
+
 	    $('#checkAll').change(function(){
 	        var all = this;
 	        $(this).closest('table').find('input[type="checkbox"]').prop('checked', all.checked);
