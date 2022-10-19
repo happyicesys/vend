@@ -971,15 +971,14 @@ public class SetPara2 extends HttpServlet {
 			plst.add(p);
 			allChannelJsonObj.put(j, channelJsonObj);
 		}
-	    //JSONObject jsonObj = new JSONObject();
-		//jsonObj.put("Vid", mid);
-		//jsonObj.put("Type", "CHANNEL");
-		//jsonObj.put("channels", allChannelJsonObj);
-
-		//executePost(jsonObj.toString());
-
 		SqlADO.UpdatePort(plst);
 
+	  JSONObject jsonObj = new JSONObject();
+		jsonObj.put("Vid", mid);
+		jsonObj.put("Type", "CHANNEL");
+		jsonObj.put("channels", allChannelJsonObj);
+
+		executePost(jsonObj.toString());
 
 	}
 }
