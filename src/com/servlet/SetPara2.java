@@ -130,7 +130,7 @@ public class SetPara2 extends HttpServlet {
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
 
 
-		executePost(poststr);
+		// executePost(poststr);
 
 		String[] arrstr = poststr.split("&", 0);
 
@@ -155,7 +155,7 @@ public class SetPara2 extends HttpServlet {
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
-			//executePost(gprsdata.getStr_content());
+			executePost(gprsdata.getStr_content());
 		}
 		logBean.add();/* 添加日志到数据库 */
 
