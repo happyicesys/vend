@@ -291,6 +291,7 @@
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
+																	(<%= balancePercent %>)
 																</span>
 														<%
 															}
