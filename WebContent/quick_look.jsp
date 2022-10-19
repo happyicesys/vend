@@ -269,6 +269,7 @@
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
+																	(<%= balancePercent %>)
 																</span>
 														<%
 															}else if(((((double)totalSold/ (double)totalVolume)*100) > 32.00 && (((double)totalSold/ (double)totalVolume)*100) <= 55.00)  || (runOutChannel >= 3 && runOutChannel < 4)) {
@@ -279,6 +280,7 @@
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
+																	(<%= balancePercent %>)
 																</span>
 														<%
 															}else {
