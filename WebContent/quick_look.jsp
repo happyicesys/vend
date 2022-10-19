@@ -295,11 +295,12 @@
 														<span style="color: red;">
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																<br>
 																(<%= String.format("%.0f", balancePercent) %>%)
 																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																<br><br>
-																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
 														</span>
@@ -309,11 +310,12 @@
 														<span style="color: blue;">
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																<br>
 																(<%= String.format("%.0f", balancePercent) %>%)
 																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																<br><br>
-																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
 														</span>
@@ -323,11 +325,12 @@
 														<span>
 															<strong>
 																Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+																<br>
 																(<%= String.format("%.0f", balancePercent) %>%)
 																<br><br>
 																Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																<br><br>
-																Out of Stock SKU: <%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+																Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 																(<%= String.format("%.0f", outSkuPercent) %>%)
 															</strong>
 														</span>
