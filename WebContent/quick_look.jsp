@@ -167,7 +167,7 @@
 												continue;
 											}
 
-											Map<Integer, String> channelErrorPair = new HashMap<Integer, String>();
+											//Map<Integer, String> channelErrorPair = new HashMap<Integer, String>();
 										%>
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
@@ -191,9 +191,9 @@
 																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
 																	) && pb.getCapacity() != 0 ) {
 
-																if(pb.getError_id() > 0) {
-																	channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
-																}
+																//if(pb.getError_id() > 0) {
+																	//channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
+																//}
 
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
@@ -210,12 +210,30 @@
 																	%>
 																			<span style="color:red;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																				<%
+																					if(pb.getError_id() > 0) {
+																				%>
+																					<span style="color:red;">
+																						(E: <%= pb.getError_id() %>)
+																					</span>
+																				<%
+																					}
+																				%>
 																			</span>
 																	<%
 																		}else {
 																	%>
 																			<span  style="color:green;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																				<%
+																					if(pb.getError_id() > 0) {
+																				%>
+																					<span style="color:red;">
+																						(E: <%= pb.getError_id() %>)
+																					</span>
+																				<%
+																					}
+																				%>
 																			</span>
 																	<%
 																		}
@@ -277,7 +295,7 @@
 														%>
 													</li>
 
-													
+<%--
 														<%
 															for(Map.Entry<Integer, String> entry : channelErrorPair.entrySet()) {
 																Integer key = entry.getKey();
@@ -293,8 +311,8 @@
 														</li>
 														<%
 															}
-														%>
-													
+														%> --%>
+
 
 												</ul>
 											</td>
