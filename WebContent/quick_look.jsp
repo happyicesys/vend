@@ -4,6 +4,8 @@
 <%@ page import="com.ado.SqlADO"%>
 <%@ page import="com.tools.ToolBox"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%
     UserBean ub=(UserBean)session.getAttribute("usermessage");
@@ -14,7 +16,7 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-	
+
 	if(!ub.AccessAble(UserBean.FUNID_CAN_ACCESS_WEB))
 	{
 		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_ACCESS_WEB]);
@@ -22,8 +24,8 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-	
-	
+
+
 	if(!ub.AccessAble(UserBean.FUNID_CAN_VIEW_PORT))
 	{
 		request.setAttribute("message", "Unable to "+UserBean.RIGHT_DES[UserBean.FUNID_CAN_VIEW_PORT]);
@@ -31,10 +33,10 @@
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 		return;
 	}
-    
-    
+
+
     ArrayList<VenderBean> livb=SqlADO.getVenderListByIdLimint(ub.getCanAccessSellerid());
-    
+
 %>
 <!DOCTYPE html>
 <html>
@@ -130,7 +132,7 @@
 										<th>Sales, Remaining/Volume Count</th>
 										<th>Conn</th>
 										<th>Temp</th>
-									</tr>											
+									</tr>
 								</thead>
 								<tbody role="alert" aria-live="polite" aria-relevant="all">
 									<%
@@ -149,28 +151,29 @@
 										for(VenderBean vb:livb)
 										{
 											pbli=SqlADO.getPortBeanList(vb.getId());
-											quehuo=false;	
+											quehuo=false;
 											for(PortBean pb:pbli)
 											{
 												if(pb.getCapacity()>pb.getAmount())
-												//if(pb.getAmount()>pb.getCapacity())	
+												//if(pb.getAmount()>pb.getCapacity())
 												{
 													quehuo=true;
 													break;
 												}
 											}
-											
+
 											if(!quehuo)
 											{
 												continue;
 											}
+
+											Map<Integer, String> channelErrorPair = new HashMap<Integer, String>();
 										%>
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
-											<%-- <td class="center "><a href="PortList.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td> --%>
 											<td class="center "><a href="VenderMod.jsp?mid=<%=vb.getId() %>"><%=vb.getTerminalName() %></a></td>
 											<td class="center "><%= vb.getTerminalAddress() %>
-											<td class="center"> 
+											<td class="center">
 												<ul style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
@@ -182,56 +185,60 @@
 														{
 															if(
 																	((Integer.parseInt(pb.getInneridname()) >= 40 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
-																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) || 
-																	(Integer.parseInt(pb.getInneridname()) >= 30 && Integer.parseInt(pb.getInneridname()) <= 38) || 
+																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 30 && Integer.parseInt(pb.getInneridname()) <= 38) ||
 																	(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 54) ||
 																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
 																	) && pb.getCapacity() != 0 ) {
-																//pb.getCapacity()>pb.getAmount() && 
+
+																if(pb.getError_id() > 0) {
+																	channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
+																}
+
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
 																<li class="quick-look">
 																	<span >
-																		#:<%=pb.getInneridname()%> - 
-																	</span> 
+																		#:<%=pb.getInneridname()%> -
+																	</span>
 																	<span style="color: blue;">
-																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>, 
-																	</span> 
+																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>,
+																	</span>
 																	<%
 																		if(pb.getAmount() <= 2) {
-																	%>		
+																	%>
 																			<span style="color:red;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																			</span> 	
+																			</span>
 																	<%
 																		}else {
-																	%>																																			
+																	%>
 																			<span  style="color:green;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																			</span> 																			
+																			</span>
 																	<%
 																		}
-																																																		
+
 																		if(pb.getAmount() == 0) {
 																			runOutChannel += 1;
 																		}
-																	%>	
-																	
-																	
-																	<!--  
+																	%>
+
+
+																	<!--
 																	<span>
 																		Name:<%=pb.getGoodroadname() %>
 																	</span>
 																	-->
-																</li>															
-														<%															
+																</li>
+														<%
 															}
 														}
-														
+
 														actualSold = totalVolume - totalSold;
 														balancePercent = 100 - (actualSold / totalVolume * 100);
-														
+
 													%>
 													<li class="quick-look row">
 														<%
@@ -247,15 +254,15 @@
 																</span>
 														<%
 															}else if(((((double)totalSold/ (double)totalVolume)*100) > 32.00 && (((double)totalSold/ (double)totalVolume)*100) <= 55.00)  || (runOutChannel >= 3 && runOutChannel < 4)) {
-														%>	
+														%>
 																<span style="color: blue;">
 																	<strong>
 																		Balance:<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
-																</span>																														
-														<%	
+																</span>
+														<%
 															}else {
 														%>
 																<span>
@@ -264,18 +271,38 @@
 																		<br>
 																		Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
 																	</strong>
-																</span>	
+																</span>
 														<%
 															}
-														%>													
-													</li>													
+														%>
+													</li>
+
+													
+														<%
+															for(Map.Entry<Integer, String> entry : channelErrorPair.entrySet()) {
+																Integer key = entry.getKey();
+																String value = entry.getValue();
+														%>
+														<li class="quick-look row">
+																<span style="color: red;">
+																	<strong>
+																		# <%= key %>
+																		Error: <%= value %>
+																	</strong>
+																</span>
+														</li>
+														<%
+															}
+														%>
+													
+
 												</ul>
 											</td>
 											<td class="center">
 												<%=vb.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
-											</td>	
+											</td>
 											<td>
-												<% 
+												<%
 
 											  		if(vb.getTemperature()!=32767)
 											  		{
@@ -296,7 +323,7 @@
 													  		else
 													  		{
 													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",vb.getTemperature()/10.0));
-													  		}													  			
+													  		}
 													  	}
 
 											  		}
@@ -304,13 +331,13 @@
 											  		{
 											  			out.print("<button type='button' onclick='ShowTemCurve("+ vb.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature Abnormal</button>");
 											  		}
-											  	
+
 												%>
-											</td>										
+											</td>
 										</tr>
 										<%
 										}
-										
+
 										%>
 													<tr class="odd">
 													 <td colspan="12" align="center" >Finish loading</td>
