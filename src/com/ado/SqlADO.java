@@ -320,7 +320,7 @@ public class SqlADO {
 				temv.setTem4(rs.getInt("tem4"));
 				temv.setFan(rs.getInt("fan"));
 				temv.setDoorisopen(rs.getString("doorisopen"));
-				temv.setCode_ver(rs.getInt('code_ver'));
+				temv.setCode_ver(rs.getInt("code_ver"));
 
 				li.add(temv);
 			}
