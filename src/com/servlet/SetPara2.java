@@ -151,7 +151,7 @@ public class SetPara2 extends HttpServlet {
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
-			// executePost(gprsdata.getStr_content());
+			executePost(gprsdata.getStr_content());
 		}
 		logBean.add();/* 添加日志到数据库 */
 
@@ -978,7 +978,7 @@ public class SetPara2 extends HttpServlet {
 		jsonObj.put("Type", "CHANNEL");
 		jsonObj.put("channels", allChannelJsonObj);
 
-		// executePost(jsonObj.toString());
+		executePost(jsonObj.toString());
 
 	}
 }
