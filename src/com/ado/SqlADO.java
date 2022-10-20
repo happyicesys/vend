@@ -122,7 +122,7 @@ public class SqlADO {
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setVendcategoryName(rs.getString("name"));
-				
+
 				temv.setTem2(rs.getInt("tem2"));
 				temv.setTem3(rs.getInt("tem3"));
 				temv.setTem4(rs.getInt("tem4"));
@@ -224,7 +224,7 @@ public class SqlADO {
 			return null;
 		}
 	}
-	
+
 	public static ArrayList<VenderBean> getVenderListByParams(String id, String terminalName,  Boolean isOnline, int tempCat) {
 		ResultSet rs=null;
 		PreparedStatement ps=null;
@@ -235,22 +235,22 @@ public class SqlADO {
 				+ "t.CanUse,t.AdminId,t.jindu,t.weidu,t.groupid,t.coinAttube,t.bills,t.MdbDeviceStatus,t.gprs_Sign,"
 				+ "t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund,"
 				+ "t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,v.name,"
-				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen from TerminalInfo t "
+				+ "t.tem2,t.tem3,t.tem4,t.fan,t.doorisopen,t.code_ver from TerminalInfo t "
 				+ "left join vendcategories v on v.id = t.vendcategory_id "
 				+ "where t.id ="+id;
-//		
+//
 //			if(terminalName != null) {
 //				sql += " and t.TerminalName LIKE %" + terminalName + "%";
 //			}
-//		
+//
 //			if(isOnline != null) {
 //				if(isOnline == true) {
 //					sql += " and t.IsOnline = 1";
 //				}else if(isOnline == false) {
 //					sql += " and t.IsOnline = 0";
-//				}		
+//				}
 //			}
-//			
+//
 //			if(tempCat > 0) {
 //				switch(tempCat) {
 //					case 1:
@@ -263,9 +263,9 @@ public class SqlADO {
 //						sql += " and t.temperature < -180 ";
 //						break;
 //				}
-//				
+//
 //			}
-		
+
 			sql += " order by IsOnline desc,id asc";
 			System.out.println(sql);
 		try {
@@ -314,13 +314,14 @@ public class SqlADO {
 				temv.setAutoTransferRation(rs.getDouble("autoTransferRation"));
 				temv.setTemperUpdateTime(rs.getString("TemperUpdateTime"));
 				temv.setVendcategoryName(rs.getString("name"));
-				
+
 				temv.setTem2(rs.getInt("tem2"));
 				temv.setTem3(rs.getInt("tem3"));
 				temv.setTem4(rs.getInt("tem4"));
 				temv.setFan(rs.getInt("fan"));
 				temv.setDoorisopen(rs.getString("doorisopen"));
-				
+				temv.setCode_ver(rs.getInt('code_ver'));
+
 				li.add(temv);
 			}
 		} catch (Exception e) {
@@ -2220,9 +2221,9 @@ public class SqlADO {
 			ps.setInt(i++,vb.getTem4());
 			ps.setInt(i++,vb.getFan());
 			ps.setString(i++,vb.getDoorisopen());
-			
+
 			ps.setInt(i++,vb.getId());
-			
+
 			ps.executeUpdate();
 			//ps.ge
 		} catch (Exception e) {
@@ -4100,7 +4101,7 @@ public class SqlADO {
 				+ "DELETE from WxTextMsg where gmt_create<'"+ str +"'");
 
 	}
-	
+
 	public static ArrayList<TempBean> getTempListByVid(int vid) {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
@@ -4109,7 +4110,7 @@ public class SqlADO {
 		String sql="SELECT id, temp, ttime, vid"
 				+ " FROM tempTab "
 				+ " where vid=?";
-		
+
 		Connection conn=ConnManager.getConnection(CN);
 		TempBean tb =null;
 		try {
