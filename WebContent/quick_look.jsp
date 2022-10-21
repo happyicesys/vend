@@ -136,7 +136,9 @@
 										<th style="width: 100px;">Name</th>
 										<th style="width: 50px;">Postcode</th>
 										<th>Sales, Remaining/Volume Count</th>
-										<th style="width: 120px;">Total</th>
+										<th style="width: 150px;">Error Code</th>
+										<th style="width: 120px;">Balance Stock</th>
+										<th style="width: 120px;">Out of Stock SKU</th>
 										<th>Conn</th>
 										<th>Temp</th>
 									</tr>
@@ -174,7 +176,9 @@
 												continue;
 											}
 
-											//Map<Integer, String> channelErrorPair = new HashMap<Integer, String>();
+											Map<Integer, Integer> channelErrorPair = new HashMap<Integer, Integer>();
+											String firstDigit = "";
+											boolean isApplyBreakline = false;
 										%>
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
@@ -204,8 +208,19 @@
 
 																if(pb.getError_id() > 0) {
 																	totalChannelError += 1;
-																	//channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
+																	channelErrorPair.put(pb.getInnerid() , pb.getError_id());
 																}
+
+																isApplyBreakline = false;
+																if(firstDigit == null || firstDigit.length() == 0) {
+																	firstDigit = Integer.toString(pb.getInneridname()).substring(0,1);
+																}else {
+																	if(firstDigit != Integer.toString(pb.getInneridname()).substring(0,1)) {
+																		firstDigit = Integer.toString(pb.getInneridname()).substring(0,1);
+																		isApplyBreakline = true;
+																	}
+																}
+
 																totalChannel += 1;
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
@@ -222,30 +237,12 @@
 																	%>
 																			<span style="color:red;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																				<%
-																					if(pb.getError_id() > 0) {
-																				%>
-																					<span style="color:red;">
-																						(E: <%= pb.getError_id() %>)
-																					</span>
-																				<%
-																					}
-																				%>
 																			</span>
 																	<%
 																		}else {
 																	%>
 																			<span  style="color:green;">
 																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																				<%
-																					if(pb.getError_id() > 0) {
-																				%>
-																					<span style="color:red;">
-																						(E: <%= pb.getError_id() %>)
-																					</span>
-																				<%
-																					}
-																				%>
 																			</span>
 																	<%
 																		}
@@ -254,14 +251,14 @@
 																			runOutChannel += 1;
 																		}
 																	%>
-
-
-																	<!--
-																	<span>
-																		Name:<%=pb.getGoodroadname() %>
-																	</span>
-																	-->
 																</li>
+																<%
+																	if($isApplyBreakline) {
+																%>
+																		<br>
+																<%
+																	}
+																%>
 														<%
 															}
 														}
@@ -271,31 +268,27 @@
 														runOutSku = runOutChannel + totalChannelError;
 														outSkuPercent = ((double)runOutSku/ (double)totalChannel) * 100;
 													%>
-
-<%--
-														<%
-															for(Map.Entry<Integer, String> entry : channelErrorPair.entrySet()) {
-																Integer key = entry.getKey();
-																String value = entry.getValue();
-														%>
-														<li class="quick-look row">
-																<span style="color: red;">
-																	<strong>
-																		# <%= key %>
-																		Error: <%= value %>
-																	</strong>
-																</span>
-														</li>
-														<%
-															}
-														%> --%>
-
-
 												</ul>
 											</td>
+											<td class="center">
+												<%
+													for(Map.Entry<Integer, Integer> entry : channelErrorPair.entrySet()) {
+														Integer key = entry.getKey();
+														Integer value = entry.getValue();
+												%>
+												<li class="quick-look row">
+														<span style="color: red;">
+															<strong>
+																# <%= key %>: <%= value %>
+															</strong>
+														</span>
+												</li>
+												<%
+													}
+												%>
+											</td>
 											<td>
-
-											<strong>
+												<strong>
 												<%
 												if(balancePercent <= 30) {
 												%>
@@ -315,13 +308,10 @@
 															(<%= String.format("%.0f", balancePercent) %>%)
 															<br><br>
 														</span>
-<%--
-														<span style="color:black;">
-															Sold:<%=String.format("% 3d", totalVolume - totalSold) %>
-															<br><br>
-														</span> --%>
-
-
+												</strong>
+											</td>
+											<td>
+												<strong>
 												<%
 												if(outSkuPercent > 40) {
 												%>
@@ -336,9 +326,8 @@
 															Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 															(<%= String.format("%.0f", outSkuPercent) %>%)
 														</span>
-
+												</strong>
 											</td>
-											</strong>
 											<td class="center">
 												<%=vb.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 											</td>
