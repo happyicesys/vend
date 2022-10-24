@@ -240,9 +240,6 @@
 																<%
 																	}
 																%>
-																	<%= firstDigit %>
-																	<%= pb.getInneridname().substring(0,1) %>
-																	<%= isApplyBreakline %>
 																		<span >
 																			#:<%=pb.getInneridname()%> -
 																		</span>
