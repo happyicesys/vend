@@ -517,7 +517,7 @@ function ShowTemCurve(id)
 											<%=obj.getTerminalName() %>
 										</td>
 										<td class="center col-md-3">
-												<ul style="font-size: 13px;">
+												<ul class="list-inline" style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
@@ -679,15 +679,15 @@ function ShowTemCurve(id)
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_CASHLESS_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Non cash Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Non Cash OK</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_CASHLESS)==0)?"<button type='button' class='btn btn-warning btn-xs' style='margin-right:3px;'>Non cash Prob</button>":"<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Non Cash OK</button>");
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_SENSOR_VALID))
 											  	{
 											  		hasState=true;
 											  		int flags1=obj.getFlags1();
-											  		out.print("<button type='button' class='btn "+ (((flags1&1)==0)?"btn-danger":"btn-success") +" btn-sm' style='margin-right:3px;'>Sensor Status:"+ (((flags1&1)==0)?"0":"1") +"</button>");
-											  		out.print("<button type='button' class='btn "+ (((flags1&2)==0)?"btn-success":"btn-danger") +" btn-sm' style='margin-right:3px;'>Error Code 9:"+ (((flags1&2)==0)?"N":"Y") +"</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Fan Status:"+ (((flags1&4)==0)?"0":"1") +"</button>");
+											  		out.print("<button type='button' class='btn "+ (((flags1&1)==0)?"btn-danger":"btn-success") +" btn-xs' style='margin-right:3px;'>Sensor Status:"+ (((flags1&1)==0)?"0":"1") +"</button>");
+											  		out.print("<button type='button' class='btn "+ (((flags1&2)==0)?"btn-success":"btn-danger") +" btn-xs' style='margin-right:3px;'>Error Code 9:"+ (((flags1&2)==0)?"N":"Y") +"</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Fan Status:"+ (((flags1&4)==0)?"0":"1") +"</button>");
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_ACB_VALID))
 											  	{
@@ -696,11 +696,11 @@ function ShowTemCurve(id)
 											  		//out.print("<button type='button' class='btn "+ (((flags1&1)==0)?"btn-danger":"btn-success") +" btn-sm' style='margin-right:3px;'>Sensor Status:"+ (((flags1&1)==0)?"0":"1") +"</button>");
 											  		//out.print("<button type='button' class='btn "+ (((flags1&2)==0)?"btn-success":"btn-danger") +" btn-sm' style='margin-right:3px;'>Error Code 9:"+ (((flags1&2)==0)?"N":"Y") +"</button>");
 											  		//out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Fan Status:"+ (((flags1&4)==0)?"0":"1") +"</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T2:"+ ((obj.getTem2()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T3:"+ ((obj.getTem3()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>T4:"+ ((obj.getTem4()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>FAN:"+ obj.getFan() +"</button>");
-											  		out.print("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>DOOR:"+ obj.getDoorisopen()+"</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>T2:"+ ((obj.getTem2()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>T3:"+ ((obj.getTem3()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>T4:"+ ((obj.getTem4()==VenderBean.INVALID_TEMPER)?"NA.":obj.getTem2()/10.0) +"℃</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>FAN:"+ obj.getFan() +"</button>");
+											  		out.print("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>DOOR:"+ obj.getDoorisopen()+"</button>");
 											  	}
 											  	if(!hasState)
 											  	{
