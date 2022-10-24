@@ -389,8 +389,8 @@ function ShowTemCurve(id)
 											<input type="checkbox" id="checkAll">
 										</th>
 										<th class="col-md-1" style="width: 100px">Temp</th>
-										<th class="col-md-2" >Name</th>
-										<th class="col-md-2">Sales, Balance/ Capacity</th>
+										<th class="col-md-1" >Name</th>
+										<th class="col-md-3">Sales, Balance/ Capacity</th>
 										<th class="col-md-1">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
@@ -513,10 +513,10 @@ function ShowTemCurve(id)
 												}
 											%>
 										</td>
-										<td class="center col-md-2">
+										<td class="center col-md-1">
 											<%=obj.getTerminalName() %>
 										</td>
-										<td class="center col-md-2">
+										<td class="center col-md-3">
 												<ul style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
