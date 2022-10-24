@@ -352,7 +352,7 @@ function ShowTemCurve(id)
 										<th class="col-md-1">
 											<input type="checkbox" id="checkAll">
 										</th>
-										<th class="col-md-1">Conn</th>
+										<th class="col-md-1">Temp</th>
 										<th class="col-md-2" >Name</th>
 										<th class="col-md-1">Address</th>
 										<th class="col-md-4">Status</th>
@@ -411,50 +411,51 @@ function ShowTemCurve(id)
 										    <input type="checkbox" name="vendid" value="<%=venderid%>">
 										  </td>
 										<td class="center col-md-1">
-											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
+											<%
+												if(0!=(Function_flg&VenderBean.FUNC_IS_TERMPER_VALID))
+												{
+													hasState=true;
+													if(obj.getTemperature()!=32767)
+													{
+														if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TEMP_GRAPH)) {
+															if(obj.getTemperature()>-120)
+															{
+																out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+															}
+															else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
+																out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+															}else
+															{
+																out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+															}
+
+														}else {
+															if(obj.getTemperature()>-120)
+															{
+																out.print(String.format("<button type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
+															}
+															else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
+																out.print(String.format("<button type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+
+															}else
+															{
+																out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
+															}
+														}
+
+													}
+													else
+													{
+														out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature Abnormal</button>");
+													}
+												}
+											%>
 										</td>
 										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
 										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 										<td class="center col-md-4" >
+											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 											<%
-											  	if(0!=(Function_flg&VenderBean.FUNC_IS_TERMPER_VALID))
-											  	{
-											  		hasState=true;
-											  		if(obj.getTemperature()!=32767)
-											  		{
-											  			if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TEMP_GRAPH)) {
-													  		if(obj.getTemperature()>-120)
-													  		{
-													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-													  		}
-													  		else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
-													  			out.print(String.format("<button onclick='ShowTemCurve(%d);' type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-													  		}else
-													  		{
-													  			out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-													  		}
-
-											  			}else {
-													  		if(obj.getTemperature()>-120)
-													  		{
-													  			out.print(String.format("<button type='button' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
-													  		}
-													  		else if(obj.getTemperature() >-180 && obj.getTemperature() <= -120) {
-													  			out.print(String.format("<button type='button' class='btn btn-info btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
-
-													  		}else
-													  		{
-													  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getTemperature()/10.0));
-													  		}
-											  			}
-
-											  		}
-											  		else
-											  		{
-											  			out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Temperature Abnormal</button>");
-											  		}
-											  	}
-
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
