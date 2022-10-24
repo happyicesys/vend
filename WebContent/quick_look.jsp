@@ -211,9 +211,9 @@
 																	channelErrorPair.put(pb.getInnerid() , pb.getError_id());
 																}
 
-																isApplyBreakline = false;
 																if(firstDigit == null || firstDigit.length() == 0) {
 																	firstDigit = pb.getInneridname().substring(0,1);
+																	isApplyBreakline = false;
 																}else {
 																	if(firstDigit != pb.getInneridname().substring(0,1)) {
 																		firstDigit = pb.getInneridname().substring(0,1);
@@ -229,7 +229,7 @@
 																<%
 																	if(isApplyBreakline) {
 																%>
-																	<li>
+																	<li>a
 																<%
 																	}else {
 																%>
