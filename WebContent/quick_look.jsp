@@ -238,6 +238,7 @@
 																	}
 																%>
 																	<%= firstDigit %>
+																	<%= pb.getInneridname().substring(0,1) %>
 																		<span >
 																			#:<%=pb.getInneridname()%> -
 																		</span>
