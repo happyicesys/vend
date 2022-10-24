@@ -388,13 +388,13 @@ function ShowTemCurve(id)
 										<th class="col-md-1">
 											<input type="checkbox" id="checkAll">
 										</th>
-										<th class="col-md-1" style="width: 100px">Temp</th>
+										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
 										<th class="col-md-3">Sales, Balance/ Capacity</th>
 										<th class="col-md-1">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
-										<th class="col-md-1" >Channel</th>
+										<th class="col-md-1" style="width: 80px">Channel</th>
 										<th class="col-md-4">Status</th>
 										<th class="col-md-1">Temp Time</th>
 										<th class="col-md-1" style="width: 40px">Firmware</th>
@@ -655,25 +655,25 @@ function ShowTemCurve(id)
 											%>
 										</td>
 										<td class="center col-md-4" >
-											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-sm' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
+											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-xs' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-xs' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
 											<%
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_COIN_VALID))
 											  	{
 											  		hasState=true;
 											  		if(obj.getCoinAttube() > 1600) {
-											  			out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  			out.print(String.format("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
 											  		} else{
-											  			out.print(String.format("<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
+											  			out.print(String.format("<button type='button' class='btn btn-warning btn-xs' style='margin-right:3px;'>Coins:%1.2f</button>",obj.getCoinAttube()/100.0));
 											  		}
 											  			//out.print(String.format("<li class='normal-label mechine-state'>Coin Box:%1.2f</li>",obj.getCoinAtbox()/100.0));
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Coin OK</button>");
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_COIN)==0)?"<button type='button' class='btn btn-warning btn-xs' style='margin-right:3px;'>Coin accepter Prob</button>":"<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Coin OK</button>");
 											  	}
 
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_BILL_VALID))
 											  	{
 											  		hasState=true;
-											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-sm' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill OK</button>");
-											  		out.print(String.format("<button type='button' class='btn btn-success btn-sm' style='margin-right:3px;'>Bill:%03d</button>",obj.getBills()/100));
+											  		out.print(((MdbDeviceStatus&VenderBean.MDB_COMMUNICATION_BILL)==0)?"<button type='button' class='btn btn-warning btn-xs' style='margin-right:3px;'>Bill acceptor Prob</button>":"<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Bill OK</button>");
+											  		out.print(String.format("<button type='button' class='btn btn-success btn-xs' style='margin-right:3px;'>Bill:%03d</button>",obj.getBills()/100));
 
 											  	}
 											  	if(0!=(Function_flg&VenderBean.FUNC_IS_MDB_CASHLESS_VALID))
