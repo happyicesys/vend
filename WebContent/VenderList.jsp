@@ -391,7 +391,7 @@ function ShowTemCurve(id)
 										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
 										<th class="col-md-3">Sales, Balance/ Capacity</th>
-										<th class="col-md-1">Error</th>
+										<th class="col-md-1" style="width: 50px">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
 										<th class="col-md-1" style="width: 80px">Channel</th>
@@ -618,7 +618,7 @@ function ShowTemCurve(id)
 											<%
 												}
 											%>
-														Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+														<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
 														(<%= String.format("%.0f", balancePercent) %>%)
 														<br><br>
 													</span>
@@ -637,7 +637,7 @@ function ShowTemCurve(id)
 											<%
 												}
 											%>
-														Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+														<%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
 														(<%= String.format("%.0f", outSkuPercent) %>%)
 													</span>
 											</strong>
