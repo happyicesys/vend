@@ -257,13 +257,13 @@
 																		%>
 																	</li>
 
-																	<%
+																	<%-- <%
 																		if(isApplyBreakline) {
 																	%>
 																		<br>br
 																	<%
 																		}
-																	%>
+																	%> --%>
 
 														<%
 															}
@@ -282,7 +282,7 @@
 														Integer key = entry.getKey();
 														Integer value = entry.getValue();
 												%>
-												<li>
+												<li class="quick-look" style="width:70px;">
 														<span style="color: red;">
 															<strong>
 																# <%= key %>: <%= value %>
