@@ -229,7 +229,7 @@
 																<%
 																	if(isApplyBreakline) {
 																%>
-																	<li>a
+																	<li>
 																<%
 																	}else {
 																%>
@@ -237,6 +237,7 @@
 																<%
 																	}
 																%>
+																	<%= firstDigit %>
 																		<span >
 																			#:<%=pb.getInneridname()%> -
 																		</span>
