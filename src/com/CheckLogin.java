@@ -21,7 +21,7 @@ import beans.UserBean;
  */
 public class CheckLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,17 +43,17 @@ public class CheckLogin extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		String username=ToolBox.filter(request.getParameter("username"));
 		String pwd=request.getParameter("password");
 		String random=request.getParameter("random");
-		
+
 		if(random==null)
 		{
 			random="";
 		}
 
-		
+
 		if(pwd==null)
 		{
 			pwd="";
@@ -64,7 +64,7 @@ public class CheckLogin extends HttpServlet {
 			request.setAttribute("LAST_URL", "index.jsp");
 			request.getRequestDispatcher("message.jsp").forward(request, response);
 			return;
-		}else 
+		}else
 		{
 			//查询数据库
 			UserBean ub=UserBean.getUserBean(username, ToolBox.getMd5(pwd));
@@ -87,9 +87,9 @@ public class CheckLogin extends HttpServlet {
 				ub.setLastloginip(ip);
 				ub.setLastLoginTime(new Timestamp(ClsTime.SystemTime()));
 				UserBean.updateUser(ub);
-				
+
 				//System.out.println(ub.getLastloginip());
-				
+
 				if(ub.AccessAble(UserBean.FUNID_ACCESS_ALL_VENDER))
 				{
 					ub.setCanAccessSellerid(SqlADO.VenderBeanID());
@@ -98,7 +98,7 @@ public class CheckLogin extends HttpServlet {
 				session.setAttribute("currentpage",null);
 				session.setMaxInactiveInterval(18000);
 				session.setAttribute("usermessage",ub);
-				response.sendRedirect("admin.jsp");
+				response.sendRedirect("VenderList.jsp");
 			}
 		}
 	}
