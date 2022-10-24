@@ -225,41 +225,45 @@
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li class="quick-look">
-																	<span >
-																		#:<%=pb.getInneridname()%> -
-																	</span>
-																	<span style="color: blue;">
-																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>,
-																	</span>
-																	<%
-																		if(pb.getAmount() <= 2) {
-																	%>
-																			<span style="color:red;">
-																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																			</span>
-																	<%
-																		}else {
-																	%>
-																			<span  style="color:green;">
-																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
-																			</span>
-																	<%
-																		}
 
-																		if(pb.getAmount() == 0) {
-																			runOutChannel += 1;
-																		}
-																	%>
-																</li>
 																<%
 																	if(isApplyBreakline) {
 																%>
-																abc
-																		<br>
+																	<li>
+																<%
+																	}else {
+																%>
+																	<li class="quick-look">
 																<%
 																	}
 																%>
+																		<span >
+																			#:<%=pb.getInneridname()%> -
+																		</span>
+																		<span style="color: blue;">
+																			<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>,
+																		</span>
+																		<%
+																			if(pb.getAmount() <= 2) {
+																		%>
+																				<span style="color:red;">
+																					<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																				</span>
+																		<%
+																			}else {
+																		%>
+																				<span  style="color:green;">
+																					<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																				</span>
+																		<%
+																			}
+
+																			if(pb.getAmount() == 0) {
+																				runOutChannel += 1;
+																			}
+																		%>
+																	</li>
+
 														<%
 															}
 														}
