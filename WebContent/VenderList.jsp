@@ -1,5 +1,6 @@
 ﻿<%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.ListIterator"%>
+<%@ page import="beans.PortBean"%>
 <%@ page import="beans.VenderBean"%>
 <%@ page import="beans.UserBean"%>
 <%@ page import="java.util.ArrayList"%>
@@ -354,15 +355,14 @@ function ShowTemCurve(id)
 										</th>
 										<th class="col-md-1" style="width: 100px">Temp</th>
 										<th class="col-md-2" >Name</th>
+										<th class="col-md-2">Sales, Balance/ Capacity</th>
+										<th class="col-md-1">Error</th>
+										<th class="col-md-1">Balance Stock</th>
+										<th class="col-md-1">Out of Stock SKU</th>
 										<th class="col-md-1" >Channel</th>
 										<th class="col-md-4">Status</th>
-										<!--
-											<th style="width:400px;">Real time Status</th>
-											<th style="width: 250px;">Setting</th>
-										 -->
 										<th class="col-md-1">Temp Time</th>
-										<th class="col-md-1" style="width: 50px">Firmware</th>
-										<th class="col-md-1">Error</th>
+										<th class="col-md-1" style="width: 40px">Firmware</th>
 										<th class="col-md-1">Address</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>
@@ -383,6 +383,8 @@ function ShowTemCurve(id)
 											RsCount=lst.size();
 											ListIterator<VenderBean> it=lst.listIterator();
 											VenderBean obj;
+											ArrayList<PortBean> pbli=null;
+											boolean quehuo=false;
 											//int index=0;
 											while(it.hasNext())
 											{
@@ -405,9 +407,33 @@ function ShowTemCurve(id)
 												boolean hasState=false;
 												//PrintWriter pw=response.getWriter();
 
+												pbli=SqlADO.getPortBeanList(obj.getId());
+												quehuo=false;
+												for(PortBean pb:pbli)
+												{
+													if(pb.getCapacity()>pb.getAmount())
+													{
+														quehuo=true;
+														break;
+													}
+												}
+
+												if(!quehuo)
+												{
+													continue;
+												}
+
+												Map<Integer, Integer> channelErrorPair = new HashMap<Integer, Integer>();
+												String firstDigit = "";
+
 									  %>
+
 									<tr class="odd" id="BMS<%=venderid%>">
-										<td class=" sorting_1 col-md-1"><%=venderid%></td>
+										<td class=" sorting_1 col-md-1">
+											<strong>
+												<%=venderid%>
+											</strong>
+										</td>
 										<td class="center col-md-1">
 										    <input type="checkbox" name="vendid" value="<%=venderid%>">
 										  </td>
@@ -452,7 +478,135 @@ function ShowTemCurve(id)
 												}
 											%>
 										</td>
-										<td class="center col-md-2"><%=obj.getTerminalName() %></td>
+										<td class="center col-md-2">
+											<%=obj.getTerminalName() %>
+										</td>
+										<td class="center col-md-2">
+												<ul style="font-size: 13px;">
+													<%
+													 	int totalVolume = 0;
+														int totalSold = 0;
+														int totalChannel = 0;
+														int totalChannelError = 0;
+														int	runOutChannel = 0;
+														int runOutSku = 0;
+														int actualSold = 0;
+														double balancePercent = 0;
+														double outSkuPercent = 0;
+														for(PortBean pb:pbli)
+														{
+															if(
+																	((Integer.parseInt(pb.getInneridname()) >= 40 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 30 && Integer.parseInt(pb.getInneridname()) <= 38) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 54) ||
+																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
+																	) && pb.getCapacity() != 0 ) {
+
+																if(pb.getError_id() > 0) {
+																	totalChannelError += 1;
+																	channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
+																}
+																totalChannel += 1;
+																totalVolume += pb.getCapacity();
+																totalSold += pb.getAmount();
+																%>
+																<li class="quick-look">
+																	<span >
+																		#:<%=pb.getInneridname()%> -
+																	</span>
+																	<span style="color: blue;">
+																		<%=String.format("% 2d",pb.getCapacity()-pb.getAmount()) %>,
+																	</span>
+																	<%
+																		if(pb.getAmount() <= 2) {
+																	%>
+																			<span style="color:red;">
+																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																			</span>
+																	<%
+																		}else {
+																	%>
+																			<span  style="color:green;">
+																				<%=String.format("% 2d \t/ % 2d",pb.getAmount(), pb.getCapacity()) %>
+																			</span>
+																	<%
+																		}
+
+																		if(pb.getAmount() == 0) {
+																			runOutChannel += 1;
+																		}
+																	%>
+																</li>
+														<%
+															}
+														}
+
+														actualSold = totalVolume - totalSold;
+														balancePercent = ((double)totalSold / (double)totalVolume) * 100;
+														runOutSku = runOutChannel + totalChannelError;
+														outSkuPercent = ((double)runOutSku/ (double)totalChannel) * 100;
+													%>
+												</ul>
+										</td>
+										<td class="center">
+											<%
+												for(Map.Entry<Integer, Integer> entry : channelErrorPair.entrySet()) {
+													Integer key = entry.getKey();
+													Integer value = entry.getValue();
+											%>
+											<li class="quick-look" style="width:70px;">
+													<span style="color: red;">
+														<strong>
+															# <%= key %>: <%= value %>
+														</strong>
+													</span>
+											</li>
+											<%
+												}
+											%>
+										</td>
+										<td>
+											<strong>
+											<%
+											if(balancePercent <= 30) {
+											%>
+													<span style="color: red;">
+											<%
+												}else if(balancePercent > 30 && balancePercent <= 60) {
+											%>
+													<span style="color: blue;">
+											<%
+												}else if(balancePercent > 60) {
+											%>
+													<span style="color: black;">
+											<%
+												}
+											%>
+														Balance: <br> <%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+														(<%= String.format("%.0f", balancePercent) %>%)
+														<br><br>
+													</span>
+											</strong>
+										</td>
+										<td>
+											<strong>
+											<%
+											if(outSkuPercent > 40) {
+											%>
+													<span style="color: red;">
+											<%
+												}else {
+											%>
+													<span style="color: black;">
+											<%
+												}
+											%>
+														Out of Stock SKU: <br><%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+														(<%= String.format("%.0f", outSkuPercent) %>%)
+													</span>
+											</strong>
+										</td>
 										<td class="center col-md-1">
 											<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 											{
@@ -525,18 +679,6 @@ function ShowTemCurve(id)
 										<td class="center col-md-1">
 											<%= Integer.toHexString(obj.getCode_ver()) %>
 										</td>
-										<%
-											String slot_format="";
-											if(obj.getId_Format().equals("HEX"))
-											{
-												slot_format="%X Channel %d Error";
-											}
-											else
-											{
-												slot_format="%d Channel %d Error";
-											}
-										%>
-										<td class="center col-md-1"><%=(obj.getLstSltE()==0)?"No Malfunction":String.format(slot_format, obj.getLstSltE()/1000,obj.getLstSltE()%1000) %></td>
 										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>
