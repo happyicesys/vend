@@ -507,7 +507,7 @@ function ShowTemCurve(id)
 
 																if(pb.getError_id() > 0) {
 																	totalChannelError += 1;
-																	channelErrorPair.put(pb.getInnerid() , pb.getErrorinfo());
+																	channelErrorPair.put(pb.getInnerid() , pb.getError_id());
 																}
 																totalChannel += 1;
 																totalVolume += pb.getCapacity();
