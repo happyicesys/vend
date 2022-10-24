@@ -136,7 +136,7 @@
 										<th style="width: 100px;">Name</th>
 										<th style="width: 50px;">Postcode</th>
 										<th>Sales, Remaining/Volume Count</th>
-										<th style="width: 50px;">Error Code</th>
+										<th style="width: 70px;">Error Code</th>
 										<th style="width: 120px;">Balance Stock</th>
 										<th style="width: 120px;">Out of Stock SKU</th>
 										<th>Conn</th>
@@ -260,7 +260,7 @@
 																	<%
 																		if(isApplyBreakline) {
 																	%>
-																		<br>
+																		<br>br
 																	<%
 																		}
 																	%>
