@@ -546,7 +546,7 @@ function ShowTemCurve(id)
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li style="padding: 5px 10px">
+																<li style="padding: 5px 10px; margin: 0px 5px;">
 																	<span >
 																		#:<%=pb.getInneridname()%> -
 																	</span>
