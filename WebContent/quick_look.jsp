@@ -213,10 +213,10 @@
 
 																isApplyBreakline = false;
 																if(firstDigit == null || firstDigit.length() == 0) {
-																	firstDigit = Integer.toString(pb.getInneridname()).substring(0,1);
+																	firstDigit = pb.getInneridname().substring(0,1);
 																}else {
-																	if(firstDigit != Integer.toString(pb.getInneridname()).substring(0,1)) {
-																		firstDigit = Integer.toString(pb.getInneridname()).substring(0,1);
+																	if(firstDigit != pb.getInneridname().substring(0,1)) {
+																		firstDigit = pb.getInneridname().substring(0,1);
 																		isApplyBreakline = true;
 																	}
 																}
