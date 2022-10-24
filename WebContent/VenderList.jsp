@@ -390,7 +390,7 @@ function ShowTemCurve(id)
 										</th>
 										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
-										<th class="col-md-3" style="width: 300px">Sales, Balance/ Capacity</th>
+										<th class="col-md-3">Sales, Balance/ Capacity</th>
 										<th class="col-md-1">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
@@ -546,7 +546,7 @@ function ShowTemCurve(id)
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li>
+																<li style="padding: 5px 10px">
 																	<span >
 																		#:<%=pb.getInneridname()%> -
 																	</span>
