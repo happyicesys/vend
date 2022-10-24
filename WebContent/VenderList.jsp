@@ -348,11 +348,11 @@ function ShowTemCurve(id)
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr role="row" style="background-color: #f5f5f5;">
-										<th class="col-md-1">#</th>
+										<th class="col-md-1"  style="width: 50px">#</th>
 										<th class="col-md-1">
 											<input type="checkbox" id="checkAll">
 										</th>
-										<th class="col-md-1">Temp</th>
+										<th class="col-md-1" style="width: 100px">Temp</th>
 										<th class="col-md-2" >Name</th>
 										<th class="col-md-1" >Channel</th>
 										<th class="col-md-4">Status</th>
@@ -361,7 +361,7 @@ function ShowTemCurve(id)
 											<th style="width: 250px;">Setting</th>
 										 -->
 										<th class="col-md-1">Temp Time</th>
-										<th class="col-md-1">Firmware</th>
+										<th class="col-md-1" style="width: 50px">Firmware</th>
 										<th class="col-md-1">Error</th>
 										<th class="col-md-1">Address</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
@@ -522,7 +522,7 @@ function ShowTemCurve(id)
 										</td>
 
 										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
-										<td class="center col-md-1 text-center">
+										<td class="center col-md-1">
 											<%= Integer.toHexString(obj.getCode_ver()) %>
 										</td>
 										<%
