@@ -216,11 +216,11 @@
 																	firstDigit = pb.getInneridname().substring(0,1);
 																	isApplyBreakline = false;
 																}else {
-																	if(firstDigit != pb.getInneridname().substring(0,1)) {
+																	if(firstDigit.equals(pb.getInneridname().substring(0,1))) {
+																		isApplyBreakline = false;
+																	}else {
 																		firstDigit = pb.getInneridname().substring(0,1);
 																		isApplyBreakline = true;
-																	}else {
-																		isApplyBreakline = false;
 																	}
 																}
 
