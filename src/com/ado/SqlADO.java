@@ -266,7 +266,7 @@ public class SqlADO {
 //
 //			}
 
-			sql += " order by IsOnline desc,id asc";
+			sql += " order by IsOnline desc,id asc, temperature asc, TerminalName asc";
 			System.out.println(sql);
 		try {
 
@@ -352,7 +352,7 @@ public class SqlADO {
 				"t.temperature,t.flags1,t.flags2,t.function_flg,t.coinAtbox,t.gprs_event_flg,t.IRErrCnt,t.LstSltE,t.auto_refund," +
 				"t.manual_refund,t.AllowUpdateGoodsByPc,t.id_format,t.autoTransfer,t.autoTransferRation,t.TemperUpdateTime,vc.name from TerminalInfo t" +
 				"left join vendcategories vc on vc.id = t.vendcategory_id " +
-				"where t.id="+id+" and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc";
+				"where t.id="+id+" and t.id in("+limiteid +") order by t.IsOnline desc,t.id asc, t.temperature asc, t.TerminalName asc";
 		try {
 
 			ps= conn.prepareStatement(sql);

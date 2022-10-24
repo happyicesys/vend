@@ -253,7 +253,7 @@
 																	%>
 																</li>
 																<%
-																	if($isApplyBreakline) {
+																	if(isApplyBreakline) {
 																%>
 																		<br>
 																<%
