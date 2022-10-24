@@ -178,7 +178,6 @@
 
 											Map<Integer, Integer> channelErrorPair = new HashMap<Integer, Integer>();
 											String firstDigit = "";
-											boolean isApplyBreakline = false;
 										%>
 										<tr class="even">
 											<td class="center "><%=vb.getId() %></td>
@@ -196,8 +195,10 @@
 														int actualSold = 0;
 														double balancePercent = 0;
 														double outSkuPercent = 0;
+														boolean isApplyBreakline = false;
 														for(PortBean pb:pbli)
 														{
+															isApplyBreakline= false;
 															if(
 																	((Integer.parseInt(pb.getInneridname()) >= 40 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
 																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) ||
