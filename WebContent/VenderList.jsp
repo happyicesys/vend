@@ -102,40 +102,41 @@
     .btn {
     	margin-bottom: 5px;
     }
-
-		.quick-look
-		{
-			-webkit-border-horizontal-spacing: 0px;
-			-webkit-border-image: none;
-			-webkit-border-vertical-spacing: 0px;
-			border-bottom-color: white;
-			border-bottom-left-radius: 3px;
-			border-bottom-right-radius: 3px;
-			border-bottom-style: none;
-			border-width: 0px;
-			border-collapse: separate;
-			border-left-color: white;
-			border-left-style: none;
-			border-right-color: white;
-			border-right-style: none;
-			border-top-color: white;
-			border-top-left-radius: 3px;
-			border-top-right-radius: 3px;
-			border-top-style: none;
-			font-family: Ubuntu, Helvetica, Arial, sans-serif;
-			line-height: 14px;
-			max-width: none;
-			text-align: left;
-			vertical-align: baseline;
-			white-space: nowrap;
-			padding:5px;
-			margin:3px;
-			display:block;
-			float:left;
-			width:170px;
-			font-size:13px;
-		}
 	</style>
+<style type="text/css">
+	.quick-look
+	{
+		-webkit-border-horizontal-spacing: 0px;
+		-webkit-border-image: none;
+		-webkit-border-vertical-spacing: 0px;
+		border-bottom-color: white;
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+		border-bottom-style: none;
+		border-width: 0px;
+		border-collapse: separate;
+		border-left-color: white;
+		border-left-style: none;
+		border-right-color: white;
+		border-right-style: none;
+		border-top-color: white;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		border-top-style: none;
+		font-family: Ubuntu, Helvetica, Arial, sans-serif;
+		line-height: 14px;
+		max-width: none;
+		text-align: left;
+		vertical-align: baseline;
+		white-space: nowrap;
+		padding:5px;
+		margin:3px;
+		display:block;
+		float:left;
+		width:170px;
+		font-size:13px;
+	}
+</style>
     <script type="text/javascript">
     (function ($) {
 		  $(document).ready(function() {
@@ -406,7 +407,7 @@ function ShowTemCurve(id)
 										</th>
 										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
-										<th style="width: 500px;">Sales, Balance/ Capacity</th>
+										<th class="col-md-4">Sales, Balance/ Capacity</th>
 										<th class="col-md-1" style="width: 50px">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
@@ -532,7 +533,7 @@ function ShowTemCurve(id)
 										<td class="center col-md-1">
 											<%=obj.getTerminalName() %>
 										</td>
-										<td class="center">
+										<td class="center col-md-4">
 												<%-- <ul class="list-inline" style="font-size: 13px;"> --%>
 												<ul style="font-size: 13px;">
 													<%
