@@ -109,8 +109,8 @@
 			-webkit-border-image: none;
 			-webkit-border-vertical-spacing: 0px;
 			border-bottom-color: white;
-			border-bottom-left-radius: 3px;
-			border-bottom-right-radius: 3px;
+			border-bottom-left-radius: 2px;
+			border-bottom-right-radius: 2px;
 			border-bottom-style: none;
 			border-width: 0px;
 			border-collapse: separate;
@@ -119,8 +119,8 @@
 			border-right-color: white;
 			border-right-style: none;
 			border-top-color: white;
-			border-top-left-radius: 3px;
-			border-top-right-radius: 3px;
+			border-top-left-radius: 2px;
+			border-top-right-radius: 2px;
 			border-top-style: none;
 			font-family: Ubuntu, Helvetica, Arial, sans-serif;
 			line-height: 14px;
@@ -128,11 +128,11 @@
 			text-align: left;
 			vertical-align: baseline;
 			white-space: nowrap;
-			padding:5px;
-			margin:3px;
+			padding:2px;
+			margin:1px;
 			display:block;
 			float:left;
-			width:170px;
+			width:180px;
 			font-size:13px;
 		}
 	</style>
