@@ -378,7 +378,7 @@ function ShowTemCurve(id)
                 <div class="box-body">
 					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
 						<%
-							int td_count=11;
+							int td_count=14;
 						%>
 						<form action="./VenderList" method="post" name="form1" id="form1">
 						<div class="table-responsive">
