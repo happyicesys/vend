@@ -406,7 +406,7 @@ function ShowTemCurve(id)
 										</th>
 										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
-										<th class="col-md-3" style="width: 500px;">Sales, Balance/ Capacity</th>
+										<th style="width: 500px;">Sales, Balance/ Capacity</th>
 										<th class="col-md-1" style="width: 50px">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
