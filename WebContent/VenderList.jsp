@@ -268,7 +268,7 @@ function ShowTemCurve(id)
 </head>
 <%
 	int RsCount=0;
-  	int pagecount=ub.getPagecount();
+  	int pagecount=100;
 
  	int Page=ToolBox.filterInt(request.getAttribute("pageindex").toString());
 
@@ -406,7 +406,7 @@ function ShowTemCurve(id)
 										</th>
 										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1" >Name</th>
-										<th class="col-md-3" style="min-width: 150px;">Sales, Balance/ Capacity</th>
+										<th class="col-md-3" style="min-width: 150px; max-width: 400px;">Sales, Balance/ Capacity</th>
 										<th class="col-md-1" style="width: 50px">Error</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
