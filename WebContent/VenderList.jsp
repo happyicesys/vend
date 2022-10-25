@@ -382,51 +382,8 @@ function ShowTemCurve(id)
 						<form action="./VenderList" method="post" name="form1" id="form1">
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
-								<tr class="odd">
-									<td class="center" colspan="<%=td_count %>">
-										<%
-												if(RsCount>0)
-												{
-													out.println(ToolBox.getpages(null, "#999", Page, pagecount, RsCount));
-												}
-												else
-												{
-													out.println("<span class='waring-label'>No records found, please contact admin</span>");
-												}
-
-												%>
-										</td>
-								</tr>
-								<thead>
-									<tr role="row" style="background-color: #f5f5f5;">
-										<th class="col-md-1"  style="width: 30px">#</th>
-										<th class="col-md-1">
-											<input type="checkbox" id="checkAll">
-										</th>
-										<th class="col-md-1" style="width: 80px">Temp</th>
-										<th class="col-md-1" >Name</th>
-										<th class="col-md-3" style="min-width: 150px;">Sales, Balance/ Capacity</th>
-										<th class="col-md-1" style="width: 50px">Error</th>
-										<th class="col-md-1">Balance Stock</th>
-										<th class="col-md-1">Out of Stock SKU</th>
-										<th class="col-md-1" style="width: 80px">Channel</th>
-										<th class="col-md-4">Status</th>
-										<th class="col-md-1">Temp Time</th>
-										<th class="col-md-1" style="width: 40px">Firmware</th>
-										<th class="col-md-1">Address</th>
-										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
-										{%>
-										<th class="col-md-2">Setting</th>
-										<%
-										}%>
-									</tr>
-								</thead>
-
-								<tbody role="alert" aria-live="polite" aria-relevant="all">
 									<%
 									 	int count=0;
-
-									  /* ArrayList<VenderBean> lst=SqlADO.getVenderListByIdLimint(ub.getVenderLimite()); */
 
 										if(lst!=null)
 										{
@@ -476,8 +433,48 @@ function ShowTemCurve(id)
 												Map<Integer, Integer> channelErrorPair = new HashMap<Integer, Integer>();
 												String firstDigit = "";
 
-									  %>
+									%>
+								<thead>
+									<tr class="odd">
+										<td class="center" colspan="<%=td_count %>">
+											<%
+													if(RsCount>0)
+													{
+														out.println(ToolBox.getpages(null, "#999", Page, pagecount, RsCount));
+													}
+													else
+													{
+														out.println("<span class='waring-label'>No records found, please contact admin</span>");
+													}
 
+													%>
+											</td>
+									</tr>
+									<tr role="row" style="background-color: #f5f5f5;">
+										<th class="col-md-1"  style="width: 30px">#</th>
+										<th class="col-md-1">
+											<input type="checkbox" id="checkAll">
+										</th>
+										<th class="col-md-1" style="width: 80px">Temp</th>
+										<th class="col-md-1" >Name</th>
+										<th class="col-md-3" style="min-width: 150px;">Sales, Balance/ Capacity</th>
+										<th class="col-md-1" style="width: 50px">Error</th>
+										<th class="col-md-1">Balance Stock</th>
+										<th class="col-md-1">Out of Stock SKU</th>
+										<th class="col-md-1" style="width: 80px">Channel</th>
+										<th class="col-md-4">Status</th>
+										<th class="col-md-1">Temp Time</th>
+										<th class="col-md-1" style="width: 40px">Firmware</th>
+										<th class="col-md-1">Address</th>
+										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
+										{%>
+										<th class="col-md-2">Setting</th>
+										<%
+										}%>
+									</tr>
+								</thead>
+
+								<tbody role="alert" aria-live="polite" aria-relevant="all">
 									<tr class="odd" id="BMS<%=venderid%>">
 										<td class=" sorting_1 col-md-1">
 											<strong>
