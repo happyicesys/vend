@@ -275,6 +275,7 @@ function ShowTemCurve(id)
 	int count_per_page = ToolBox.filterInt(request.getAttribute("count_per_page").toString());
 
 	ArrayList<VenderBean> lst = (ArrayList<VenderBean>)request.getAttribute("lst");
+	RsCount=lst.size();
 
 	String SellerId = ToolBox.filter(request.getParameter("sellerid"));
 	String terminalName = ToolBox.filter(request.getParameter("terminalName"));
@@ -383,6 +384,21 @@ function ShowTemCurve(id)
 						<div class="table-responsive">
 							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
+									<tr class="odd">
+										<td class="center" colspan="<%=td_count %>">
+											<%
+										    	if(RsCount>0)
+										    	{
+										    		out.println(ToolBox.getpages(null, "#999", Page, pagecount, RsCount));
+												 }
+										    	else
+										    	{
+										    		out.println("<span class='waring-label'>No records found, please contact admin</span>");
+										    	}
+
+										    	%>
+										 </td>
+									</tr>
 									<tr role="row" style="background-color: #f5f5f5;">
 										<th class="col-md-1"  style="width: 30px">#</th>
 										<th class="col-md-1">
