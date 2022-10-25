@@ -533,7 +533,8 @@ function ShowTemCurve(id)
 											<%=obj.getTerminalName() %>
 										</td>
 										<td class="center col-md-3">
-												<ul class="list-inline" style="font-size: 13px;">
+												<%-- <ul class="list-inline" style="font-size: 13px;"> --%>
+												<ul style="font-size: 13px;">
 													<%
 													 	int totalVolume = 0;
 														int totalSold = 0;
@@ -562,7 +563,8 @@ function ShowTemCurve(id)
 																totalVolume += pb.getCapacity();
 																totalSold += pb.getAmount();
 																%>
-																<li style="padding: 5px 10px; margin: 3px 5px;">
+																<%-- <li style="padding: 5px 10px; margin: 3px 5px;"> --%>
+																<li class="quick-look">
 																	<span >
 																		#:<%=pb.getInneridname()%> -
 																	</span>
