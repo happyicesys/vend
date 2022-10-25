@@ -382,7 +382,7 @@ function ShowTemCurve(id)
 						%>
 						<form action="./VenderList" method="post" name="form1" id="form1">
 						<div class="table-responsive">
-							<table class="table table-bordered table-hover table-condensed" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
+							<table class="table table-bordered table-hover" style="overflow-y:auto; width:100%;height:100px;border-spacing: 0px;">
 								<thead>
 									<tr class="odd">
 										<td class="center" colspan="<%=td_count %>">
