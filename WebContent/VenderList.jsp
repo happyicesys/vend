@@ -459,7 +459,7 @@ function ShowTemCurve(id)
 												boolean hasState=false;
 												//PrintWriter pw=response.getWriter();
 
-												pbli=SqlADO.getPortBeanList(obj.getId());
+												pbli=SqlADO.getPortBeanList(obj.getId(), false);
 												quehuo=false;
 												for(PortBean pb:pbli)
 												{
@@ -548,13 +548,13 @@ function ShowTemCurve(id)
 														double outSkuPercent = 0;
 														for(PortBean pb:pbli)
 														{
-															if(
-																	((Integer.parseInt(pb.getInneridname()) >= 40 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
-																	(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) ||
-																	(Integer.parseInt(pb.getInneridname()) >= 30 && Integer.parseInt(pb.getInneridname()) <= 38) ||
-																	(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 54) ||
-																	(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
-																	) && pb.getCapacity() != 0 ) {
+															// if(
+															//		((Integer.parseInt(pb.getInneridname()) >= 40 && Integer.parseInt(pb.getInneridname()) <= 47 ) ||
+															//		(Integer.parseInt(pb.getInneridname()) >= 10 && Integer.parseInt(pb.getInneridname()) <= 29) ||
+															//		(Integer.parseInt(pb.getInneridname()) >= 30 && Integer.parseInt(pb.getInneridname()) <= 38) ||
+															//		(Integer.parseInt(pb.getInneridname()) >= 51 && Integer.parseInt(pb.getInneridname()) <= 54) ||
+															//		(Integer.parseInt(pb.getInneridname()) >= 61 && Integer.parseInt(pb.getInneridname()) <= 66)
+															//		) && pb.getCapacity() != 0 ) {
 
 																if(pb.getError_id() > 0) {
 																	totalChannelError += 1;
@@ -592,8 +592,8 @@ function ShowTemCurve(id)
 																		}
 																	%>
 																</li>
-														<%
-															}
+																<%
+															//}
 														}
 
 														actualSold = totalVolume - totalSold;
