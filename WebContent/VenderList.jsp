@@ -109,8 +109,8 @@
 			-webkit-border-image: none;
 			-webkit-border-vertical-spacing: 0px;
 			border-bottom-color: white;
-			border-bottom-left-radius: 2px;
-			border-bottom-right-radius: 2px;
+			border-bottom-left-radius: 3px;
+			border-bottom-right-radius: 3px;
 			border-bottom-style: none;
 			border-width: 0px;
 			border-collapse: separate;
@@ -119,8 +119,8 @@
 			border-right-color: white;
 			border-right-style: none;
 			border-top-color: white;
-			border-top-left-radius: 2px;
-			border-top-right-radius: 2px;
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
 			border-top-style: none;
 			font-family: Ubuntu, Helvetica, Arial, sans-serif;
 			line-height: 14px;
@@ -128,11 +128,11 @@
 			text-align: left;
 			vertical-align: baseline;
 			white-space: nowrap;
-			padding:2px;
-			margin:1px;
+			padding:5px;
+			margin:3px;
 			display:block;
 			float:left;
-			width:180px;
+			width:170px;
 			font-size:13px;
 		}
 	</style>
@@ -479,7 +479,7 @@ function ShowTemCurve(id)
 
 									  %>
 
-									<tr class="odd" id="BMS<%=venderid%>">
+									<tr class="even" id="BMS<%=venderid%>">
 										<td class=" sorting_1 col-md-1">
 											<strong>
 												<%=venderid%>
@@ -532,7 +532,7 @@ function ShowTemCurve(id)
 										<td class="center col-md-1">
 											<%=obj.getTerminalName() %>
 										</td>
-										<td class="center col-md-3">
+										<td class="center">
 												<%-- <ul class="list-inline" style="font-size: 13px;"> --%>
 												<ul style="font-size: 13px;">
 													<%
