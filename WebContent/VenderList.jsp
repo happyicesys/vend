@@ -415,16 +415,14 @@ function ShowTemCurve(id)
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
 										<th class="col-md-1" style="width: 80px">Temp</th>
-										<th class="col-md-1" style="width: 80px">Channel</th>
 										<th class="col-md-4">Status</th>
-										<th class="col-md-1">Temp Time</th>
-										<th class="col-md-1" style="width: 40px">Firmware</th>
-										<th class="col-md-1">Address</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>
-										<th class="col-md-2">Setting</th>
+										<th class="col-md-2">Settings</th>
 										<%
 										}%>
+										<th class="col-md-1" style="width: 40px">Firmware</th>
+										<th class="col-md-1">Address</th>
 									</tr>
 								</thead>
 
@@ -664,18 +662,8 @@ function ShowTemCurve(id)
 													}
 												}
 											%>
-										</td>
-										<td class="center col-md-1">
-											<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
-											{
-											%>
-												<a class="btn btn-danger" href="PortList.jsp?mid=<%=venderid%>">
-													<i class="glyphicon glyphicon-zoom-in icon-white"></i>
-													Channel
-												</a>
-											<%
-											}
-											%>
+											<br>
+											<%=obj.getTemperUpdateTime() %>
 										</td>
 										<td class="center col-md-4" >
 											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-xs' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-xs' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
@@ -732,15 +720,13 @@ function ShowTemCurve(id)
 											  	%>
 
 										</td>
-
-										<td class="center col-md-1"><%=obj.getTemperUpdateTime() %></td>
-										<td class="center col-md-1">
-											<%= Integer.toHexString(obj.getCode_ver()) %>
-										</td>
-										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>
 											<td class="center col-md-2">
+												<a class="btn btn-danger" href="PortList.jsp?mid=<%=venderid%>">
+													<i class="glyphicon glyphicon-zoom-in icon-white"></i>
+													Channel
+												</a>
 												<a class="btn btn-success" href="map.jsp?id=<%=venderid%>">
 													<i class="glyphicon glyphicon-map-marker icon-white"></i>
 													Map
@@ -753,6 +739,10 @@ function ShowTemCurve(id)
 										<%
 										}
 										%>
+										<td class="center col-md-1">
+											<%= Integer.toHexString(obj.getCode_ver()) %>
+										</td>
+										<td class="center col-md-1" style="text-overflow:ellipsis;width:200px" title="<%=obj.getTerminalAddress()%>"><%=obj.getTerminalAddress()%></td>
 									</tr>
 									<%
 										}
