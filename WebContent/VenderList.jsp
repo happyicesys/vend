@@ -128,7 +128,7 @@
 		max-width: none;
 		text-align: left;
 		vertical-align: baseline;
-		white-space: nowrap;
+		/* white-space: nowrap; */
 		padding:5px;
 		margin:3px;
 		display:block;
