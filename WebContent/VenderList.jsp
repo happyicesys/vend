@@ -103,7 +103,6 @@
     	margin-bottom: 5px;
     }
 
-		@media screen and (max-width: 767px)
 		.table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
 				white-space: normal;
 		}
