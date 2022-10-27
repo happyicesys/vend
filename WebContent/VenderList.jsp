@@ -280,7 +280,9 @@ function ShowTemCurve(id)
 	int count_per_page = ToolBox.filterInt(request.getAttribute("count_per_page").toString());
 
 	ArrayList<VenderBean> lst = (ArrayList<VenderBean>)request.getAttribute("lst");
-	RsCount=lst.size();
+	if(lst != null) {
+		RsCount=lst.size();
+	}
 
 	String SellerId = ToolBox.filter(request.getParameter("sellerid"));
 	String terminalName = ToolBox.filter(request.getParameter("terminalName"));
