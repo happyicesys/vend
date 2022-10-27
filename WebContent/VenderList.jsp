@@ -472,17 +472,17 @@ function ShowTemCurve(id)
 													}
 												}
 
-												if(!quehuo)
-												{
-													continue;
-												}
+												//if(!quehuo)
+												//{
+												//	continue;
+												//}
 
 												Map<Integer, Integer> channelErrorPair = new HashMap<Integer, Integer>();
 												String firstDigit = "";
 
 									  %>
 
-									<tr class="even" id="BMS<%=venderid%>">
+									<tr class="odd" id="BMS<%=venderid%>">
 										<td class=" sorting_1 col-md-1">
 											<strong>
 												<%=venderid%>
