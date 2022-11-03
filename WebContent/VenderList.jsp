@@ -622,7 +622,7 @@ function ShowTemCurve(id)
 													else
 													{
 														if(!obj.isIsOnline()) {
-															out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-secondary btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+															out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-secondary btn-sm' style='background-color:#777;border-color:#fff;font-weight: 700;margin-right: 3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
 														}else {
 															out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Abnormal</button>");
 														}
