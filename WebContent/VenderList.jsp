@@ -414,9 +414,9 @@ function ShowTemCurve(id)
 										<th class="col-md-1" >Name</th>
 										<th class="col-md-4">Sales, Balance/ Capacity</th>
 										<th class="col-md-1" style="width: 50px">Error</th>
+										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-1">Balance Stock</th>
 										<th class="col-md-1">Out of Stock SKU</th>
-										<th class="col-md-1" style="width: 80px">Temp</th>
 										<th class="col-md-4">Status</th>
 										<%if(ub.AccessAble(UserBean.FUNID_DISABLE_FRANCHISEE))
 										{%>
@@ -585,47 +585,6 @@ function ShowTemCurve(id)
 												}
 											%>
 										</td>
-										<td>
-											<strong>
-											<%
-											if(balancePercent <= 30) {
-											%>
-													<span style="color: red;">
-											<%
-												}else if(balancePercent > 30 && balancePercent <= 60) {
-											%>
-													<span style="color: blue;">
-											<%
-												}else if(balancePercent > 60) {
-											%>
-													<span style="color: black;">
-											<%
-												}
-											%>
-														<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
-														(<%= String.format("%.0f", balancePercent) %>%)
-														<br><br>
-													</span>
-											</strong>
-										</td>
-										<td>
-											<strong>
-											<%
-											if(outSkuPercent > 40) {
-											%>
-													<span style="color: red;">
-											<%
-												}else {
-											%>
-													<span style="color: black;">
-											<%
-												}
-											%>
-														<%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
-														(<%= String.format("%.0f", outSkuPercent) %>%)
-													</span>
-											</strong>
-										</td>
 										<td class="center col-md-1">
 											<%
 												if(0!=(Function_flg&VenderBean.FUNC_IS_TERMPER_VALID))
@@ -668,6 +627,47 @@ function ShowTemCurve(id)
 											%>
 											<br>
 											<%=obj.getTemperUpdateTime() %>
+										</td>
+										<td>
+											<strong>
+											<%
+											if(balancePercent <= 30) {
+											%>
+													<span style="color: red;">
+											<%
+												}else if(balancePercent > 30 && balancePercent <= 60) {
+											%>
+													<span style="color: blue;">
+											<%
+												}else if(balancePercent > 60) {
+											%>
+													<span style="color: black;">
+											<%
+												}
+											%>
+														<%=String.format("% 3d/ % 3d", totalSold, totalVolume) %>
+														(<%= String.format("%.0f", balancePercent) %>%)
+														<br><br>
+													</span>
+											</strong>
+										</td>
+										<td>
+											<strong>
+											<%
+											if(outSkuPercent > 40) {
+											%>
+													<span style="color: red;">
+											<%
+												}else {
+											%>
+													<span style="color: black;">
+											<%
+												}
+											%>
+														<%=String.format("% 3d/ % 3d", runOutSku, totalChannel) %>
+														(<%= String.format("%.0f", outSkuPercent) %>%)
+													</span>
+											</strong>
 										</td>
 										<td class="center col-md-4" >
 											<%=obj.isIsOnline()?"<button type='button' class='btn btn-success btn-xs' style='font-weight: 700;'>On</button>":"<button type='button' class='btn btn-success btn-xs' style='background-color:#777;border-color:#fff;font-weight: 700;'>Off</button>"%>
