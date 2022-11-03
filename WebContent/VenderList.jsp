@@ -590,7 +590,7 @@ function ShowTemCurve(id)
 												if(0!=(Function_flg&VenderBean.FUNC_IS_TERMPER_VALID))
 												{
 													hasState=true;
-													if(obj.getTemperature()!=32767)
+													if(obj.getTemperature()!=32767 && obj.isIsOnline())
 													{
 														if(ub.AccessAble(UserBean.FUNID_CAN_VIEW_TEMP_GRAPH)) {
 															if(obj.getTemperature()>-120)
@@ -621,7 +621,11 @@ function ShowTemCurve(id)
 													}
 													else
 													{
-														out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Abnormal</button>");
+														if(!obj.isIsOnline()) {
+															out.print(String.format("<button onclick='ShowTemCurve(%d);'  type='button' class='btn btn-secondary btn-sm' style='margin-right:3px;'>Temp:%1.1f℃</button>",obj.getId(),obj.getTemperature()/10.0));
+														}else {
+															out.print("<button type='button' onclick='ShowTemCurve("+ obj.getId() +");' class='btn btn-danger btn-sm' style='margin-right:3px;'>Abnormal</button>");
+														}
 													}
 												}
 											%>
