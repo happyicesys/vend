@@ -130,6 +130,8 @@ public class SetPara2 extends HttpServlet {
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
 		String[] arrstr = poststr.split("&", 0);
 
+		executePost(poststr);
+
 		Hashtable<String, String> hash = new Hashtable<String, String>(2, (float) 0.8);
 		for (String string : arrstr) {
 			String[] subarrstr = string.split("=", 2);
@@ -151,7 +153,7 @@ public class SetPara2 extends HttpServlet {
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
-			executePost(gprsdata.getStr_content());
+			// executePost(gprsdata.getStr_content());
 		}
 		logBean.add();/* 添加日志到数据库 */
 
@@ -978,7 +980,7 @@ public class SetPara2 extends HttpServlet {
 		jsonObj.put("Type", "CHANNEL");
 		jsonObj.put("channels", allChannelJsonObj);
 
-		executePost(jsonObj.toString());
+		// executePost(jsonObj.toString());
 
 	}
 }
