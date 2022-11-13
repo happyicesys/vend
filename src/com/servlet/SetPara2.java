@@ -118,6 +118,7 @@ public class SetPara2 extends HttpServlet {
 
 		InputStream is = request.getInputStream();
 		DataInputStream input = new DataInputStream(is);
+		System.out.println(input);
 
 		byte[] strb = new byte[20480];
 		int poststrlen = 0;
@@ -129,7 +130,7 @@ public class SetPara2 extends HttpServlet {
 
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
 		String[] arrstr = poststr.split("&", 0);
-		System.out.println(arrstr);
+
 
 		Hashtable<String, String> hash = new Hashtable<String, String>(2, (float) 0.8);
 		for (String string : arrstr) {
