@@ -129,9 +129,9 @@ public class SetPara2 extends HttpServlet {
 
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
 		String[] arrstr = poststr.split("&", 0);
+		System.out.println(arrstr);
 
 		Hashtable<String, String> hash = new Hashtable<String, String>(2, (float) 0.8);
-		System.out.println(hash);
 		for (String string : arrstr) {
 			String[] subarrstr = string.split("=", 2);
 			if (subarrstr.length >= 2) {
