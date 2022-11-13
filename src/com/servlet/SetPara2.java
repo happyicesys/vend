@@ -118,7 +118,6 @@ public class SetPara2 extends HttpServlet {
 
 		InputStream is = request.getInputStream();
 		DataInputStream input = new DataInputStream(is);
-		System.out.println(input);
 
 		byte[] strb = new byte[20480];
 		int poststrlen = 0;
@@ -130,7 +129,6 @@ public class SetPara2 extends HttpServlet {
 
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
 		String[] arrstr = poststr.split("&", 0);
-
 
 		Hashtable<String, String> hash = new Hashtable<String, String>(2, (float) 0.8);
 		for (String string : arrstr) {
@@ -147,13 +145,22 @@ public class SetPara2 extends HttpServlet {
 		int machineid = ToolBox.filterInt(hash.get("m"));/* 机器编号，必须填写 */
 		int gprs = ToolBox.filterInt(hash.get("g"));/* GPRS信号 */
 		String p = hash.get("p");
+
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("f", f);
+		jsonObj.put("g", gprs);
+		jsonObj.put("m", machineid);
+		jsonObj.put("p", p);
+		jsonObj.put("t", t);
+		executePost(jsonObj.toString());
+
 		// System.out.println(p);
 		p = p.replaceFirst("!", "=");
 		clsFromGprs gprsdata = new clsFromGprs(machineid, f, t, gprs, p);
 		VenderLogBean logBean = new VenderLogBean(gprsdata.getStr_content(), null, machineid, poststr, f, t);
 		if (!gprsdata.getStr_content().equals("{\"Type\":\"P\"}")) {
 			System.out.println(gprsdata.getStr_content());
-			executePost(gprsdata.getStr_content());
+			// executePost(gprsdata.getStr_content());
 		}
 		logBean.add();/* 添加日志到数据库 */
 
@@ -975,12 +982,12 @@ public class SetPara2 extends HttpServlet {
 		}
 		SqlADO.UpdatePort(plst);
 
-	  JSONObject jsonObj = new JSONObject();
-		jsonObj.put("Vid", mid);
-		jsonObj.put("Type", "CHANNEL");
-		jsonObj.put("channels", allChannelJsonObj);
+	  // JSONObject jsonObj = new JSONObject();
+		// jsonObj.put("Vid", mid);
+		// jsonObj.put("Type", "CHANNEL");
+		// jsonObj.put("channels", allChannelJsonObj);
 
-		executePost(jsonObj.toString());
+		// executePost(jsonObj.toString());
 
 	}
 }
