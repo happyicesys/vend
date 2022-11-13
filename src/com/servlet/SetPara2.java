@@ -128,6 +128,7 @@ public class SetPara2 extends HttpServlet {
 		String ret_str = "1";
 
 		String poststr = new String(strb, 0, poststrlen, CHAR_CODE);
+		System.out.println(poststr);
 		String[] arrstr = poststr.split("&", 0);
 
 		Hashtable<String, String> hash = new Hashtable<String, String>(2, (float) 0.8);
